@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-export default function Sidebar() {
+export default function UserSidebar() {
   return (
     <>
       <div className="bg-slate-100 h-screen py-4 md:block hidden">

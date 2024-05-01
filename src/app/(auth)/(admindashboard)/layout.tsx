@@ -1,4 +1,4 @@
-import Sidebar from "./sidebar/page";
+import AdminSidebar from "./sidebar/page";
 
 export default function DashboardLayout({
   children,
@@ -9,7 +9,7 @@ export default function DashboardLayout({
     <>
       <div className="grid md:grid-cols-9">
         <div className="md:col-span-2">
-          <Sidebar />
+          <AdminSidebar />
         </div>
         <div className="md:col-span-7 px-4 py-5">{children}</div>
       </div>
