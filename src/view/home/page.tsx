@@ -14,7 +14,7 @@ const products: ProducTypes[] = [
   {
     id: 0,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
@@ -23,7 +23,7 @@ const products: ProducTypes[] = [
   {
     id: 1,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
@@ -32,7 +32,7 @@ const products: ProducTypes[] = [
   {
     id: 2,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
@@ -41,7 +41,7 @@ const products: ProducTypes[] = [
   {
     id: 3,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
@@ -50,7 +50,7 @@ const products: ProducTypes[] = [
   {
     id: 3,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
@@ -59,7 +59,7 @@ const products: ProducTypes[] = [
   {
     id: 3,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
@@ -68,7 +68,7 @@ const products: ProducTypes[] = [
   {
     id: 3,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
@@ -77,7 +77,7 @@ const products: ProducTypes[] = [
   {
     id: 3,
     name: "Basic Tee",
-    href: "#",
+    href: "/details",
     imageSrc: "/2.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
     price: 45,
