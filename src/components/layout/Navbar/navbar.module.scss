@@ -1,0 +1,6 @@
+.link {
+    @apply text-sm font-medium text-gray-700 hover:text-gray-800;
+}
+.mobileLink {
+    @apply -m-2 block p-2 font-medium text-gray-900;
+}
