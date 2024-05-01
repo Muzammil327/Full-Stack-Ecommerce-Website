@@ -1,4 +1,4 @@
-import UserSidebar from "./sidebar/page";
+import UserSidebar from "./UserSidebar/page";
 
 export default function DashboardLayout({
   children,

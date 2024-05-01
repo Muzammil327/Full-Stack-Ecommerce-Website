@@ -1,4 +1,4 @@
-import AdminSidebar from "./sidebar/page";
+import AdminSidebar from "./AdminSidebar/page";
 
 export default function DashboardLayout({
   children,
