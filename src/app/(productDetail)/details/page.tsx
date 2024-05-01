@@ -9,8 +9,6 @@ import FavouriteBtn from "./FavouriteBtn";
 import AddtoCartBtn from "./AddtoCartBtn";
 import SimilarProduct from "./SimilarProduct";
 import Tabs from "./Tabs";
-import UserAction from "./UserAction";
-import Button from "@/src/components/element/button";
 
 function ProductDetails() {
   return (
