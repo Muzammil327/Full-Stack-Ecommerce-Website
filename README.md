@@ -17,6 +17,18 @@
 - Swiper
 - Tabs
 
+### Website Functionality
+- User and Admin Role
+- Pagination
+- Sorthing
+- Filtering through Catgeory, Price
+
 ### User Dashboard
+- Add to Cart
+- Add to Favourite
+- Like and Dislike
+- Give Order
+- Comment and Review
 
 ### Admin Dashboard
+- Create Product with Multi Step Form
