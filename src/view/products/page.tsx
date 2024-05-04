@@ -18,7 +18,7 @@ export default function ProductPage() {
   const [priceLH, setPriceLH] = useState("");
   // lowToHigh
   const { data, error, loading } = useFetch(
-    `http://localhost:5000/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
   );
   if (error) {
     return <h1>Error ....</h1>;
@@ -36,7 +36,7 @@ export default function ProductPage() {
         // sub catgeory
         subCategory={subCategory}
         setSubCategory={setSubCategory}
-        // tags
+        // tags setTags
         tags={tags}
         setTags={setTags}
         // high price
