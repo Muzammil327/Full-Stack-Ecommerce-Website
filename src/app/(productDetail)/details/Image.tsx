@@ -14,7 +14,8 @@ import "swiper/css/effect-flip";
 import { Autoplay } from "swiper/modules";
 import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 
-import ReactImageMagnify from "react-image-magnify";
+// import ReactImageMagnify from "react-image-magnify";
+import Image from "next/image";
 
 export default function ProductImage() {
   return (
@@ -35,7 +36,7 @@ export default function ProductImage() {
             return (
               <>
                 <SwiperSlide>
-                  <ReactImageMagnify
+                  {/* <ReactImageMagnify
                     {...{
                       smallImage: {
                         alt: "Jersey",
@@ -54,7 +55,8 @@ export default function ProductImage() {
                         backgroundColor: "rgba(0,0,0,.6)",
                       },
                     }}
-                  />
+                  /> */}
+                  <Image src={data.image} width={600} height={600} alt="fhgf" />
                 </SwiperSlide>
               </>
             );
