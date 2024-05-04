@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.scss";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import NextAuthProvider from "@/components/provider/authProvider";
 
 import SubHeader from "@/components/layout/SubHeader/page";
@@ -33,7 +31,6 @@ export default function RootLayout({
             {children}
             <Instragram />
             <Footer />
-            <ToastContainer />
           </AuthProvider>
         </NextAuthProvider>
       </body>
