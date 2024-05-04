@@ -1,8 +1,9 @@
 "use client";
+import { useAuth } from "@/src/components/context/authContext";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 interface FormData {
@@ -12,7 +13,17 @@ interface FormData {
 }
 
 export default function Page() {
+  const { session, status } = useAuth();
   const router = useRouter();
+
+  if (status === "authenticated") {
+    if (session?.user.role === process.env.NEXT_PUBLIC_PRIVANCY_ROUTE) {
+      redirect("/admin");
+    } else if (session?.user.role === process.env.NEXT_PUBLIC_USER_ROUTE) {
+      redirect("/profile");
+    }
+  }
+
   const [error, setError] = useState("");
 
   const [data, setData] = useState<FormData>({

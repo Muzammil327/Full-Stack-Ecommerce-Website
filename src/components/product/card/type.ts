@@ -1,9 +1,9 @@
 export type ProducTypes = {
     id:number
     name:string
-    href:string
-    cat:string
+    slug:string
+    category:string
     imageAlt:string
-    imageSrc:string
+    image:string
     price:number
 }

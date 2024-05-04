@@ -10,25 +10,29 @@ export default function ProductCard({ product }: IProps) {
   return (
     <>
       <div className="card relative">
-        <Link href={product.href}>
-          <div className="image relative">
+        <Link href={`${product.slug}`}>
+          <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
             <Image
-              src={product.imageSrc}
-              alt={product.imageAlt}
-              title={product.imageAlt}
+              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/some-folder-name/${product.image}.png`}
+              alt={product.name}
+              title={product.name}
               sizes="(max-width: 600px) 90vw, 600px"
               height={1600}
               width={1216}
               className="w-full block h-auto"
             />
-            <div className="pt-4">
-              <span className="text-gray-600">{product.cat}</span>
-
-              <h3 className="text-black text-lg font-semibold py-[2px] overflow-hidden line-clamp-2">
-                {product.name}
-              </h3>
-              <span className="text-black">Rs.{product.price}.00</span>
+          </div>
+          <div className="mt-4 flex flex-col">
+            <div className="flex items-center justify-between">
+              <p className="mt-1 text-sm text-gray-500">{product.category}</p>
+              <p className="text-sm font-medium text-gray-900">
+                Rs.{product.price}.00
+              </p>
             </div>
+            <h3 className="text-lg text-gray-700">
+              <span aria-hidden="true" className="absolute inset-0"></span>
+              {product.name}
+            </h3>
           </div>
         </Link>
         <div className="icon absolute flex justify-between top-2 left-2 items-center">

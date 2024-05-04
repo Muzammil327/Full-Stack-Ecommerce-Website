@@ -51,7 +51,6 @@ export async function GET(req: NextRequest) {
         },
       },
     ]);
-    console.log(cart);
     return NextResponse.json({
       success: true,
       cart: cart,

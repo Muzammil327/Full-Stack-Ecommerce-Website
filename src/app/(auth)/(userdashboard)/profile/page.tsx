@@ -1,14 +1,20 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { useAuth } from "@/src/components/context/authContext";
 import { redirect } from "next/navigation";
 
 export default function ClientComponent() {
-  const { data: session, status } = useSession();
-  if (session?.user.role === "admin") {
+  const { session, status } = useAuth();
+
+  if (session?.user.role === process.env.NEXT_PUBLIC_PRIVANCY_ROUTE) {
     return redirect("/admin");
   }
-  console.log(session)
+  if (status === "unauthenticated") {
+    return redirect("/sign-in");
+  }
+  if (session === "null") {
+    return redirect("/sign-in");
+  }
   return (
     <>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

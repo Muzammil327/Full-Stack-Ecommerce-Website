@@ -1,7 +1,3 @@
-import Navbar from "@/components/layout/Navbar/page";
-import Footer from "@/components/layout/Footer/page";
-import Instragram from "@/src/components/layout/Instragram/page";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -9,10 +5,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Navbar />
       {children}
-      <Instragram />
-      <Footer />
     </>
   );
 }

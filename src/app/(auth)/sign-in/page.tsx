@@ -1,13 +1,10 @@
 "use client";
-import axios from "axios";
-import React, { useState } from "react";
-import { toast } from "react-toastify";
+import React, { useEffect, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useSession } from "next-auth/react";
-import isTokenExpired from "@/src/components/function/isTokenExpired";
+import { useAuth } from "@/src/components/context/authContext";
 
 interface FormData {
   email: string;
@@ -17,7 +14,7 @@ interface FormData {
 export default function Page() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { data: session, status } = useSession();
+  const { session, status } = useAuth();
 
   const [data, setData] = useState<FormData>({
     email: "",
@@ -33,17 +30,35 @@ export default function Page() {
         password: data.password,
         redirect: false,
       });
+
       if (res?.error) {
         console.log("Invalid Credentials");
         return;
       }
+      setData({
+        email: "",
+        password: "",
+      });
       setLoading(false);
 
-      router.push(session?.user.role === "user" ? "/profile" : "/admin");
+      router.push(
+        session?.user.role === process.env.NEXT_PUBLIC_USER_ROUTE
+          ? "/profile"
+          : "/admin"
+      );
     } catch (error) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    if (status === "authenticated") {
+      redirect(
+        session?.user.role === process.env.NEXT_PUBLIC_USER_ROUTE
+          ? "/profile"
+          : "/admin"
+      );
+    }
+  }, [status, session, router]);
   return (
     <>
       <div className="grid md:grid-cols-8">
@@ -61,9 +76,7 @@ export default function Page() {
         <div className="md:col-span-4 px-8 my-10">
           <form onSubmit={SubmitHandle} className="mt-10">
             <div>
-              <h2 className="text-gray-900 lg:text-3xl text-2xl">
-                Sign In
-              </h2>
+              <h2 className="text-gray-900 lg:text-3xl text-2xl">Sign In</h2>
               <p className="my-4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam,
                 ad.

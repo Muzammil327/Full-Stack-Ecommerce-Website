@@ -10,12 +10,6 @@ export default function AdminSidebar() {
             <Link href="/admin">Dashboard</Link>
           </li>
           <li className="border-b border-solid border-gray-300 hover:bg-slate-200 text-black py-3 flex items-center justify-center">
-            <Link href="/admin/catgeory">Add Catgeory</Link>
-          </li>
-          <li className="border-b border-solid border-gray-300 hover:bg-slate-200 text-black py-3 flex items-center justify-center">
-            <Link href="/admin/subCatgeory">Add Sub Catgeory</Link>
-          </li>
-          <li className="border-b border-solid border-gray-300 hover:bg-slate-200 text-black py-3 flex items-center justify-center">
             <Link href="/admin/product">Add Products</Link>
           </li>
         </ul>

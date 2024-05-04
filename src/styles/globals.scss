@@ -12,6 +12,9 @@ body {
   @apply overflow-x-hidden min-h-screen;
   font-family: sans-serif;
 }
+img {
+  @apply max-w-none w-full;
+}
 
 .btn {
   @apply w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500;
