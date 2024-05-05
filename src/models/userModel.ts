@@ -39,7 +39,7 @@ const usersSchema = new Schema<UsersDocument>(
     //     quantity: Number,
     //   },
     // ],
-    cart: [{ type: Schema.Types.ObjectId, ref: "carts" }], // Reference to orders
+    cart: [{ type: Schema.Types.ObjectId, ref: "CartModel" }], // Reference to orders
     orders: [{ type: Schema.Types.ObjectId, ref: "order" }], // Reference to orders
   },
   { timestamps: true }
