@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     secret: secret,
     cookieName: "next-auth.session-token",
   });
-
+console.log(token)
   try {
     await connectDB();
     const user = await User.findById(token?._id);

@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
       cookieName: "next-auth.session-token",
     });
 
+    console.log(token)
     await connectDB();
     const user = await User.findById(token?._id);
 
