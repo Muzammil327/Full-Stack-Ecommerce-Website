@@ -53,8 +53,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const getToCartBtn = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get("/api/products/cart/getToCartBtn");
-      setCartBuy(response.data.cart);
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/cart`
+      );
+      setCartBuy(response.data);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching cart data:", error);
