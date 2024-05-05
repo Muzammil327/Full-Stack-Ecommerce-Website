@@ -17,8 +17,9 @@ export default function ProductPage() {
   const [priceHL, setPriceHL] = useState("");
   const [priceLH, setPriceLH] = useState("");
   // lowToHigh
+
   const { data, error, loading } = useFetchArray(
-    `http://localhost:5000/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+    `${NEXT_PUBLIC_BACKENDAPI}/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
   );
   if (error) {
     return <h1>Error ....</h1>;

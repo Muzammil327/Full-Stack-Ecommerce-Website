@@ -28,7 +28,7 @@ interface Product {
 export default function Page() {
   const { slug } = useParams();
   const { data, error, loading } = useFetch<Product>(
-    `http://localhost:5000/api/get/product/${slug}`
+    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/product/${slug}`
   );
   const response = data;
   return (
