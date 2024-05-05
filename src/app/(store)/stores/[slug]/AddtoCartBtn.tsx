@@ -17,15 +17,20 @@ export default function AddtoCartBtn({ _id, name, price, image }: any) {
     image: string
   ) => {
     if (session) {
+      const user = session.user._id;
       try {
         setIsLoading(true);
-        await axios.post("/api/products/cart/addToCartBtn", {
-          _id,
-          name,
-          quantity,
-          price,
-          image,
-        });
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/post/cart`,
+          {
+            _id,
+            name,
+            quantity,
+            price,
+            image,
+            user,
+          }
+        );
         // await getToCartBtn();
       } catch (error) {
         console.error("Error adding product to cart:", error);
@@ -47,4 +52,3 @@ export default function AddtoCartBtn({ _id, name, price, image }: any) {
     </button>
   );
 }
-
