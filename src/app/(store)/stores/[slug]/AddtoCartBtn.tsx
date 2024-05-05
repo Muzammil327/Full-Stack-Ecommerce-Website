@@ -47,3 +47,4 @@ export default function AddtoCartBtn({ _id, name, price, image }: any) {
     </button>
   );
 }
+

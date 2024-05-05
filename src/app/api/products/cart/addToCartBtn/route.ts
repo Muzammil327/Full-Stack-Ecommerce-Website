@@ -7,7 +7,7 @@ import { getToken } from "next-auth/jwt";
 export async function POST(req: NextRequest) {
   try {
     const { _id, quantity, name, price, image } = await req.json();
-    
+
     const parsedQuantity = parseInt(quantity);
     if (isNaN(parsedQuantity) || parsedQuantity <= 0) {
       return NextResponse.json({ error: "Invalid quantity" });
@@ -21,6 +21,7 @@ export async function POST(req: NextRequest) {
 
     await connectDB();
     const user = await User.findById(token?._id);
+    console.log("user:", user)
 
     if (!user) {
       return NextResponse.json({ error: "User not found" });
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest) {
       // If the product already exists, increase its quantity
       existingProduct.quantity += parsedQuantity;
       await existingProduct.save();
+      console.log("existingProduct:", existingProduct)
 
       return NextResponse.json({
         success: true,
@@ -46,8 +48,10 @@ export async function POST(req: NextRequest) {
         user: user._id,
         image,
       });
-      const savedCart = await newCart.save();
+      console.log("newCart:", newCart)
 
+      const savedCart = await newCart.save();
+      console.log("savedCart:", savedCart);
       return NextResponse.json({
         success: true,
         message: "Product added successfully",
