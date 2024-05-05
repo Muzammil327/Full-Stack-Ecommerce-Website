@@ -1,145 +1,5 @@
-"use client";
-// import axios from "axios";
-// import Container from "@/src/components/element/container/page";
-// import Address from "../../(auth)/(userdashboard)/profile/address/page";
-// import Cart from "@/src/components/layout/Navbar/cart";
-// import { useCart } from "@/src/components/context/cartContext/page";
-// const ProductList = () => {
-//   const { cartBuy, isLoading, error } = useCart();
-//   const [subtotal, setSubtotal] = useState<number>(0);
-//   const [total, setTotal] = useState<number>(0);
-//   const [totalTax, setTotalTax] = useState<number>(0);
-//   console.log(cartBuy);
-//   const [loading, setLoading] = useState(false);
-//   const [error, setError] = useState("");
-//   const [addressData, setAddressData] = useState({
-//     subtotal: subtotal,
-//     totalTax: totalTax,
-//     total: total,
-//     cart: cartBuy,
-//   });
-
-//   const handleSubmit = useCallback(async () => {
-//     try {
-//       setLoading(true);
-//       const response = await axios.put(
-//         "/api/products/addToCart/update",
-//         addressData
-//       );
-//       const res = response.data;
-
-//       if (res.error) {
-//         setError(res.error);
-//       } else {
-//         setError(res.message);
-//       }
-//     } catch (error) {
-//       setError("Error during Product Category Update");
-//     } finally {
-//       setLoading(false);
-//     }
-//   }, [addressData]);
-
-//   useEffect(() => {
-//     Trigger form submission whenever there's a change in cart data
-//     handleSubmit();
-//   }, [handleSubmit]);
-
-//   useEffect(() => {
-//     Calculate subtotal when cart changes
-//     const calculateSubtotal = () => {
-//       let subTotal = 0;
-//       let total = 0;
-//       let totalTax = 0;
-//       cartBuy.forEach((item: any) => {
-//         subTotal += item.cart.basePrice * item.quantity;
-//       });
-
-//       const taxCharges = 200; // Assuming tax charges
-//       totalTax = taxCharges * cartBuy.length;
-//       total = subTotal + totalTax;
-
-//       Update the addressData state with the latest values
-//       setAddressData({
-//         subtotal: subTotal,
-//         totalTax: totalTax,
-//         total: total,
-//         cart: cartBuy,
-//       });
-
-//       Store subtotal, total, and total tax in local storage
-//       localStorage.setItem("subtotal", subTotal.toString());
-//       localStorage.setItem("total", total.toString());
-//       localStorage.setItem("totalTax", totalTax.toString());
-
-//       setTotal(total);
-//       setSubtotal(subTotal);
-//       setTotalTax(totalTax);
-//     };
-
-//     calculateSubtotal();
-//   }, [cartBuy]);
-
-//   When component mounts, retrieve data from local storage
-//   useEffect(() => {
-//     const storedSubtotal = localStorage.getItem("subtotal");
-//     const storedTotal = localStorage.getItem("total");
-//     const storedTotalTax = localStorage.getItem("totalTax");
-
-//     if (storedSubtotal && storedTotal && storedTotalTax) {
-//       setSubtotal(parseFloat(storedSubtotal));
-//       setTotal(parseFloat(storedTotal));
-//       setTotalTax(parseFloat(storedTotalTax));
-//     }
-//   }, []);
-
-//   const handleIncrement = (index: number) => {
-//     const updatedCart = [...cartBuy];
-//     updatedCart[index].quantity += 1; // Increment quantity for the specified index
-//     setCart(updatedCart);
-//     localStorage.setItem("cart", JSON.stringify(updatedCart));
-//   };
-
-//   const handleDecrement = (index: number) => {
-//     const updatedCart = [...cart];
-//     if (updatedCart[index].quantity > 1) {
-//       updatedCart[index].quantity -= 1; // Decrement quantity for the specified index
-//       setCart(updatedCart);
-//       localStorage.setItem("cart", JSON.stringify(updatedCart));
-//     }
-//   };
-
-// const handleIncrement = (index: number) => {
-//   const updatedCart = [...cartBuy];
-//   updatedCart[index].quantity += 1; // Increment quantity for the specified index
-//   setCart(updatedCart);
-//   localStorage.setItem("cart", JSON.stringify(updatedCart));
-// };
-
-// const handleDecrement = (index: number) => {
-//   const updatedCart = [...cart];
-//   if (updatedCart[index].quantity > 1) {
-//     updatedCart[index].quantity -= 1; // Decrement quantity for the specified index
-//     setCart(updatedCart);
-//     localStorage.setItem("cart", JSON.stringify(updatedCart));
-//   }
-// };
-// const handleIncrement = (index: number) => {
-//   const updatedCart = [...cartBuy];
-//   updatedCart[index].quantity += 1; // Increment quantity for the specified index
-//   setCartBuy(updatedCart); // Update cartBuy state with updatedCart
-// };
-
-// const handleDecrement = (index: number) => {
-//   const updatedCart = [...cartBuy];
-//   if (updatedCart[index].quantity > 1) {
-//     updatedCart[index].quantity -= 1; // Decrement quantity for the specified index
-//     setCartBuy(updatedCart); // Update cartBuy state with updatedCart
-//   }
-// };
-
-import React, { CSSProperties, useCallback, useEffect, useState } from "react";
-import axios from "axios";
+'use client'
+import React, { CSSProperties, useEffect, useState } from "react";
 import Container from "@/src/components/element/container/page";
 import { useCart } from "@/src/components/context/cartContext/page";
 import Image from "next/image";
@@ -150,8 +10,7 @@ const ProductList = () => {
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [totalTax, setTotalTax] = useState<number>(0);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+
   const DeleteHandle = async (productId: string) => {
     removeFromCart(productId);
   };
@@ -183,19 +42,6 @@ const ProductList = () => {
     setTotal(total);
     setTotalTax(totalTax);
   }, [cartBuy]);
-  const handleIncrement = (productId: string) => {
-    // const updatedCart = cartBuy.map((item) => {
-    //   // If the item's _id matches the productId, increase its quantity
-    //   if (item.cart._id === productId) {
-    //     return {
-    //       ...item,
-    //       quantity: item.quantity + 1,
-    //     };
-    //   }
-    //   return item;
-    // });
-    // setCartBuy(updatedCart); // Update the cart with the updated item quantities
-  };
 
   return (
     <>
@@ -224,7 +70,7 @@ const ProductList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {cartBuy !== null ? ( // Check if userData is not null before rendering
+                  {cartBuy ? ( // Check if userData is not null before rendering
                     cartBuy.map((user, index) => (
                       <tr
                         className="bg-white border-b hover:bg-gray-50"
