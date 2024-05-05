@@ -7,19 +7,18 @@ import { getToken } from "next-auth/jwt";
 export async function POST(req: NextRequest) {
   try {
     const { _id, quantity, name, price, image } = await req.json();
+    console.log(_id)
     const parsedQuantity = parseInt(quantity);
     if (isNaN(parsedQuantity) || parsedQuantity <= 0) {
       return NextResponse.json({ error: "Invalid quantity" });
     }
 
-    const secret = process.env.JWT_SECRET;
     const token = await getToken({
       req: req,
-      secret: secret,
+      secret: process.env.JWT_SECRET,
       cookieName: "next-auth.session-token",
     });
 
-    console.log(token)
     await connectDB();
     const user = await User.findById(token?._id);
 
