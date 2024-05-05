@@ -21,29 +21,19 @@ interface UsersDocument extends Document {
   address: string;
   phone: string;
 }
-const usersSchema = new Schema<UsersDocument>(
-  {
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, enum: ["user", "admin"], default: "user" },
-    country: { type: String, default: "" },
-    city: { type: String, default: "" },
-    zipCode: { type: String, default: "" },
-    address: { type: String, default: "" },
-    phone: { type: String, default: "" },
-    // cart: [
-    //   {
-    //     _id: false,
-    //     productId: { type: Schema.Types.ObjectId, ref: "product" },
-    //     quantity: Number,
-    //   },
-    // ],
-    cart: [{ type: Schema.Types.ObjectId, ref: "CartModel" }], // Reference to orders
-    orders: [{ type: Schema.Types.ObjectId, ref: "order" }], // Reference to orders
-  },
-  { timestamps: true }
-);
+const usersSchema = new Schema<UsersDocument>({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: String, enum: ["user", "admin"], default: "user" },
+  country: { type: String, default: "" },
+  city: { type: String, default: "" },
+  zipCode: { type: String, default: "" },
+  address: { type: String, default: "" },
+  phone: { type: String, default: "" },
+  cart: [{ type: Schema.Types.ObjectId, ref: "Carts" }],
+  orders: [{ type: Schema.Types.ObjectId, ref: "Orders" }],
+});
 
 // Method to compare passwords for login
 usersSchema.methods.comparePassword = async function (
@@ -61,7 +51,7 @@ usersSchema.pre<UsersDocument>("save", async function (next) {
   next();
 });
 
-const users =
-  mongoose.models.users || mongoose.model<UsersDocument>("users", usersSchema);
+const Users =
+  mongoose.models.Users || mongoose.model<UsersDocument>("Users", usersSchema);
 
-export default users;
+export default Users;

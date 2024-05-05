@@ -10,6 +10,7 @@ const Cart: React.FC = () => {
     <div className="ml-4 flow-root lg:ml-6">
       {isLoading ? (
         <div className="spinner-border text-primary">
+           <CartSVG />
           <span className="sr-only">loading cart items</span>
         </div>
       ) : error ? (

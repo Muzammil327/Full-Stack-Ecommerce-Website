@@ -193,19 +193,18 @@ const productsSchema = new Schema<ProductsDocument>({
     type: [String],
   },
   productId: [
-    { type: mongoose.Schema.Types.ObjectId, ref: "products", required: true },
+    { type: mongoose.Schema.Types.ObjectId, ref: "Products", required: true },
   ],
-  like: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
-  dislike: [{ type: mongoose.Schema.Types.ObjectId, ref: "users" }],
+  like: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+  dislike: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
   reviews: [
     {
       user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "users", // Assuming you have a User model
+        ref: "Users",
       },
       rating: {
         type: Number,
-        required: true,
         min: 1,
         max: 5,
       },
@@ -218,8 +217,8 @@ const productsSchema = new Schema<ProductsDocument>({
   ],
 });
 
-const products =
-  mongoose.models.products ||
-  mongoose.model<ProductsDocument>("products", productsSchema);
+const Products =
+  mongoose.models.Products ||
+  mongoose.model<ProductsDocument>("Products", productsSchema);
 
-export default products;
+export default Products;

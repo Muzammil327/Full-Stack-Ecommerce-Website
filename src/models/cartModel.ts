@@ -2,38 +2,36 @@ import mongoose, { Document, Schema } from "mongoose";
 
 // Define the interface for the order document
 interface CartsDocument extends Document {
-  user: mongoose.Types.ObjectId; // Assuming user ID is stored
-  products: mongoose.Types.ObjectId; // Assuming user ID is stored
+  userId: mongoose.Types.ObjectId; // Assuming user ID is stored
+  productId: mongoose.Types.ObjectId; // Assuming user ID is stored
   quantity: number;
-  price?: number;
-  name?: string;
-  image?: string;
+  createdAt: Date;
 }
 
 // Define the schema for the order model
 const cartsSchema = new Schema<CartsDocument>(
   {
-    user: { type: Schema.Types.ObjectId, ref: "users" }, // Reference to user model
-    products: { type: Schema.Types.ObjectId, ref: "products" }, // Reference to user model
-    name: {
-      type: String,
-      unique: true,
+    // Reference to Products model
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Products",
     },
-    price: {
-      type: Number,
-    },
+    // Reference to Users model
+    userId: { type: Schema.Types.ObjectId, ref: "Users" },
     quantity: {
       type: Number,
+      min: 1,
+      default: 1,
     },
-    image: {
-      type: String,
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
 );
 
-const CartModel =
-  mongoose.models.CartModel ||
-  mongoose.model<CartsDocument>("CartModel", cartsSchema);
+const Carts =
+  mongoose.models.Carts || mongoose.model<CartsDocument>("Carts", cartsSchema);
 
-export default CartModel;
+export default Carts;
