@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import React, {
   createContext,
   useCallback,
@@ -49,21 +50,25 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
-
+  const { data: session } = useSession();
   const getToCartBtn = useCallback(async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/cart`
-      );
-      setCartBuy(response.data);
-      setIsLoading(false);
+
+      if (session) {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/cart/${session.user._id}`
+        );
+
+        setCartBuy(response.data);
+        setIsLoading(false);
+      }
     } catch (error) {
       console.error("Error fetching cart data:", error);
       setError("Error fetching cart data. Please try again later.");
       setIsLoading(false);
     }
-  }, []);
+  }, [session]);
 
   const addToCartBtn = useCallback(
     async (
