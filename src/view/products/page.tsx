@@ -19,7 +19,7 @@ export default function ProductPage() {
   // lowToHigh
 
   const { data, error, loading } = useFetchArray(
-    `${NEXT_PUBLIC_BACKENDAPI}/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
   );
   if (error) {
     return <h1>Error ....</h1>;
