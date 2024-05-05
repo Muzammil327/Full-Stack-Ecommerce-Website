@@ -15,6 +15,7 @@ interface CartItem {
   _id: string;
   name: string;
   image: string;
+  user: string;
   price: number;
 }
 
@@ -27,7 +28,8 @@ interface CartContextType {
     _id: string,
     name: string,
     price: number,
-    image: string
+    image: string,
+    user: string
   ) => Promise<void>;
   removeFromCart: (productId: string) => Promise<void>;
   updateCartIncrease: (productId: string, quantity: number) => Promise<void>;
@@ -62,16 +64,26 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   }, []);
 
   const addToCartBtn = useCallback(
-    async (_id: string, name: string, price: number, image: string) => {
+    async (
+      _id: string,
+      name: string,
+      price: number,
+      image: string,
+      user: string
+    ) => {
       try {
         setIsLoading(true);
-        await axios.post("/api/products/cart/addToCartBtn", {
-          _id,
-          name,
-          quantity,
-          price,
-          image,
-        });
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/post/cart`,
+          {
+            _id,
+            name,
+            quantity,
+            price,
+            image,
+            user,
+          }
+        );
         await getToCartBtn();
       } catch (error) {
         console.error("Error adding product to cart:", error);
