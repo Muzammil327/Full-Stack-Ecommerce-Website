@@ -16,6 +16,7 @@ export default function AddtoCartBtn({ _id, name, price, image }: any) {
   ) => {
     if (session) {
       addToCartBtn(_id, name, price, image);
+      alert("Product add to cart");
     } else {
       alert("Please Login");
     }
