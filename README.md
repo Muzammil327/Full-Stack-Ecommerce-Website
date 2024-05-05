@@ -17,12 +17,16 @@
 - Swiper
 - Tabs
 
+-----------------------------------------------------------------------------------
+
 ### Website Functionality
 - User and Admin Role
 - Pagination
 - Sorthing
 - Filtering through Catgeory, Price
 - Responsive Design for Mobile Devices
+
+-----------------------------------------------------------------------------------
 
 ### User Dashboard
 - Add to Cart
@@ -31,7 +35,11 @@
 - Place Orders
 - Comment and Review Products
 
+-----------------------------------------------------------------------------------
+
 ### Admin Dashboard
 - Create and Manage Products (Edit, Delete)
 - View Orders and Manage Order Status
 - User Management (View, Edit, Delete)
+
+-----------------------------------------------------------------------------------
