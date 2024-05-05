@@ -1,11 +1,13 @@
 "use client";
 import { useAuth } from "@/src/components/context/authContext";
 import { useCart } from "@/src/components/context/cartContext/page";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 export default function AddtoCartBtn({ _id, name, price, image }: any) {
-  const { addToCartBtn } = useCart();
-
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [quantity, setQuantity] = useState(1);
   const { session } = useAuth();
 
   const AddToCart = async (
@@ -15,7 +17,22 @@ export default function AddtoCartBtn({ _id, name, price, image }: any) {
     image: string
   ) => {
     if (session) {
-      addToCartBtn(_id, name, price, image);
+      try {
+        setIsLoading(true);
+        await axios.post("/api/products/cart/addToCartBtn", {
+          _id,
+          name,
+          quantity,
+          price,
+          image,
+        });
+        // await getToCartBtn();
+      } catch (error) {
+        console.error("Error adding product to cart:", error);
+        setError("Error adding product to cart. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
       alert("Product add to cart");
     } else {
       alert("Please Login");
