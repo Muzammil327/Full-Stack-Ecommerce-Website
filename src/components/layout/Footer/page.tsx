@@ -13,18 +13,17 @@ export default function Footer() {
             <Logo />
             <ul>
               <li className="text-slate-900 my-2 md:text-base text-sm">
-                <span className="font-semibold text-base">Address:</span> 60-49
-                Road 11378 New York
+                <span className="font-semibold text-base">Address:</span> 
+                Pakistan
               </li>
 
               <li className="text-slate-900 my-2 md:text-base text-sm">
-                <span className="font-semibold text-base">Phone:</span> +65
-                11.188.888
+                <span className="font-semibold text-base">Phone:</span> +92 314 4878 266
               </li>
 
               <li className="text-slate-900 my-2 md:text-base text-sm">
                 <span className="font-semibold text-base">Email:</span>{" "}
-                hello@colorlib.com
+                hello.com
               </li>
             </ul>
           </div>
@@ -98,5 +97,5 @@ export default function Footer() {
         </Container>
       </div>
     </footer>
-  );
+  )
 }

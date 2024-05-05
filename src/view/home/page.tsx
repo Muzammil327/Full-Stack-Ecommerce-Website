@@ -126,7 +126,6 @@ export default function HomePage() {
     <>
       <HeroSlider />
       <Container>
-        {/* <Hero /> */}
         <h1 className="text-2xl font-semibold my-12">Trending Products</h1>
 
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-4 my-12 mb-10">

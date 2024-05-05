@@ -1,4 +1,5 @@
 import User from "@/src/models/userModel";
+import CartModel from "@/src/models/cartModel";
 import connectDB from "@/src/utils/db";
 import mongoose from "mongoose";
 import { getToken } from "next-auth/jwt";
@@ -18,36 +19,19 @@ export async function GET(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: "User not found" });
     }
-    // console.log(user);
-    const cart = await User.aggregate([
+    const cart = await CartModel.aggregate([
       {
         $match: {
-          _id: new mongoose.Types.ObjectId(token?._id),
+          user: new mongoose.Types.ObjectId(token?._id),
         },
-      },
-      {
-        $unwind: "$cart",
-      },
-      {
-        $lookup: {
-          from: "products",
-          localField: "cart.productId",
-          foreignField: "_id",
-          as: "product",
-        },
-      },
-      {
-        $unwind: "$product",
       },
       {
         $project: {
-          cart: {
-            _id: "$product._id",
-            name: "$product.name",
-            price: "$product.price",
-          },
-
-          quantity: "$cart.quantity",
+          _id: 1,
+          name: 1,
+          quantity: 1,
+          price: 1,
+          image: 1,
         },
       },
     ]);

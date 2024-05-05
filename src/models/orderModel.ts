@@ -7,7 +7,7 @@ interface CartItem {
 }
 
 // Define the interface for the order document
-interface OrderDocument extends Document {
+interface OrdersDocument extends Document {
   user: mongoose.Types.ObjectId; // Assuming user ID is stored
   subtotal: number;
   totalTax: number;
@@ -16,15 +16,14 @@ interface OrderDocument extends Document {
 }
 
 // Define the schema for the order model
-const orderSchema = new Schema<OrderDocument>(
+const ordersSchema = new Schema<OrdersDocument>(
   {
-    user: { type: Schema.Types.ObjectId, ref: "UserModel", required: true }, // Reference to user model
+    user: { type: Schema.Types.ObjectId, ref: "users", required: true }, // Reference to user model
     subtotal: { type: Number, required: true },
-    totalTax: { type: Number, required: true },
     total: { type: Number, required: true },
     cart: [
       {
-        productId: { type: Schema.Types.ObjectId, ref: "Product" }, // Reference to product model
+        productId: { type: Schema.Types.ObjectId, ref: "products" }, // Reference to product model
         quantity: { type: Number, required: true },
       },
     ],
@@ -32,6 +31,8 @@ const orderSchema = new Schema<OrderDocument>(
   { timestamps: true }
 );
 
-// Create and export the Order model
-const OrderModel = mongoose.model<OrderDocument>("OrderModel", orderSchema);
-export default OrderModel;
+const orders =
+  mongoose.models.orders ||
+  mongoose.model<OrdersDocument>("orders", ordersSchema);
+
+export default orders;

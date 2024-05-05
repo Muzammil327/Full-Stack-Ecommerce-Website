@@ -59,24 +59,24 @@ export default function Page() {
                 <td className="px-6 py-4">$2999</td>
                 <td className="px-6 py-4">3.0 lb.</td>
                 <td className="flex items-center px-6 py-4 whitespace-nowrap">
-                  <a
+                  <Link
                     href={`/admin/product/Slider/fhgfh`}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline ms-3"
                   >
                     Edit Slider
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href={`/admin/product/put/fhgfh`}
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline ms-3"
                   >
                     Edit Remaining
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -93,18 +93,18 @@ export default function Page() {
                 <td className="px-6 py-4">$1999</td>
                 <td className="px-6 py-4">1.0 lb.</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -121,18 +121,18 @@ export default function Page() {
                 <td className="px-6 py-4">$99</td>
                 <td className="px-6 py-4">0.2 lb.</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -149,18 +149,18 @@ export default function Page() {
                 <td className="px-6 py-4">$199</td>
                 <td className="px-6 py-4">0.12 lb.</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -177,18 +177,18 @@ export default function Page() {
                 <td className="px-6 py-4">$2999</td>
                 <td className="px-6 py-4">7.0 lb.</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -205,18 +205,18 @@ export default function Page() {
                 <td className="px-6 py-4">$399</td>
                 <td className="px-6 py-4">38 g</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -233,18 +233,18 @@ export default function Page() {
                 <td className="px-6 py-4">$699</td>
                 <td className="px-6 py-4">1.3 lb.</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -261,18 +261,18 @@ export default function Page() {
                 <td className="px-6 py-4">$99</td>
                 <td className="px-6 py-4">453 g</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -289,18 +289,18 @@ export default function Page() {
                 <td className="px-6 py-4">$179</td>
                 <td className="px-6 py-4">1.78 lb.</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -317,18 +317,18 @@ export default function Page() {
                 <td className="px-6 py-4">$29</td>
                 <td className="px-6 py-4">53 g</td>
                 <td className="flex items-center px-6 py-4">
-                  <a
+                  <Link
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     Edit
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="#"
                     className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                   >
                     Remove
-                  </a>
+                  </Link>
                 </td>
               </tr>
             </tbody>

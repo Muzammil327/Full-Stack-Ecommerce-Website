@@ -12,6 +12,11 @@ body {
   @apply overflow-x-hidden min-h-screen;
   font-family: sans-serif;
 }
+
+button{
+  @apply cursor-pointer;
+}
+
 img {
   @apply max-w-none w-full;
 }

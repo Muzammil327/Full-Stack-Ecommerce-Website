@@ -1,5 +1,5 @@
 "use client";
-import { useFetch } from "@/src/components/function/useFetch";
+import { useFetchArray } from "@/src/components/function/useFetchArray";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Select from "react-select";
@@ -24,7 +24,7 @@ const Page = () => {
   const handleSelectChange = (selectedOptions: any) => {
     setProductId(selectedOptions);
   };
-  const { data, error, loading } = useFetch(
+  const { data, error, loading } = useFetchArray(
     "http://localhost:3000/api/get/allProduct"
   );
   if (error) {

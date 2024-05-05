@@ -1,7 +1,7 @@
 "use client";
 import Container from "@/components/element/container/page";
 import React, { useState } from "react";
-import { useFetch } from "@/src/components/function/useFetch";
+import { useFetchArray } from "@/src/components/function/useFetchArray";
 import DesktopStore from "./desktop";
 
 export default function ProductPage() {
@@ -17,8 +17,8 @@ export default function ProductPage() {
   const [priceHL, setPriceHL] = useState("");
   const [priceLH, setPriceLH] = useState("");
   // lowToHigh
-  const { data, error, loading } = useFetch(
-    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+  const { data, error, loading } = useFetchArray(
+    `http://localhost:5000/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
   );
   if (error) {
     return <h1>Error ....</h1>;

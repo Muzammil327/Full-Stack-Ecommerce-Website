@@ -1,11 +1,15 @@
 import React from "react";
 
-export default function Cat() {
+interface IProps {
+  catgeory: string;
+  subCateory: string;
+}
+export default function Cat({ catgeory, subCateory }: IProps) {
   return (
     <div className="cat">
       <ul className="flex gap-3">
         <li className="text-gray-500 flex gap-3 items-center">
-          <span>Men</span>
+          <span>{catgeory}</span>
           <span>
             {" "}
             <svg
@@ -29,7 +33,7 @@ export default function Cat() {
           </span>
         </li>
         <li className="text-gray-500 flex gap-3 items-center">
-          <span>Accessories</span>
+          <span>{subCateory}</span>
           <span>
             {" "}
             <svg

@@ -1,5 +1,5 @@
 "use client";
-import { useFetch } from "@/src/components/function/useFetch";
+import { useFetchArray } from "@/src/components/function/useFetchArray";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -13,7 +13,7 @@ const Page = () => {
   const [slider, setSlider] = useState<File[]>([]);
   const [imageUrls, setImageUrls] = useState<string[]>([]); // Changed from null to []
 
-  const { data, error, loading } = useFetch(
+  const { data, error, loading } = useFetchArray(
     "http://localhost:3000/api/get/allProduct"
   );
   if (error) {

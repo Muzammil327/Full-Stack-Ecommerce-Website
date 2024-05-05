@@ -8,6 +8,7 @@ import Navbar from "@/components/layout/Navbar/page";
 import Instragram from "@/src/components/layout/Instragram/page";
 import Footer from "@/components/layout/Footer/page";
 import { AuthProvider } from "../components/context/authContext";
+import { CartProvider } from "../components/context/cartContext/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,11 +27,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <AuthProvider>
-            <SubHeader />
-            <Navbar />
-            {children}
-            <Instragram />
-            <Footer />
+            <CartProvider>
+              <SubHeader />
+              <Navbar />
+              {children}
+              <Instragram />
+              <Footer />
+            </CartProvider>
           </AuthProvider>
         </NextAuthProvider>
       </body>

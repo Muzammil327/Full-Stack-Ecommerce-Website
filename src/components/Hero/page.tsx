@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Hero() {
@@ -16,9 +17,9 @@ export default function Hero() {
               <span className="text-black text-3xl">Women</span> <br />
               <span className="text-black block">Spring 2018</span>
             </div>
-            <a href="#" className="block1-link min-w-28 opacity-0">
+            <Link href="#" className="block1-link min-w-28 opacity-0">
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
         <div className="block1 wrap-pic-w relative overflow-hidden">
@@ -33,9 +34,9 @@ export default function Hero() {
               <span className="text-black text-3xl">Men</span> <br />
               <span className="text-black block">Spring 2018</span>
             </div>
-            <a href="#" className="block1-link min-w-28 opacity-0">
+            <Link href="#" className="block1-link min-w-28 opacity-0">
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
         <div className="block1 wrap-pic-w relative overflow-hidden">
@@ -50,9 +51,9 @@ export default function Hero() {
               <span className="text-black text-3xl">Children</span> <br />
               <span className="text-black block">Spring 2018</span>
             </div>
-            <a href="#" className="block1-link min-w-28 opacity-0">
+            <Link href="#" className="block1-link min-w-28 opacity-0">
               Shop Now
-            </a>
+            </Link>
           </div>
         </div>
       </div>
