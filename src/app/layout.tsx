@@ -27,13 +27,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <AuthProvider>
-            {/* <CartProvider> */}
+            <CartProvider>
               <SubHeader />
               <Navbar />
               {children}
               <Instragram />
               <Footer />
-            {/* </CartProvider> */}
+            </CartProvider>
           </AuthProvider>
         </NextAuthProvider>
       </body>
