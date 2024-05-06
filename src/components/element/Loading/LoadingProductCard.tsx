@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function LoadingProduct() {
+export default function LoadingProductCard() {
   return (
     <div className="border bg-slate-300 shadow rounded-md p-2">
       <div className="animate-pulse flex flex-col">

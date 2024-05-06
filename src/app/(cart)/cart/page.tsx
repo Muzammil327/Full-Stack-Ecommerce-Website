@@ -1,12 +1,19 @@
-'use client'
+"use client";
 import React, { CSSProperties, useEffect, useState } from "react";
 import Container from "@/src/components/element/container/page";
 import { useCart } from "@/src/components/context/cartContext/page";
 import Image from "next/image";
+import { useAuth } from "@/src/components/context/authContext";
+import { redirect } from "next/navigation";
+import CheckoutBtn from "./checkoutBtn";
 
 const ProductList = () => {
   const { cartBuy, removeFromCart, updateCartIncrease, updateCartDecrease } =
     useCart();
+  const { session, status } = useAuth();
+  if (status === "unauthenticated" && !session) {
+    redirect("/sign-in");
+  }
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [totalTax, setTotalTax] = useState<number>(0);
@@ -15,11 +22,12 @@ const ProductList = () => {
     removeFromCart(productId);
   };
 
-  const handleUpdateCartIncrease = (productId: string, quantity: number) => {
-    updateCartIncrease(productId, quantity); // Add the product to the cart
+  const handleUpdateCartIncrease = (_id: string, quantity: number) => {
+    updateCartIncrease(_id, quantity); // Pass quantity directly as a number
   };
-  const handleUpdateCartDecrease = (productId: string, quantity: number) => {
-    updateCartDecrease(productId, quantity); // Add the product to the cart
+
+  const handleUpdateCartDecrease = (_id: string, quantity: number) => {
+    updateCartDecrease(_id, quantity); // Add the product to the cart
   };
 
   useEffect(() => {
@@ -30,7 +38,7 @@ const ProductList = () => {
 
     if (cartBuy) {
       cartBuy.forEach((item: any) => {
-        subTotal += item.price * item.quantity;
+        subTotal += item.product.price * item.quantity;
       });
 
       const taxCharges = 200; // Assuming tax charges
@@ -42,12 +50,11 @@ const ProductList = () => {
     setTotal(total);
     setTotalTax(totalTax);
   }, [cartBuy]);
-
   return (
     <>
       <Container>
-        <div className="grid md:grid-cols-6 gap-2 my-20">
-          <div className="md:col-span-4">
+        <div className="grid md:grid-cols-6 grid-cols-1 gap-2 my-20">
+          <div className="md:col-span-4 col-span-1">
             <div className="relative overflow-x-auto sm:rounded-lg mb-10">
               <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -78,17 +85,16 @@ const ProductList = () => {
                       >
                         <td className="p-4">
                           <Image
-                            src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/some-folder-name/${user.image}.png`}
-                            alt={user.name}
-                            title={user.name}
-                            sizes="(max-width: 600px) 90vw, 600px"
-                            height={1600}
-                            width={1216}
-                            className="w-16 md:w-32 max-w-full max-h-full"
+                            src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product.image}.png`}
+                            alt={user.product.name}
+                            title={user.product.name}
+                            height={1080}
+                            width={1080}
+                            className="w-full block h-20"
                           />
                         </td>
                         <td className="px-6 py-4 font-semibold text-gray-900">
-                          {user.name}
+                          {user.product.name}
                         </td>
                         <td className="px-6 py-4">
                           {/* <QuantityControl initialValue= /> */}
@@ -158,7 +164,7 @@ const ProductList = () => {
                           </form>
                         </td>
                         <td className="px-6 py-4 font-semibold text-gray-900">
-                          {user.price * user.quantity}
+                          {user.product.price * user.quantity}
                         </td>
                         <td className="px-6 py-4">
                           <button
@@ -187,7 +193,7 @@ const ProductList = () => {
               </button>
             </div>
           </div>
-          <div className="col-span-2 md:mt-0 mt-8">
+          <div className="md:col-span-2 col-span-1 md:mt-0 mt-8">
             <div className="cart-total bg-slate-100 rounded-md p-4">
               <span className="flex items-center justify-center pb-3 text-xl font-bold">
                 Cart Total
@@ -204,9 +210,7 @@ const ProductList = () => {
                 <span>Total</span>
                 <span>{total}</span>
               </div>
-              <button className="py-3 mt-6 px-16 bg-red-500 border border-solid border-red-500 hover:bg-white hover:text-red-500 text-white rounded-md block w-full text-lg font-semibold transition-all hover:transition-all">
-                Proceed to Checkout
-              </button>
+              {session ? <CheckoutBtn cartBuy={cartBuy} /> : null}
             </div>
           </div>
         </div>

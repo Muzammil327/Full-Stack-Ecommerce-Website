@@ -1,26 +1,25 @@
 import Link from "next/link";
-import { ProducTypes } from "./type";
 import Image from "next/image";
+import { ProductCardProps } from "@/src/types/product";
 
 interface IProps {
-  product: ProducTypes;
+  product: ProductCardProps;
 }
 
 export default function ProductCard({ product }: IProps) {
-
   return (
     <>
       <div className="card relative">
-        <Link href={`/stores/${product.slug}`}>
-          <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+        <Link href={`/stores/${product.slug}`} className="relative">
+          <div className="w-full aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
             <Image
-              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/some-folder-name/${product.image}.png`}
+              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${product.image}.png`}
               alt={product.name}
               title={product.name}
               sizes="(max-width: 600px) 90vw, 600px"
-              height={1600}
-              width={1216}
-              className="w-full block h-auto"
+              height={1080}
+              width={1080}
+              className="w-full block h-auto object-cover"
             />
           </div>
           <div className="mt-4 flex flex-col">

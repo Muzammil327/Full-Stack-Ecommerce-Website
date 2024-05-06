@@ -141,16 +141,14 @@ const navigation = {
       ],
     },
   ],
-  pages: [
-    { name: "Stores", href: "/stores" },
-  ],
+  pages: [{ name: "Stores", href: "/stores" }],
 };
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -181,7 +179,7 @@ export default function Example() {
               leaveTo="-translate-x-full"
             >
               <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
-                <div className="flex px-4 pb-2 pt-5">
+                <div className="flex px-4 pb-2 absolute top-4 right-0">
                   <button
                     type="button"
                     className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
@@ -194,7 +192,7 @@ export default function Example() {
                 </div>
 
                 {/* Links */}
-                <Tab.Group as="div" className="mt-2">
+                <Tab.Group as="div" className="mt-12">
                   <div className="border-b border-gray-200">
                     <Tab.List className="-mb-px flex space-x-8 px-4">
                       {navigation.categories.map((category) => (

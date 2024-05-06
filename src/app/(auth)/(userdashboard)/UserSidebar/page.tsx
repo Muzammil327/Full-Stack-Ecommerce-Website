@@ -1,26 +1,106 @@
+"use client";
+import CloseSVG from "@/src/svg/CloseSVG";
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import Link from "next/link";
-import React from "react";
 
 export default function UserSidebar() {
+  const [open, setOpen] = useState(false);
+
   return (
     <>
-      <div className="bg-slate-100 h-screen py-4 md:block hidden">
-        <ul>
-          <li className="border-b border-solid border-gray-300 hover:bg-slate-200 text-black py-3 flex items-center justify-center">
-            <Link href="/profile">Dashboard</Link>
-          </li>
-          <li className="border-b border-solid border-gray-300 hover:bg-slate-200 text-black py-3 flex items-center justify-center">
-            <Link href="/profile/address">Addresses</Link>
-          </li>
-          <li className="border-b border-solid border-gray-300 hover:bg-slate-200 text-black py-3 flex items-center justify-center">
-            <Link href="/dashboard/product">Order history</Link>
-          </li>
-          <li className="border-b border-solid border-gray-300 hover:bg-slate-200 text-black py-3 flex items-center justify-center">
-            <Link href="/dashboard/product">Wishlist</Link>
-          </li>
-        </ul>
+      <div className="bg-white">
+        <Transition.Root show={open} as={Fragment}>
+          <Dialog className="relative z-40" onClose={setOpen}>
+            <Transition.Child
+              as={Fragment}
+              enter="transition-opacity ease-linear duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="transition-opacity ease-linear duration-300"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 z-40 flex">
+              <Transition.Child
+                as={Fragment}
+                enter="transition ease-in-out duration-300 transform"
+                enterFrom="-translate-x-full"
+                enterTo="translate-x-0"
+                leave="transition ease-in-out duration-300 transform"
+                leaveFrom="translate-x-0"
+                leaveTo="-translate-x-full"
+              >
+                <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
+                  <div className="flex px-4 pb-2 absolute top-4 right-0">
+                    <button
+                      type="button"
+                      className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+                      onClick={() => setOpen(false)}
+                    >
+                      <span className="absolute -inset-0.5" />
+                      <span className="sr-only">Close menu</span>
+                      <CloseSVG />
+                    </button>
+                  </div>
+                  <div className="border-b border-gray-200 px-4 py-4 mt-12">
+                    <p className="font-medium text-gray-900 ">Dashboard</p>
+                    <ul role="list" className="mt-6 flex flex-col space-y-6">
+                      
+                      <li className="flow-root">
+                        <Link
+                          href=""
+                          className="-m-2 block p-2 text-gray-500"
+                          onClick={() => setOpen(false)}
+                        >
+                          Addresses
+                        </Link>
+                      </li>
+                      <li className="flow-root">
+                        <Link
+                          href=""
+                          className="-m-2 block p-2 text-gray-500"
+                          onClick={() => setOpen(false)}
+                        >
+                          Pending Order
+                        </Link>
+                      </li>
+                      <li className="flow-root">
+                        <Link
+                          href=""
+                          className="-m-2 block p-2 text-gray-500"
+                          onClick={() => setOpen(false)}
+                        >
+                          Order history
+                        </Link>
+                      </li>
+                      <li className="flow-root">
+                        <Link
+                          href=""
+                          className="-m-2 block p-2 text-gray-500"
+                          onClick={() => setOpen(false)}
+                        >
+                          Wishlist
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </Dialog>
+        </Transition.Root>
       </div>
-      <button className="md:hidden block bg-red-400 fixed top-16 py-2 px-3 text-white rounded-tl-md rounded-bl-md right-0">
+      <button
+        type="button"
+        className="bg-red-400 px-4 py-2 z-30 rounded-tl rounded-bl text-white fixed top-36 right-0"
+        onClick={() => setOpen(true)}
+      >
+        <span className="absolute -inset-0.5" />
+        <span className="sr-only">Open menu</span>
         Open
       </button>
     </>

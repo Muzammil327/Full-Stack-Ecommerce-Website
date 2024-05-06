@@ -1,10 +1,10 @@
-import ProductPage from "@/view/products/page";
 import React from "react";
+import StorePage from "@/src/view/store/page";
 
-export default function Products() {
+export default function Page() {
   return (
-    <>
-      <ProductPage />
-    </>
+    <main>
+      <StorePage />
+    </main>
   );
 }

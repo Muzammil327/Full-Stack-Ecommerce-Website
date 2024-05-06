@@ -91,7 +91,7 @@ const products: ProducTypes[] = [
     category: "Accessories",
   },
 ];
-export default function SimilarProduct() {
+export default function RelatedProduct({ relatedProducts }: any) {
   return (
     <div className="Similarproduct">
       <h1 className="text-2xl font-semibold my-12">Similar Products</h1>
@@ -121,7 +121,7 @@ export default function SimilarProduct() {
           modules={[Autoplay, Navigation]}
           className="mySwiper"
         >
-          {products.map((data: any) => (
+          {relatedProducts.relatedProducts.map((data: any) => (
             <>
               <SwiperSlide>
                 <ProductCard product={data} key={data.id} />

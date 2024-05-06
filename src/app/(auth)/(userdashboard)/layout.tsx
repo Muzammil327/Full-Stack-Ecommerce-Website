@@ -7,11 +7,11 @@ export default function DashboardLayout({
 }>) {
   return (
     <>
-      <div className="grid md:grid-cols-9">
-        <div className="md:col-span-2">
+      <div className="grid grid-cols-1">
+        <div className="">
           <UserSidebar />
         </div>
-        <div className="md:col-span-7 px-4 py-5">{children}</div>
+        <div className=" px-4 py-5">{children}</div>
       </div>
     </>
   );

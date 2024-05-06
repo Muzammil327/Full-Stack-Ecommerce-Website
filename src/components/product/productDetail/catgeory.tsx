@@ -4,7 +4,7 @@ interface IProps {
   catgeory: string;
   subCateory: string;
 }
-export default function Cat({ catgeory, subCateory }: IProps) {
+export default function ProductDetailCatgeory({ catgeory, subCateory }: IProps) {
   return (
     <div className="cat">
       <ul className="flex gap-3">

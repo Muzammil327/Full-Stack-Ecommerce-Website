@@ -1,11 +1,7 @@
-export default function RootLayout({
+export default function StoreLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
