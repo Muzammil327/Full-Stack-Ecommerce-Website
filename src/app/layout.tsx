@@ -9,6 +9,8 @@ import Instragram from "@/src/components/layout/Instragram/page";
 import Footer from "@/components/layout/Footer/page";
 import { AuthProvider } from "../components/context/authContext";
 import { CartProvider } from "../components/context/cartContext/page";
+import { UserProvider } from "../components/context/userContext";
+import { ToastContainer } from "react-toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,13 +29,27 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthProvider>
           <AuthProvider>
-            <CartProvider>
-              <SubHeader />
-              <Navbar />
-              {children}
-              <Instragram />
-              <Footer />
-            </CartProvider>
+            <UserProvider>
+              <CartProvider>
+                <SubHeader />
+                <Navbar />
+                {children}
+                <Instragram />
+                <Footer />
+                <ToastContainer
+                  position="top-right"
+                  autoClose={5001}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="light"
+                />
+              </CartProvider>
+            </UserProvider>
           </AuthProvider>
         </NextAuthProvider>
       </body>

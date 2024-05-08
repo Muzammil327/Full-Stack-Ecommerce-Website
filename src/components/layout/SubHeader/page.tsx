@@ -1,9 +1,13 @@
+"use client";
 import React from "react";
 import styles from "./subHeader.module.scss";
 import Link from "next/link";
 import SubHeaderSocial from "./social";
+import { useCart } from "../../context/cartContext/page";
 
 export default function SubHeader() {
+  const { errorWishList, loadingWishList, getToWishlistBtn, wishList } =
+    useCart();
   return (
     <>
       <section className={styles.subHeader}>
@@ -28,8 +32,17 @@ export default function SubHeader() {
               </Link>
             </li>
             <li>
-              <Link href="#" className="text-sm">
-                My Wishlist
+              <Link href="/wishlist" className="text-sm">
+                My Wishlist -
+                {loadingWishList ? (
+                  <div className="spinner-border text-primary">
+                    <span className="sr-only">loading Wishlist items</span>
+                  </div>
+                ) : errorWishList ? (
+                  <p>{errorWishList}</p>
+                ) : (
+                  <>({wishList.length})</>
+                )}
               </Link>
             </li>
           </ul>

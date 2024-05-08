@@ -35,7 +35,25 @@ export const authOptions: NextAuthOptions = {
     signIn: "/sign-in",
   },
   callbacks: {
-    async jwt({ token, user, session, account, profile }) {
+    async jwt({ token, user, session, account, trigger }) {
+      if (
+        trigger === "update" &&
+        session?.phone &&
+        session?.address &&
+        session?.city &&
+        session?.zipCode &&
+        session?.country &&
+        session?.role &&
+        session?.username
+      ) {
+        token.username = session.username;
+        token.role = session.role;
+        token.phone = session.phone;
+        token.country = session.country;
+        token.city = session.city;
+        token.zipCode = session.zipCode;
+        token.address = session.address;
+      }
       // console.log("jwt callback ", { token, user, session, account, profile });
       if (user) {
         token._id = user._id;

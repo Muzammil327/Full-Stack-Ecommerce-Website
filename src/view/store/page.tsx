@@ -13,6 +13,9 @@ import StorePagination from "@/src/components/product/Store/StorePagination";
 import StoreProducts from "@/src/components/product/Store/StoreProducts";
 
 import { ProductShopProps } from "@/src/types/product";
+import CrossSVG from "@/src/svg/CrossSVG";
+import { Product_API_Endpoint } from "@/src/utils/constant";
+import styles from "@/view/store/store.module.scss";
 
 export default function StorePage() {
   const [page, setPage] = useState(1);
@@ -25,8 +28,9 @@ export default function StorePage() {
   const [priceLH, setPriceLH] = useState<string>("");
 
   const { data, error, loading } = useFetchArray<ProductShopProps>(
-    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+    `${Product_API_Endpoint}/get?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
   );
+
   const HighPrice = (value: number) => {
     setHighPrice(value);
     setPage(1);
@@ -46,7 +50,7 @@ export default function StorePage() {
 
   return (
     <Container>
-      {error && <h1>Error fetching data...</h1>}
+      {error && <h1>Error fetching Store data...</h1>}
       <section className="flex items-baseline justify-between border-b border-gray-200 py-3">
         <h1 className="lg:text-3xl md:text-2xl text-xl font-bold tracking-tight text-gray-900">
           Product Store
@@ -98,39 +102,83 @@ export default function StorePage() {
           </div>
 
           <div className="lg:col-span-3">
+            <ul className="flex items-center gap-3">
+              <li className="border text-black rounded py-1 px-2">
+                page {page}
+              </li>
+              {category ? (
+                <li className={styles.li}>
+                  {category}
+                  <button
+                    className={styles.btn}
+                    onClick={() => setCategory("")}
+                  >
+                    <CrossSVG />
+                  </button>
+                </li>
+              ) : null}
+              {subCategory ? (
+                <li className={styles.li}>
+                  {subCategory}
+                  <button
+                    onClick={() => setSubCategory("")}
+                    className={styles.btn}
+                  >
+                    <CrossSVG />
+                  </button>{" "}
+                </li>
+              ) : null}
+              {highPrice && lowPrice ? (
+                <li className={styles.li}>
+                  {lowPrice} - {highPrice}
+                  <button
+                    onClick={() => {
+                      setLowPrice(null);
+                      setHighPrice(null);
+                    }}
+                    className={styles.btn}
+                  >
+                    <CrossSVG />
+                  </button>
+                </li>
+              ) : null}
+              {tags ? (
+                <li className={styles.li}>
+                  {tags}
+                  <button onClick={() => setTags("")} className={styles.btn}>
+                    <CrossSVG />
+                  </button>{" "}
+                </li>
+              ) : null}
+              {priceLH ? (
+                <li className={styles.li}>
+                  Price Low to High
+                  <button onClick={() => setPriceLH("")} className={styles.btn}>
+                    <CrossSVG />
+                  </button>{" "}
+                </li>
+              ) : null}
+              {priceHL ? (
+                <li className={styles.li}>
+                  Price High to Low
+                  <button onClick={() => setPriceHL("")} className={styles.btn}>
+                    <CrossSVG />
+                  </button>{" "}
+                </li>
+              ) : null}
+            </ul>
             {loading ? (
-              <div className="grid md:grid-cols-3 gap-4 mx-4 mt-5">
+              <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mx-4 mt-5">
+                <LoadingProductCard />
+                <LoadingProductCard />
+                <LoadingProductCard />
                 <LoadingProductCard />
                 <LoadingProductCard />
                 <LoadingProductCard />
               </div>
             ) : (
               <>
-                <StoreProducts
-                  data={data}
-                  page={page}
-                  // catgeory
-                  category={category}
-                  setCategory={setCategory}
-                  // sub catgeory
-                  subCategory={subCategory}
-                  setSubCategory={setSubCategory}
-                  // tags
-                  tags={tags}
-                  setTags={setTags}
-                  // high price
-                  highPrice={highPrice}
-                  setHighPrice={setHighPrice}
-                  // low price
-                  lowPrice={lowPrice}
-                  setLowPrice={setLowPrice}
-                  // price low to high
-                  priceLH={priceLH}
-                  setPriceLH={setPriceLH}
-                  // price high to low
-                  priceHL={priceHL}
-                  setPriceHL={setPriceHL}
-                />
+                <StoreProducts data={data} />
                 <StorePagination setPage={setPage} data={data} />
               </>
             )}

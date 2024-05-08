@@ -1,13 +1,21 @@
+import Image from "next/image";
 import React from "react";
 
 export default function LoadingProductCard() {
   return (
-    <div className="border bg-slate-300 shadow rounded-md p-2">
+    <div className="card relative border shadow rounded-md p-2">
       <div className="animate-pulse flex flex-col">
-        <div className="bg-slate-700 h-52 w-full"></div>
-        <div className="mt-5 flex flex-col gap-4">
-          <div className="h-6 bg-slate-700 rounded w-6/12 "></div>
-          <div className="h-12 bg-slate-700 rounded "></div>
+        <div className="w-full aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+          <div className="h-40 rounded w-2/12"></div>
+        </div>
+        <div className="mt-4 flex flex-col">
+          <div className="flex items-center justify-between">
+            {/* Adjust loading animations for category and price */}
+            <div className="h-6 bg-slate-700 rounded w-3/12"></div>
+            <div className="h-6 bg-slate-700 rounded w-2/12"></div>
+          </div>
+          {/* Adjust loading animation for product name */}
+          <div className="h-6 bg-slate-700 rounded w-8/12 mt-1"></div>
         </div>
       </div>
     </div>

@@ -1,0 +1,33 @@
+import { useFetchArray } from "@/src/components/function/useFetchArray";
+import React from "react";
+
+export default function AdminUserCard() {
+  const { error, loading, data } = useFetchArray(
+    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/user`
+  );
+  return (
+    <div className="profileCard h-32 border bg-white px-4 py-5 md:mt-0 mt-4 rounded-md transition-all shadow relative">
+      <div className="icon shadow-sm h-12 flex items-center justify-center w-12 border rounded-full">
+        <svg
+          fill="#000000"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20px"
+          height="20px"
+          viewBox="0 0 52 52"
+          enable-background="new 0 0 52 52"
+        >
+          <path
+            d="M50,43v2.2c0,2.6-2.2,4.8-4.8,4.8H6.8C4.2,50,2,47.8,2,45.2V43c0-5.8,6.8-9.4,13.2-12.2
+	c0.2-0.1,0.4-0.2,0.6-0.3c0.5-0.2,1-0.2,1.5,0.1c2.6,1.7,5.5,2.6,8.6,2.6s6.1-1,8.6-2.6c0.5-0.3,1-0.3,1.5-0.1
+	c0.2,0.1,0.4,0.2,0.6,0.3C43.2,33.6,50,37.1,50,43z M26,2c6.6,0,11.9,5.9,11.9,13.2S32.6,28.4,26,28.4s-11.9-5.9-11.9-13.2
+	S19.4,2,26,2z"
+          />
+        </svg>
+      </div>
+      <h4 className="py-2 text-lg font-medium">Total User</h4>
+      <span className="absolute top-2 text-4xl right-6 text-gray-200 transition-all">
+        {data.length}
+      </span>
+    </div>
+  );
+}

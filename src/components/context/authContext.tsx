@@ -19,21 +19,6 @@ interface AuthProviderProps {
 // Create the AuthProvider component
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { data: session, status } = useSession();
-  //   useEffect(() => {
-  //     if (status === "unauthenticated" && !session) {
-  //       router.push("/sign-in");
-  //     }
-  //     if (
-  //       status === "authenticated" &&
-  //       session &&
-  //       session.user.role === "admin"
-  //     ) {
-  //       router.push("/admin");
-  //     }
-  // if (status === "authenticated" && session && session.user.role === "user") {
-  //   router.push("/profile");
-  // }
-  //   }, [session, status, router]);
 
   return (
     <AuthContext.Provider value={{ session, status }}>

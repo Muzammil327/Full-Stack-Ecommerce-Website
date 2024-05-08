@@ -1,108 +1,101 @@
 "use client";
+import React from "react";
 import Container from "@/src/components/element/container/page";
 
-import React from "react";
-// Import Swiper React components
-
 import { useFetch } from "@/src/components/function/useFetch";
-import { useParams } from "next/navigation";
+
 import ProductDetailImageSlider from "@/src/components/product/productDetail/ImageSlider";
 import ProductDetailCatgeory from "@/src/components/product/productDetail/catgeory";
 import AddtoCartBtn from "@/src/components/product/productDetail/AddtoCartBtn";
-import { ProductData } from "@/src/types/product";
 import FavouriteBtn from "@/src/components/product/productDetail/FavouriteBtn";
 import RelatedProduct from "@/src/components/product/productDetail/RelatedProduct";
 
-export default function ProductDetail({ params }: any) {
+import { ProductData } from "@/src/types/product";
+
+import { Product_API_Endpoint } from "@/src/utils/constant";
+
+export default function ProductDetail({ params }: { params: string }) {
   const { data, error, loading } = useFetch<ProductData>(
-    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/product/${params}`
+    `${Product_API_Endpoint}/get/${params}`
   );
   return (
-    <div>
-      {data && (
-        <Container>
-          <div className="grid md:grid-cols-2 grid-cols-1 my-8 gap-5">
-            <ProductDetailImageSlider response={data} />
+    <>
+      {error && <h1>Error fetching Product Detail data...</h1>}
 
-            <div className="py-12">
-              <ProductDetailCatgeory
-                catgeory={data.category}
-                subCateory={data.subCategory}
-              />
-              <h1 className="text-3xl font-bold my-4">{data.name}</h1>
-              <div className="price flex gap-4">
-                <span className="line-through font-semibold text-xl text-gray-700">
-                  Rs{data.price}.00
-                </span>
-                <span className="font-semibold text-red-500 text-2xl">
-                  $49.00
-                </span>
+      {loading ? (
+        <div className="relative border rounded-md p-2">
+          <Container>
+            <div className="grid md:grid-cols-2 grid-cols-1 my-8 gap-5 animate-pulse">
+              <div className="w-full aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                <div className=" rounded "></div>
               </div>
-              <p className="mt-4 mb-12 text-base text-gray-500">
-                {data.description}
-              </p>
-              {/* <div>
-                <h4 className="text-sm font-medium text-gray-900">Color</h4>
+              <div className="py-12">
+                <div className="flex items-center gap-3">
+                  <div className="h-6 bg-slate-700 rounded w-2/12"></div>
+                  <div className="h-6 bg-slate-700 rounded w-2/12"></div>
+                  <div className="h-6 bg-slate-700 rounded w-2/12"></div>
+                </div>
+                <div className="h-12 bg-slate-700 rounded w-full my-4"></div>
+                <div className="flex items-center gap-4">
+                  <div className="h-6 bg-slate-700 rounded w-3/12"></div>
+                  <div className="h-6 bg-slate-700 rounded w-3/12"></div>
+                </div>
+                <div className="h-52 bg-slate-700 rounded w-full mt-4 mb-12"></div>
+                <div className="my-5 flex items-center justify-between gap-4">
+                  <div className="bg-slate-700 h-12 transition-all w-full py-3 block px-6 rounded-md"></div>
+                  <div className="bg-slate-700 h-12 transition-all py-3 px-8 rounded-md"></div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </div>
+      ) : (
+        <>
+          <section>
+            {data && (
+              <Container>
+                <div className="grid md:grid-cols-2 grid-cols-1 my-8 gap-5">
+                  <ProductDetailImageSlider response={data} />
 
-                <fieldset className="mt-4">
-                  <legend className="sr-only">Choose a color</legend>
-                  <span className="flex items-center space-x-3">
-                    <label className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                      <input
-                        type="radio"
-                        name="color-choice"
-                        value="White"
-                        className="sr-only"
-                        aria-labelledby="color-choice-0-label"
-                      />
-                      <span id="color-choice-0-label" className="sr-only">
-                        White
+                  <div className="lg:py-12 md:py-8 py-4">
+                    <ProductDetailCatgeory
+                      catgeory={data.category}
+                      subCateory={data.subCategory}
+                    />
+                    <h1 className="text-3xl font-bold my-4">{data.name}</h1>
+                    <div className="price flex gap-4 items-center">
+                      <span className="line-through font-semibold text-xl text-gray-700">
+                        Rs{data.price}.00
                       </span>
-                      <span
-                        aria-hidden="true"
-                        className="h-8 w-8 bg-white rounded-full border border-black border-opacity-10"
-                      ></span>
-                    </label>
-
-                    <label className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                      <input
-                        type="radio"
-                        name="color-choice"
-                        value="Gray"
-                        className="sr-only"
-                        aria-labelledby="color-choice-1-label"
-                      />
-                      <span id="color-choice-1-label" className="sr-only">
-                        Gray
+                      <span className="font-semibold text-red-500 text-2xl">
+                        $49.00
                       </span>
-                      <span
-                        aria-hidden="true"
-                        className="h-8 w-8 bg-gray-200 rounded-full border border-black border-opacity-10"
-                      ></span>
-                    </label>
+                    </div>
+                    <p className="mt-4 mb-6 text-base text-gray-500">
+                      {data.description}
+                    </p>
 
-                    <label className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
-                      <input
-                        type="radio"
-                        name="color-choice"
-                        value="Black"
-                        className="sr-only"
-                        aria-labelledby="color-choice-2-label"
-                      />
-                      <span id="color-choice-2-label" className="sr-only">
-                        Black
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="h-8 w-8 bg-gray-900 rounded-full border border-black border-opacity-10"
-                      ></span>
-                    </label>
-                  </span>
-                </fieldset>
-              </div> */}
-
-              <div className="mt-10">
-                {/* <div className="flex items-center justify-between">
+                    <div className="mt-10">
+                      <div className=" my-5 flex items-center justify-between gap-4">
+                        <AddtoCartBtn productId={data._id} />
+                        <FavouriteBtn productId={data._id} />
+                      </div>
+                      {/* <ShareButton /> */}
+                    </div>
+                  </div>
+                </div>
+                {/* <Tabs /> */}
+                <RelatedProduct relatedProducts={data} />
+              </Container>
+            )}
+          </section>
+        </>
+      )}
+    </>
+  );
+}
+{
+  /* <div className="flex items-center justify-between">
                   <h4 className="text-sm font-medium text-gray-900">Size</h4>
                   <Link
                     href="#"
@@ -110,9 +103,11 @@ export default function ProductDetail({ params }: any) {
                   >
                     Size guide
                   </Link>
-                </div> */}
+                </div> */
+}
 
-                {/* <fieldset className="mt-4">
+{
+  /* <fieldset className="mt-4">
                   <legend className="sr-only">Choose a size</legend>
                   <div className="grid grid-cols-4 gap-4">
                     <label className="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
@@ -251,19 +246,66 @@ export default function ProductDetail({ params }: any) {
                       </span>
                     </label>
                   </div>
-                </fieldset> */}
-                <div className=" my-5 flex items-center justify-between gap-4">
-                  <AddtoCartBtn _id={data._id} name={data.name} />
-                  <FavouriteBtn />
-                </div>
-                {/* <ShareButton /> */}
-              </div>
-            </div>
-          </div>
-          {/* <Tabs /> */}
-          <RelatedProduct relatedProducts={data} />
-        </Container>
-      )}
-    </div>
-  );
+                </fieldset> */
+}
+{
+  /* <div>
+                <h4 className="text-sm font-medium text-gray-900">Color</h4>
+
+                <fieldset className="mt-4">
+                  <legend className="sr-only">Choose a color</legend>
+                  <span className="flex items-center space-x-3">
+                    <label className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                      <input
+                        type="radio"
+                        name="color-choice"
+                        value="White"
+                        className="sr-only"
+                        aria-labelledby="color-choice-0-label"
+                      />
+                      <span id="color-choice-0-label" className="sr-only">
+                        White
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="h-8 w-8 bg-white rounded-full border border-black border-opacity-10"
+                      ></span>
+                    </label>
+
+                    <label className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                      <input
+                        type="radio"
+                        name="color-choice"
+                        value="Gray"
+                        className="sr-only"
+                        aria-labelledby="color-choice-1-label"
+                      />
+                      <span id="color-choice-1-label" className="sr-only">
+                        Gray
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="h-8 w-8 bg-gray-200 rounded-full border border-black border-opacity-10"
+                      ></span>
+                    </label>
+
+                    <label className="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
+                      <input
+                        type="radio"
+                        name="color-choice"
+                        value="Black"
+                        className="sr-only"
+                        aria-labelledby="color-choice-2-label"
+                      />
+                      <span id="color-choice-2-label" className="sr-only">
+                        Black
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="h-8 w-8 bg-gray-900 rounded-full border border-black border-opacity-10"
+                      ></span>
+                    </label>
+                  </span>
+                </fieldset>
+              </div> */
 }

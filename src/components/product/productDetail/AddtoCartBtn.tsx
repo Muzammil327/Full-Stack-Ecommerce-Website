@@ -1,27 +1,56 @@
-import React from "react";
-import { useAuth } from "@/src/components/context/authContext";
-import { useCart } from "@/src/components/context/cartContext/page";
+import React, { useState } from "react";
+import { useAuth } from "../../context/authContext";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { Cart_API_Endpoint } from "@/src/utils/constant";
+import { useCart } from "../../context/cartContext/page";
 
-export default function AddtoCartBtn({ _id, name }: any) {
-  const { addToCartBtn } = useCart();
-
+export default function AddtoCartBtn({ productId }: { productId: string }) {
   const { session } = useAuth();
+  const { getToCartBtn } = useCart();
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const AddToCart = async (_id: string, name: string) => {
+  const AddToCart = async (productId: string) => {
     if (session) {
-      const user = session.user._id;
-      addToCartBtn(_id, name, user);
-      alert("Product add to cart");
+      const userId = session.user._id;
+      try {
+        setLoading(true);
+        const response = await axios.post(`${Cart_API_Endpoint}/post`, {
+          productId,
+          userId,
+        });
+
+        toast.success(response.data.message);
+        getToCartBtn();
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          if (error.response?.status === 400) {
+            toast.warning(error.response?.data.message);
+          } else if (error.response?.status === 500) {
+            toast.error(error.response?.data.message);
+          } else {
+            toast.error("Something went wrong. Please try again later.");
+          }
+        } else {
+          console.error("Something went wrong!");
+        }
+      } finally {
+        setLoading(false);
+      }
     } else {
-      alert("Please Login");
+      console.error("No Session!");
     }
   };
   return (
-    <button
-      className="bg-red-400 hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white w-full block border-2 border-solid border-red-400"
-      onClick={() => AddToCart(_id, name)}
-    >
-      Add to Cart
-    </button>
+    <>
+      <button
+        className="bg-red-400 hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white w-full block border-2 border-solid border-red-400"
+        onClick={() => AddToCart(productId)}
+        disabled={loading}
+      >
+        Add to Cart
+      </button>
+    </>
   );
 }

@@ -3,8 +3,9 @@ import CloseSVG from "@/src/svg/CloseSVG";
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Link from "next/link";
+import Logo from "@/src/components/layout/Navbar/logo";
 
-export default function AdminSidebar() {
+export default function UserSidebar() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -46,34 +47,52 @@ export default function AdminSidebar() {
                       <CloseSVG />
                     </button>
                   </div>
-                  <div className="border-b border-gray-200 px-4 py-4 mt-12">
-                    <p className="font-medium text-gray-900 ">Products</p>
+                  <div className=" px-4 py-4 mt-12">
+                    <Logo />
                     <ul role="list" className="mt-6 flex flex-col space-y-6">
-                      <li className="flow-root">
+                      <li className="flow-root border-b border-gray-200 py-2">
                         <Link
-                          href=""
+                          href="/profile"
                           className="-m-2 block p-2 text-gray-500"
                           onClick={() => setOpen(false)}
                         >
-                          Product Slider
+                          Dashboard
                         </Link>
                       </li>
-                      <li className="flow-root">
+                      <li className="flow-root border-b border-gray-200 py-2">
                         <Link
-                          href=""
+                          href="/profile/address"
                           className="-m-2 block p-2 text-gray-500"
                           onClick={() => setOpen(false)}
                         >
-                          Product Featured
+                          Addresses
                         </Link>
                       </li>
-                      <li className="flow-root">
+                      <li className="flow-root border-b border-gray-200 py-2">
                         <Link
                           href=""
                           className="-m-2 block p-2 text-gray-500"
                           onClick={() => setOpen(false)}
                         >
-                          Product Store
+                          Pending Order
+                        </Link>
+                      </li>
+                      <li className="flow-root border-b border-gray-200 py-2">
+                        <Link
+                          href=""
+                          className="-m-2 block p-2 text-gray-500"
+                          onClick={() => setOpen(false)}
+                        >
+                          Order history
+                        </Link>
+                      </li>
+                      <li className="flow-root border-b border-gray-200 py-2">
+                        <Link
+                          href=""
+                          className="-m-2 block p-2 text-gray-500"
+                          onClick={() => setOpen(false)}
+                        >
+                          Wishlist
                         </Link>
                       </li>
                     </ul>
@@ -86,12 +105,33 @@ export default function AdminSidebar() {
       </div>
       <button
         type="button"
-        className="bg-red-400 px-4 py-2 rounded-tl rounded-bl text-white absolute top-36 right-0"
+        className="bg-red-400 px-2 py-2 z-30 rounded-tl rounded-bl text-white fixed top-36 right-0"
         onClick={() => setOpen(true)}
       >
         <span className="absolute -inset-0.5" />
         <span className="sr-only">Open menu</span>
-        Open
+        <svg
+          width="24px"
+          height="24px"
+          viewBox="0 0 24 24"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            id="web-app"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <g id="bar" fill="#fff">
+              <path
+                d="M3,16 L21,16 L21,18 L3,18 L3,16 Z M3,11 L21,11 L21,13 L3,13 L3,11 Z M3,6 L21,6 L21,8 L3,8 L3,6 Z"
+                id="Shape"
+              ></path>
+            </g>
+          </g>
+        </svg>
       </button>
     </>
   );

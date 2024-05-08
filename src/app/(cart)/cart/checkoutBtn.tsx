@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { useAuth } from "@/src/components/context/authContext";
-import { useCart } from "@/src/components/context/cartContext/page";
-import React from "react";
+import { useRouter } from "next/navigation";
 
 interface CartItem2 {
   quantity: number;
@@ -12,15 +12,24 @@ interface CartItem2 {
   };
 }
 
-const CheckoutBtn = ({ cartBuy }: { cartBuy: CartItem2[] }) => {
-  const { addToPendingOrder, isLoading } = useCart();
+const CheckoutBtn = ({ cart }: { cart: CartItem2[] }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Initialize loading state to false
   const { session } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async () => {
     if (session) {
+      setIsLoading(true); // Set loading state to true when submitting
       const user = session.user._id;
-      addToPendingOrder(cartBuy, user);
-      // Consider using a toast notification or another form of feedback
+      try {
+        // Simulate adding to pending order (Replace with actual API call)
+        // await addToPendingOrder(cart, user);
+        alert(`${user.name}`);
+      } catch (error) {
+        console.error("Error adding to pending order:", error);
+      } finally {
+        setIsLoading(false); // Reset loading state if there's an error
+      }
     } else {
       alert("Please Login");
     }

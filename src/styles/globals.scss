@@ -16,7 +16,9 @@ body {
 button{
   @apply cursor-pointer;
 }
-
+.profileCard:hover span {
+  @apply text-gray-900 transition-all;
+}
 img {
   @apply max-w-none w-full;
 }

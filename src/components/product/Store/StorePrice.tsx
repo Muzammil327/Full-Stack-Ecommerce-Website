@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import AddSVG from "@/src/svg/AddSVG";
 import MinusSVG from "@/src/svg/MinusSVG";
+
+import stlyes from "@/view/store/store.module.scss";
+
 interface PriceRange {
   id: number;
   lowPrice: number;
@@ -25,7 +28,7 @@ const StorePrice: React.FC<StorePriceProps> = ({ filterItem }) => {
         <button
           type="button"
           onClick={togglePriceOptions}
-          className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500"
+          className={stlyes.btn2}
         >
           <span className="font-medium text-gray-900">Price</span>
           <span className="ml-6 flex items-center">

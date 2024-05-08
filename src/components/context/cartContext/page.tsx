@@ -1,6 +1,11 @@
 "use client";
+import {
+  Cart_API_Endpoint,
+  Favourite_API_Endpoint,
+} from "@/src/utils/constant";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, {
   createContext,
   useCallback,
@@ -43,15 +48,30 @@ interface CartItem3 {
 
 // Define the type for the context value
 interface CartContextType {
-  cartBuy: CartItem[];
   pendingOrder: CartItem3[];
   isLoading: boolean;
   error: string;
-  addToCartBtn: (_id: string, name: string, user: string) => Promise<void>;
+  // wishlist
+  getToWishlistBtn: any;
+  wishList: any[];
+  loadingWishList: boolean;
+  errorWishList: string;
+
+  // cart
+  cart: CartItem[];
+  getToCartBtn: any;
+  loadingCart: boolean;
+  errorCart: string;
+
+  addToCartBtn: (productId: string, userId: string) => Promise<void>;
+  // addToFavouriteBtn: (productId: string, userId: string) => Promise<void>;
   removeFromCart: (productId: string) => Promise<void>;
-  updateCartIncrease: (_id: string, quantity: number) => Promise<void>; // Corrected signature
-  updateCartDecrease: (_id: string, quantity: number) => Promise<void>; // Corrected signature
   addToPendingOrder: (cartBuy: CartItem2[], user: string) => Promise<void>; // Corrected signature
+  addToOrder: (
+    cartBuy: CartItem2[],
+    user: string,
+    total: number
+  ) => Promise<void>; // Corrected signature
 }
 
 // Create the context
@@ -63,43 +83,86 @@ interface CartProviderProps {
 }
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cartBuy, setCartBuy] = useState<CartItem[]>([]);
   const [pendingOrder, setPendingOrder] = useState<[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const { data: session } = useSession();
+  const router = useRouter();
+
+  // --------------------------------------------------------------------------------------------
+  // ----------------------- START GET CART ITEMS -----------------------------------------------
+  // --------------------------------------------------------------------------------------------
+
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [loadingCart, setLoadingCart] = useState<boolean>(true);
+  const [errorCart, setErrorCart] = useState<string>("");
 
   const getToCartBtn = useCallback(async () => {
     try {
-      setIsLoading(true);
+      setLoadingCart(true);
 
       if (session) {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/cart/${session.user._id}`
+          `${Cart_API_Endpoint}/get/${session.user._id}`
         );
 
-        setCartBuy(response.data);
-        setIsLoading(false);
+        setCart(response.data);
       }
     } catch (error) {
       console.error("Error fetching cart data:", error);
-      setError("Error fetching cart data. Please try again later.");
-      setIsLoading(false);
+      setErrorCart("Error fetching cart data. Please try again later.");
+    } finally {
+      setLoadingCart(false);
     }
   }, [session]);
 
+  //   const { errorCart, loadingCart, getToCartBtn, cart } = useCart();
+
+  // --------------------------------------------------------------------------------------------
+  // ----------------------- END GET CART ITEMS -----------------------------------------------
+  // --------------------------------------------------------------------------------------------
+
+  // --------------------------------------------------------------------------------------------
+  // ----------------------- START GET WISHLIST ITEMS -------------------------------------------
+  // --------------------------------------------------------------------------------------------
+
+  const [wishList, setWishList] = useState<CartItem[]>([]);
+  const [loadingWishList, setLoadingWishList] = useState<boolean>(true);
+  const [errorWishList, setErrorWishList] = useState<string>("");
+
+  const getToWishlistBtn = useCallback(async () => {
+    try {
+      setLoadingWishList(true);
+
+      if (session) {
+        const response = await axios.get(
+          `${Favourite_API_Endpoint}/get/${session.user._id}`
+        );
+
+        setWishList(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching cart data:", error);
+      setErrorWishList("Error fetching cart data. Please try again later.");
+    } finally {
+      setLoadingWishList(false);
+    }
+  }, [session]);
+
+  // const {errorWishList,loadingWishList, getToWishlistBtn, wishList} = useCart()
+
+  // --------------------------------------------------------------------------------------------
+  // ----------------------- END GET WISHLIST ITEMS ---------------------------------------------
+  // --------------------------------------------------------------------------------------------
+
   const addToCartBtn = useCallback(
-    async (_id: string, name: string, user: string) => {
+    async (productId: string, userId: string) => {
       try {
         setIsLoading(true);
-        await axios.post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/post/cart`,
-          {
-            _id,
-            name,
-            user,
-          }
-        );
+        await axios.post(`${Cart_API_Endpoint}/post`, {
+          productId,
+          userId,
+        });
         await getToCartBtn();
       } catch (error) {
         console.error("Error adding product to cart:", error);
@@ -110,6 +173,28 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     },
     [getToCartBtn]
   );
+
+  // const addToFavouriteBtn = useCallback(
+  //   async (productId: string, userId: string) => {
+  //     try {
+  //       setLoadingFavourite(true);
+  //       const response = await axios.post(`${Favourite_API_Endpoint}/post`, {
+  //         productId,
+  //         userId,
+  //       });
+  //       setErrorFavourite(response.data.message);
+  //       // await getToCartBtn();
+  //     } catch (error) {
+  //       console.error("Error adding product to cart:", error);
+  //       setErrorFavourite(
+  //         "Error adding product to cart. Please try again later."
+  //       );
+  //     } finally {
+  //       setLoadingFavourite(false);
+  //     }
+  //   },
+  //   []
+  // );
 
   const removeFromCart = useCallback(
     async (productId: string) => {
@@ -131,48 +216,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     [getToCartBtn, session]
   );
 
-  const updateCartIncrease = useCallback(
-    async (_id: string, quantity: number) => {
-      try {
-        setIsLoading(true);
 
-        await axios.put(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/update/cartIncrease/${_id}`,
-          {
-            quantity,
-          }
-        );
-        await getToCartBtn();
-      } catch (error) {
-        console.error("Error adding product to cart:", error);
-        setError("Error adding product to cart. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [getToCartBtn]
-  );
 
-  const updateCartDecrease = useCallback(
-    async (_id: string, quantity: number) => {
-      try {
-        setIsLoading(true);
-        await axios.put(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/update/cartDecrease/${_id}`,
-          {
-            quantity,
-          }
-        );
-        await getToCartBtn();
-      } catch (error) {
-        console.error("Error adding product to cart:", error);
-        setError("Error adding product to cart. Please try again later.");
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [getToCartBtn]
-  );
 
   const addToPendingOrder = useCallback(
     async (cartBuy: CartItem2[], user: string) => {
@@ -196,6 +241,33 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     },
     [getToCartBtn]
   );
+
+  const addToOrder = useCallback(
+    async (cartBuy: CartItem2[], user: string, total: number) => {
+      // Corrected signature
+
+      try {
+        setIsLoading(true);
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/post/order`,
+          {
+            cartBuy,
+            user,
+            total,
+          }
+        );
+        await getToCartBtn();
+        router.push("/store");
+      } catch (error) {
+        console.error("Error adding product to cart:", error);
+        setError("Error adding product to cart. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [getToCartBtn, router]
+  );
+
   const getPendingOrder = useCallback(async () => {
     // Corrected signature
     try {
@@ -219,20 +291,34 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   useEffect(() => {
     getToCartBtn();
     getPendingOrder();
-  }, [getToCartBtn, getPendingOrder]);
+    getToWishlistBtn();
+  }, [getToCartBtn, getPendingOrder, getToWishlistBtn]);
 
   return (
     <CartContext.Provider
       value={{
-        cartBuy,
         pendingOrder,
         isLoading,
         error,
         addToCartBtn,
+
+        // wishlist
+        wishList,
+        getToWishlistBtn,
+        loadingWishList,
+        errorWishList,
+        // cart
+        cart,
+        getToCartBtn,
+        loadingCart,
+        errorCart,
+
+        // addToFavouriteBtn,
+
         removeFromCart,
-        updateCartIncrease,
-        updateCartDecrease,
+        
         addToPendingOrder,
+        addToOrder,
       }}
     >
       {children}
