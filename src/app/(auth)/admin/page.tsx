@@ -9,7 +9,7 @@ import Container from "@/src/components/element/container/page";
 import AdminUserCard from "./Card/UserCard";
 import AdminProductCard from "./Card/AdminProductCard";
 import { useFetchArray } from "@/src/components/function/useFetchArray";
-import { Cart_API_Endpoint, Favourite_API_Endpoint } from "@/src/utils/constant";
+import { Cart_API_Endpoint, Favourite_API_Endpoint, Product_API_Endpoint } from "@/src/utils/constant";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -30,6 +30,7 @@ export default function Page() {
 
   const [userCart, setUserCart] = useState([]);
   const [userWishList, setUserWishList] = useState([]);
+  const [userProduct, setProduct] = useState([]);
   useEffect(() => {
     // Ensure session exists and has user information
     if (session && session.user && session.user._id) {
@@ -39,11 +40,15 @@ export default function Page() {
           const response = await axios.get(
             `${Favourite_API_Endpoint}/get_admin`
           );
-           setUserWishList(response.data); // Store fetched user data in state
+           setUserWishList(response.data); 
           const response2 = await axios.get(
             `${Cart_API_Endpoint}/get_admin`
           );
-          setUserCart(response2.data); // Store fetched user data in state
+          setUserCart(response2.data); 
+          const response3 = await axios.get(
+            `${Product_API_Endpoint}/stats`
+          );
+          setProduct(response3.data); 
         } catch (error) {
           console.error("Error fetching user data:", error);
         }

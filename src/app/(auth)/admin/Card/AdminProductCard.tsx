@@ -3,7 +3,7 @@ import React from "react";
 
 export default function AdminProductCard() {
   const { error, loading, data } = useFetchArray(
-    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/productstat`
+    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/stats`
   );
   return (
     <div className="profileCard h-32 border bg-white px-4 py-5 md:mt-0 mt-4 rounded-md transition-all shadow relative">
