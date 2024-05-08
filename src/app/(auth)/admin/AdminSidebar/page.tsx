@@ -47,33 +47,14 @@ export default function AdminSidebar() {
                     </button>
                   </div>
                   <div className="border-b border-gray-200 px-4 py-4 mt-12">
-                    <p className="font-medium text-gray-900 ">Products</p>
                     <ul role="list" className="mt-6 flex flex-col space-y-6">
                       <li className="flow-root">
                         <Link
-                          href=""
+                          href="/admin/product"
                           className="-m-2 block p-2 text-gray-500"
                           onClick={() => setOpen(false)}
                         >
-                          Product Slider
-                        </Link>
-                      </li>
-                      <li className="flow-root">
-                        <Link
-                          href=""
-                          className="-m-2 block p-2 text-gray-500"
-                          onClick={() => setOpen(false)}
-                        >
-                          Product Featured
-                        </Link>
-                      </li>
-                      <li className="flow-root">
-                        <Link
-                          href=""
-                          className="-m-2 block p-2 text-gray-500"
-                          onClick={() => setOpen(false)}
-                        >
-                          Product Store
+                          Product
                         </Link>
                       </li>
                     </ul>

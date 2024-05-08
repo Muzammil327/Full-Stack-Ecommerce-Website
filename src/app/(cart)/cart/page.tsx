@@ -11,7 +11,7 @@ import { Cart_API_Endpoint } from "@/src/utils/constant";
 
 const ProductList = () => {
   const { errorCart, loadingCart, getToCartBtn, cart } = useCart();
-
+  console.log(cart);
   const { session } = useAuth();
 
   const [subtotal, setSubtotal] = useState<number>(0);
@@ -224,16 +224,6 @@ const ProductList = () => {
                 )}
               </table>
             </div>
-            {/* <div className="coupon flex items-center gap-4">
-              <input
-                type="text"
-                placeholder="Coupon Code"
-                className="rounded-full py-2 px-5 outline-none w-full border"
-              />
-              <button className="py-3 px-16 bg-red-500 text-white rounded-full border border-solid border-red-500 hover:bg-white hover:text-red-500 text-lg font-semibold transition-all hover:transition-all">
-                Apply
-              </button>
-            </div> */}
           </div>
           <div className="md:col-span-2 col-span-1 md:mt-0 mt-8">
             <div className="cart-total bg-slate-100 rounded-md p-4">
@@ -252,7 +242,7 @@ const ProductList = () => {
                 <span>Total</span>
                 <span>{total}</span>
               </div>
-              <CheckoutBtn cart={cart} />
+              <CheckoutBtn cartBuy={cart} />
             </div>
           </div>
         </div>

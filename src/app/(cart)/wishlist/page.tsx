@@ -50,6 +50,7 @@ const ProductList = () => {
                     <tr>
                       <th scope="col" className="px-16 py-3">
                         <span className="sr-only">Image</span>
+                        Image
                       </th>
                       <th scope="col" className="px-6 py-3">
                         Name

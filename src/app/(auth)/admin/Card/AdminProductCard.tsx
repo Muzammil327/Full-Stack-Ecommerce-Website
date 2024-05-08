@@ -1,9 +1,10 @@
 import { useFetchArray } from "@/src/components/function/useFetchArray";
+import { Product_API_Endpoint } from "@/src/utils/constant";
 import React from "react";
 
 export default function AdminProductCard() {
   const { error, loading, data } = useFetchArray(
-    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/stats`
+    `${Product_API_Endpoint}/stats`
   );
   return (
     <div className="profileCard h-32 border bg-white px-4 py-5 md:mt-0 mt-4 rounded-md transition-all shadow relative">

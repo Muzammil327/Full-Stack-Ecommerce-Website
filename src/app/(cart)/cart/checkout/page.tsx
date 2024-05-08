@@ -39,8 +39,8 @@ export default function Page() {
   }, [cart]);
   return (
     <Container>
-      <div className="grid grid-cols-9 gap-2">
-        <div className="md:col-span-6">
+      <div className="grid md:grid-cols-9 grid-cols-1 gap-2 my-12">
+        <div className="md:col-span-6 col-span-1">
           <div className="relative overflow-x-auto sm:rounded-lg mb-10">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">

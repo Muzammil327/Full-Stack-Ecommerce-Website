@@ -5,6 +5,7 @@ import style from "@/src/app/(auth)/form.module.css";
 import { useAuth } from "@/src/components/context/authContext";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { USER_API_Endpoint } from "@/src/utils/constant";
 
 interface FormData {
   phone: string;
@@ -35,7 +36,7 @@ export default function BillingAddress() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/get/user/${session?.user._id}`
+          `${USER_API_Endpoint}/get/${session?.user._id}`
         );
         const userDataFromApi: FormData = response.data;
         setAddressData(userDataFromApi);
@@ -58,7 +59,7 @@ export default function BillingAddress() {
         return null;
       }
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/update/user/${session.user._id}`,
+        `${USER_API_Endpoint}/update/${session.user._id}`,
         {
           phone: addressData.phone,
           address: addressData.address,
