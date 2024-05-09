@@ -129,6 +129,10 @@ interface ProductsDocument extends Document {
   discountprice: number;
   quantity: number;
   image: string;
+  Featured: boolean;
+  BestPrice: boolean;
+  FreeDelivery: boolean;
+  Hot: boolean;
   keywords: [];
   slider: [];
   productId: [];
@@ -185,6 +189,18 @@ const productsSchema = new Schema<ProductsDocument>({
   image: {
     type: String,
     required: [true, "Enter your Product Image."],
+  },
+  Featured: {
+    type: Boolean,
+  },
+  Hot: {
+    type: Boolean,
+  },
+  BestPrice: {
+    type: Boolean,
+  },
+  FreeDelivery: {
+    type: Boolean,
   },
   keywords: {
     type: [String],

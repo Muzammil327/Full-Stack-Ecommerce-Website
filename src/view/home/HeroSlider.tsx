@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -19,7 +18,7 @@ export default function HeroSlider() {
         loop={true}
         centeredSlides={true}
         autoplay={{
-          delay: 2500,
+          delay: 4000,
           disableOnInteraction: false,
         }}
         pagination={{
@@ -36,6 +35,7 @@ export default function HeroSlider() {
             title=""
             height={800}
             width={1600}
+            priority
           />
         </SwiperSlide>
         <SwiperSlide>
@@ -46,6 +46,7 @@ export default function HeroSlider() {
             title=""
             height={800}
             width={1600}
+            priority
           />
         </SwiperSlide>
         <SwiperSlide>

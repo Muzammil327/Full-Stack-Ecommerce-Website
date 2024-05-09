@@ -11,7 +11,6 @@ import { Cart_API_Endpoint } from "@/src/utils/constant";
 
 const ProductList = () => {
   const { errorCart, loadingCart, getToCartBtn, cart } = useCart();
-  console.log(cart);
   const { session } = useAuth();
 
   const [subtotal, setSubtotal] = useState<number>(0);

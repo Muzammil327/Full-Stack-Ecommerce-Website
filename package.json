@@ -23,6 +23,7 @@
     "react-dom": "^18",
     "react-select": "^5.8.0",
     "react-tabs": "^6.0.2",
+    "react-timer-hook": "^3.0.7",
     "react-toastify": "^10.0.5",
     "sass": "^1.75.0",
     "swiper": "^11.0.7"

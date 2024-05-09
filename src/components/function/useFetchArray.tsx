@@ -27,7 +27,8 @@ export function useFetchArray<T>(
         const response: AxiosResponse<T[]> = await axios.get(URL, axiosConfig);
         setData(response.data);
       } catch (error) {
-        console.log(error);
+        setError("Failed to fetch data");
+        console.error("Failed to fetch data:", error);
       } finally {
         setLoading(false);
       }

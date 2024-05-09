@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.scss";
 import NextAuthProvider from "@/components/provider/authProvider";
+import dynamic from 'next/dynamic'
 
 import SubHeader from "@/components/layout/SubHeader/page";
 import Navbar from "@/components/layout/Navbar/page";
-import Instragram from "@/src/components/layout/Instragram/page";
-import Footer from "@/components/layout/Footer/page";
 import { AuthProvider } from "../components/context/authContext";
 import { CartProvider } from "../components/context/cartContext/page";
 import { UserProvider } from "../components/context/userContext";
 import { ToastContainer } from "react-toastify";
+
+const Footer = dynamic(() => import('@/components/layout/Footer/page'))
+const Instragram = dynamic(() => import('@/src/components/layout/Instragram/page'))
+
 
 const inter = Inter({ subsets: ["latin"] });
 
