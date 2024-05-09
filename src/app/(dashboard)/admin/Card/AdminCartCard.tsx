@@ -1,9 +1,11 @@
 import { useFetchArray } from "@/src/components/function/useFetchArray";
-import { USER_API_Endpoint } from "@/src/utils/constant";
+import { Cart_API_Endpoint, Product_API_Endpoint } from "@/src/utils/constant";
 import React from "react";
 
-export default function AdminUserCard() {
-  const { error, loading, data } = useFetchArray(`${USER_API_Endpoint}/get`);
+export default function AdminCartCard() {
+  const { error, loading, data } = useFetchArray(
+    `${Cart_API_Endpoint}/get_admin`
+  );
   return (
     <div className="profileCard h-32 border bg-white px-4 py-5 md:mt-0 mt-4 rounded-md transition-all shadow relative">
       <div className="icon shadow-sm h-12 flex items-center justify-center w-12 border rounded-full">
@@ -23,7 +25,7 @@ export default function AdminUserCard() {
           />
         </svg>
       </div>
-      <h4 className="py-2 text-lg font-medium">Total User</h4>
+      <h4 className="py-2 text-lg font-medium">Total Carts</h4>
       <span className="absolute top-2 text-4xl right-6 text-gray-200 transition-all">
         {error && <span>{error}</span>}
         {loading ? "0" : <>{data.length}</>}

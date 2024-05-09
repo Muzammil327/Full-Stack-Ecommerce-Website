@@ -6,8 +6,8 @@ export async function middleware(request: NextRequest) {
   const token = await getToken({
     req: request,
     secret: process.env.JWT_SECRET,
-    cookieName: "__Secure-next-auth.session-token",
-    // cookieName: "next-auth.session-token",
+    // cookieName: "__Secure-next-auth.session-token",
+    cookieName: "next-auth.session-token",
   });
 
   const isAdminPath = request.nextUrl.pathname.startsWith("/admin");

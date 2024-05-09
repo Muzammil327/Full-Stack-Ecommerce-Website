@@ -14,10 +14,12 @@ import {
   Favourite_API_Endpoint,
   PENDINGORDER_API_Endpoint,
   Product_API_Endpoint,
+  USER_API_Endpoint,
 } from "@/src/utils/constant";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useFetch } from "@/src/components/function/useFetch";
+import AdminCartCard from "./Card/AdminCartCard";
 
 interface UserData {
   email: string;
@@ -31,36 +33,34 @@ interface UserData {
 
 export default function Page() {
   const { session } = useAuth();
-
-  const [userProfile, setuserProfile] = useState();
+  const [userProfile, setUserProfile] = useState<UserData | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [userCart, setUserCart] = useState([]);
   const [userWishList, setUserWishList] = useState([]);
   const [userProduct, setProduct] = useState([]);
   const [pendingOrder, setPendingOrder] = useState([]);
-
   useEffect(() => {
     // Ensure session exists and has user information
     if (session && session.user && session.user._id) {
       // Fetch user data when session and user ID are available
       const fetchData = async () => {
         try {
-          setIsLoading(true);
-          const response0 = await axios.get(
-            `${Favourite_API_Endpoint}/get/session.user._id`
+          const response = await axios.get(
+            `${USER_API_Endpoint}/get/${session.user._id}`
           );
-          setuserProfile(response0.data);
+          setUserProfile(response.data);
         } catch (error) {
           console.error("Error fetching user data:", error);
-        } finally {
-          setIsLoading(false);
         }
       };
 
       fetchData(); // Call fetchData function to fetch user data
     }
   }, [session]); // useEffect dependency
+
+  const { data } = useFetchArray(`${Favourite_API_Endpoint}/get_admin`);
+
   useEffect(() => {
     // Ensure session exists and has user information
     // Fetch user data when session and user ID are available
@@ -98,19 +98,41 @@ export default function Page() {
 
                 {isLoading ? (
                   <>
-                    <LoadingTableRow />
-                    <LoadingTableRow />
-                    <LoadingTableRow />
-                    <LoadingTableRow />
-                    <LoadingTableRow />
+                    <tbody>
+                      <TableRow
+                        label="User Name"
+                        value={userProfile?.username || ""}
+                      />
+                      <TableRow
+                        label="Email"
+                        value={userProfile?.email || ""}
+                      />
+                      <TableRow
+                        label="Phone Number"
+                        value={userProfile?.phone || ""}
+                      />
+                      <TableRow
+                        label="Address"
+                        value={userProfile?.address || ""}
+                      />
+                      <TableRow
+                        label="Country"
+                        value={userProfile?.country || ""}
+                      />
+                      <TableRow label="City" value={userProfile?.city || ""} />
+                      <TableRow
+                        label="Postal/Zip Code"
+                        value={userProfile?.zipCode || ""}
+                      />
+                    </tbody>
                   </>
                 ) : (
                   <>
-                    {userProfile ? (
-                      <UserDataTable userProfile={userProfile} />
-                    ) : (
-                      <span>No user profile available</span>
-                    )}
+                    <LoadingTableRow />
+                    <LoadingTableRow />
+                    <LoadingTableRow />
+                    <LoadingTableRow />
+                    <LoadingTableRow />
                   </>
                 )}
               </table>
@@ -120,25 +142,8 @@ export default function Page() {
             <div className="grid grid-cols-2 gap-4">
               <AdminUserCard />
               <AdminProductCard />
-              <div className="profileCard flex flex-col border bg-white px-4 py-5 md:mt-0 mt-4 rounded-md transition-all shadow relative">
-                <div className="icon shadow-sm h-12 flex items-center justify-center w-12 border rounded-full">
-                  <svg
-                    width="20px"
-                    height="20px"
-                    viewBox="0 0 64 64"
-                    xmlns="http://www.w3.org/2000/svg"
-                    stroke-width="3"
-                    stroke="#000000"
-                    fill="none"
-                  >
-                    <path d="M9.06,25C7.68,17.3,12.78,10.63,20.73,10c7-.55,10.47,7.93,11.17,9.55a.13.13,0,0,0,.25,0c3.25-8.91,9.17-9.29,11.25-9.5C49,9.45,56.51,13.78,55,23.87c-2.16,14-23.12,29.81-23.12,29.81S11.79,40.05,9.06,25Z" />
-                  </svg>
-                </div>
-                <h4 className="py-2 text-lg font-medium">Total Cart</h4>
-                <span className="absolute top-2 text-4xl right-6 text-gray-200 transition-all">
-                  {userCart.length}
-                </span>
-              </div>
+              <AdminCartCard />
+          
               <div className="profileCard h-32 border bg-white px-4 py-5 md:mt-0 mt-4 rounded-md transition-all shadow relative">
                 <div className="icon shadow-sm h-12 flex items-center justify-center w-12 border rounded-full">
                   <svg
@@ -184,19 +189,5 @@ export default function Page() {
         </div>
       </>
     </>
-  );
-}
-
-function UserDataTable({ userProfile }: { userProfile: UserData }) {
-  return (
-    <tbody>
-      <TableRow label="User Name" value={userProfile.username} />
-      <TableRow label="Email" value={userProfile.email} />
-      <TableRow label="Phone Number" value={userProfile.phone} />
-      <TableRow label="Address" value={userProfile.address} />
-      <TableRow label="Country" value={userProfile.country} />
-      <TableRow label="City" value={userProfile.city} />
-      <TableRow label="Postal/Zip Code" value={userProfile.zipCode} />
-    </tbody>
   );
 }

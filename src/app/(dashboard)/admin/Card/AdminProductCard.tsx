@@ -27,7 +27,8 @@ export default function AdminProductCard() {
       </div>
       <h4 className="py-2 text-lg font-medium">Total Products</h4>
       <span className="absolute top-2 text-4xl right-6 text-gray-200 transition-all">
-        {data.length}
+        {error && <span>{error}</span>}
+        {loading ? "0" : <>{data.length}</>}
       </span>
     </div>
   );

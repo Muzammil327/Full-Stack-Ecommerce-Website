@@ -9,6 +9,7 @@ import Container from "@/src/components/element/container/page";
 import {
   Cart_API_Endpoint,
   Favourite_API_Endpoint,
+  USER_API_Endpoint,
 } from "@/src/utils/constant";
 import { useFetchArray } from "@/src/components/function/useFetchArray";
 import { useEffect, useState } from "react";
@@ -25,11 +26,34 @@ interface UserData {
 }
 
 export default function Page() {
-  const { userProfile, isLoading, error } = useUser();
   const { session } = useAuth();
 
   const [userCart, setUserCart] = useState([]);
   const [userWishList, setUserWishList] = useState([]);
+  const [userProfile, setUserProfile] = useState<UserData | null>(null);
+
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Ensure session exists and has user information
+    if (session && session.user && session.user._id) {
+      // Fetch user data when session and user ID are available
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            `${USER_API_Endpoint}/get/${session.user._id}`
+          );
+          setUserProfile(response.data);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
+
+      fetchData(); // Call fetchData function to fetch user data
+    }
+  }, [session]); // useEffect dependency
+
   useEffect(() => {
     // Ensure session exists and has user information
     if (session && session.user && session.user._id) {
@@ -68,19 +92,41 @@ export default function Page() {
 
                 {isLoading ? (
                   <>
-                    <LoadingTableRow />
-                    <LoadingTableRow />
-                    <LoadingTableRow />
-                    <LoadingTableRow />
-                    <LoadingTableRow />
+                    <tbody>
+                      <TableRow
+                        label="User Name"
+                        value={userProfile?.username || ""}
+                      />
+                      <TableRow
+                        label="Email"
+                        value={userProfile?.email || ""}
+                      />
+                      <TableRow
+                        label="Phone Number"
+                        value={userProfile?.phone || ""}
+                      />
+                      <TableRow
+                        label="Address"
+                        value={userProfile?.address || ""}
+                      />
+                      <TableRow
+                        label="Country"
+                        value={userProfile?.country || ""}
+                      />
+                      <TableRow label="City" value={userProfile?.city || ""} />
+                      <TableRow
+                        label="Postal/Zip Code"
+                        value={userProfile?.zipCode || ""}
+                      />
+                    </tbody>
                   </>
                 ) : (
                   <>
-                    {userProfile ? (
-                      <UserDataTable userProfile={userProfile} />
-                    ) : (
-                      <span>No user profile available</span>
-                    )}
+                    <LoadingTableRow />
+                    <LoadingTableRow />
+                    <LoadingTableRow />
+                    <LoadingTableRow />
+                    <LoadingTableRow />
                   </>
                 )}
               </table>
@@ -132,19 +178,5 @@ export default function Page() {
         </div>
       </Container>
     </>
-  );
-}
-
-function UserDataTable({ userProfile }: { userProfile: UserData }) {
-  return (
-    <tbody>
-      <TableRow label="User Name" value={userProfile.username} />
-      <TableRow label="Email" value={userProfile.email} />
-      <TableRow label="Phone Number" value={userProfile.phone} />
-      <TableRow label="Address" value={userProfile.address} />
-      <TableRow label="Country" value={userProfile.country} />
-      <TableRow label="City" value={userProfile.city} />
-      <TableRow label="Postal/Zip Code" value={userProfile.zipCode} />
-    </tbody>
   );
 }
