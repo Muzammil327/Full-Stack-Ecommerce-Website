@@ -9,9 +9,15 @@ import Container from "@/src/components/element/container/page";
 import AdminUserCard from "./Card/UserCard";
 import AdminProductCard from "./Card/AdminProductCard";
 import { useFetchArray } from "@/src/components/function/useFetchArray";
-import { Cart_API_Endpoint, Favourite_API_Endpoint, PENDINGORDER_API_Endpoint, Product_API_Endpoint } from "@/src/utils/constant";
+import {
+  Cart_API_Endpoint,
+  Favourite_API_Endpoint,
+  PENDINGORDER_API_Endpoint,
+  Product_API_Endpoint,
+} from "@/src/utils/constant";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useFetch } from "@/src/components/function/useFetch";
 
 interface UserData {
   email: string;
@@ -24,10 +30,11 @@ interface UserData {
 }
 
 export default function Page() {
-  const { userProfile, isLoading, error } = useUser();
-
   const { session } = useAuth();
 
+  const [userProfile, setuserProfile] = useState();
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [userCart, setUserCart] = useState([]);
   const [userWishList, setUserWishList] = useState([]);
   const [userProduct, setProduct] = useState([]);
@@ -39,31 +46,42 @@ export default function Page() {
       // Fetch user data when session and user ID are available
       const fetchData = async () => {
         try {
-          const response = await axios.get(
-            `${Favourite_API_Endpoint}/get_admin`
+          setIsLoading(true);
+          const response0 = await axios.get(
+            `${Favourite_API_Endpoint}/get/session.user._id`
           );
-           setUserWishList(response.data); 
-          const response2 = await axios.get(
-            `${Cart_API_Endpoint}/get_admin`
-          );
-          setUserCart(response2.data); 
-          const response3 = await axios.get(
-            `${Product_API_Endpoint}/stats`
-          );
-          setProduct(response3.data); 
-          const response4 = await axios.get(
-            `${PENDINGORDER_API_Endpoint}/stat`
-          );
-          setPendingOrder(response4.data); 
+          setuserProfile(response0.data);
         } catch (error) {
           console.error("Error fetching user data:", error);
+        } finally {
+          setIsLoading(false);
         }
       };
 
       fetchData(); // Call fetchData function to fetch user data
     }
   }, [session]); // useEffect dependency
+  useEffect(() => {
+    // Ensure session exists and has user information
+    // Fetch user data when session and user ID are available
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${Favourite_API_Endpoint}/get_admin`);
+        setUserWishList(response.data);
 
+        const response2 = await axios.get(`${Cart_API_Endpoint}/get_admin`);
+        setUserCart(response2.data);
+        const response3 = await axios.get(`${Product_API_Endpoint}/stats`);
+        setProduct(response3.data);
+        const response4 = await axios.get(`${PENDINGORDER_API_Endpoint}/stat`);
+        setPendingOrder(response4.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchData(); // Call fetchData function to fetch user data
+  }, []); // useEffect dependency
 
   return (
     <>
@@ -154,7 +172,9 @@ export default function Page() {
                     <path d="M9.06,25C7.68,17.3,12.78,10.63,20.73,10c7-.55,10.47,7.93,11.17,9.55a.13.13,0,0,0,.25,0c3.25-8.91,9.17-9.29,11.25-9.5C49,9.45,56.51,13.78,55,23.87c-2.16,14-23.12,29.81-23.12,29.81S11.79,40.05,9.06,25Z" />
                   </svg>
                 </div>
-                <h4 className="py-2 text-lg font-medium">Total Pending Order</h4>
+                <h4 className="py-2 text-lg font-medium">
+                  Total Pending Order
+                </h4>
                 <span className="absolute top-2 text-4xl right-6 text-gray-200 transition-all">
                   {pendingOrder.length}
                 </span>
