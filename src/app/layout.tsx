@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/src/styles/globals.scss";
 import Header from "@/src/components/layout/header/page";
-import Navbar from "@/src/components/layout/navbar/page";
 import dynamic from "next/dynamic";
 import NextAuthProvider from "../components/provider/authProvider";
 import { ToastContainer } from "react-toastify";
+import Navbar from "../components/layout/navbar/page";
+import Footer from "../components/layout/footer/page";
 
-const Footer = dynamic(() => import("@/src/components/layout/footer/page"));
 const Instragram = dynamic(
   () => import("@/src/components/layout/Instragram/page")
 );
