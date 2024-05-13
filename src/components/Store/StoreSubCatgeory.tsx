@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { sections } from "@/src/components/layout/navbar/data";
 
 interface Props {
   filterItem: (title: string) => void;
@@ -48,3 +47,9 @@ const StoreSubCategory: React.FC<Props> = ({ filterItem }) => {
 };
 
 export default StoreSubCategory;
+
+const sections = [
+  { name: "Clothing", href: "#" },
+  { name: "Accessories", href: "#" },
+  { name: "Brands", href: "#" },
+];

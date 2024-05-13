@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { items } from "@/src/components/layout/navbar/data";
 
 interface StoreTagsProps {
   filterItem: (title: string) => void;
@@ -24,7 +23,11 @@ const StoreTags: React.FC<StoreTagsProps> = ({ filterItem }) => {
         >
           <span className="font-medium text-gray-900">Tags</span>
           <span className="ml-6 flex items-center">
-            {isTagsOpen ? <GrFormSubtract size={24} /> : <GrFormAdd size={24} />}
+            {isTagsOpen ? (
+              <GrFormSubtract size={24} />
+            ) : (
+              <GrFormAdd size={24} />
+            )}
           </span>
         </button>
       </h3>
@@ -48,3 +51,18 @@ const StoreTags: React.FC<StoreTagsProps> = ({ filterItem }) => {
 };
 
 export default StoreTags;
+
+const items = [
+  { name: "Tops", href: "#" },
+  { name: "Pants", href: "#" },
+  { name: "Sweaters", href: "#" },
+  { name: "T-Shirts", href: "#" },
+  { name: "Jackets", href: "#" },
+  { name: "Activewear", href: "#" },
+  { name: "Watches", href: "#" },
+  { name: "Wallets", href: "#" },
+  { name: "Bags", href: "#" },
+  { name: "Sunglasses", href: "#" },
+  { name: "Hats", href: "#" },
+  { name: "Belts", href: "#" },
+];
