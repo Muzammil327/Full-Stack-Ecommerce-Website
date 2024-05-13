@@ -5,8 +5,8 @@ import Header from "@/src/components/layout/header/page";
 import dynamic from "next/dynamic";
 import NextAuthProvider from "../components/provider/authProvider";
 import { ToastContainer } from "react-toastify";
-import Navbar from "../components/layout/navbar/page";
-import Footer from "../components/layout/footer/page";
+import Navbar from "../components/layout/Navbar/page";
+import Footer from "../components/layout/Footer/page";
 
 const Instragram = dynamic(
   () => import("@/src/components/layout/Instragram/page")

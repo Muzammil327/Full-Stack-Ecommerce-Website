@@ -5,7 +5,7 @@ import Logo from "@/src/components/elements/Logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-200">
+    <section className="bg-slate-200">
       <Container>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 py-12">
           <div className="first">
@@ -94,6 +94,6 @@ export default function Footer() {
           </div>
         </Container>
       </div>
-    </footer>
+    </section>
   );
 }

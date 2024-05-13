@@ -14,7 +14,7 @@ import Image from "next/image";
 import Logo from "@/src/components/elements/Logo";
 import SubHeaderSocial from "@/src/components/layout/header/SubHeaderSocial";
 import Container from "@/src/components/ui/Container";
-import Auth from "@/src/components/layout/navbar/auth";
+import Auth from "@/src/components/layout/Navbar/auth";
 import SearchSVG from "@/src/components/svg/SearchSVG";
 import CartSVG from "@/src/components/svg/CartSVG";
 import AuthMobile from "./authMobile";
