@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Container from "@/src/components/element/container/page";
-import BillingAddress from "./billingAddress";
-import { useCart } from "@/src/components/context/cartContext/page";
 import { redirect } from "next/navigation";
-import { useAuth } from "@/src/components/context/authContext";
 import Image from "next/image";
 import PlaceOrderBtn from "./placeOrderBtn";
+import { useCart } from "@/src/components/contexts/cartContext";
+import { useAuth } from "@/src/components/contexts/authContext";
+import Container from "@/src/components/ui/Container";
+import BillingAddress from "./billingAddress";
 
 export default function Page() {
   const [subtotal, setSubtotal] = useState<number>(0);
@@ -25,7 +25,7 @@ export default function Page() {
 
     if (cart) {
       cart.forEach((item: any) => {
-        subTotal += item.product.price * item.quantity;
+        subTotal += item.product_Detail.price * item.qty;
       });
 
       const taxCharges = 200; // Assuming tax charges
@@ -39,8 +39,8 @@ export default function Page() {
   }, [cart]);
   return (
     <Container>
-      <div className="grid md:grid-cols-9 grid-cols-1 gap-2 my-12">
-        <div className="md:col-span-6 col-span-1">
+      <div className="grid lg:grid-cols-9 grid-cols-1 gap-2 my-12">
+        <div className="lg:col-span-6 col-span-1">
           <div className="relative overflow-x-auto sm:rounded-lg mb-10">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -71,26 +71,25 @@ export default function Page() {
                     >
                       <td className="p-4">
                         <Image
-                          src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product.image}.png`}
-                          alt={user.product.name}
-                          title={user.product.name}
+                          src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                          alt={user.product_Detail.name}
+                          title={user.product_Detail.name}
                           height={1080}
                           width={1080}
                           className="w-full block h-20"
                         />
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {user.product.name}
+                        {user.product_Detail.name}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {user.quantity}
+                        {user.qty}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {/* {user.product.price * user.quantity} */}
-                        {user.product.price}
+                        {user.product_Detail.price}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {user.product.price * user.quantity}
+                        {user.product_Detail.price * user.qty}
                       </td>
                     </tr>
                   ))
@@ -102,7 +101,7 @@ export default function Page() {
           </div>
           <BillingAddress />
         </div>
-        <div className="md:col-span-3 col-span-1 md:mt-0 mt-8">
+        <div className="lg:col-span-3 col-span-1 md:mt-0 mt-8">
           <div className="cart-total bg-slate-100 rounded-md p-4">
             <span className="flex items-center justify-center pb-3 text-xl font-bold">
               Cart Total
@@ -119,7 +118,15 @@ export default function Page() {
               <span>Total</span>
               <span>{total}</span>
             </div>
-            {session ? <PlaceOrderBtn cartBuy={cart} total={total} /> : null}
+            {session ? (
+              <PlaceOrderBtn
+                products={cart.map((item) => ({
+                  product: item.product_Detail._id,
+                  qty: item.qty,
+                }))}
+                totalPrice={total}
+              />
+            ) : null}
           </div>
         </div>{" "}
       </div>

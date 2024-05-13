@@ -1,148 +1,26 @@
 "use client";
-import Auth from "@/components/layout/Navbar/auth";
-import Cart from "@/components/layout/Navbar/cart";
-import Logo from "@/components/layout/Navbar/logo";
-import Search from "@/components/layout/Navbar/search";
 import {
   CategoryItem,
   CategorySection,
   Page,
   CategorySectionItems,
-} from "@/components/layout/Navbar/type";
-import BarsSVG from "@/src/svg/BarsSVG";
-import CloseSVG from "@/src/svg/CloseSVG";
+} from "@/src/types/Navbar";
+import Bars from "@/src/components/svg/Bars";
+import Close from "@/src/components/svg/Close";
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import Link from "next/link";
 import Image from "next/image";
+import { navigation } from "@/src/components/layout/navbar/data";
+import Logo from "@/src/components/elements/Logo";
+import SubHeaderSocial from "@/src/components/layout/header/SubHeaderSocial";
+import Container from "@/src/components/ui/Container";
+import Auth from "@/src/components/layout/navbar/auth";
+import SearchSVG from "@/src/components/svg/SearchSVG";
+import CartSVG from "@/src/components/svg/CartSVG";
 import AuthMobile from "./authMobile";
-
-const navigation = {
-  categories: [
-    {
-      id: "women",
-      name: "Women",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg",
-          imageAlt:
-            "Models sitting back to back, wearing Basic Tee in black and bone.",
-        },
-        {
-          name: "Basic Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg",
-          imageAlt:
-            "Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.",
-        },
-      ],
-      sections: [
-        {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Dresses", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Denim", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Significant Other", href: "#" },
-          ],
-        },
-      ],
-    },
-    {
-      id: "men",
-      name: "Men",
-      featured: [
-        {
-          name: "New Arrivals",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg",
-          imageAlt:
-            "Drawstring top with elastic loop closure and textured interior padding.",
-        },
-        {
-          name: "Artwork Tees",
-          href: "#",
-          imageSrc:
-            "https://tailwindui.com/img/ecommerce-images/category-page-02-image-card-06.jpg",
-          imageAlt:
-            "Three shirts in gray, white, and blue arranged on table with same line drawing of hands and shapes overlapping on front of shirt.",
-        },
-      ],
-      sections: [
-        {
-          id: "clothing",
-          name: "Clothing",
-          items: [
-            { name: "Tops", href: "#" },
-            { name: "Pants", href: "#" },
-            { name: "Sweaters", href: "#" },
-            { name: "T-Shirts", href: "#" },
-            { name: "Jackets", href: "#" },
-            { name: "Activewear", href: "#" },
-            { name: "Browse All", href: "#" },
-          ],
-        },
-        {
-          id: "accessories",
-          name: "Accessories",
-          items: [
-            { name: "Watches", href: "#" },
-            { name: "Wallets", href: "#" },
-            { name: "Bags", href: "#" },
-            { name: "Sunglasses", href: "#" },
-            { name: "Hats", href: "#" },
-            { name: "Belts", href: "#" },
-          ],
-        },
-        {
-          id: "brands",
-          name: "Brands",
-          items: [
-            { name: "Re-Arranged", href: "#" },
-            { name: "Counterfeit", href: "#" },
-            { name: "Full Nelson", href: "#" },
-            { name: "My Way", href: "#" },
-          ],
-        },
-      ],
-    },
-  ],
-  pages: [{ name: "Stores", href: "/stores" }],
-};
+import { useCart } from "../../contexts/cartContext";
+import { FaHeart } from "react-icons/fa6";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -150,6 +28,7 @@ function classNames(...classes: string[]) {
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { errorCart, loadingCart, wishList, cart } = useCart();
 
   return (
     <div className="bg-white">
@@ -179,7 +58,7 @@ export default function Navbar() {
               leaveTo="-translate-x-full"
             >
               <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
-                <div className="flex px-4 pb-2 absolute top-4 right-0">
+                <div className="flex pb-2 px-4 absolute top-4 right-0">
                   <button
                     type="button"
                     className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
@@ -187,7 +66,7 @@ export default function Navbar() {
                   >
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Close menu</span>
-                    <CloseSVG />
+                    <Close />
                   </button>
                 </div>
 
@@ -297,23 +176,24 @@ export default function Navbar() {
                     </div>
                   ))}
                 </div>
+
                 <AuthMobile />
+                <div className="px-4 border-t border-gray-200 py-6">
+                  <SubHeaderSocial />
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-white">
-        <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+      <header className="relative bg-white border-b border-gray-200">
+        {/* <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
-        </p>
+        </p> */}
 
-        <nav
-          aria-label="Top"
-          className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
-        >
-          <div className="border-b border-gray-200">
+        <Container>
+          <div className="">
             <div className="flex h-16 items-center">
               <button
                 type="button"
@@ -322,7 +202,7 @@ export default function Navbar() {
               >
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open menu</span>
-                <BarsSVG />
+                <Bars />
               </button>
 
               {/* Logo */}
@@ -331,7 +211,7 @@ export default function Navbar() {
               </div>
 
               {/* Flyout menus */}
-              <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch z-50">
+              <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
                 <div className="flex h-full space-x-8">
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
@@ -359,7 +239,7 @@ export default function Navbar() {
                             leaveFrom="opacity-100"
                             leaveTo="opacity-0"
                           >
-                            <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
+                            <Popover.Panel className="absolute z-50 inset-x-0 top-full text-sm text-gray-500">
                               <div
                                 className="absolute inset-0 top-1/2 bg-white shadow"
                                 aria-hidden="true"
@@ -387,6 +267,7 @@ export default function Navbar() {
                                             <Link
                                               href={item.href}
                                               className="mt-6 block font-medium text-gray-900"
+                                              onClick={() => setOpen(false)}
                                             >
                                               <span
                                                 className="absolute inset-0 z-10"
@@ -430,6 +311,9 @@ export default function Navbar() {
                                                     <Link
                                                       href={item.href}
                                                       className="hover:text-gray-800"
+                                                      onClick={() =>
+                                                        setOpen(false)
+                                                      }
                                                     >
                                                       {item.name}
                                                     </Link>
@@ -455,6 +339,7 @@ export default function Navbar() {
                     <Link
                       key={page.name}
                       href={page.href}
+                      onClick={() => setOpen(false)}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
@@ -472,22 +357,36 @@ export default function Navbar() {
                     href="#"
                     className="p-2 text-gray-400 hover:text-gray-500"
                   >
-                    <Search />
+                    <SearchSVG />
                     <span className="sr-only">Search</span>
                   </Link>
                 </div>
 
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
-                  <Link href="#" className="group -m-2 flex items-center p-2">
-                    <Cart />
+                <div className="ml-4 flow-root lg:ml-6 relative">
+                  <Link href="/cart" className="group -m-2 flex items-center p-2">
+                    <CartSVG />
+                    <span className="ml-2 absolute -top-3 -right-3 rounded-full h-5 bg-red-500 w-5 flex items-center justify-center text-sm font-medium text-white">
+                      {cart && cart.length}
+                    </span>{" "}
+                    <span className="sr-only">items in cart, view bag</span>
+                  </Link>
+                </div>
+
+                {/* Fvourite */}
+                <div className="ml-4 flow-root lg:ml-6 relative">
+                  <Link href="/wishlist" className="group text-2xl -m-2 flex items-center p-2">
+                    <FaHeart />
+                    <span className="ml-2 absolute -top-3 -right-3 rounded-full h-5 bg-red-500 w-5 flex items-center justify-center text-sm font-medium text-white ">
+                      {wishList && wishList.length}
+                    </span>{" "}
                     <span className="sr-only">items in cart, view bag</span>
                   </Link>
                 </div>
               </div>
             </div>
           </div>
-        </nav>
+        </Container>
       </header>
     </div>
   );

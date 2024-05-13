@@ -1,72 +1,112 @@
 "use client";
-import { useAuth } from "@/src/components/context/authContext";
-import { useCart } from "@/src/components/context/cartContext/page";
+import React, { useState } from "react";
 import Image from "next/image";
-import { redirect } from "next/navigation";
-import React from "react";
+import { PENDINGORDER_API_Endpoint } from "@/src/utils/constant";
+import axios from "axios";
+import Link from "next/link";
+import { useCart } from "@/src/components/contexts/cartContext";
+import { useAuth } from "@/src/components/contexts/authContext";
+import Container from "@/src/components/ui/Container";
+import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 
-interface CartItem {
-  _id: string;
-  quantity: number;
-  product: {
-    name: string;
-    image: string;
-    price: number;
+const ProductList = () => {
+  const { errorpOrder, loadingpOrder, getToPendingOrderBtn, pOrder } =
+    useCart();
+  const [error, setError] = useState("");
+  const { session } = useAuth();
+
+  const DeleteHandle = async (productId: string) => {
+    try {
+      if (session) {
+        await axios.delete(`${PENDINGORDER_API_Endpoint}/delete/${productId}`);
+        await getToPendingOrderBtn();
+      }
+    } catch (error) {
+      console.error("Error removing product from cart:", error);
+      setError("Error removing product from cart. Please try again later.");
+    }
   };
-}
-
-export default function Page() {
-  const { pendingOrder } = useCart();
-  const { session, status } = useAuth();
-
-  if (status === "unauthenticated" && !session) {
-    redirect("/sign-in");
-    return null;
-  }
 
   return (
-    <div>
-      {pendingOrder && pendingOrder.length > 0 ? (
-        pendingOrder.map((order: any, index: number) => (
-          <div key={index}>
-            <p>Order ID: {order._id}</p>
-            {order.cartBuy.map((item: CartItem, itemIndex: number) => (
-              <tr
-                className="bg-white border-b hover:bg-gray-50"
-                key={`${index}-${itemIndex}`}
-              >
-                <td className="p-4">
-                  <Image
-                    src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/some-folder-name/${item.product.image}.png`}
-                    alt={item.product.name}
-                    title={item.product.name}
-                    sizes="(max-width: 600px) 90vw, 600px"
-                    height={1600}
-                    width={1216}
-                    className="w-16 md:w-32 max-w-full max-h-full"
-                  />
-                </td>
-                <td className="px-6 py-4 font-semibold text-gray-900">
-                  {item.product.name}
-                </td>
-                <td className="px-6 py-4 font-semibold text-gray-900">
-                  {item.product.price * item.quantity}
-                </td>
-                <td className="px-6 py-4">
-                  {/* <button
-                    className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                    onClick={() => DeleteHandle(order._id)}
-                  >
-                    Remove
-                  </button> */}
-                </td>
-              </tr>
-            ))}
+    <>
+      <Container>
+        <div className="my-20">
+          <div className="relative overflow-x-auto sm:rounded-lg mb-10">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+              {loadingpOrder ? (
+                <>
+                  <LoadingCart />
+                  <LoadingCart />
+                  <LoadingCart />
+                  <LoadingCart />
+                </>
+              ) : (
+                <>
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                      <th scope="col" className="px-16 py-3">
+                        <span className="sr-only">Image</span>
+                        Image
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Name
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Price
+                      </th>
+                      <th scope="col" className="px-6 py-3">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {errorpOrder && errorpOrder}
+                    {pOrder ? ( // Check if userData is not null before rendering
+                      pOrder.map((user, index) => (
+                        <tr
+                          className="bg-white border-b hover:bg-gray-50"
+                          key={index}
+                        >
+                          <td className="p-4">
+                            <Image
+                              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                              alt={user.product_Detail.name}
+                              title={user.product_Detail.name}
+                              height={1080}
+                              width={1080}
+                              className="w-full block h-20"
+                            />
+                          </td>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            <Link href={`/stores/${user.product_Detail.slug}`}>
+                              {user.product_Detail.name}
+                            </Link>
+                          </td>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            {user.product_Detail.price}
+                          </td>
+                          <td className="px-6 py-4">
+                            <button
+                              className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                              onClick={() => DeleteHandle(user._id)}
+                            >
+                              Remove
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <p>NO user WishList...</p>
+                    )}
+                  </tbody>
+                </>
+              )}
+            </table>
           </div>
-        ))
-      ) : (
-        <p>No pending orders.</p>
-      )}
-    </div>
+        </div>
+      </Container>
+    </>
   );
-}
+};
+
+export default ProductList;

@@ -2,7 +2,8 @@
 
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
-import { AuthProvider } from "../context/authContext";
+import { AuthProvider } from "@/src/components/contexts/authContext";
+import { CartProvider } from "@/src/components/contexts/cartContext";
 export default function NextAuthProvider({
   children,
 }: {
@@ -10,7 +11,9 @@ export default function NextAuthProvider({
 }) {
   return (
     <SessionProvider>
-      <AuthProvider>{children}</AuthProvider>;
+      <AuthProvider>
+        <CartProvider>{children}</CartProvider>
+      </AuthProvider>
     </SessionProvider>
   );
 }

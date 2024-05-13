@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import styles from "@/src/components/layout/Navbar/navbar.module.scss";
-import { useAuth } from "@/src/components/context/authContext";
 import { signOut } from "next-auth/react";
-import SubHeaderSocial from "../SubHeader/social";
+import { useAuth } from "../../contexts/authContext";
 
 export default function AuthMobile({ setOpen }: any) {
   const { session, status } = useAuth();
@@ -26,7 +24,7 @@ export default function AuthMobile({ setOpen }: any) {
                   <div className="flow-root">
                     <Link
                       href="/profile"
-                      className={styles.link}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
                       onClick={() => setOpen(false)}
                     >
                       Profile
@@ -38,7 +36,7 @@ export default function AuthMobile({ setOpen }: any) {
                   <div className="flow-root">
                     <Link
                       href="/admin"
-                      className={styles.link}
+                      className="text-sm font-medium text-gray-700 hover:text-gray-800"
                       onClick={() => setOpen(false)}
                     >
                       Admin
@@ -53,14 +51,11 @@ export default function AuthMobile({ setOpen }: any) {
                       signOut({ callbackUrl: "/" });
                       setOpen(false);
                     }}
-                    className={styles.link}
+                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
                   >
                     <span className="sr-only">Admin and User Sign Out</span>
                     Sign Out
                   </button>{" "}
-                </div>
-                <div className="space-y-6 border-t border-gray-200 py-6">
-                  <SubHeaderSocial />{" "}
                 </div>
               </div>
             </>
@@ -72,7 +67,7 @@ export default function AuthMobile({ setOpen }: any) {
             <div className="flow-root">
               <Link
                 href="/sign-in"
-                className={styles.link}
+                className="text-sm font-medium text-gray-700 hover:text-gray-800"
                 onClick={() => setOpen(false)}
               >
                 <span className="sr-only">Sign in</span>
@@ -82,16 +77,13 @@ export default function AuthMobile({ setOpen }: any) {
             <div className="flow-root">
               <Link
                 href="/create-account"
-                className={styles.link}
+                className="text-sm font-medium text-gray-700 hover:text-gray-800"
                 onClick={() => setOpen(false)}
               >
                 <span className="sr-only">Create account</span>
                 Create account
               </Link>{" "}
             </div>
-          </div>
-          <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-            <SubHeaderSocial />
           </div>
         </>
       )}

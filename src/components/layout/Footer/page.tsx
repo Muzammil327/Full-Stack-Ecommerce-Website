@@ -1,8 +1,7 @@
-import Container from "@/components/element/container/page";
 import Link from "next/link";
 import React from "react";
-import Logo from "@/components/layout/Navbar/logo";
-import FSocial from "./fSocial";
+import Container from "@/src/components/ui/Container";
+import Logo from "@/src/components/elements/Logo";
 
 export default function Footer() {
   return (
@@ -13,17 +12,18 @@ export default function Footer() {
             <Logo />
             <ul>
               <li className="text-slate-900 my-2 md:text-base text-sm">
-                <span className="font-semibold text-base">Address:</span> 
+                <span className="font-semibold text-base pr-1">Address:</span>
                 Pakistan
               </li>
 
               <li className="text-slate-900 my-2 md:text-base text-sm">
-                <span className="font-semibold text-base">Phone:</span> +92 314 4878 266
+                <span className="font-semibold text-base pr-1">Phone:</span> +92
+                314 4878 266
               </li>
 
               <li className="text-slate-900 my-2 md:text-base text-sm">
-                <span className="font-semibold text-base">Email:</span>{" "}
-                hello.com
+                <span className="font-semibold text-base pr-1">Email:</span>{" "}
+                mmuzammiloff327@gmail.com
               </li>
             </ul>
           </div>
@@ -78,12 +78,10 @@ export default function Footer() {
                 className="md:h-12 h-10 outline-none border-none px-4 w-full"
                 placeholder="Enter your Email"
               />
-              <button className="bg-indigo-400 md:py-3 py-2 px-6 text-white font-bold">
+              <button className="bg1 md:py-3 py-2 md:px-6 px-4 font-medium outline-none">
                 Subscribe
               </button>
             </div>
-
-            <FSocial />
           </div>
         </div>
       </Container>
@@ -97,5 +95,5 @@ export default function Footer() {
         </Container>
       </div>
     </footer>
-  )
+  );
 }

@@ -1,39 +1,40 @@
 import React, { useState } from "react";
-import { useAuth } from "@/src/components/context/authContext";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import Processing from "@/src/components/element/Loading/Processing";
 import { PENDINGORDER_API_Endpoint } from "@/src/utils/constant";
+import { useAuth } from "@/src/components/contexts/authContext";
+import Processing from "@/src/components/ui/Loading/Processing";
 
-interface CartItem2 {
-  quantity: number;
-  product: {
-    _id: string;
-    name: string;
-    image: string;
-    price: number;
-  };
+interface Product {
+  product: string;
+  qty: number;
 }
 
-const CheckoutBtn = ({ cartBuy }: { cartBuy: CartItem2[] }) => {
+const CheckoutBtn = ({ products }: { products: Product[] }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { session } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async () => {
-    const userId = session.user._id;
+    const user = session.user._id;
     setLoading(true);
     try {
-      await axios.post(`${PENDINGORDER_API_Endpoint}/post`, {
-        cartBuy,
-        userId,
-      });
+      // Post each product individually
+      await Promise.all(
+        products.map(async (product) => {
+          await axios.post(`${PENDINGORDER_API_Endpoint}/post`, {
+            product: product.product, // Send only the product ID
+            qty: product.qty, // Send the quantity
+            user,
+          });
+        })
+      );
       router.push("/cart/checkout");
-      setLoading(false);
     } catch (error) {
       console.error("Error adding product to cart:", error);
       setError("Error adding product to cart. Please try again later.");
+    } finally {
       setLoading(false);
     }
   };
@@ -46,27 +47,3 @@ const CheckoutBtn = ({ cartBuy }: { cartBuy: CartItem2[] }) => {
 };
 
 export default CheckoutBtn;
-
-// const [isLoading, setIsLoading] = useState<boolean>(true);
-// const [error, setError] = useState<string>("");
-// const { session } = useAuth();
-
-// const handleSubmit = async () => {
-//   setIsLoading(true); // Set loading state to true when submitting
-//   const userId = session.user._id;
-//   try {
-//     await axios.post(
-//       `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/post/pendingOrder`,
-//       {
-//         cartBuy,
-//         userId,
-//       }
-//     );
-//     setIsLoading(false);
-//   } catch (error) {
-//     console.error("Error adding product to cart:", error);
-//     setError("Error adding product to cart. Please try again later.");
-//   } finally {
-//     setIsLoading(false);
-//   }
-// };

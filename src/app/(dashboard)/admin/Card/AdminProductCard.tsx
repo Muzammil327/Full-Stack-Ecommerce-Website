@@ -1,35 +1,51 @@
-import { useFetchArray } from "@/src/components/function/useFetchArray";
+'use client'
+import StatCard from "@/src/components/elements/StatCard";
 import { Product_API_Endpoint } from "@/src/utils/constant";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 export default function AdminProductCard() {
-  const { error, loading, data } = useFetchArray(
-    `${Product_API_Endpoint}/stats`
-  );
+  const [data, setData] = useState([]);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get(
+          `${Product_API_Endpoint}/stats`
+        );
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setError("Error fetching user data:");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
-    <div className="profileCard h-32 border bg-white px-4 py-5 md:mt-0 mt-4 rounded-md transition-all shadow relative">
-      <div className="icon shadow-sm h-12 flex items-center justify-center w-12 border rounded-full">
+    <StatCard
+      error={error}
+      length={isLoading ? 0 : data.length}
+      name={"Total Products"}
+      svg={
         <svg
-          fill="#000000"
-          xmlns="http://www.w3.org/2000/svg"
           width="20px"
           height="20px"
-          viewBox="0 0 52 52"
-          enable-background="new 0 0 52 52"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M50,43v2.2c0,2.6-2.2,4.8-4.8,4.8H6.8C4.2,50,2,47.8,2,45.2V43c0-5.8,6.8-9.4,13.2-12.2
-	c0.2-0.1,0.4-0.2,0.6-0.3c0.5-0.2,1-0.2,1.5,0.1c2.6,1.7,5.5,2.6,8.6,2.6s6.1-1,8.6-2.6c0.5-0.3,1-0.3,1.5-0.1
-	c0.2,0.1,0.4,0.2,0.6,0.3C43.2,33.6,50,37.1,50,43z M26,2c6.6,0,11.9,5.9,11.9,13.2S32.6,28.4,26,28.4s-11.9-5.9-11.9-13.2
-	S19.4,2,26,2z"
-          />
+          <rect x="0" fill="none" width="20" height="20" />
+
+          <g>
+            <path d="M17 8h1v11H2V8h1V6c0-2.76 2.24-5 5-5 .71 0 1.39.15 2 .42.61-.27 1.29-.42 2-.42 2.76 0 5 2.24 5 5v2zM5 6v2h2V6c0-1.13.39-2.16 1.02-3H8C6.35 3 5 4.35 5 6zm10 2V6c0-1.65-1.35-3-3-3h-.02c.63.84 1.02 1.87 1.02 3v2h2zm-5-4.22C9.39 4.33 9 5.12 9 6v2h2V6c0-.88-.39-1.67-1-2.22z" />
+          </g>
         </svg>
-      </div>
-      <h4 className="py-2 text-lg font-medium">Total Products</h4>
-      <span className="absolute top-2 text-4xl right-6 text-gray-200 transition-all">
-        {error && <span>{error}</span>}
-        {loading ? "0" : <>{data.length}</>}
-      </span>
-    </div>
+      }
+    />
   );
 }

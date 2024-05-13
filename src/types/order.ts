@@ -1,10 +1,9 @@
-import { ProductCardProps } from "./product";
-import { User } from "./user";
+import { ProductData } from "./product";
 
-export interface OrderItem {
-  userId: User;
-  products: ProductCardProps;
+export interface Order {
+  _id: string;
+  status: string;
   totalPrice: number;
-  quantity: number;
-  createdAt: Date;
+  qty: number;
+  product: ProductData;
 }

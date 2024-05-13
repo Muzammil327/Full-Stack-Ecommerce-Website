@@ -1,20 +1,20 @@
 "use client";
 import React, { useState } from "react";
-import Container from "@/src/components/element/container/page";
-import { useCart } from "@/src/components/context/cartContext/page";
 import Image from "next/image";
-import { useAuth } from "@/src/components/context/authContext";
-import LoadingCart from "@/src/components/element/Loading/LoadingCart";
 import { Favourite_API_Endpoint } from "@/src/utils/constant";
 import axios from "axios";
 import Link from "next/link";
+import { useCart } from "@/src/components/contexts/cartContext";
+import { useAuth } from "@/src/components/contexts/authContext";
+import Container from "@/src/components/ui/Container";
+import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 
 const ProductList = () => {
   const { errorWishList, loadingWishList, getToWishlistBtn, wishList } =
     useCart();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { session, status } = useAuth();
+  const { session } = useAuth();
 
   const DeleteHandle = async (productId: string) => {
     try {
@@ -73,21 +73,21 @@ const ProductList = () => {
                         >
                           <td className="p-4">
                             <Image
-                              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product.image}.png`}
-                              alt={user.product.name}
-                              title={user.product.name}
+                              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                              alt={user.product_Detail.name}
+                              title={user.product_Detail.name}
                               height={1080}
                               width={1080}
                               className="w-full block h-20"
                             />
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
-                            <Link href={`/stores/${user.product.slug}`}>
-                              {user.product.name}
+                            <Link href={`/stores/${user.product_Detail.slug}`}>
+                              {user.product_Detail.name}
                             </Link>
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
-                            {user.product.price}
+                            {user.product_Detail.price}
                           </td>
                           <td className="px-6 py-4">
                             <button

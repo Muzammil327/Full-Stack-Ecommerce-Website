@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Container from "@/src/components/element/container/page";
-import { useCart } from "@/src/components/context/cartContext/page";
 import Image from "next/image";
-import { useAuth } from "@/src/components/context/authContext";
 import CheckoutBtn from "./checkoutBtn";
-import LoadingCart from "@/src/components/element/Loading/LoadingCart";
-import axios from "axios";
+import { useAuth } from "@/src/components/contexts/authContext";
+import { useCart } from "@/src/components/contexts/cartContext";
+import Container from "@/src/components/ui/Container";
+import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 import { Cart_API_Endpoint } from "@/src/utils/constant";
+import axios from "axios";
 
 const ProductList = () => {
   const { errorCart, loadingCart, getToCartBtn, cart } = useCart();
@@ -19,36 +19,31 @@ const ProductList = () => {
 
   const DeleteHandle = async (productId: string) => {
     try {
-      // setIsLoading(true);
       if (session) {
         await axios.delete(`${Cart_API_Endpoint}/delete/${productId}`);
+
         await getToCartBtn();
       }
     } catch (error) {
       console.error("Error removing product from cart:", error);
     } finally {
-      // setIsLoading(false);
     }
   };
 
-  const handleUpdateCartIncrease = async (_id: string, quantity: number) => {
+  const handleUpdateCartIncrease = async (_id: string, qty: number) => {
     try {
       // setIsLoading(true);
-
-      await axios.put(`${Cart_API_Endpoint}/update/increase/${_id}`, {
-        quantity,
-      });
+      await axios.put(`${Cart_API_Endpoint}/update/increase/${_id}`, { qty });
       await getToCartBtn();
     } catch (error) {
       console.error("Error adding product to cart:", error);
     }
   };
 
-  const handleUpdateCartDecrease = async (_id: string, quantity: number) => {
+  const handleUpdateCartDecrease = async (_id: string, qty: number) => {
     try {
-      await axios.put(`${Cart_API_Endpoint}/update/decrease/${_id}`, {
-        quantity,
-      });
+      await axios.put(`${Cart_API_Endpoint}/update/decrease/${_id}`, { qty });
+
       await getToCartBtn();
     } catch (error) {
       console.error("Error adding product to cart:", error);
@@ -63,7 +58,7 @@ const ProductList = () => {
 
     if (cart) {
       cart.forEach((item: any) => {
-        subTotal += item.product.price * item.quantity;
+        subTotal += item.product_Detail.price * item.quantity;
       });
 
       const taxCharges = 200; // Assuming tax charges
@@ -112,7 +107,7 @@ const ProductList = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {cart ? ( // Check if userData is not null before rendering
+                      {cart ? (
                         cart.map((user, index) => (
                           <tr
                             className="bg-white border-b hover:bg-gray-50"
@@ -120,28 +115,24 @@ const ProductList = () => {
                           >
                             <td className="p-4">
                               <Image
-                                src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product.image}.png`}
-                                alt={user.product.name}
-                                title={user.product.name}
+                                src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                                alt={user.product_Detail.name}
+                                title={user.product_Detail.name}
                                 height={1080}
                                 width={1080}
                                 className="w-full block h-20"
                               />
                             </td>
                             <td className="px-6 py-4 font-semibold text-gray-900">
-                              {user.product.name}
+                              {user.product_Detail.name}
                             </td>
                             <td className="px-6 py-4">
-                              {/* <QuantityControl initialValue= /> */}
                               <form className="flex items-center">
                                 <button
                                   className="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                   type="button"
                                   onClick={() =>
-                                    handleUpdateCartDecrease(
-                                      user._id,
-                                      user.quantity
-                                    )
+                                    handleUpdateCartDecrease(user._id, user.qty)
                                   }
                                 >
                                   <span className="sr-only">
@@ -165,7 +156,7 @@ const ProductList = () => {
                                 </button>
                                 <input
                                   type="number"
-                                  value={user.quantity}
+                                  value={user.qty}
                                   className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1"
                                   placeholder="1"
                                   required
@@ -175,10 +166,7 @@ const ProductList = () => {
                                   className="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200"
                                   type="button"
                                   onClick={() =>
-                                    handleUpdateCartIncrease(
-                                      user._id,
-                                      user.quantity
-                                    )
+                                    handleUpdateCartIncrease(user._id, user.qty)
                                   }
                                 >
                                   <span className="sr-only">
@@ -203,7 +191,7 @@ const ProductList = () => {
                               </form>
                             </td>
                             <td className="px-6 py-4 font-semibold text-gray-900">
-                              {user.product.price * user.quantity}
+                              {user.product_Detail.price * user.qty}
                             </td>
                             <td className="px-6 py-4">
                               <button
@@ -241,7 +229,14 @@ const ProductList = () => {
                 <span>Total</span>
                 <span>{total}</span>
               </div>
-              <CheckoutBtn cartBuy={cart} />
+              {cart && (
+                <CheckoutBtn
+                  products={cart.map((item) => ({
+                    product: item.product_Detail._id,
+                    qty: item.qty,
+                  }))}
+                />
+              )}
             </div>
           </div>
         </div>

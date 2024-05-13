@@ -1,19 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../styles/globals.scss";
-import NextAuthProvider from "@/components/provider/authProvider";
-import dynamic from 'next/dynamic'
-
-import SubHeader from "@/components/layout/SubHeader/page";
-import Navbar from "@/components/layout/Navbar/page";
-import { AuthProvider } from "../components/context/authContext";
-import { CartProvider } from "../components/context/cartContext/page";
-import { UserProvider } from "../components/context/userContext";
+import "@/src/styles/globals.scss";
+import Header from "@/src/components/layout/header/page";
+import Navbar from "@/src/components/layout/navbar/page";
+import dynamic from "next/dynamic";
+import NextAuthProvider from "../components/provider/authProvider";
 import { ToastContainer } from "react-toastify";
 
-const Footer = dynamic(() => import('@/components/layout/Footer/page'))
-const Instragram = dynamic(() => import('@/src/components/layout/Instragram/page'))
-
+const Footer = dynamic(() => import("@/src/components/layout/footer/page"));
+const Instragram = dynamic(
+  () => import("@/src/components/layout/Instragram/page")
+);
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,29 +28,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider>
-          <AuthProvider>
-            <UserProvider>
-              <CartProvider>
-                <SubHeader />
-                <Navbar />
-                {children}
-                <Instragram />
-                <Footer />
-                <ToastContainer
-                  position="top-right"
-                  autoClose={5001}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="light"
-                />
-              </CartProvider>
-            </UserProvider>
-          </AuthProvider>
+          <Header />
+          <Navbar />
+          {children}
+          <Instragram />
+          <Footer />
+          <ToastContainer />
         </NextAuthProvider>
       </body>
     </html>
