@@ -1,3 +1,48 @@
+## Ecommmerce Website
+
+#### Functionality 
+- User and Admin Roles
+- Pagination
+- Sorting
+- Filtering
+- Add to Cart
+- Add to Wishlist
+- User Order Placement
+- Status Change by Admin
+- Product Management
+
+--------------------------------
+
+#### Tech Stacks
+
+- React Js
+- Next Js
+- Typescript
+- Tailwind CSS
+- sass
+- Mongoose
+- MongoDB
+- Axios
+- next-auth
+- cloudinary
+- Node Js
+- Express Js
+
+--------------------------------
+
+#### Packages
+
+- react-icons
+- react-toastify
+- swiper
+- react-tagsinput
+- bcrypt
+- react-select
+- multer
+
+
+
+
 import { FaChevronDown } from "react-icons/fa6";
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
