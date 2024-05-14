@@ -1,6 +1,6 @@
 ## Ecommmerce Website
 
-#### Functionality 
+### Functionality 
 - User and Admin Roles
 - Pagination
 - Sorting
@@ -11,9 +11,16 @@
 - Status Change by Admin
 - Product Management
 
+#### Future
+- Product Rating and Review
+- Like and DisLike
+- Email Verification
+- Searching
+- Stripe Integratiom
+
 --------------------------------
 
-#### Tech Stacks
+### Tech Stacks
 
 - React Js
 - Next Js
@@ -28,9 +35,14 @@
 - Node Js
 - Express Js
 
+#### Future
+- GraphQL Integration
+- SWR
+- Sentry 
+
 --------------------------------
 
-#### Packages
+### Packages
 
 - react-icons
 - react-toastify
@@ -39,6 +51,11 @@
 - bcrypt
 - react-select
 - multer
+
+#### Future
+- react-share
+- react-simple-star-rating
+- nodemailer
 
 
 
