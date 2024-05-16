@@ -102,7 +102,9 @@ export default function Navbar() {
                               key={item.name}
                               className="group relative text-sm"
                             >
-                              <div className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                              <div
+                              // className="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75"
+                              >
                                 <Image
                                   src={item.imageSrc}
                                   alt={item.imageAlt}
@@ -192,20 +194,21 @@ export default function Navbar() {
         </p> */}
 
         <Container>
-          <div className="">
-            <div className="flex h-16 items-center">
+          <div className="relative">
+            <div className="flex items-center py-3">
               <button
                 type="button"
-                className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"
+                className="rounded-md bg-white p-2 text-gray-400 lg:hidden"
                 onClick={() => setOpen(true)}
               >
                 <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open menu</span>
                 <Bars />
               </button>
-
               {/* Logo */}
-              <div className="ml-4 flex lg:ml-0">
+              <div
+              // className="ml-4 flex lg:ml-0"
+              >
                 <Logo />
               </div>
 

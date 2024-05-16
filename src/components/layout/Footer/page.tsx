@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import Container from "@/src/components/ui/Container";
-import Logo from "@/src/components/elements/Logo";
+import Image from "next/image";
 
 export default function Footer() {
   return (
@@ -9,7 +9,16 @@ export default function Footer() {
       <Container>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 py-12">
           <div className="first">
-            <Logo />
+            <div className="max-w-240 mx-auto">
+              <Image
+                src="/smi-logo.png"
+                alt="SMI shop"
+                title="SMI shop"
+                height={91}
+                width={400}
+                className="w-60 h-auto"
+              />
+            </div>
             <ul>
               <li className="text-slate-900 my-2 md:text-base text-sm">
                 <span className="font-semibold text-base pr-1">Address:</span>
