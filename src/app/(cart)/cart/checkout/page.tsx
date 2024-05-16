@@ -37,6 +37,14 @@ export default function Page() {
     setTotal(total);
     setTotalTax(totalTax);
   }, [cart]);
+
+  const [isFormFilled, setIsFormFilled] = useState(false);
+
+  // Function to be called when the form is submitted
+  const handleFormSubmit = () => {
+    setIsFormFilled(true);
+  };
+
   return (
     <Container>
       <div className="grid lg:grid-cols-9 grid-cols-1 gap-2 my-12">
@@ -99,7 +107,7 @@ export default function Page() {
               </tbody>
             </table>
           </div>
-          <BillingAddress />
+          <BillingAddress onFormSubmit={handleFormSubmit} />
         </div>
         <div className="lg:col-span-3 col-span-1 md:mt-0 mt-8">
           <div className="cart-total bg-slate-100 rounded-md p-4">
@@ -118,15 +126,19 @@ export default function Page() {
               <span>Total</span>
               <span>{total}</span>
             </div>
-            {session ? (
-              <PlaceOrderBtn
-                products={cart.map((item) => ({
-                  product: item.product_Detail._id,
-                  qty: item.qty,
-                }))}
-                totalPrice={total}
-              />
-            ) : null}
+            {isFormFilled && (
+              <>
+                {session ? (
+                  <PlaceOrderBtn
+                    products={cart.map((item) => ({
+                      product: item.product_Detail._id,
+                      qty: item.qty,
+                    }))}
+                    totalPrice={total}
+                  />
+                ) : null}
+              </>
+            )}
           </div>
         </div>{" "}
       </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import style from "@/src/app/(auth)/form.module.css";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { ADDRESS_API_Endpoint, USER_API_Endpoint } from "@/src/utils/constant";
+import { ADDRESS_API_Endpoint } from "@/src/utils/constant";
 import { useAuth } from "@/src/components/contexts/authContext";
 import Label from "@/src/components/ui/Label";
 import Input from "@/src/components/ui/Input";
@@ -20,13 +20,16 @@ interface FormData {
   additionalInfo: string;
 }
 
-export default function BillingAddress() {
+export default function BillingAddress({ onFormSubmit }: any) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { session, user } = useAuth();
   const { update } = useSession();
   const router = useRouter();
+
   const [id, setId] = useState();
+  const [show, setShow] = useState(false);
+
   const [addressData, setAddressData] = useState<FormData>({
     phone1: "",
     phone2: "",
@@ -37,6 +40,7 @@ export default function BillingAddress() {
     postalCode: "",
     additionalInfo: "",
   });
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -56,8 +60,54 @@ export default function BillingAddress() {
       fetchUserData();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (
+      addressData.phone1 &&
+      addressData.phone2 &&
+      addressData.addressLine1 &&
+      addressData.addressLine2 &&
+      addressData.country &&
+      addressData.city &&
+      addressData.postalCode
+    ) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, [
+    addressData.phone1,
+    addressData.phone2,
+    addressData.addressLine1,
+    addressData.addressLine2,
+    addressData.country,
+    addressData.city,
+    addressData.postalCode,
+  ]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!addressData.city) {
+      return alert("Enter Your City Name");
+    }
+    if (!addressData.country) {
+      return alert("Enter Your Country Name");
+    }
+    if (!addressData.phone1) {
+      return alert("Enter Your phone 1");
+    }
+    if (!addressData.phone2) {
+      return alert("Enter Your phone 2");
+    }
+    if (!addressData.addressLine1) {
+      return alert("Enter Your address 1");
+    }
+    if (!addressData.addressLine2) {
+      return alert("Enter Your address 2");
+    }
+    if (!addressData.postalCode) {
+      return alert("Enter Your Postal Code");
+    }
     try {
       setLoading(true);
       const response = await axios.put(`${ADDRESS_API_Endpoint}/update/${id}`, {
@@ -78,6 +128,9 @@ export default function BillingAddress() {
         setError(res.message);
 
         await update();
+        if (onFormSubmit) {
+          onFormSubmit();
+        }
       }
     } catch (error) {
       setError("Error during Product Category Update");
@@ -236,9 +289,13 @@ export default function BillingAddress() {
               </div>
             </div>
 
-            <button type="submit" className={`sm:col-span-2 ${style.btn}`}>
-              {loading ? "Loading .." : "Submit Here"}
-            </button>
+            {show && (
+              <>
+                <button type="submit" className={`sm:col-span-2 ${style.btn}`}>
+                  {loading ? "Loading .." : "Submit Here"}
+                </button>
+              </>
+            )}
           </div>
         </form>
       </div>

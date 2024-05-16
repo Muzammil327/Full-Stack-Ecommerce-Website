@@ -24,17 +24,7 @@ const PlaceOrderBtn = ({
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const handleSubmit = async (products: Product[], totalPrice: any) => {
-    // if (session) {
-    //   try {
-    //     const user = session.user._id;
-    //     await axios.post(`${ORDER_API_Endpoint}/post`, {
-
-    //     });
-    //     await getToCartBtn();
-    //   } catch (error) {
-    //     alert("Please Login");
-    //   }
-    // }
+   
     if (user) {
       try {
         setLoading(true);
