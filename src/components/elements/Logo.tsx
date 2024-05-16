@@ -13,7 +13,6 @@ export default function Logo() {
         className="w-full h-auto"
         sizes="(max-width: 200px) 100vw, 400px"
         priority
-        // layout="responsive"
       />
     </div>
   );

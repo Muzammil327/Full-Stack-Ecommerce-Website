@@ -58,7 +58,7 @@ const ProductList = () => {
 
     if (cart) {
       cart.forEach((item: any) => {
-        subTotal += item.product_Detail.price * item.quantity;
+        subTotal += item.product_Detail.price * item.qty;
       });
 
       const taxCharges = 200; // Assuming tax charges
