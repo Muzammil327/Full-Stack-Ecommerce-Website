@@ -47,9 +47,7 @@ export default function Page() {
     postalCode: "",
     additionalInfo: "",
   });
-  if (status === "unauthenticated" && !session) {
-    redirect("/sign-in");
-  }
+
   useEffect(() => {
     // Calculate subtotal, total, and total tax when cart changes
     let subTotal = 0;
