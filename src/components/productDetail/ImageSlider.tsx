@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -18,30 +18,43 @@ import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 
 export default function ProductDetailImageSlider({ response }: any) {
+  const [swiperReady, setSwiperReady] = useState(false);
+
   return (
     <div className="img">
-      <Swiper
-        effect={"flip"}
-        grabCursor={true}
-        autoplay={{
-          delay: 4500,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        modules={[EffectFlip, Pagination, Navigation, Autoplay]}
-        className="mySwipe"
-      >
-        {response.slider.map((index: string, slideIndex: number) => (
-          <SwiperSlide key={slideIndex}>
-            <Image
-              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${index}.png`}
-              width={1080}
-              height={1080}
-              alt=""
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {!swiperReady && (
+        <div className="loading-spinner">
+          <Image
+            src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${response.image}.png`}
+            width={1080}
+            height={1080}
+            alt=""
+            onLoad={() => setSwiperReady(true)}
+          />
+        </div>
+      )}
+
+      {swiperReady && (
+        <Swiper
+          effect={"flip"}
+          grabCursor={true}
+          autoplay={{ delay: 4500, disableOnInteraction: false }}
+          loop={true}
+          modules={[EffectFlip, Pagination, Navigation, Autoplay]}
+          className="mySwipe"
+        >
+          {response.slider.map((index: string, slideIndex: number) => (
+            <SwiperSlide key={slideIndex}>
+              <Image
+                src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${index}.png`}
+                width={1080}
+                height={1080}
+                alt=""
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </div>
   );
 }

@@ -1,17 +1,30 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import CheckoutBtn from "./checkoutBtn";
 import { useAuth } from "@/src/components/contexts/authContext";
 import { useCart } from "@/src/components/contexts/cartContext";
 import Container from "@/src/components/ui/Container";
 import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
-import { Cart_API_Endpoint } from "@/src/utils/constant";
+import {
+  Cart_API_Endpoint,
+  PENDINGORDER_API_Endpoint,
+} from "@/src/utils/constant";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import Processing from "@/src/components/ui/Loading/Processing";
+
+interface Product {
+  product: string;
+  qty: number;
+}
 
 const ProductList = () => {
   const { errorCart, loadingCart, getToCartBtn, cart } = useCart();
   const { session } = useAuth();
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -56,6 +69,10 @@ const ProductList = () => {
     let total = 0;
     let totalTax = 0;
 
+    if (cart.length === 0) {
+      return router.push("/stores");
+    }
+
     if (cart) {
       cart.forEach((item: any) => {
         subTotal += item.product_Detail.price * item.qty;
@@ -69,7 +86,32 @@ const ProductList = () => {
     setSubtotal(subTotal);
     setTotal(total);
     setTotalTax(totalTax);
-  }, [cart]);
+  }, [cart, router]);
+
+  const handleSubmit = async (products: Product[]) => {
+    const user = session.user._id;
+    setLoading(true);
+    try {
+      // Post each product individually
+      await Promise.all(
+        products.map(async (product) => {
+          await axios.post(`${PENDINGORDER_API_Endpoint}/post`, {
+            product: product.product, // Send only the product ID
+            qty: product.qty, // Send the quantity
+            user,
+          });
+        })
+      );
+      router.push("/cart/checkout");
+      setLoading(false);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      setError("Error adding product to cart. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Container>
@@ -229,13 +271,22 @@ const ProductList = () => {
                 <span>Total</span>
                 <span>{total}</span>
               </div>
-              {cart && (
-                <CheckoutBtn
-                  products={cart.map((item) => ({
-                    product: item.product_Detail._id,
-                    qty: item.qty,
-                  }))}
-                />
+              {error && <span className="text-red-500">{error}</span>}
+              {cart.length === 0 ? null : (
+                <button
+                  className="btn"
+                  onClick={() =>
+                    handleSubmit(
+                      cart.map((item) => ({
+                        product: item.product_Detail._id,
+                        qty: item.qty,
+                      }))
+                    )
+                  }
+                  disabled={loading}
+                >
+                  {loading ? <Processing /> : "Proceed to Checkout"}
+                </button>
               )}
             </div>
           </div>

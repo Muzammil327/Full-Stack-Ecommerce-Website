@@ -1,40 +1,67 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import ProductDetailImageSlider from "@/src/components/productDetail/ImageSlider";
 import ProductDetailCatgeory from "@/src/components/productDetail/catgeory";
 import AddtoCartBtn from "@/src/components/productDetail/AddtoCartBtn";
 import FavouriteBtn from "@/src/components/productDetail/FavouriteBtn";
 import RelatedProduct from "@/src/components/productDetail/RelatedProduct";
+import { FaShareNodes } from "react-icons/fa6";
 
 import { ProductData } from "@/src/types/product";
 
+import { FaRegThumbsUp } from "react-icons/fa6";
+import { FaRegThumbsDown } from "react-icons/fa6";
 import { Product_API_Endpoint } from "@/src/utils/constant";
 import Container from "../components/ui/Container";
 import axios from "axios";
+import { useAuth } from "../components/contexts/authContext";
 
 export default function ProductDetail({ params }: { params: string }) {
   const [data, setData] = useState<ProductData>();
+  console.log(data)
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `${Product_API_Endpoint}/get/${params}`
-        );
-        setData(response.data);
-      } catch (error) {
-        console.log(error);
-        setError("Error Store PRODUCTS");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProduct();
+  const { user } = useAuth();
+
+  const fetchProduct = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${Product_API_Endpoint}/get/${params}`);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+      setError("Error Store PRODUCTS");
+    } finally {
+      setLoading(false);
+    }
   }, [params]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct, params]);
+
+  const HandleLike = async (productId: string) => {
+    try {
+      await axios.put(`${Product_API_Endpoint}/put/like/${productId}`, {
+        user,
+      });
+      fetchProduct();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const HandleDisLike = async (productId: string) => {
+    try {
+      await axios.put(`${Product_API_Endpoint}/put/dislike/${productId}`, {
+        user,
+      });
+      fetchProduct();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -94,11 +121,36 @@ export default function ProductDetail({ params }: { params: string }) {
                     </p>
 
                     <div className="mt-10">
-                      <div className=" my-5 flex items-center justify-between gap-4">
+                      <div className=" my-5 flex items-center justify-between">
                         <AddtoCartBtn product={data._id} />
-                        <FavouriteBtn product={data._id} />
                       </div>
-                      {/* <ShareButton /> */}
+                      <div className=" my-5 flex items-center justify-between gap-4">
+                        <FavouriteBtn product={data._id} />
+                        <button
+                          onClick={() => HandleLike(data._id)}
+                          className="bg-red-400 hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white block border-2 border-solid border-red-400 w-full"
+                        >
+                          <span className="flex items-center justify-center gap-3">
+                            <FaRegThumbsUp size={24} /> {data.like.length}{" "}
+                          </span>
+                        </button>
+                        <button
+                          onClick={() => HandleDisLike(data._id)}
+                          className="bg-red-400 block hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white border-2 border-solid border-red-400 w-full"
+                        >
+                          <span className="flex items-center justify-center gap-3">
+                            <FaRegThumbsDown size={24} /> {data.dislike.length}
+                          </span>
+                        </button>
+                        <button
+                          onClick={() => HandleDisLike(data._id)}
+                          className="bg-red-400 block hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white border-2 border-solid border-red-400 w-full"
+                        >
+                          <span className="flex items-center justify-center gap-3">
+                            <FaShareNodes size={24} />
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -2,14 +2,17 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import style from "@/src/app/(auth)/form.module.css";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { ADDRESS_API_Endpoint } from "@/src/utils/constant";
 import { useAuth } from "@/src/components/contexts/authContext";
 import Label from "@/src/components/ui/Label";
 import Input from "@/src/components/ui/Input";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+import { redirect, useRouter } from "next/navigation";
 
 interface FormData {
+  _id?: string | undefined;
   phone1: string;
   phone2: string;
   addressLine1: string;
@@ -20,15 +23,14 @@ interface FormData {
   additionalInfo: string;
 }
 
-export default function BillingAddress({ onFormSubmit }: any) {
+export default function BillingAddress({ setIsFormFilled }: any) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { session, user } = useAuth();
-  const { update } = useSession();
+  const { user } = useAuth();
   const router = useRouter();
-
-  const [id, setId] = useState();
+  const { update } = useSession();
   const [show, setShow] = useState(false);
+  const [id, setId] = useState<string>();
 
   const [addressData, setAddressData] = useState<FormData>({
     phone1: "",
@@ -47,10 +49,13 @@ export default function BillingAddress({ onFormSubmit }: any) {
         setLoading(true);
         const response = await axios.get(`${ADDRESS_API_Endpoint}/get/${user}`);
         const userDataFromApi: FormData = response.data;
+        if (!response.data) {
+          return router.push("/profile/address");
+        }
         setAddressData(userDataFromApi);
-        setId(response.data._id);
+        setId(userDataFromApi._id);
       } catch (error) {
-        setError("Error fetching user data");
+        setError("Error fetching Address User data");
       } finally {
         setLoading(false);
       }
@@ -59,7 +64,7 @@ export default function BillingAddress({ onFormSubmit }: any) {
     if (user) {
       fetchUserData();
     }
-  }, [user]);
+  }, [addressData.phone1, router, user]);
 
   useEffect(() => {
     if (
@@ -69,6 +74,7 @@ export default function BillingAddress({ onFormSubmit }: any) {
       addressData.addressLine2 &&
       addressData.country &&
       addressData.city &&
+      addressData.additionalInfo &&
       addressData.postalCode
     ) {
       setShow(true);
@@ -83,30 +89,43 @@ export default function BillingAddress({ onFormSubmit }: any) {
     addressData.country,
     addressData.city,
     addressData.postalCode,
+    addressData.additionalInfo,
   ]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!addressData.city) {
-      return alert("Enter Your City Name");
+      toast.error("Enter Your City Name");
     }
     if (!addressData.country) {
-      return alert("Enter Your Country Name");
+      toast.error("Enter Your Country Name");
     }
     if (!addressData.phone1) {
-      return alert("Enter Your phone 1");
+      toast.error("Enter Your Phone 1");
     }
     if (!addressData.phone2) {
-      return alert("Enter Your phone 2");
+      toast.error("Enter Your Phone 2");
+    }
+    if (addressData.phone1.length !== 11) {
+      toast.error("Enter Your Correct phone 1 Number Format");
+    }
+    if (addressData.phone2.length !== 11) {
+      toast.error("Enter Your Correct phone 2 Number Format");
+    }
+    if (addressData.phone2 === addressData.phone1) {
+      toast.error("Not Same Phone Number");
     }
     if (!addressData.addressLine1) {
-      return alert("Enter Your address 1");
+      toast.error("Enter Your address 1");
     }
     if (!addressData.addressLine2) {
-      return alert("Enter Your address 2");
+      toast.error("Enter Your address 2");
     }
     if (!addressData.postalCode) {
-      return alert("Enter Your Postal Code");
+      toast.error("Enter Your Postal Code");
+    }
+    if (!addressData.additionalInfo) {
+      toast.error("Enter Your Additional Info");
     }
     try {
       setLoading(true);
@@ -119,18 +138,17 @@ export default function BillingAddress({ onFormSubmit }: any) {
         city: addressData.city,
         postalCode: addressData.postalCode,
         additionalInfo: addressData.additionalInfo,
+        user,
       });
       const res = response.data;
 
       if (res.error) {
-        setError(res.error);
+        toast.error(res.error);
       } else {
-        setError(res.message);
+        toast.success(res.message);
 
         await update();
-        if (onFormSubmit) {
-          onFormSubmit();
-        }
+        setIsFormFilled(true);
       }
     } catch (error) {
       setError("Error during Product Category Update");
@@ -158,7 +176,7 @@ export default function BillingAddress({ onFormSubmit }: any) {
                 <Input
                   type="number"
                   value={addressData.phone1}
-                  placeholder="xx xxx xxxx xxx"
+                  placeholder="03xx xxxx xxx"
                   onChange={(e) =>
                     setAddressData({
                       ...addressData,
@@ -174,7 +192,7 @@ export default function BillingAddress({ onFormSubmit }: any) {
                 <Input
                   type="number"
                   value={addressData.phone2}
-                  placeholder="xx xxx xxxx xxx"
+                  placeholder="03xx xxxx xxx"
                   onChange={(e) =>
                     setAddressData({
                       ...addressData,
