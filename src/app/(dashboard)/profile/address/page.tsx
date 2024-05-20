@@ -10,6 +10,8 @@ import Input from "@/src/components/ui/Input";
 import { useAuth } from "@/src/components/contexts/authContext";
 import axios from "axios";
 import { ADDRESS_API_Endpoint } from "@/src/utils/constant";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 interface FormData {
   phone1: string;
@@ -37,7 +39,30 @@ export default function Address() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (!addressData.city) {
+      toast.error("Enter Your City Name");
+      return;
+    }
+    if (!addressData.country) {
+      toast.error("Enter Your Country Name");
+      return;
+    }
+    if (!addressData.phone1) {
+      toast.error("Enter Your Phone 1");
+      return;
+    }
+    if (addressData.phone1.length !== 11) {
+      toast.error("Enter Your Correct phone 1 Number Format");
+      return;
+    }
+    if (!addressData.addressLine1) {
+      toast.error("Enter Your address 1");
+      return;
+    }
+    if (!addressData.postalCode) {
+      toast.error("Enter Your Postal Code");
+      return;
+    }
     try {
       setLoading(true);
       if (!session) {
