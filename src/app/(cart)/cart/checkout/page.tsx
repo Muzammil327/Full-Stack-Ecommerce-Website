@@ -90,7 +90,7 @@ export default function Page() {
 
       // toast.success(response.data.message);
       getToCartBtn();
-      router.push("/profile/active-order");
+      router.push("/stores");
     } catch (error) {
       if (axios.isAxiosError(error)) {
         if (error.response?.status === 400) {

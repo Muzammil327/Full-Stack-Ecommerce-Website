@@ -6,7 +6,6 @@ import ProductDetailCatgeory from "@/src/components/productDetail/catgeory";
 import AddtoCartBtn from "@/src/components/productDetail/AddtoCartBtn";
 import FavouriteBtn from "@/src/components/productDetail/FavouriteBtn";
 import RelatedProduct from "@/src/components/productDetail/RelatedProduct";
-import { FaShareNodes } from "react-icons/fa6";
 
 import { ProductData } from "@/src/types/product";
 
@@ -16,10 +15,10 @@ import { Product_API_Endpoint } from "@/src/utils/constant";
 import Container from "../components/ui/Container";
 import axios from "axios";
 import { useAuth } from "../components/contexts/authContext";
+import ShareButton from "../components/productDetail/shareButton";
 
 export default function ProductDetail({ params }: { params: string }) {
   const [data, setData] = useState<ProductData>();
-  console.log(data)
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -142,14 +141,8 @@ export default function ProductDetail({ params }: { params: string }) {
                             <FaRegThumbsDown size={24} /> {data.dislike.length}
                           </span>
                         </button>
-                        <button
-                          onClick={() => HandleDisLike(data._id)}
-                          className="bg-red-400 block hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white border-2 border-solid border-red-400 w-full"
-                        >
-                          <span className="flex items-center justify-center gap-3">
-                            <FaShareNodes size={24} />
-                          </span>
-                        </button>
+
+                        <ShareButton />
                       </div>
                     </div>
                   </div>

@@ -103,6 +103,7 @@ export default function StoreSort({
             </ul>
           </div>
         </div>
+
         <button
           type="button"
           className="relative rounded-md bg-white p-2 text-gray-400 lg:hidden"

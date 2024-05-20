@@ -25,7 +25,7 @@ export default function ProductDetailImageSlider({ response }: any) {
       {!swiperReady && (
         <div className="loading-spinner">
           <Image
-            src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${response.image}.png`}
+            src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1714240538/${response.image}.png`}
             width={1080}
             height={1080}
             alt=""
@@ -46,7 +46,7 @@ export default function ProductDetailImageSlider({ response }: any) {
           {response.slider.map((index: string, slideIndex: number) => (
             <SwiperSlide key={slideIndex}>
               <Image
-                src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${index}.png`}
+                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1714240538/${index}.png`}
                 width={1080}
                 height={1080}
                 alt=""

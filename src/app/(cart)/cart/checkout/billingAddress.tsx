@@ -96,36 +96,47 @@ export default function BillingAddress({ setIsFormFilled }: any) {
     e.preventDefault();
     if (!addressData.city) {
       toast.error("Enter Your City Name");
+      return;
     }
     if (!addressData.country) {
       toast.error("Enter Your Country Name");
+      return;
     }
     if (!addressData.phone1) {
       toast.error("Enter Your Phone 1");
+      return;
     }
     if (!addressData.phone2) {
       toast.error("Enter Your Phone 2");
+      return;
     }
     if (addressData.phone1.length !== 11) {
       toast.error("Enter Your Correct phone 1 Number Format");
+      return;
     }
     if (addressData.phone2.length !== 11) {
       toast.error("Enter Your Correct phone 2 Number Format");
+      return;
     }
     if (addressData.phone2 === addressData.phone1) {
       toast.error("Not Same Phone Number");
+      return;
     }
     if (!addressData.addressLine1) {
       toast.error("Enter Your address 1");
+      return;
     }
     if (!addressData.addressLine2) {
       toast.error("Enter Your address 2");
+      return;
     }
     if (!addressData.postalCode) {
       toast.error("Enter Your Postal Code");
+      return;
     }
     if (!addressData.additionalInfo) {
       toast.error("Enter Your Additional Info");
+      return;
     }
     try {
       setLoading(true);
@@ -144,6 +155,7 @@ export default function BillingAddress({ setIsFormFilled }: any) {
 
       if (res.error) {
         toast.error(res.error);
+        return;
       } else {
         toast.success(res.message);
 
@@ -152,6 +164,7 @@ export default function BillingAddress({ setIsFormFilled }: any) {
       }
     } catch (error) {
       setError("Error during Product Category Update");
+      return;
     } finally {
       setLoading(false);
     }
