@@ -63,9 +63,18 @@ export async function middleware(request: NextRequest) {
       console.error("Error checking session:", error);
     }
   }
+
   if (isCartPath || isCheckoutPath) {
     try {
       if (token) {
+        if (isCartPath || isCheckoutPath) {
+          // console.log("Admin access granted");
+          return NextResponse.next();
+        } else if (!isCartPath || !isCheckoutPath) {
+          // console.log("User not access");
+          request.nextUrl.pathname = "/sign-in"; // Update the path to the full URL
+          return NextResponse.redirect(new URL(request.nextUrl.href));
+        }
         console.log("token get");
         return NextResponse.next();
       } else {
@@ -77,6 +86,7 @@ export async function middleware(request: NextRequest) {
       console.error("Error checking session:", error);
     }
   }
+
   if (isAdminPath) {
     try {
       if (token) {
@@ -98,6 +108,7 @@ export async function middleware(request: NextRequest) {
       console.error("Error checking session:", error);
     }
   }
+
   if (isProfilePath) {
     try {
       if (token) {
@@ -119,6 +130,7 @@ export async function middleware(request: NextRequest) {
       console.error("Error checking session:", error);
     }
   }
+
   return NextResponse.next();
 }
 
