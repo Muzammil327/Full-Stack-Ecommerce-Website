@@ -75,8 +75,6 @@ export async function middleware(request: NextRequest) {
           request.nextUrl.pathname = "/sign-in"; // Update the path to the full URL
           return NextResponse.redirect(new URL(request.nextUrl.href));
         }
-        console.log("token get");
-        return NextResponse.next();
       } else {
         console.log("token no");
         request.nextUrl.pathname = "/sign-in"; // Update the path to the full URL
