@@ -10,10 +10,10 @@
 - User Order Placement
 - Status Change by Admin
 - Product Management
+- Like and DisLike
 
 #### Future
 - Product Rating and Review
-- Like and DisLike
 - Email Verification
 - Searching
 - Stripe Integratiom
@@ -34,11 +34,11 @@
 - cloudinary
 - Node Js
 - Express Js
+- Sentry 
 
 #### Future
 - GraphQL Integration
 - SWR
-- Sentry 
 
 --------------------------------
 
@@ -51,9 +51,9 @@
 - bcrypt
 - react-select
 - multer
+- react-share
 
 #### Future
-- react-share
 - react-simple-star-rating
 - nodemailer
 
