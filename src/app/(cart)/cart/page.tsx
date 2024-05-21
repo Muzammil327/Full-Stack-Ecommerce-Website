@@ -32,11 +32,9 @@ const ProductList = () => {
 
   const DeleteHandle = async (productId: string) => {
     try {
-      if (session) {
-        await axios.delete(`${Cart_API_Endpoint}/delete/${productId}`);
+      await axios.delete(`${Cart_API_Endpoint}/delete/${productId}`);
 
-        await getToCartBtn();
-      }
+      await getToCartBtn();
     } catch (error) {
       console.error("Error removing product from cart:", error);
     } finally {
