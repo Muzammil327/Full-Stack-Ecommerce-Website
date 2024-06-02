@@ -120,12 +120,14 @@ const ProductList = () => {
                             )}
                           </td>
                           <td className="px-6 py-4">
-                            <button
-                              className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                              onClick={() => DeleteHandle(user._id)}
-                            >
-                              Remove
-                            </button>
+                            {user.status === "Pending" && (
+                              <button
+                                className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                                onClick={() => DeleteHandle(user._id)}
+                              >
+                                Remove
+                              </button>
+                            )}
                           </td>
                         </tr>
                       ))

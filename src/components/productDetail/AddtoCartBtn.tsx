@@ -12,6 +12,9 @@ export default function AddtoCartBtn({ product }: { product: string }) {
   const [loading, setLoading] = useState<boolean>(false);
 
   const AddToCart = async (product: string) => {
+    if (!session) {
+      return toast.error("Please Login");
+    }
     if (user) {
       try {
         setLoading(true);

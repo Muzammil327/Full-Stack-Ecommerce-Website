@@ -21,7 +21,6 @@ interface Product {
 const ProductList = () => {
   const { errorCart, loadingCart, getToCartBtn, cart } = useCart();
   const { session } = useAuth();
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -85,7 +84,9 @@ const ProductList = () => {
     setTotal(total);
     setTotalTax(totalTax);
   }, [cart, router]);
-
+  if (!session) {
+    return router.push("/sign-in");
+  }
   const handleSubmit = async (products: Product[]) => {
     const user = session.user._id;
     setLoading(true);

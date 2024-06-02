@@ -3,6 +3,7 @@ import { useAuth } from "@/src/components/contexts/authContext";
 import StatCard from "@/src/components/elements/StatCard";
 import { Cart_API_Endpoint } from "@/src/utils/constant";
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 
@@ -31,11 +32,13 @@ export default function ProfileCartCard() {
     }
   }, [user]);
   return (
-    <StatCard
-      error={error}
-      length={isLoading ? 0 : data.length}
-      name={"Total Carts"}
-      svg={<FaCartShopping />}
-    />
+    <Link href="/cart">
+      <StatCard
+        error={error}
+        length={isLoading ? 0 : data.length}
+        name={"Total Carts"}
+        svg={<FaCartShopping />}
+      />
+    </Link>
   );
 }

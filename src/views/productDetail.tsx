@@ -6,7 +6,8 @@ import ProductDetailCatgeory from "@/src/components/productDetail/catgeory";
 import AddtoCartBtn from "@/src/components/productDetail/AddtoCartBtn";
 import FavouriteBtn from "@/src/components/productDetail/FavouriteBtn";
 import RelatedProduct from "@/src/components/productDetail/RelatedProduct";
-
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { ProductData } from "@/src/types/product";
 
 import { FaRegThumbsUp } from "react-icons/fa6";
@@ -21,8 +22,7 @@ export default function ProductDetail({ params }: { params: string }) {
   const [data, setData] = useState<ProductData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-
-  const { user } = useAuth();
+  const { user, session } = useAuth();
 
   const fetchProduct = useCallback(async () => {
     try {
@@ -42,6 +42,9 @@ export default function ProductDetail({ params }: { params: string }) {
   }, [fetchProduct, params]);
 
   const HandleLike = async (productId: string) => {
+    if (!session) {
+      return toast.error("Please Login");
+    }
     try {
       await axios.put(`${Product_API_Endpoint}/put/like/${productId}`, {
         user,
@@ -52,6 +55,9 @@ export default function ProductDetail({ params }: { params: string }) {
     }
   };
   const HandleDisLike = async (productId: string) => {
+    if (!session) {
+      return toast.error("Please Login");
+    }
     try {
       await axios.put(`${Product_API_Endpoint}/put/dislike/${productId}`, {
         user,

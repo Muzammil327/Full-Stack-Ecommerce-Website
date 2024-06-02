@@ -92,8 +92,13 @@ export default function Address() {
         city: "",
         postalCode: "",
       });
-
-      router.push("/profile");
+      const previousPage = sessionStorage.getItem('checkout Page Router');
+      if (previousPage) {
+        router.push(previousPage);
+      } else {
+        // If previousPage is not stored, redirect to a default page
+        router.push("/profile");
+      }
     } catch (error) {
       setError("Error during User Address Update");
     } finally {

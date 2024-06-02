@@ -49,6 +49,8 @@ export default function BillingAddress({ setIsFormFilled }: any) {
         setLoading(true);
         const response = await axios.get(`${ADDRESS_API_Endpoint}/get/${user}`);
         const userDataFromApi: FormData = response.data;
+        sessionStorage.setItem("checkout Page Router", window.location.href);
+
         if (!response.data) {
           return router.push("/profile/address");
         }

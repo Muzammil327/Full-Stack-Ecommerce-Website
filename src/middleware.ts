@@ -13,6 +13,7 @@ export async function middleware(request: NextRequest) {
   const isProfilePath = request.nextUrl.pathname.startsWith("/profile");
   const isCartPath = request.nextUrl.pathname.startsWith("/cart");
   const isCheckoutPath = request.nextUrl.pathname.startsWith("/checkout");
+  const isWishlistPath = request.nextUrl.pathname.startsWith("/wishlist");
   const isSignInPath = request.nextUrl.pathname.startsWith("/sign-in");
   const isCreateAccountPath =
     request.nextUrl.pathname.startsWith("/create-account");
@@ -64,17 +65,10 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (isCartPath || isCheckoutPath) {
+  if (isCartPath || isCheckoutPath || isWishlistPath) {
     try {
       if (token) {
-        if (isCartPath || isCheckoutPath) {
-          // console.log("Admin access granted");
-          return NextResponse.next();
-        } else if (!isCartPath || !isCheckoutPath) {
-          // console.log("User not access");
-          request.nextUrl.pathname = "/sign-in"; // Update the path to the full URL
-          return NextResponse.redirect(new URL(request.nextUrl.href));
-        }
+        return NextResponse.next();
       } else {
         console.log("token no");
         request.nextUrl.pathname = "/sign-in"; // Update the path to the full URL

@@ -8,6 +8,7 @@ import { useCart } from "@/src/components/contexts/cartContext";
 import { useAuth } from "@/src/components/contexts/authContext";
 import Container from "@/src/components/ui/Container";
 import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
+import { useRouter } from "next/navigation";
 
 const ProductList = () => {
   const { errorWishList, loadingWishList, getToWishlistBtn, wishList } =
@@ -15,6 +16,7 @@ const ProductList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const { session } = useAuth();
+  const router = useRouter();
 
   const DeleteHandle = async (productId: string) => {
     try {
@@ -30,7 +32,9 @@ const ProductList = () => {
       setIsLoading(false);
     }
   };
-
+  if (!session) {
+    return router.push("/sign-in");
+  }
   return (
     <>
       <Container>
