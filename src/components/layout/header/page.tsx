@@ -9,7 +9,7 @@ export default function Header() {
         <ul className="flex gap-4 md:justify-start justify-center items-center">
           <li>
             <Link href="#" className="text-sm">
-              About Us Muhammad Muzammil Safdar
+              About Us
             </Link>
           </li>
           <li>

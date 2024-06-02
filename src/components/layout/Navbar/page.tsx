@@ -217,7 +217,7 @@ export default function Navbar() {
                 <div className="flex h-full space-x-8">
                   {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
-                      {({ open }) => (
+                      {({ open, close }) => (
                         <>
                           <div className="relative flex">
                             <Popover.Button
@@ -262,14 +262,14 @@ export default function Navbar() {
                                                 src={item.imageSrc}
                                                 alt={item.imageAlt}
                                                 className="object-cover object-center"
-                                                height={500}
-                                                width={500}
+                                                height={300}
+                                                width={300}
                                               />
                                             </div>
                                             <Link
                                               href={item.href}
                                               className="mt-6 block font-medium text-gray-900"
-                                              onClick={() => setOpen(false)}
+                                              onClick={close}
                                             >
                                               <span
                                                 className="absolute inset-0 z-10"
@@ -313,9 +313,7 @@ export default function Navbar() {
                                                     <Link
                                                       href={item.href}
                                                       className="hover:text-gray-800"
-                                                      onClick={() =>
-                                                        setOpen(false)
-                                                      }
+                                                      onClick={close}
                                                     >
                                                       {item.name}
                                                     </Link>
@@ -341,7 +339,6 @@ export default function Navbar() {
                     <Link
                       key={page.name}
                       href={page.href}
-                      onClick={() => setOpen(false)}
                       className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
