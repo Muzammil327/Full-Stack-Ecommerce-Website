@@ -1,32 +1,14 @@
-// "use client";
-// import { useParams } from "next/navigation";
-// import React from "react";
-
-// export default function Page() {
-//   const { catgeory } = useParams();
-//   return (
-//     <div>
-
-//     </div>
-//   );
-// }
 "use client";
 
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
-// import StorePage from "@/src/view/store/page";
-// import LoadingProductCard from "@/src/components/element/Loading/LoadingProductCard";
-// import { useFetchArray } from "@/src/components/function/useFetchArray";
-import { Product_API_Endpoint } from "@/src/utils/constant";
-// import StoreProducts from "@/src/components/product/Store/StoreProducts";
-// import StorePagination from "@/src/components/product/Store/StorePagination";
+import { Product_STORE } from "@/src/utils/constant";
 import { ProductShopProps } from "@/src/types/product";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
 import Container from "@/src/components/ui/Container";
 import StoreProducts from "@/src/components/Store/StoreProducts";
 import StorePagination from "@/src/components/Store/StorePagination";
 import { useFetch } from "@/src/components/hooks/useFetch";
-// import Container from "@/src/components/element/container/page";
 import { useSearchParams } from "next/navigation";
 
 export default function Page() {
@@ -42,7 +24,7 @@ export default function Page() {
   const [page, setPage] = useState(1);
 
   const { data, error, loading } = useFetch<ProductShopProps>(
-    `${Product_API_Endpoint}/get?page=${page}&tags=${items}&category=${category}&subCatgeory=${subcategory}`
+    `${Product_STORE}?page=${page}&tags=${items}&category=${category}&subCatgeory=${subcategory}`
   );
   return (
     <main>

@@ -1,6 +1,6 @@
 'use client'
 import StatCard from "@/src/components/elements/StatCard";
-import { Product_API_Endpoint } from "@/src/utils/constant";
+import { Product_GET } from "@/src/utils/constant";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -14,7 +14,7 @@ export default function AdminProductCard() {
       try {
         setIsLoading(true);
         const response = await axios.get(
-          `${Product_API_Endpoint}/stats`
+          `${Product_GET}`
         );
         setData(response.data);
       } catch (error) {

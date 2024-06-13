@@ -1,10 +1,11 @@
 "use client";
+import { categories } from "@/src/components/data";
 import Input from "@/src/components/ui/Input";
 import Label from "@/src/components/ui/Label";
-import { Product_API_Endpoint } from "@/src/utils/constant";
+import { Product_GET, Product_POST } from "@/src/utils/constant";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Select from "react-select";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
@@ -20,11 +21,13 @@ const Page = () => {
   const [data, setData] = useState([]);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [platform, setPlatform] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [subCategory, setSubCategory] = useState<string>("");
   const [items, setItems] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [price, setPrice] = useState<number | undefined>(0);
+  const [deliveryCharge, setDeliveryCharge] = useState<number | undefined>(0);
   const [discountprice, setDiscountPrice] = useState<number | undefined>(0);
   const [quantity, setQuantity] = useState<number | undefined>(0);
 
@@ -50,7 +53,7 @@ const Page = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${Product_API_Endpoint}/stats`);
+        const response = await axios.get(`${Product_GET}`);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching product data:", error);
@@ -72,6 +75,7 @@ const Page = () => {
       formData.append("subCategory", subCategory);
       formData.append("items", items);
       formData.append("status", status);
+      formData.append("platform", platform);
 
       if (tags.length > 0) {
         tags.forEach((tags) => {
@@ -101,6 +105,9 @@ const Page = () => {
       if (discountprice !== undefined) {
         formData.append("discountprice", discountprice.toString()); // Convert price to string
       }
+      if (deliveryCharge !== undefined) {
+        formData.append("deliveryCharge", deliveryCharge.toString()); // Convert price to string
+      }
       if (quantity !== undefined) {
         formData.append("quantity", quantity.toString()); // Convert price to string
       }
@@ -112,7 +119,7 @@ const Page = () => {
         });
       }
 
-      await axios.post(`${Product_API_Endpoint}/post`, formData, {
+      await axios.post(`${Product_POST}/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -252,10 +259,12 @@ const Page = () => {
               onChange={(e) => setCategory(e.target.value)}
               className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             >
-              <option value="">Select category</option>
-              <option value="men">Men</option>
-              <option value="women">Women</option>
-              <option value="children">Children</option>
+              <option value="">Select Category</option>
+              {categories.map((data) => (
+                <option value={data.id} key={data.id}>
+                  {data.name}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -270,8 +279,17 @@ const Page = () => {
               className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             >
               <option value="">Select Sub Category</option>
-              <option value="clothing">Clothing</option>
-              <option value="accessories">Accessories</option>
+              {categories
+                .filter((data) => data.id === category)
+                .map((data) => (
+                  <React.Fragment key={data.id}>
+                    {data.subCategories?.map((subData) => (
+                      <option value={subData.id} key={subData.id}>
+                        {subData.name}
+                      </option>
+                    ))}
+                  </React.Fragment>
+                ))}
             </select>
           </div>
         </div>
@@ -288,9 +306,23 @@ const Page = () => {
               className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             >
               <option value="">Select Items</option>
-              <option value="watches">Watches</option>
-              <option value="women">Women</option>
-              <option value="children">Children</option>
+              {categories
+                .filter((data) => data.id === category)
+                .map((data) => (
+                  <React.Fragment key={data.id}>
+                    {data.subCategories
+                      ?.filter((subData) => subData.id === subCategory)
+                      .map((subData) => (
+                        <React.Fragment key={data.id}>
+                          {subData.tags?.map((subData) => (
+                            <option value={subData.id} key={subData.id}>
+                              {subData.name}
+                            </option>
+                          ))}
+                        </React.Fragment>
+                      ))}
+                  </React.Fragment>
+                ))}
             </select>
           </div>
           <div className="mb-6">
@@ -345,6 +377,61 @@ const Page = () => {
               value={discountprice || ""}
               onChange={(e) => setDiscountPrice(parseInt(e.target.value))}
               placeholder="Enter your discount price."
+              className="w-full border border-gray-300 py-3 pl-3 rounded-md mt-2 shadow-sm outline-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-6">
+            <label className="block text-base font-medium text-gray-700">
+              Platform:
+            </label>
+            <select
+              id="platform"
+              value={platform}
+              onChange={(e) => setPlatform(e.target.value)}
+              className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
+            >
+              <option value="">Select Platform</option>
+              <option value="markaz">markaz</option>
+              <option value="hhcdropshipping">hhcdropshipping</option>
+              <option value="sadadropship">sadadropship</option>
+            </select>
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-base font-medium text-gray-700">
+              Status:
+            </label>
+            <select
+              id="category"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
+            >
+              <option value="">Select Status</option>
+              <option value="active">active</option>
+              <option value="out of stock">out of stock</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-6">
+            <label
+              htmlFor="deliveryCharge"
+              className="block text-base font-medium text-gray-700"
+            >
+              Product Delivery Charge:
+            </label>
+            <input
+              type="number"
+              name="deliveryCharge"
+              id="deliveryCharge"
+              value={deliveryCharge || ""}
+              onChange={(e) => setDeliveryCharge(parseInt(e.target.value))}
+              placeholder="Enter your product price."
               className="w-full border border-gray-300 py-3 pl-3 rounded-md mt-2 shadow-sm outline-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             />
           </div>
@@ -420,22 +507,6 @@ const Page = () => {
               Top
             </label>
           </div>
-        </div>
-
-        <div className="mb-6">
-          <label className="block text-base font-medium text-gray-700">
-            Status:
-          </label>
-          <select
-            id="category"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
-          >
-            <option value="">Select Status</option>
-            <option value="active">active</option>
-            <option value="out of stock">out of stock</option>
-          </select>
         </div>
 
         <div className="mb-6">

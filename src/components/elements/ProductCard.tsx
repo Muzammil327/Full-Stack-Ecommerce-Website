@@ -20,7 +20,7 @@ export default function ProductCard({ product }: IProps) {
         <Link href={`/stores/${product.slug}`} className="relative">
           <div className="w-full aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
             <Image
-              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${product.image}.png`}
+              src={`${product.image}`}
               alt={product.name}
               title={product.name}
               sizes="(max-width: 600px) 90vw, 600px"

@@ -20,12 +20,15 @@ import Image from "next/image";
 export default function ProductDetailImageSlider({ response }: any) {
   const [swiperReady, setSwiperReady] = useState(false);
 
+  const hasSliderImages =
+    Array.isArray(response.slider) && response.slider.length > 0;
+
   return (
     <div className="img">
       {!swiperReady && (
         <div className="loading-spinner">
           <Image
-            src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1714240538/${response.image}.png`}
+            src={`${response.image}`}
             width={1080}
             height={1080}
             alt=""
@@ -34,7 +37,7 @@ export default function ProductDetailImageSlider({ response }: any) {
         </div>
       )}
 
-      {swiperReady && (
+      {swiperReady && hasSliderImages ? (
         <Swiper
           effect={"flip"}
           grabCursor={true}
@@ -46,7 +49,7 @@ export default function ProductDetailImageSlider({ response }: any) {
           {response.slider.map((index: string, slideIndex: number) => (
             <SwiperSlide key={slideIndex}>
               <Image
-                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1714240538/${index}.png`}
+                src={`http://localhost:5000/uploadSliderImage/${index}`}
                 width={1080}
                 height={1080}
                 alt=""
@@ -54,6 +57,17 @@ export default function ProductDetailImageSlider({ response }: any) {
             </SwiperSlide>
           ))}
         </Swiper>
+      ) : (
+        swiperReady && (
+          <div className="fallback-image">
+            <Image
+              src={`${response.image}`}
+              width={1080}
+              height={1080}
+              alt="Fallback Image"
+            />
+          </div>
+        )
       )}
     </div>
   );

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -43,11 +44,13 @@ export default function Instragram() {
             <>
               <div className="col-lg-2 col-md-4 col-sm-4 p-0" key={data.id}>
                 <div className="instagram__item">
-                  <img
+                  <Image
                     src={data.img}
                     alt={data.title}
                     title={data.title}
                     className="set-bg"
+                    height={400}
+                    width={400}
                   />
                   <div className="instagram__text flex flex-col">
                     <svg

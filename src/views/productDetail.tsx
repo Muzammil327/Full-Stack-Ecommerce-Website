@@ -12,7 +12,7 @@ import { ProductData } from "@/src/types/product";
 
 import { FaRegThumbsUp } from "react-icons/fa6";
 import { FaRegThumbsDown } from "react-icons/fa6";
-import { Product_API_Endpoint } from "@/src/utils/constant";
+import { Product_GET_BYSLUG, Product_PUT_DISLIKE, Product_PUT_LIKE } from "@/src/utils/constant";
 import Container from "../components/ui/Container";
 import axios from "axios";
 import { useAuth } from "../components/contexts/authContext";
@@ -27,7 +27,7 @@ export default function ProductDetail({ params }: { params: string }) {
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${Product_API_Endpoint}/get/${params}`);
+      const response = await axios.get(`${Product_GET_BYSLUG}/${params}`);
       setData(response.data);
     } catch (error) {
       console.log(error);
@@ -46,7 +46,7 @@ export default function ProductDetail({ params }: { params: string }) {
       return toast.error("Please Login");
     }
     try {
-      await axios.put(`${Product_API_Endpoint}/put/like/${productId}`, {
+      await axios.put(`${Product_PUT_LIKE}/${productId}`, {
         user,
       });
       fetchProduct();
@@ -59,7 +59,7 @@ export default function ProductDetail({ params }: { params: string }) {
       return toast.error("Please Login");
     }
     try {
-      await axios.put(`${Product_API_Endpoint}/put/dislike/${productId}`, {
+      await axios.put(`${Product_PUT_DISLIKE}/${productId}`, {
         user,
       });
       fetchProduct();

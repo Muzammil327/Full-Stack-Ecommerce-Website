@@ -1,5 +1,5 @@
 "use client";
-import { Product_API_Endpoint } from "@/src/utils/constant";
+import { Product_PUT_Slider } from "@/src/utils/constant";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -23,15 +23,11 @@ const Page = () => {
       slider.forEach((file) => {
         formData.append("slider", file);
       });
-      const response = await axios.put(
-        `${Product_API_Endpoint}/put/slider/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.put(`${Product_PUT_Slider}/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       setSuccessMessage("Product added Successfully!");
     } catch (error) {
       console.log(error);

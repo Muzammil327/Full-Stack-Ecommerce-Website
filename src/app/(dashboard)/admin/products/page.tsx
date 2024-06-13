@@ -1,6 +1,6 @@
 "use client";
 import { ProductPaginationProps } from "@/src/types/product";
-import { Product_API_Endpoint } from "@/src/utils/constant";
+import { Product_DELETE, Product_STORE } from "@/src/utils/constant";
 import axios from "axios";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -22,7 +22,7 @@ export default function Page() {
   const fetchData = useCallback(async () => {
     try {
       const response = await axios.get(
-        `${Product_API_Endpoint}/get/admin?page=${page}&limit=10`
+        `${Product_STORE}?page=${page}&limit=10`
       );
       setProducts(response.data.products);
       setPagination(response.data.pagination);
@@ -42,7 +42,7 @@ export default function Page() {
   const DeleteProduct = async (id: string, publicId: string, slider: any) => {
     try {
       await axios.delete(
-        `${Product_API_Endpoint}/delete/${id}?publicId=${publicId}&?slider=${slider}`
+        `${Product_DELETE}/${id}?publicId=${publicId}&?slider=${slider}`
       );
       fetchData(); // Assuming fetchData is a function to fetch updated data
     } catch (error) {

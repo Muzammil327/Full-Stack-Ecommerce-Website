@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
+import { categories } from "../data";
 
 interface StoreTagsProps {
   filterItem: (title: string) => void;
+  catgeorySet: string;
+  subCatgeorySet: string;
 }
 
-const StoreTags: React.FC<StoreTagsProps> = ({ filterItem }) => {
+const StoreTags: React.FC<StoreTagsProps> = ({
+  filterItem,
+  catgeorySet,
+  subCatgeorySet,
+}) => {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
 
   const toggleTagsOptions = () => {
@@ -34,16 +41,28 @@ const StoreTags: React.FC<StoreTagsProps> = ({ filterItem }) => {
 
       <div className={`pt-6 ${isTagsOpen ? "" : "hidden"}`}>
         <div className="space-y-4">
-          {items.map((data) => (
-            <ul className="flex items-center" key={data.name}>
-              <li
-                className="ml-3 text-sm text-gray-600 cursor-pointer"
-                onClick={() => filterItem(data.name)}
-              >
-                {data.name}
-              </li>
-            </ul>
-          ))}
+          {categories
+            .filter((data) => data.id === catgeorySet)
+            .map((data) => (
+              <React.Fragment key={data.id}>
+                {data.subCategories
+                  ?.filter((subData) => subData.id === subCatgeorySet)
+                  .map((subDatas) => (
+                    <React.Fragment key={data.id}>
+                      {subDatas.tags?.map((subDatas) => (
+                         <ul className="flex items-center" key={subDatas.name}>
+                         <li
+                           className="ml-3 text-sm text-gray-600 cursor-pointer"
+                           onClick={() => filterItem(subDatas.name)}
+                         >
+                           {subDatas.name}
+                         </li>
+                       </ul>
+                      ))}
+                    </React.Fragment>
+                  ))}
+              </React.Fragment>
+            ))}
         </div>
       </div>
     </div>
@@ -51,18 +70,3 @@ const StoreTags: React.FC<StoreTagsProps> = ({ filterItem }) => {
 };
 
 export default StoreTags;
-
-const items = [
-  { name: "Tops", href: "#" },
-  { name: "Pants", href: "#" },
-  { name: "Sweaters", href: "#" },
-  { name: "T-Shirts", href: "#" },
-  { name: "Jackets", href: "#" },
-  { name: "Activewear", href: "#" },
-  { name: "Watches", href: "#" },
-  { name: "Wallets", href: "#" },
-  { name: "Bags", href: "#" },
-  { name: "Sunglasses", href: "#" },
-  { name: "Hats", href: "#" },
-  { name: "Belts", href: "#" },
-];

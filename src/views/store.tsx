@@ -11,7 +11,7 @@ import StorePagination from "@/src/components/Store/StorePagination";
 import StoreProducts from "@/src/components/Store/StoreProducts";
 import { FaXmark } from "react-icons/fa6";
 
-import { Product_API_Endpoint } from "@/src/utils/constant";
+import { Product_STORE } from "@/src/utils/constant";
 import Container from "@/src/components/ui/Container";
 import axios from "axios";
 
@@ -24,7 +24,7 @@ export default function StorePage() {
   const [lowPrice, setLowPrice] = useState<number | null>(null);
   const [priceHL, setPriceHL] = useState<string>("");
   const [priceLH, setPriceLH] = useState<string>("");
-
+console.log(tags)
   const [data, setData] = useState<[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
@@ -34,7 +34,7 @@ export default function StorePage() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${Product_API_Endpoint}/get?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+          `${Product_STORE}?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
         );
         setData(response.data);
       } catch (error) {
@@ -86,7 +86,9 @@ export default function StorePage() {
           filterItemsHL={SortPriceHL}
           setPage={setPage}
           setCategory={setCategory}
+          category={category}
           setSubCategory={setSubCategory}
+          subCategory={subCategory}
           setTags={setTags}
           setHighPrice={setHighPrice}
           setLowPrice={setLowPrice}
@@ -111,17 +113,21 @@ export default function StorePage() {
                 setSubCategory(value.toLowerCase());
                 setPage(1);
               }}
+              catgeorySet={category}
+            />
+
+            <StoreTags
+              filterItem={(value: string) => {
+                setTags(value.toLowerCase());
+                setPage(1);
+              }}
+              catgeorySet={category}
+              subCatgeorySet={subCategory}
             />
             <StorePrice
               filterItem={(lowPrice: number, highPrice: number) => {
                 LowPrice(lowPrice);
                 HighPrice(highPrice);
-              }}
-            />
-            <StoreTags
-              filterItem={(value: string) => {
-                setTags(value.toLowerCase());
-                setPage(1);
               }}
             />
           </div>

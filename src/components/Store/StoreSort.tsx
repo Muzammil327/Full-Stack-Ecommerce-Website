@@ -16,6 +16,8 @@ export interface StoreSortProps {
   setTags: (tags: string) => void;
   setHighPrice: (price: number | null) => void;
   setLowPrice: (price: number | null) => void;
+  category: string;
+  subCategory: string;
 }
 
 export default function StoreSort({
@@ -27,6 +29,8 @@ export default function StoreSort({
   setTags,
   setHighPrice,
   setLowPrice,
+  category,
+  subCategory,
 }: StoreSortProps) {
   const [isSortOpen, setIsSortOpen] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -165,6 +169,7 @@ export default function StoreSort({
                       setPage(1);
                       setOpen(false);
                     }}
+                    catgeorySet={category}
                   />
                   <StoreTags
                     filterItem={(value: string) => {
@@ -172,6 +177,8 @@ export default function StoreSort({
                       setPage(1);
                       setOpen(false);
                     }}
+                    catgeorySet={category}
+                    subCatgeorySet={subCategory}
                   />
                   <StorePrice
                     filterItem={(lowPrice: number, highPrice: number) => {

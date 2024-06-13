@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
+import { categories } from "@/src/components/data";
 
 interface Props {
   filterItem: (title: string) => void;
@@ -56,8 +57,3 @@ const StoreCategory: React.FC<Props> = ({ filterItem }) => {
 };
 
 export default StoreCategory;
-
-const categories = [
-  { id: "women", name: "Women" },
-  { id: "men", name: "Men" },
-];
