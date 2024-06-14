@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Iprops) {
       url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/stores/${slug}`,
       images: [
         {
-          url: `${data?.image}`,
+          url: data?.image,
           alt: data?.name,
         },
       ],
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Iprops) {
       title: data?.name,
       description: data?.description,
       images: {
-        url: `${data?.image}`,
+        url: data?.image,
         alt: data?.name,
       },
     },
