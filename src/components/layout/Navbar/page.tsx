@@ -31,7 +31,7 @@ export default function Navbar() {
   const { errorCart, loadingCart, wishList, cart } = useCart();
 
   return (
-    <div className="bg-white">
+    <section className="bg-white">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -189,7 +189,7 @@ export default function Navbar() {
         </Dialog>
       </Transition.Root>
 
-      <header className="relative bg-white border-b border-gray-200">
+      <div className="relative bg-white border-b border-gray-200">
         {/* <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
         </p> */}
@@ -393,8 +393,8 @@ export default function Navbar() {
             </div>
           </div>
         </Container>
-      </header>
-    </div>
+      </div>
+    </section>
   );
 }
 

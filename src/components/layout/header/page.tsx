@@ -5,7 +5,7 @@ import SubHeaderSocial from "@/src/components/layout/header/SubHeaderSocial";
 export default function Header() {
   return (
     <header className="grid md:grid-cols-2 grid-cols-1 flex-wrap md:justify-start justify-center items-center px-6 mx-auto border-b py-2">
-      <div>
+      <section>
         <ul className="flex gap-4 md:justify-start justify-center items-center">
           <li>
             <Link href="#" className="text-sm">
@@ -23,10 +23,10 @@ export default function Header() {
             </Link>
           </li>
         </ul>
-      </div>
-      <div className="md:flex hidden justify-between items-center">
+      </section>
+      <section className="md:flex hidden justify-between items-center">
         <SubHeaderSocial />
-      </div>
+      </section>
     </header>
   );
 }

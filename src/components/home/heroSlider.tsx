@@ -13,7 +13,7 @@ import Image from "next/image";
 
 export default function HeroSlider() {
   return (
-    <>
+    <section>
       <Swiper
         spaceBetween={30}
         loop={true}
@@ -71,6 +71,6 @@ export default function HeroSlider() {
           />
         </SwiperSlide>
       </Swiper>
-    </>
+    </section>
   );
 }

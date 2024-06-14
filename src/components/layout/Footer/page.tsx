@@ -7,7 +7,7 @@ import LoadingLink from "../../ui/Loading/LoadingLink";
 export default function Footer() {
 
   return (
-    <section className="bg-slate-200">
+    <footer className="bg-slate-200">
       <Container>
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 py-12">
           <div className="first">
@@ -105,6 +105,6 @@ export default function Footer() {
           </div>
         </Container>
       </div>
-    </section>
+    </footer>
   );
 }

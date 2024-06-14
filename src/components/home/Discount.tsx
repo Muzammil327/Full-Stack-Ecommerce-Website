@@ -17,7 +17,7 @@ export default function Discount() {
     });
 
     return (
-      <>
+      <section>
         <ul className="flex items-center md:justify-center gap-5">
           <li className="flex flex-col items-center justify-center bg-red-500 md:rounded-full rounded md:h-24 h-16 md:w-24 w-16 text-white">
             <span className="md:text-2xl text-lg font-semibold">{days}</span>
@@ -36,7 +36,7 @@ export default function Discount() {
             <span className="xl:text-base md:text-sm text-xs">SECONDS</span>
           </li>
         </ul>
-      </>
+      </section>
     );
   };
 

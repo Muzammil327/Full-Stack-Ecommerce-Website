@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Iprops) {
     description: data?.description,
     // keywords: post?.data.keyword,
     alternates: {
-      canonical: `stores/${slug}`,
+      canonical: `/stores/${slug}`,
     },
     robots: {
       index: true,
@@ -39,10 +39,10 @@ export async function generateMetadata({ params }: Iprops) {
     openGraph: {
       title: data?.name,
       description: data?.description,
-      url: `stores/${slug}`,
+      url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/stores/${slug}`,
       images: [
         {
-          url: `${`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1714240538/${data?.image}.png`}`,
+          url: `${data?.image}`,
           alt: data?.name,
         },
       ],
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Iprops) {
       title: data?.name,
       description: data?.description,
       images: {
-        url: `${`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/v1714240538/${data?.image}.png`}`,
+        url: `${data?.image}`,
         alt: data?.name,
       },
     },

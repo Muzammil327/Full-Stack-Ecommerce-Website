@@ -24,7 +24,6 @@ export default function StorePage() {
   const [lowPrice, setLowPrice] = useState<number | null>(null);
   const [priceHL, setPriceHL] = useState<string>("");
   const [priceLH, setPriceLH] = useState<string>("");
-console.log(tags)
   const [data, setData] = useState<[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");

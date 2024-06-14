@@ -17,8 +17,8 @@ export default function ShareButton({
   urlCurrentPage: string;
 }) {
   const [isShareButton, setIsShareButton] = useState(false);
-
-  return (
+  const shareUrl = 'https://full-stack-ecommerce-website-five.vercel.app/stores/apple-airpods-gen-3-replica-with-wireless-charging-case/';
+    return (
     <div className="relative inline-block text-left">
       <div>
         <button
@@ -48,9 +48,7 @@ export default function ShareButton({
               setIsShareButton(false);
             }}
           >
-            <FacebookShareButton
-              url={`https://full-stack-ecommerce-website-five.vercel.app/stores/${urlCurrentPage}`}
-            >
+            <FacebookShareButton url={shareUrl}>
               <FacebookIcon size={32} round />
             </FacebookShareButton>
           </li>

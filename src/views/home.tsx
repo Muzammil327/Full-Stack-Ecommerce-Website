@@ -21,10 +21,10 @@ export default function HomeView() {
     <>
       <HeroSlider />
       <FeaturedProduct />
-      <Discount />
+      {/* <Discount />
       <BestPriceProductSlider />
       <FreeDeliveryProductSlider />
-      <TopProductSlider />
+      <TopProductSlider /> */}
     </>
   );
 }
