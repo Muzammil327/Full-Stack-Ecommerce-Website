@@ -16,6 +16,10 @@ const nextConfig = {
         hostname: "preview.colorlib.com",
       },
       {
+        protocol: "https",
+        hostname: "backend-full-stack-ecommerce-website.vercel.app",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "5000",
