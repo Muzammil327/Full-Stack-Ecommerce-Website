@@ -2,8 +2,10 @@ import Link from "next/link";
 import React from "react";
 import Container from "@/src/components/ui/Container";
 import Image from "next/image";
+import LoadingLink from "../../ui/Loading/LoadingLink";
 
 export default function Footer() {
+
   return (
     <section className="bg-slate-200">
       <Container>
@@ -40,9 +42,9 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-3 text-black">Useful Links</h3>
             <ul className="grid grid-cols-2 gap-2 items-center">
               <li className="mb-2 md:text-base text-base text-slate-800">
-                <Link href="/" className="link">
+                <LoadingLink link="/" class_name="link">
                   Home
-                </Link>
+                </LoadingLink>
               </li>
               <li className="mb-2 md:text-base text-base text-slate-800">
                 About Us

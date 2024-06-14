@@ -10,9 +10,14 @@ import {
   EmailShareButton,
   EmailIcon,
 } from "react-share";
-
-export default function ShareButton() {
+let URL;
+export default function ShareButton({
+  urlCurrentPage,
+}: {
+  urlCurrentPage: string;
+}) {
   const [isShareButton, setIsShareButton] = useState(false);
+
   return (
     <div className="relative inline-block text-left">
       <div>
@@ -37,19 +42,18 @@ export default function ShareButton() {
         aria-labelledby="menu-button"
       >
         <ul className="py-1" role="none">
-          {data.map((data: any) => {
-            return (
-              <li
-                className="text-gray-500 inline-block cursor-pointer px-2 py-2 text-sm"
-                onClick={() => {
-                  setIsShareButton(false);
-                }}
-                key={data.id}
-              >
-                {data.icon}
-              </li>
-            );
-          })}
+          <li
+            className="text-gray-500 inline-block cursor-pointer px-2 py-2 text-sm"
+            onClick={() => {
+              setIsShareButton(false);
+            }}
+          >
+            <FacebookShareButton
+              url={`https://full-stack-ecommerce-website-five.vercel.app/stores/${urlCurrentPage}`}
+            >
+              <FacebookIcon size={32} round />
+            </FacebookShareButton>
+          </li>
         </ul>
       </div>
     </div>
@@ -57,14 +61,6 @@ export default function ShareButton() {
 }
 
 const data = [
-  {
-    id: 0,
-    icon: (
-      <FacebookShareButton url={"https://facebook.com/"}>
-        <FacebookIcon size={32} round />
-      </FacebookShareButton>
-    ),
-  },
   {
     id: 1,
     icon: (

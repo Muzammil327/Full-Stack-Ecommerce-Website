@@ -20,6 +20,7 @@ import CartSVG from "@/src/components/svg/CartSVG";
 import AuthMobile from "./authMobile";
 import { useCart } from "../../contexts/cartContext";
 import { FaHeart } from "react-icons/fa6";
+import LoadingLink from "../../ui/Loading/LoadingLink";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -336,13 +337,13 @@ export default function Navbar() {
                   ))} */}
 
                   {navigation.pages.map((page: Page) => (
-                    <Link
+                    <LoadingLink
+                      link={page.href}
+                      class_name="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                       key={page.name}
-                      href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
                     >
                       {page.name}
-                    </Link>
+                    </LoadingLink>
                   ))}
                 </div>
               </Popover.Group>
@@ -363,30 +364,30 @@ export default function Navbar() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6 relative">
-                  <Link
-                    href="/cart"
-                    className="group -m-2 flex items-center p-2"
+                  <LoadingLink
+                    link="/cart"
+                    class_name="group -m-2 flex items-center p-2"
                   >
                     <CartSVG />
                     <span className="ml-2 absolute -top-3 -right-3 rounded-full h-5 bg-red-500 w-5 flex items-center justify-center text-sm font-medium text-white">
                       {cart && cart.length}
                     </span>{" "}
                     <span className="sr-only">items in cart, view bag</span>
-                  </Link>
+                  </LoadingLink>
                 </div>
 
                 {/* Fvourite */}
                 <div className="ml-4 flow-root lg:ml-6 relative">
-                  <Link
-                    href="/wishlist"
-                    className="group text-2xl -m-2 flex items-center p-2"
+                  <LoadingLink
+                    link="/wishlist"
+                    class_name="group text-2xl -m-2 flex items-center p-2"
                   >
                     <FaHeart />
                     <span className="ml-2 absolute -top-3 -right-3 rounded-full h-5 bg-red-500 w-5 flex items-center justify-center text-sm font-medium text-white ">
                       {wishList && wishList.length}
                     </span>{" "}
                     <span className="sr-only">items in cart, view bag</span>
-                  </Link>
+                  </LoadingLink>
                 </div>
               </div>
             </div>

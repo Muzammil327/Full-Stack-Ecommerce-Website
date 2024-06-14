@@ -119,7 +119,7 @@ const Page = () => {
         });
       }
 
-      await axios.post(`${Product_POST}/post`, formData, {
+      await axios.post(`${Product_POST}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
