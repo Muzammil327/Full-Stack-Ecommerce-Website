@@ -49,7 +49,7 @@ export default function ProductDetailImageSlider({ response }: any) {
           {response.slider.map((index: string, slideIndex: number) => (
             <SwiperSlide key={slideIndex}>
               <Image
-                src={`${process.env.NEXT_PUBLIC_BACKENDAPI}/uploadSliderImage/${index}`}
+                src={`https://backend-full-stack-ecommerce-website.vercel.app/uploadSliderImage/${index}`}
                 width={1080}
                 height={1080}
                 alt=""
