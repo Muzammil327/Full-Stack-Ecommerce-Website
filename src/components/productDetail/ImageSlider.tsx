@@ -49,7 +49,7 @@ export default function ProductDetailImageSlider({ response }: any) {
           {response.slider.map((index: string, slideIndex: number) => (
             <SwiperSlide key={slideIndex}>
               <Image
-                src={`http://localhost:5000/uploadSliderImage/${index}`}
+                src={`${process.env.NEXT_PUBLIC_BACKENDAPI}/uploadSliderImage/${index}`}
                 width={1080}
                 height={1080}
                 alt=""
