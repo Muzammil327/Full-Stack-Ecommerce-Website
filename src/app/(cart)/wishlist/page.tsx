@@ -27,7 +27,7 @@ const ProductList = () => {
       }
     } catch (error) {
       console.error("Error removing product from cart:", error);
-      setError("Error removing product from cart. Please try again later.");
+      setError("Error removing product from wishlist. Please try again later.");
     } finally {
       setIsLoading(false);
     }
@@ -40,8 +40,13 @@ const ProductList = () => {
       <Container>
         <div className="my-20">
           <div className="relative overflow-x-auto sm:rounded-lg mb-10">
+            {error && (
+              <>
+                <span>{error}</span>
+              </>
+            )}
             <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-              {loadingWishList ? (
+              {loadingWishList && isLoading ? (
                 <>
                   <LoadingCart />
                   <LoadingCart />
@@ -52,17 +57,17 @@ const ProductList = () => {
                 <>
                   <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
-                      <th scope="col" className="px-16 py-3">
+                      <th scope="col" className="md:px-6 px-2 py-3">
                         <span className="sr-only">Image</span>
                         Image
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="md:px-6 px-2 py-3">
                         Name
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="md:px-6 px-2 py-3">
                         Price
                       </th>
-                      <th scope="col" className="px-6 py-3">
+                      <th scope="col" className="md:px-6 px-2 py-3">
                         Action
                       </th>
                     </tr>
@@ -75,25 +80,27 @@ const ProductList = () => {
                           className="bg-white border-b hover:bg-gray-50"
                           key={index}
                         >
-                          <td className="p-4">
+                          <td className="md:px-6 px-2 py-2">
                             <Image
-                              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                              src={user.product_Detail.image}
                               alt={user.product_Detail.name}
                               title={user.product_Detail.name}
                               height={1080}
                               width={1080}
-                              className="w-full block h-20"
+                              className="h-20 w-20 mx-auto"
+                              objectFit="cover"
                             />
                           </td>
-                          <td className="px-6 py-4 font-semibold text-gray-900">
+                          <td className="md:px-6 px-2 py-4 font-semibold text-gray-900">
                             <Link href={`/stores/${user.product_Detail.slug}`}>
                               {user.product_Detail.name}
                             </Link>
                           </td>
-                          <td className="px-6 py-4 font-semibold text-gray-900">
-                            {user.product_Detail.price}
+                          <td className="md:px-6 px-2 py-4 font-semibold text-gray-900">
+                            {user.product_Detail.price -
+                              user.product_Detail.discountprice}
                           </td>
-                          <td className="px-6 py-4">
+                          <td className="md:px-6 px-2 py-4">
                             <button
                               className="font-medium text-red-600 dark:text-red-500 hover:underline"
                               onClick={() => DeleteHandle(user._id)}

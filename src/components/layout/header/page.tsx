@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import SubHeaderSocial from "@/src/components/layout/header/SubHeaderSocial";
+import Facebook from "@/src/components/svg/Facebook";
+import Instagram from "@/src/components/svg/Instagram";
 
 export default function Header() {
   return (
@@ -25,7 +26,18 @@ export default function Header() {
         </ul>
       </section>
       <section className="md:flex hidden justify-between items-center">
-        <SubHeaderSocial />
+        <ul className="flex gap-4">
+          <li>
+            <Link href="/">
+              <Facebook />
+            </Link>
+          </li>
+          <li>
+            <Link href="/">
+              <Instagram />
+            </Link>
+          </li>
+        </ul>
       </section>
     </header>
   );

@@ -72,11 +72,10 @@ const ProductList = () => {
 
     if (cart) {
       cart.forEach((item: any) => {
-        subTotal += item.product_Detail.price * item.qty;
+        subTotal += (item.product_Detail.price - item.product_Detail.discountprice) * item.qty;
+        totalTax = item.product_Detail.deliveryCharge * cart.length;
       });
 
-      const taxCharges = 200; // Assuming tax charges
-      totalTax = taxCharges * cart.length;
       total = subTotal + totalTax;
     }
 
@@ -87,6 +86,7 @@ const ProductList = () => {
   if (!session) {
     return router.push("/sign-in");
   }
+  
   const handleSubmit = async (products: Product[]) => {
     const user = session.user._id;
     setLoading(true);
@@ -156,7 +156,7 @@ const ProductList = () => {
                           >
                             <td className="p-4">
                               <Image
-                                src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                                src={user.product_Detail.image}
                                 alt={user.product_Detail.name}
                                 title={user.product_Detail.name}
                                 height={1080}
@@ -232,7 +232,9 @@ const ProductList = () => {
                               </form>
                             </td>
                             <td className="px-6 py-4 font-semibold text-gray-900">
-                              {user.product_Detail.price * user.qty}
+                              {(user.product_Detail.price -
+                                user.product_Detail.discountprice) *
+                                user.qty}
                             </td>
                             <td className="px-6 py-4">
                               <button

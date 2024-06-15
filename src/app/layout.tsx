@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/src/styles/globals.scss";
-import NextAuthProvider from "@/src/components/provider/authProvider";
+import NextAuthProvider from "@/src/components/Providers";
 import { ToastContainer } from "react-toastify";
 
 import Header from "@/src/components/layout/header/page";
@@ -14,6 +14,14 @@ const Instragram = dynamic(
 );
 
 const inter = Inter({ subsets: ["latin"] });
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// Import toastify styles
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "SMI Store Title App",

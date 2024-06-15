@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Favourite_API_Endpoint } from "@/src/utils/constant";

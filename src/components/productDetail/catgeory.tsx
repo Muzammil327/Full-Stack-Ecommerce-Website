@@ -1,15 +1,22 @@
+import Link from "next/link";
 import React from "react";
 
 interface IProps {
   catgeory: string;
   subCateory: string;
+  items: string;
 }
-export default function ProductDetailCatgeory({ catgeory, subCateory }: IProps) {
+export default function ProductDetailCatgeory({
+  catgeory,
+  subCateory,
+  items,
+}: IProps) {
+
   return (
     <div className="cat">
       <ul className="flex gap-3">
         <li className="text-gray-500 flex gap-3 items-center">
-          <span>{catgeory}</span>
+          <Link href={`/catgeory?cat=${catgeory}`}>{catgeory}</Link>
           <span>
             {" "}
             <svg
@@ -33,7 +40,8 @@ export default function ProductDetailCatgeory({ catgeory, subCateory }: IProps) 
           </span>
         </li>
         <li className="text-gray-500 flex gap-3 items-center">
-          <span>{subCateory}</span>
+          <Link href={`/catgeory?subCat=${subCateory}`}>{subCateory}</Link>
+
           <span>
             {" "}
             <svg
@@ -56,7 +64,10 @@ export default function ProductDetailCatgeory({ catgeory, subCateory }: IProps) 
             </svg>
           </span>
         </li>
-        <li className="text-gray-500 flex gap-3 items-center">Shirts</li>
+        <li className="text-gray-500 flex gap-3 items-center">
+          <Link href={`/catgeory?tags=${items}`}>{items}</Link>
+
+        </li>
       </ul>
     </div>
   );

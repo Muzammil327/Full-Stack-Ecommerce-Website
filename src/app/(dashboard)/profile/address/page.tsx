@@ -1,6 +1,5 @@
 "use client";
-import { useState } from "react";
-import style from "@/src/app/(auth)/form.module.css";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Container from "@/src/components/ui/Container";
@@ -10,7 +9,6 @@ import Input from "@/src/components/ui/Input";
 import { useAuth } from "@/src/components/contexts/authContext";
 import axios from "axios";
 import { ADDRESS_API_Endpoint } from "@/src/utils/constant";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
 interface FormData {
@@ -92,7 +90,7 @@ export default function Address() {
         city: "",
         postalCode: "",
       });
-      const previousPage = sessionStorage.getItem('checkout Page Router');
+      const previousPage = sessionStorage.getItem("checkout Page Router");
       if (previousPage) {
         router.push(previousPage);
       } else {
@@ -105,6 +103,25 @@ export default function Address() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(`${ADDRESS_API_Endpoint}/get/${user}`);
+        const userDataFromApi: FormData = response.data;
+        setAddressData(userDataFromApi);
+      } catch (error) {
+        setError("Error fetching Address User data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user) {
+      fetchUserData();
+    }
+  }, [user]);
 
   return (
     <>
@@ -205,7 +222,7 @@ export default function Address() {
               </div>
             </div>
             <div className="grid grid-cols-1 gap-x-8 gap-y-6">
-              <button type="submit" className={`sm:col-span-2 ${style.btn}`}>
+              <button type="submit" className={`sm:col-span-2 btn`}>
                 {loading ? "Loading .." : "Submit Here"}
               </button>
             </div>

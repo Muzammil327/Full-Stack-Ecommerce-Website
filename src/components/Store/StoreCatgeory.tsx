@@ -37,11 +37,6 @@ const StoreCategory: React.FC<Props> = ({ filterItem }) => {
         <div className="space-y-4">
           {categories.map((data) => (
             <ul className="flex items-center" key={data.id}>
-              {/* <input
-                    value="brown"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  /> */}
               <li
                 className="ml-3 text-sm text-gray-600 cursor-pointer"
                 onClick={() => filterItem(data.name)}

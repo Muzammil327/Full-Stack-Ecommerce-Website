@@ -1,15 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import style from "@/src/app/(auth)/form.module.css";
 import { useSession } from "next-auth/react";
 import { ADDRESS_API_Endpoint } from "@/src/utils/constant";
 import { useAuth } from "@/src/components/contexts/authContext";
 import Label from "@/src/components/ui/Label";
 import Input from "@/src/components/ui/Input";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   _id?: string | undefined;
@@ -324,7 +322,7 @@ export default function BillingAddress({ setIsFormFilled }: any) {
 
             {show && (
               <>
-                <button type="submit" className={`sm:col-span-2 ${style.btn}`}>
+                <button type="submit" className={`sm:col-span-2 btn`}>
                   {loading ? "Loading .." : "Submit Here"}
                 </button>
               </>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useCart } from "@/src/components/contexts/cartContext";
 import { useAuth } from "@/src/components/contexts/authContext";
@@ -11,7 +11,6 @@ interface Product {
   product: string;
   qty: number;
 }
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { ADDRESS_API_Endpoint, ORDER_API_Endpoint } from "@/src/utils/constant";
@@ -56,11 +55,10 @@ export default function Page() {
 
     if (cart) {
       cart.forEach((item: any) => {
-        subTotal += item.product_Detail.price * item.qty;
+        subTotal += (item.product_Detail.price - item.product_Detail.discountprice) * item.qty;
+        totalTax = item.product_Detail.deliveryCharge * cart.length;
       });
 
-      const taxCharges = 200; // Assuming tax charges
-      totalTax = taxCharges * cart.length;
       total = subTotal + totalTax;
     }
 
@@ -175,7 +173,7 @@ export default function Page() {
                     >
                       <td className="p-4">
                         <Image
-                          src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                          src={user.product_Detail.image}
                           alt={user.product_Detail.name}
                           title={user.product_Detail.name}
                           height={1080}
@@ -190,10 +188,10 @@ export default function Page() {
                         {user.qty}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {user.product_Detail.price}
+                        {user.product_Detail.price - user.product_Detail.discountprice}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {user.product_Detail.price * user.qty}
+                        {(user.product_Detail.price - user.product_Detail.discountprice) * user.qty}
                       </td>
                     </tr>
                   ))

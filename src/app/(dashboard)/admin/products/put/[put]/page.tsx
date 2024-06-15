@@ -1,13 +1,20 @@
 "use client";
 import Input from "@/src/components/ui/Input";
 import Label from "@/src/components/ui/Label";
-import { Product_DELETE_IMAGE, Product_GET, Product_GET_BYID, Product_PUT } from "@/src/utils/constant";
+import {
+  Product_DELETE_IMAGE,
+  Product_GET,
+  Product_GET_BYID,
+  Product_PUT,
+} from "@/src/utils/constant";
 import axios from "axios";
 import { useParams, useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
 import Select, { ActionMeta, OnChangeValue } from "react-select";
+import Image from "next/image";
+import { categories } from "@/src/components/data";
 
 interface Option {
   value: string;
@@ -33,8 +40,10 @@ const Page = () => {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [productId, setProductId] = useState<Option[]>([]);
+console.log("image:", image)
+console.log("imageUrl:", imageUrl)
 
-  // const [productId, setProductId] = useState<Option[]>([]);
+// const [productId, setProductId] = useState<Option[]>([]);
   const [price, setPrice] = useState<number | undefined>(0);
   const [discountprice, setDiscountPrice] = useState<number | undefined>(0);
   const [quantity, setQuantity] = useState<number | undefined>(0);
@@ -76,9 +85,8 @@ const Page = () => {
   useEffect(() => {
     const fetchData1 = async () => {
       try {
-        const response = await axios.get(
-          `${Product_GET_BYID}/${put}`
-        );
+        const response = await axios.get(`${Product_GET_BYID}/${put}`);
+
         setName(response.data.name);
         setDescription(response.data.description);
         setCategory(response.data.category);
@@ -168,15 +176,11 @@ const Page = () => {
           });
         }
 
-        const response = await axios.put(
-          `${Product_PUT}/${put}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axios.put(`${Product_PUT}/${put}`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
         setSuccessMessage("Product udated Successfully!");
         setName("");
         setDescription("");
@@ -218,9 +222,7 @@ const Page = () => {
     try {
       setImageDeleted(true);
 
-      await axios.delete(
-        `${Product_DELETE_IMAGE}?publicId=${publicId}`
-      );
+      await axios.delete(`${Product_DELETE_IMAGE}?publicId=${publicId}`);
       setImage(null);
       setImageUrl(null);
       setStoreImage(null);
@@ -247,7 +249,7 @@ const Page = () => {
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             {storeImage ? (
               <div className="relative">
-                <img src={`${storeImage}`} alt="" />
+                <Image src={`${storeImage}`} alt="" height={500} width={500} />
                 <input
                   type="submit"
                   className="absolute top-1 right-1 bg-1 h-10 w-10 flex items-center justify-center"
@@ -260,10 +262,12 @@ const Page = () => {
             ) : null}
             <div className="text-center">
               {imageUrl ? (
-                <img
+                <Image
                   src={imageUrl}
                   alt="Selected Image"
                   className="mx-auto h-40"
+                  height="400"
+                  width="400"
                 />
               ) : (
                 <>
@@ -340,10 +344,12 @@ const Page = () => {
               onChange={(e) => setCategory(e.target.value)}
               className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             >
-              <option value="">Select category</option>
-              <option value="men">Men</option>
-              <option value="women">Women</option>
-              <option value="children">Children</option>
+              <option value="">Select Category</option>
+              {categories.map((data) => (
+                <option value={data.id} key={data.id}>
+                  {data.name}
+                </option>
+              ))}{" "}
             </select>
           </div>
 
@@ -358,8 +364,17 @@ const Page = () => {
               className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             >
               <option value="">Select Sub Category</option>
-              <option value="clothing">Clothing</option>
-              <option value="accessories">Accessories</option>
+              {categories
+                .filter((data) => data.id === category)
+                .map((data) => (
+                  <React.Fragment key={data.id}>
+                    {data.subCategories?.map((subData) => (
+                      <option value={subData.id} key={subData.id}>
+                        {subData.name}
+                      </option>
+                    ))}
+                  </React.Fragment>
+                ))}{" "}
             </select>
           </div>
         </div>
@@ -376,9 +391,23 @@ const Page = () => {
               className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             >
               <option value="">Select Items</option>
-              <option value="watches">Watches</option>
-              <option value="women">Women</option>
-              <option value="children">Children</option>
+              {categories
+                .filter((data) => data.id === category)
+                .map((data) => (
+                  <React.Fragment key={data.id}>
+                    {data.subCategories
+                      ?.filter((subData) => subData.id === subCategory)
+                      .map((subData) => (
+                        <React.Fragment key={data.id}>
+                          {subData.tags?.map((subData) => (
+                            <option value={subData.id} key={subData.id}>
+                              {subData.name}
+                            </option>
+                          ))}
+                        </React.Fragment>
+                      ))}
+                  </React.Fragment>
+                ))}{" "}
             </select>
           </div>
           <div className="mb-6">

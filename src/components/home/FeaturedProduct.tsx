@@ -1,22 +1,12 @@
-"use client";
+'use client'
 import React from "react";
 import { useFetch } from "@/src/components/hooks/useFetch";
 
 import ProductCard from "@/src/components/elements/ProductCard";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
-import Container from "../ui/Container";
-import { Heading1 } from "../ui/Typography";
-
-interface Featured_Product {
-  _id: string;
-  name: string;
-  slug: string;
-  category: string;
-  price: number;
-  discountprice: number;
-  image: string;
-  Featured: boolean;
-}
+import Container from "@/src/components/ui/Container";
+import { Heading1 } from "@/src/components/ui/Typography";
+import { Featured_Product } from "@/src/types/product";
 
 interface ApiResponse {
   success: boolean;

@@ -1,26 +1,21 @@
 "use client";
-import {
-  CategoryItem,
-  CategorySection,
-  Page,
-  CategorySectionItems,
-} from "@/src/types/Navbar";
+import { Page } from "@/src/types/Navbar";
 import Bars from "@/src/components/svg/Bars";
 import Close from "@/src/components/svg/Close";
 import { Fragment, useState } from "react";
 import { Dialog, Popover, Tab, Transition } from "@headlessui/react";
 import Link from "next/link";
-import Image from "next/image";
 import Logo from "@/src/components/elements/Logo";
-import SubHeaderSocial from "@/src/components/layout/header/SubHeaderSocial";
 import Container from "@/src/components/ui/Container";
 import Auth from "@/src/components/layout/Navbar/auth";
 import SearchSVG from "@/src/components/svg/SearchSVG";
 import CartSVG from "@/src/components/svg/CartSVG";
 import AuthMobile from "./authMobile";
-import { useCart } from "../../contexts/cartContext";
 import { FaHeart } from "react-icons/fa6";
-import LoadingLink from "../../ui/Loading/LoadingLink";
+import { useCart } from "@/src/components/contexts/cartContext";
+import LoadingLink from "@/src/components/ui/Loading/LoadingLink";
+import Facebook from "@/src/components/svg/Facebook";
+import Instagram from "@/src/components/svg/Instagram";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -181,7 +176,18 @@ export default function Navbar() {
 
                 <AuthMobile />
                 <div className="px-4 border-t border-gray-200 py-6">
-                  <SubHeaderSocial />
+                  <ul className="flex gap-4">
+                    <li>
+                      <Link href="/">
+                        <Facebook />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/">
+                        <Instagram />
+                      </Link>
+                    </li>
+                  </ul>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

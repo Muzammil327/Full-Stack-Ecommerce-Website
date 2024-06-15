@@ -6,7 +6,6 @@ import ProductDetailCatgeory from "@/src/components/productDetail/catgeory";
 import AddtoCartBtn from "@/src/components/productDetail/AddtoCartBtn";
 import FavouriteBtn from "@/src/components/productDetail/FavouriteBtn";
 import RelatedProduct from "@/src/components/productDetail/RelatedProduct";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { ProductData } from "@/src/types/product";
 
@@ -23,7 +22,15 @@ export default function ProductDetail({ params }: { params: string }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const { user, session } = useAuth();
+  console.log("data:", data)
 
+  const D_Price = data?.discountprice ?? 0;
+  console.log("D_Price:", D_Price)
+  const A_Price = data?.price ?? 0;
+  console.log("A_Price:", A_Price)
+
+  const Actual = A_Price - D_Price;
+  
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
@@ -54,6 +61,7 @@ export default function ProductDetail({ params }: { params: string }) {
       console.log(error);
     }
   };
+
   const HandleDisLike = async (productId: string) => {
     if (!session) {
       return toast.error("Please Login");
@@ -112,14 +120,15 @@ export default function ProductDetail({ params }: { params: string }) {
                   <ProductDetailCatgeory
                     catgeory={data.category}
                     subCateory={data.subCategory}
+                    items={data.items}
                   />
                   <h1 className="text-3xl font-bold my-4">{data.name}</h1>
                   <div className="price flex gap-4 items-center">
-                    {/* <span className="line-through font-semibold text-xl text-gray-700">
-                      Rs{data.discountprice}.00
-                    </span> */}
+                    <span className="line-through font-semibold text-xl text-gray-700">
+                      Rs{data.price}.00
+                    </span>
                     <span className="font-semibold text-red-500 text-2xl">
-                    Rs{data.price}.00
+                    Rs{Actual}.00
                     </span>
                   </div>
                   <p className="mt-4 mb-6 text-base text-gray-500">

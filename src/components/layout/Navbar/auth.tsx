@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { useAuth } from "../../contexts/authContext";
+import { useAuth } from "@/src/components/contexts/authContext";
 
 export default function Auth() {
   const { session, status } = useAuth();

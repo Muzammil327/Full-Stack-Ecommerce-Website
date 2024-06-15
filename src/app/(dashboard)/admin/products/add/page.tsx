@@ -4,6 +4,7 @@ import Input from "@/src/components/ui/Input";
 import Label from "@/src/components/ui/Label";
 import { Product_GET, Product_POST } from "@/src/utils/constant";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import Select from "react-select";
@@ -179,10 +180,12 @@ const Page = () => {
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div className="text-center">
               {imageUrl ? (
-                <img
+                <Image
                   src={imageUrl}
                   alt="Selected Image"
                   className="mx-auto h-40"
+                  height={500}
+                  width={500}
                 />
               ) : (
                 <>

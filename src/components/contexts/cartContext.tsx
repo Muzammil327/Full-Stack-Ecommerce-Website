@@ -26,6 +26,8 @@ interface CartItem {
     name: string;
     image: string;
     price: number;
+    discountprice: number;
+    deliveryCharge: number;
   };
 }
 interface CartItem2 {
@@ -35,6 +37,7 @@ interface CartItem2 {
     name: string;
     image: string;
     price: number;
+    discountprice: number;
   };
 }
 interface CartItem3 {
@@ -207,7 +210,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       setLoadingOrder(true);
 
       const response = await axios.get(`${ORDER_API_Endpoint}/get/${user}`);
-
+console.log(response.data)
       setOrder(response.data);
     } catch (error) {
       console.error("Error fetching cart data:", error);

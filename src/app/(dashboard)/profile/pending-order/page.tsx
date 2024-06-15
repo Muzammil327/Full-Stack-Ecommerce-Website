@@ -69,12 +69,13 @@ const ProductList = () => {
                         >
                           <td className="p-4">
                             <Image
-                              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product_Detail.image}.png`}
+                              src={user.product_Detail.image}
                               alt={user.product_Detail.name}
                               title={user.product_Detail.name}
                               height={1080}
                               width={1080}
-                              className="w-full block h-20"
+                              className="h-20 w-20 mx-auto"
+                              objectFit="cover"
                             />
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
@@ -83,7 +84,7 @@ const ProductList = () => {
                             </Link>
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
-                            {user.product_Detail.price}
+                            {user.product_Detail.price - user.product_Detail.discountprice}
                           </td>
                           <td className="px-6 py-4">
                             <button

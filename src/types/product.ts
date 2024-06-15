@@ -3,9 +3,21 @@ export interface ProductCardProps {
   _id: string;
   name: string;
   slug: string;
+  category: string;
   image: string;
+  price: number;
+  discountprice: number;
+}
+// Featured Product
+export interface Featured_Product {
+  _id: string;
+  name: string;
+  slug: string;
   category: string;
   price: number;
+  discountprice: number;
+  image: string;
+  Featured: boolean;
 }
 
 // ------------------------------------------  product pagination props ------------------------------------------

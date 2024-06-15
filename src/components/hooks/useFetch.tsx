@@ -1,3 +1,4 @@
+'use client'
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 

@@ -52,9 +52,6 @@ const ProductList = () => {
                         Name
                       </th>
                       <th scope="col" className="px-6 py-3">
-                        Price
-                      </th>
-                      <th scope="col" className="px-6 py-3">
                         Total Price
                       </th>
                       <th scope="col" className="px-6 py-3">
@@ -75,20 +72,19 @@ const ProductList = () => {
                         >
                           <td className="p-4">
                             <Image
-                              src={`https://res.cloudinary.com/desggllml/image/upload/v1714240538/${user.product.image}.png`}
+                              src={user.product.image}
                               alt={user.product.name}
                               title={user.product.name}
                               height={1080}
                               width={1080}
-                              className="w-full block h-20"
+                              className="h-20 w-20 mx-auto"
+                              objectFit="cover"
                             />
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             {user.product.name}
                           </td>
-                          <td className="px-6 py-4 font-semibold text-gray-900">
-                            {user.product.price}
-                          </td>
+                        
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             {user.totalPrice}
                           </td>

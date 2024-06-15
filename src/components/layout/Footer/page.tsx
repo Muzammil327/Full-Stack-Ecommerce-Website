@@ -1,8 +1,7 @@
-import Link from "next/link";
 import React from "react";
 import Container from "@/src/components/ui/Container";
 import Image from "next/image";
-import LoadingLink from "../../ui/Loading/LoadingLink";
+import LoadingLink from "@/src/components/ui/Loading/LoadingLink";
 
 export default function Footer() {
 

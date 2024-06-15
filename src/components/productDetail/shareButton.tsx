@@ -17,8 +17,10 @@ export default function ShareButton({
   urlCurrentPage: string;
 }) {
   const [isShareButton, setIsShareButton] = useState(false);
-  const shareUrl = 'https://full-stack-ecommerce-website-five.vercel.app/stores/apple-airpods-gen-3-replica-with-wireless-charging-case/';
-    return (
+  const shareUrl = `https://full-stack-ecommerce-website-five.vercel.app/stores/${urlCurrentPage}/`;
+  const WhatsappShareUrl = `whatsapp://send?text=${encodeURIComponent(`Check out this product: ${shareUrl}`)}`;
+
+  return (
     <div className="relative inline-block text-left">
       <div>
         <button
@@ -51,6 +53,16 @@ export default function ShareButton({
             <FacebookShareButton url={shareUrl}>
               <FacebookIcon size={32} round />
             </FacebookShareButton>
+          </li>
+          <li
+            className="text-gray-500 inline-block cursor-pointer px-2 py-2 text-sm"
+            onClick={() => {
+              setIsShareButton(false);
+            }}
+          >
+            <WhatsappShareButton url={WhatsappShareUrl}>
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
           </li>
         </ul>
       </div>

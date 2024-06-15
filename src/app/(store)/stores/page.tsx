@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: data.title,
     description: data.description,
-    url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}${data.canonical}`,
+    url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/${data.canonical}`,
     images: [
       {
         url: data.image,

@@ -1,15 +1,9 @@
 "use client";
 import React from "react";
-import "swiper/css";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-
-// import required modules
-import { Autoplay } from "swiper/modules";
 import Image from "next/image";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
 export default function HeroSlider() {
   return (
