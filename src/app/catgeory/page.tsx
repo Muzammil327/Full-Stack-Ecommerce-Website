@@ -1,19 +1,14 @@
 "use client";
-
-import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Product_STORE } from "@/src/utils/constant";
-import { ProductShopProps } from "@/src/types/product";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
 import Container from "@/src/components/ui/Container";
 import StoreProducts from "@/src/components/Store/StoreProducts";
 import StorePagination from "@/src/components/Store/StorePagination";
-import { useFetch } from "@/src/components/hooks/useFetch";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
-// catgeory, subCateory, items
 
-export default function Page() {
+const CategoryPageContent = () => {
   const searchParams = useSearchParams();
 
   const category = searchParams.get("cat");
@@ -24,6 +19,7 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
 
   const [page, setPage] = useState(1);
+
   useEffect(() => {
     const fetchCatgeory = async () => {
       try {
@@ -79,11 +75,14 @@ export default function Page() {
       fetchItems();
     }
   }, [Tags, category, page, subCategory]);
+
   return (
     <main>
       {error && <h1>Error fetching Catgeory data...</h1>}
       <div className="hero bg-slate-200 py-40 flex items-center justify-center">
-        <h1 className="text-4xl font-bold capitalize">{category || subCategory || Tags}</h1>
+        <h1 className="text-4xl font-bold capitalize">
+          {category || subCategory || Tags}
+        </h1>
       </div>
       <div className="py-12">
         <Container>
@@ -108,4 +107,14 @@ export default function Page() {
       </div>
     </main>
   );
-}
+};
+
+const CategoryPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <CategoryPageContent />
+    </Suspense>
+  );
+};
+
+export default CategoryPage;
