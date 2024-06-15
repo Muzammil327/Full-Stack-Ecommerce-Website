@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -24,7 +24,7 @@ export default function ProductDetailImageSlider({ response }: any) {
       <Swiper
         effect={"flip"}
         grabCursor={true}
-        autoplay={{ delay: 4500, disableOnInteraction: false }}
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
         loop={true}
         modules={[EffectFlip, Pagination, Navigation, Autoplay]}
         className="mySwipe"
@@ -37,6 +37,7 @@ export default function ProductDetailImageSlider({ response }: any) {
                 width={1080}
                 height={1080}
                 alt=""
+                priority
               />
             </div>
           </SwiperSlide>
