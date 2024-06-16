@@ -1,5 +1,6 @@
 import DashboardSidebar from "./components/Sidebar";
-import './style.scss'
+import "./style.scss";
+
 export default function DashboardLayout({
   children,
 }: Readonly<{

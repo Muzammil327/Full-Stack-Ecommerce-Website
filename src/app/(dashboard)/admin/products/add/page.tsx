@@ -62,7 +62,6 @@ const Page = () => {
     };
     fetchData(); // Call fetchData function to fetch user data
   }, []); // useEffect dependency
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading1(true);
@@ -112,11 +111,9 @@ const Page = () => {
       if (quantity !== undefined) {
         formData.append("quantity", quantity.toString()); // Convert price to string
       }
-
       if (productId.length > 0) {
-        productId.forEach((item, index) => {
-          formData.append(`product[${index}][value]`, item.value);
-          formData.append(`product[${index}][label]`, item.label);
+        productId.forEach((product: any) => {
+          formData.append("product", JSON.stringify(product));
         });
       }
 

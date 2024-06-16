@@ -22,7 +22,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const { data: session, status } = useSession();
 
   const user = session?.user?._id || "";
-
   return (
     <AuthContext.Provider value={{ session, status, user }}>
       {children}

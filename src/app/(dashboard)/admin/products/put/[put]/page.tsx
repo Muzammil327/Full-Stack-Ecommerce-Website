@@ -33,6 +33,7 @@ const Page = () => {
   const [data, setData] = useState([]);
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [platform, setPlatform] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [subCategory, setSubCategory] = useState<string>("");
   const [items, setItems] = useState<string>("");
@@ -40,11 +41,9 @@ const Page = () => {
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [productId, setProductId] = useState<Option[]>([]);
-console.log("image:", image)
-console.log("imageUrl:", imageUrl)
-
-// const [productId, setProductId] = useState<Option[]>([]);
+  console.log(productId);
   const [price, setPrice] = useState<number | undefined>(0);
+  const [deliveryCharge, setDeliveryCharge] = useState<number | undefined>(0);
   const [discountprice, setDiscountPrice] = useState<number | undefined>(0);
   const [quantity, setQuantity] = useState<number | undefined>(0);
   const [imageDeleted, setImageDeleted] = useState(false);
@@ -82,11 +81,14 @@ console.log("imageUrl:", imageUrl)
     };
     fetchData(); // Call fetchData function to fetch user data
   }, []); // useEffect dependency
+
   useEffect(() => {
     const fetchData1 = async () => {
       try {
         const response = await axios.get(`${Product_GET_BYID}/${put}`);
-
+        console.log(response.data);
+        setPlatform(response.data.platform);
+        setDeliveryCharge(response.data.deliveryCharge);
         setName(response.data.name);
         setDescription(response.data.description);
         setCategory(response.data.category);
@@ -124,7 +126,6 @@ console.log("imageUrl:", imageUrl)
     if (image) {
       try {
         if (imageDeleted && !image) {
-          // If image is deleted and no new image is uploaded, prevent form submission
           console.log(
             "Image deleted without replacement. Form submission prevented."
           );
@@ -138,6 +139,7 @@ console.log("imageUrl:", imageUrl)
         formData.append("subCategory", subCategory);
         formData.append("items", items);
         formData.append("status", status);
+        formData.append("platform", platform);
 
         if (tags.length > 0) {
           tags.forEach((tags) => {
@@ -157,7 +159,6 @@ console.log("imageUrl:", imageUrl)
         if (isTopCheckbox) {
           formData.append("top", "true");
         }
-
         if (image) {
           formData.append("image", image);
         }
@@ -167,12 +168,15 @@ console.log("imageUrl:", imageUrl)
         if (discountprice !== undefined) {
           formData.append("discountprice", discountprice.toString()); // Convert price to string
         }
+        if (deliveryCharge !== undefined) {
+          formData.append("deliveryCharge", deliveryCharge.toString()); // Convert price to string
+        }
         if (quantity !== undefined) {
           formData.append("quantity", quantity.toString()); // Convert price to string
         }
         if (productId.length > 0) {
-          productId.forEach((value: any) => {
-            formData.append("product", value.value);
+          productId.forEach((product: any) => {
+            formData.append("product", JSON.stringify(product));
           });
         }
 
@@ -218,6 +222,7 @@ console.log("imageUrl:", imageUrl)
   const handleTagsChange = (tags: string[]) => {
     setTags(tags);
   };
+
   const deleteImage = async (publicId: File) => {
     try {
       setImageDeleted(true);
@@ -231,6 +236,7 @@ console.log("imageUrl:", imageUrl)
       console.error("Error deleting image:", error);
     }
   };
+
   return (
     <>
       <form className="container mx-auto px-12 my-10" onSubmit={handleSubmit}>
@@ -462,6 +468,61 @@ console.log("imageUrl:", imageUrl)
               value={discountprice || ""}
               onChange={(e) => setDiscountPrice(parseInt(e.target.value))}
               placeholder="Enter your discount price."
+              className="w-full border border-gray-300 py-3 pl-3 rounded-md mt-2 shadow-sm outline-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-6">
+            <label className="block text-base font-medium text-gray-700">
+              Platform:
+            </label>
+            <select
+              id="platform"
+              value={platform}
+              onChange={(e) => setPlatform(e.target.value)}
+              className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
+            >
+              <option value="">Select Platform</option>
+              <option value="markaz">markaz</option>
+              <option value="hhcdropshipping">hhcdropshipping</option>
+              <option value="sadadropship">sadadropship</option>
+            </select>
+          </div>
+
+          <div className="mb-6">
+            <label className="block text-base font-medium text-gray-700">
+              Status:
+            </label>
+            <select
+              id="category"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="block w-full py-3 pl-3 bg-gray-50 border mt-2 shadow-sm border-gray-300 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
+            >
+              <option value="">Select Status</option>
+              <option value="active">active</option>
+              <option value="out of stock">out of stock</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="mb-6">
+            <label
+              htmlFor="deliveryCharge"
+              className="block text-base font-medium text-gray-700"
+            >
+              Product Delivery Charge:
+            </label>
+            <input
+              type="number"
+              name="deliveryCharge"
+              id="deliveryCharge"
+              value={deliveryCharge || ""}
+              onChange={(e) => setDeliveryCharge(parseInt(e.target.value))}
+              placeholder="Enter your product price."
               className="w-full border border-gray-300 py-3 pl-3 rounded-md mt-2 shadow-sm outline-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
             />
           </div>

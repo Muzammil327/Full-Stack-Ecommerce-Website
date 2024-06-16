@@ -11,7 +11,11 @@ import { ProductData } from "@/src/types/product";
 
 import { FaRegThumbsUp } from "react-icons/fa6";
 import { FaRegThumbsDown } from "react-icons/fa6";
-import { Product_GET_BYSLUG, Product_PUT_DISLIKE, Product_PUT_LIKE } from "@/src/utils/constant";
+import {
+  Product_GET_BYSLUG,
+  Product_PUT_DISLIKE,
+  Product_PUT_LIKE,
+} from "@/src/utils/constant";
 import Container from "../components/ui/Container";
 import axios from "axios";
 import { useAuth } from "../components/contexts/authContext";
@@ -22,15 +26,11 @@ export default function ProductDetail({ params }: { params: string }) {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const { user, session } = useAuth();
-  console.log("data:", data)
-
+  console.log("data:", data);
   const D_Price = data?.discountprice ?? 0;
-  console.log("D_Price:", D_Price)
   const A_Price = data?.price ?? 0;
-  console.log("A_Price:", A_Price)
-
   const Actual = A_Price - D_Price;
-  
+
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
@@ -111,62 +111,60 @@ export default function ProductDetail({ params }: { params: string }) {
         <>
           <section>
             {data && (
-           
               <Container>
-              <div className="grid md:grid-cols-2 grid-cols-1 my-8 gap-5">
-                <ProductDetailImageSlider response={data} />
+                <div className="grid md:grid-cols-2 grid-cols-1 my-8 gap-5">
+                  <ProductDetailImageSlider response={data} />
 
-                <div className="lg:py-12 md:py-8 py-4">
-                  <ProductDetailCatgeory
-                    catgeory={data.category}
-                    subCateory={data.subCategory}
-                    items={data.items}
-                  />
-                  <h1 className="text-3xl font-bold my-4">{data.name}</h1>
-                  <div className="price flex gap-4 items-center">
-                    <span className="line-through font-semibold text-xl text-gray-700">
-                      Rs{data.price}.00
-                    </span>
-                    <span className="font-semibold text-red-500 text-2xl">
-                    Rs{Actual}.00
-                    </span>
-                  </div>
-                  <p className="mt-4 mb-6 text-base text-gray-500">
-                    {data.description}
-                  </p>
-
-                  <div className="mt-10">
-                    <div className=" my-5 flex items-center justify-between">
-                      <AddtoCartBtn product={data._id} />
+                  <div className="lg:py-12 md:py-8 py-4">
+                    <ProductDetailCatgeory
+                      catgeory={data.category}
+                      subCateory={data.subCategory}
+                      items={data.items}
+                    />
+                    <h1 className="text-3xl font-bold my-4">{data.name}</h1>
+                    <div className="price flex gap-4 items-center">
+                      <span className="line-through font-semibold text-xl text-gray-700">
+                        Rs{data.price}.00
+                      </span>
+                      <span className="font-semibold text-red-500 text-2xl">
+                        Rs{Actual}.00
+                      </span>
                     </div>
-                    <div className=" my-5 flex items-center justify-between gap-4">
-                      <FavouriteBtn product={data._id} />
-                      <button
-                        onClick={() => HandleLike(data._id)}
-                        className="bg-red-400 hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white block border-2 border-solid border-red-400 w-full"
-                      >
-                        <span className="flex items-center justify-center gap-3">
-                          <FaRegThumbsUp size={24} /> {data.like.length}{" "}
-                        </span>
-                      </button>
-                      <button
-                        onClick={() => HandleDisLike(data._id)}
-                        className="bg-red-400 block hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white border-2 border-solid border-red-400 w-full"
-                      >
-                        <span className="flex items-center justify-center gap-3">
-                          <FaRegThumbsDown size={24} /> {data.dislike.length}
-                        </span>
-                      </button>
+                    <p className="mt-4 mb-6 text-base text-gray-500">
+                      {data.description}
+                    </p>
 
-                      <ShareButton urlCurrentPage={params} />
+                    <div className="mt-10">
+                      <div className=" my-5 flex items-center justify-between">
+                        <AddtoCartBtn product={data._id} />
+                      </div>
+                      <div className=" my-5 flex items-center justify-between gap-4">
+                        <FavouriteBtn product={data._id} />
+                        <button
+                          onClick={() => HandleLike(data._id)}
+                          className="bg-red-400 hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white block border-2 border-solid border-red-400 w-full"
+                        >
+                          <span className="flex items-center justify-center gap-3">
+                            <FaRegThumbsUp size={24} /> {data.like.length}{" "}
+                          </span>
+                        </button>
+                        <button
+                          onClick={() => HandleDisLike(data._id)}
+                          className="bg-red-400 block hover:bg-white transition-all hover:text-black py-3 px-6 rounded-md text-white border-2 border-solid border-red-400 w-full"
+                        >
+                          <span className="flex items-center justify-center gap-3">
+                            <FaRegThumbsDown size={24} /> {data.dislike.length}
+                          </span>
+                        </button>
+
+                        <ShareButton urlCurrentPage={params} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              {/* <Tabs /> */}
-              <RelatedProduct relatedProducts={data} />
-            </Container>
-            
+                {/* <Tabs /> */}
+                <RelatedProduct relatedProducts={data} />
+              </Container>
             )}
           </section>
         </>

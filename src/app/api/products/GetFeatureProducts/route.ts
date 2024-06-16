@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     const get_Feature_Products = await Products.aggregate([
       {
         $match: {
-          Featured: true,
+          feature: true,
         },
       },
       { $limit: 8 },
@@ -22,10 +22,11 @@ export async function GET(req: NextRequest) {
           price: 1,
           discountprice: 1,
           image: 1,
-          Featured: 1,
+          feature: 1,
         },
       },
     ]);
+    console.log("get_Feature_Products:", get_Feature_Products);
 
     return NextResponse.json({
       success: true,

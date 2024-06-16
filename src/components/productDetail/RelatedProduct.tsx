@@ -120,7 +120,7 @@ export default function RelatedProduct({ relatedProducts }: any) {
           modules={[Autoplay, Navigation]}
           className="mySwiper"
         >
-          {relatedProducts.relatedProducts.map((data: any) => (
+          {relatedProducts.product_details.map((data: any) => (
             <>
               <SwiperSlide>
                 <ProductCard product={data} key={data.id} />
