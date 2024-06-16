@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
         token.zipCode = user.zipCode;
         token.address = user.address;
       }
-      token.exp = Math.floor(Date.now() / 1000) + 60;
+      token.exp = Math.floor(Date.now() / 1000) + 1800;
       return token;
     },
     async session({ token, session, user }) {
@@ -90,7 +90,7 @@ export const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
-    maxAge: 60, // 30 minutes
+    maxAge: 30 * 60, // 30 minutes
   },
   jwt: {
     secret: process.env.JWT_SECRET,

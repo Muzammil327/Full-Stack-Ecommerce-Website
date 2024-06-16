@@ -34,8 +34,8 @@ export default function ProductDetailImageSlider({ response }: any) {
             <div>
               <Image
                 src={`https://backend-full-stack-ecommerce-website.vercel.app/uploadSliderImage/${index}`}
-                width={1080}
-                height={1080}
+                width={480}
+                height={480}
                 alt=""
                 priority
               />
