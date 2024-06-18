@@ -98,16 +98,10 @@ export default function Page() {
                     <td className="px-6 py-4">{product.price}</td>
                     <td className="flex items-center px-6 py-4 whitespace-nowrap">
                       <Link
-                        href={`/admin/products/slider/${product._id}`}
-                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline ms-3"
-                      >
-                        Edit Slider
-                      </Link>
-                      <Link
                         href={`/admin/products/put/${product._id}`}
                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline ms-3"
                       >
-                        Edit Remaining
+                        Edit
                       </Link>
                       <button
                         onClick={() =>

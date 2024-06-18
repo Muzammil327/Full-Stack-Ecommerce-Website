@@ -17,10 +17,9 @@ import { EffectFlip, Pagination, Navigation } from "swiper/modules";
 // import ReactImageMagnify from "react-image-magnify";
 import Image from "next/image";
 
-export default function ProductDetailImageSlider({ response }: any) {
+export default function ProductDetailImageSlider({ response, image }: any) {
   return (
-    <div className="img">
-
+    <div className="img mx-8">
       <Swiper
         effect={"flip"}
         grabCursor={true}
@@ -29,16 +28,15 @@ export default function ProductDetailImageSlider({ response }: any) {
         modules={[EffectFlip, Pagination, Navigation, Autoplay]}
         className="mySwipe"
       >
+        <SwiperSlide>
+          <div className="h-auto w-full">
+            <Image src={image} width={600} height={600} alt="" priority />
+          </div>
+        </SwiperSlide>
         {response.slider.map((index: string, slideIndex: number) => (
           <SwiperSlide key={slideIndex}>
-            <div>
-              <Image
-                src={`https://backend-full-stack-ecommerce-website.vercel.app/uploadSliderImage/${index}`}
-                width={480}
-                height={480}
-                alt=""
-                priority
-              />
+            <div className="h-auto w-full">
+              <Image src={index} width={600} height={600} alt="" priority />
             </div>
           </SwiperSlide>
         ))}

@@ -1,17 +1,13 @@
 "use client";
+import React, { useState } from "react";
+import Link from "next/link";
 import Input from "@/src/components/ui/Input";
 import Label from "@/src/components/ui/Label";
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useAuth } from "@/src/components/contexts/authContext";
 import Processing from "@/src/components/ui/Loading/Processing";
-
-interface LoginFormData {
-  email: string;
-  password: string;
-}
+import { LoginFormData } from "@/src/types/user";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
@@ -29,6 +25,7 @@ export default function Page() {
   const SubmitHandle = async (e: any) => {
     e.preventDefault(); // Prevent form submission
     setLoading(true);
+
     try {
       const res = await signIn("credentials", {
         email: data.email,
@@ -65,7 +62,9 @@ export default function Page() {
         <div>
           <h2 className="text-gray-900 lg:text-3xl text-2xl">Sign In</h2>
           <p className="my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, ad.
+            Welcome back! Sign in to access your account, track your orders,
+            save your favorite items, and enjoy a seamless shopping experience.
+            We&rsquo;re glad to see you again!
           </p>
         </div>
 

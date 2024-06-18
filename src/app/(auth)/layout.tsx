@@ -11,7 +11,8 @@ export default function AuthLayout({
         <div className="md:col-span-4">
           <Image
             src="/3.jpg"
-            alt=""
+            alt={`${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+            title={`${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
             height={430}
             width={750}
             className="sm:h-screen h-60 w-full"

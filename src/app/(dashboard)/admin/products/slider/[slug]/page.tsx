@@ -1,17 +1,38 @@
 "use client";
-import { Product_PUT_Slider } from "@/src/utils/constant";
+import { Product_GET_BYID, Product_PUT_Slider } from "@/src/utils/constant";
 import axios from "axios";
+import Image from "next/image";
 import { useParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 const Page = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
 
   const [loadings2, setLoading2] = useState<boolean>(false);
   const [errors, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [slider, setSlider] = useState<File[]>([]);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [fetchImageUrls, setFetchImageUrls] = useState<string[]>([]);
+
+  const fetchData1 = useCallback(async () => {
+    try {
+      const response = await axios.get(`${Product_GET_BYID}/${slug}`);
+      setFetchImageUrls(response.data.slider); // Updates fetchImageUrls with fetched image URLs
+    } catch (error) {
+      console.error("Error fetching product data:", error);
+    }
+  }, [slug]);
+
+  useEffect(() => {
+    fetchData1(); // Fetches initial data when `slug` changes
+  }, [fetchData1, slug]);
 
   const handleSubmitImage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,7 +44,7 @@ const Page = () => {
       slider.forEach((file) => {
         formData.append("slider", file);
       });
-      await axios.put(`${Product_PUT_Slider}/${id}`, formData, {
+      await axios.put(`${Product_PUT_Slider}/${slug}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -72,15 +93,19 @@ const Page = () => {
           </label>
           <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
             <div className="text-center">
+             
+
               {imageUrls.length > 0 ? (
                 <>
                   <div className="grid grid-cols-3 gap-6">
                     {imageUrls.map((url, index) => (
                       <div key={index} className="relative">
-                        <img
+                        <Image
                           src={url}
                           alt={`Selected Image ${index + 1}`}
                           className="h-40 w-full object-cover rounded-md"
+                          height={500}
+                          width={500}
                         />
                         <button
                           type="button"

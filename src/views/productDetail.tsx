@@ -113,7 +113,10 @@ export default function ProductDetail({ params }: { params: string }) {
             {data && (
               <Container>
                 <div className="grid md:grid-cols-2 grid-cols-1 my-8 gap-5">
-                  <ProductDetailImageSlider response={data} />
+                  <ProductDetailImageSlider
+                    response={data}
+                    image={data.image}
+                  />
 
                   <div className="lg:py-12 md:py-8 py-4">
                     <ProductDetailCatgeory

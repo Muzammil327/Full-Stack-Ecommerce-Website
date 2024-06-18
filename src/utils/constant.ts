@@ -1,5 +1,5 @@
 const URL = process.env.NEXT_PUBLIC_BACKENDAPI;
-const Product_URL = "api/v1/product";
+export const Product_URL = "api/v1/product";
 
 export const Product_API_Endpoint = `${URL}/api/v1/product`;
 
@@ -15,6 +15,7 @@ export const Product_GET_BYSLUG = `${URL}/${Product_URL}/get`;
 export const Product_GET_BYID = `${URL}/${Product_URL}/getid`;
 export const Product_DELETE = `${URL}/${Product_URL}/delete`;
 export const Product_DELETE_IMAGE = `${URL}/${Product_URL}/deleteImage`;
+export const Product_DELETE_SliderIMAGE = `${URL}/${Product_URL}/deleteSliderImage`;
 
 
 export const Cart_API_Endpoint = `${URL}/api/v1/cart`;

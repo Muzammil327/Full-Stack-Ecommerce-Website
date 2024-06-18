@@ -1,17 +1,13 @@
 "use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
 import Input from "@/src/components/ui/Input";
 import Label from "@/src/components/ui/Label";
 import Processing from "@/src/components/ui/Loading/Processing";
-import axios from "axios";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useState } from "react";
-
-interface RegisterFormData {
-  username: string;
-  email: string;
-  password: string;
-}
+import { RegisterFormData } from "@/src/types/user";
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
@@ -26,7 +22,7 @@ export default function Page() {
   });
 
   const SubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent form submission
     setLoading(true);
 
     try {
@@ -57,7 +53,9 @@ export default function Page() {
         <div>
           <h2 className="text-gray-900 lg:text-3xl text-2xl">Create Account</h2>
           <p className="my-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, ad.
+            Join our shopping community today! Creating an account allows you to
+            enjoy a personalized shopping experience, track your orders, save
+            your favorite items, and receive exclusive offers and updates.
           </p>
         </div>
         <div className="mb-4">

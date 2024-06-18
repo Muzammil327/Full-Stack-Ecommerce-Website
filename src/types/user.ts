@@ -10,3 +10,14 @@ export interface User {
   address?: string;
   phone?: string;
 }
+
+export interface RegisterFormData {
+  username: string;
+  email: string;
+  password: string;
+}
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
