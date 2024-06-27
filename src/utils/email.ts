@@ -11,13 +11,16 @@ const transporter = nodemailer.createTransport({
 });
 4;
 export async function sendActivationEmail(email: string, token: string) {
-  const activationLink = `http://localhost:3000/activate/${token}`;
+  const activationLink = `${process.env.NEXT_PUBLIC_FRONTENDPI}/activate/${token}`;
   const message = {
     from: process.env.EMAIL_FROM,
     to: email,
     subject: "Activate your account",
     text: `Click this link to activate your account: ${activationLink}`,
-    html: `<p>Click <a href="${activationLink}">here</a> to activate your account.</p>`,
+    html: `
+    <h1>Welcome to SMI Store</h1>
+    <p>Click <a href="${activationLink}">here</a> to activate your account.</p>
+    `,
   };
 
   await transporter.sendMail(message);
