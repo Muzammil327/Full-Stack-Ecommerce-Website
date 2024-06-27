@@ -1,20 +1,72 @@
 import React from "react";
-import { useCart } from "../context/cartContext";
 import Image from "next/image";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { CartItem } from "@/src/types/page";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
-export default function FetchCart() {
-  const {
-    cart,
-    DeleteHandle,
-    handleUpdateCartIncrease,
-    handleUpdateCartDecrease,
-  } = useCart();
+export default function FetchCart({
+  getToCartBtn,
+  cart,
+}: {
+  getToCartBtn: () => void;
+  cart: CartItem[];
+}) {
+  // ----------------------- DELETE CART -------------------------------------------
+
+  const DeleteHandle = async (cartId: string) => {
+    try {
+      const response = await axios.delete(`/api/cart?cartId=${cartId}`);
+      if (response.data.statusbar === 200) {
+        await getToCartBtn();
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error removing product from cart:", error);
+    } finally {
+    }
+  };
+
+  // ----------------------- PUT INCREASE CART -------------------------------------------
+
+  const handleUpdateCartIncrease = async (_id: string, qty: number) => {
+    try {
+      const response = await axios.put(`/api/cart?increase=${_id}`, { qty });
+      if (response.data.statusbar === 200) {
+        await getToCartBtn();
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  };
+
+  // ----------------------- PUT DECREASE CART -------------------------------------------
+
+  const handleUpdateCartDecrease = async (_id: string, qty: number) => {
+    try {
+      const response = await axios.put(`/api/cart?decrease=${_id}`, { qty });
+      if (response.data.statusbar === 200) {
+        await getToCartBtn();
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  };
+
   return (
     <React.Fragment>
       {cart ? (
-        cart.map((user, index) => (
+        cart.map((user: CartItem, index: number) => (
           <tr className="bg-white border-b hover:bg-gray-50" key={index}>
-            <td className="p-4">
+            <td className="p-3">
               <Image
                 src={user.product_Detail.image}
                 alt={user.product_Detail.name}
@@ -24,7 +76,7 @@ export default function FetchCart() {
                 className="w-full block h-20"
               />
             </td>
-            <td className="px-6 py-4 font-semibold text-gray-900">
+            <td className="text-left py-4 font-semibold text-gray-900">
               {user.product_Detail.name}
             </td>
             <td className="px-6 py-4">
@@ -35,21 +87,7 @@ export default function FetchCart() {
                   onClick={() => handleUpdateCartDecrease(user._id, user.qty)}
                 >
                   <span className="sr-only">Decrease Quantity</span>
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 18 2"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M1 1h16"
-                    />
-                  </svg>
+                  <FaMinus />
                 </button>
                 <input
                   type="number"
@@ -65,29 +103,15 @@ export default function FetchCart() {
                   onClick={() => handleUpdateCartIncrease(user._id, user.qty)}
                 >
                   <span className="sr-only">Increase Quantity</span>
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 18 18"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 1v16M1 9h16"
-                    />
-                  </svg>
+                  <FaPlus />
                 </button>
               </form>
             </td>
-            <td className="px-6 py-4 font-semibold text-gray-900">
+            <td className="px-6 text-center py-4 font-semibold text-gray-900">
               {(user.product_Detail.price - user.product_Detail.discountprice) *
                 user.qty}
             </td>
-            <td className="px-6 py-4">
+            <td className="px-6 py-4 text-center">
               <button
                 className="font-medium t1 hover:underline"
                 onClick={() => DeleteHandle(user._id)}
@@ -98,7 +122,7 @@ export default function FetchCart() {
           </tr>
         ))
       ) : (
-        <p>NO user Cart...</p>
+        <p>NO Cart...</p>
       )}
     </React.Fragment>
   );

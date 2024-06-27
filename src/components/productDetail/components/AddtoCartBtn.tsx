@@ -13,11 +13,14 @@ export default function AddtoCartBtn({
   userId: string;
 }) {
   const { getToCartBtn } = useCart();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const addToCartBtn = async (productId: string) => {
+  const addToCartBtn = async (productId: string, userId: string) => {
+    setIsLoading(true);
+    if (!userId) {
+      return toast.success("Login is Required.");
+    }
     try {
-      setIsLoading(true);
       const response = await axios.post(`/api/cart`, {
         productId,
         userId,
@@ -39,7 +42,7 @@ export default function AddtoCartBtn({
     <>
       <Button
         className="button_bg"
-        onClick={() => addToCartBtn(product)}
+        onClick={() => addToCartBtn(product, userId)}
         disabled={isLoading}
       >
         <FaCartShopping className="mr-2" /> Add to Cart

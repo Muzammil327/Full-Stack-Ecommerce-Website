@@ -1,4 +1,5 @@
 "use client";
+import { CartItem } from "@/src/types/page";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, {
@@ -8,34 +9,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { toast } from "react-toastify";
-
-// Define the type for the cart item
-interface CartItem {
-  _id: string;
-  qty: number;
-  product_Detail: {
-    _id: string;
-    name: string;
-    image: string;
-    price: number;
-    discountprice: number;
-    deliveryCharge: number;
-  };
-}
 
 interface CartContextType {
-  isLoading: boolean;
   isFetching: boolean;
-
-  // cart
   cart: CartItem[];
-  getToCartBtn: any;
-  DeleteHandle: any;
-  handleUpdateCartIncrease: any;
-  handleUpdateCartDecrease: any;
-
-  addToCartBtn: (productId: string) => Promise<void>;
+  getToCartBtn: () => void;
 }
 
 // Create the context
@@ -47,7 +25,6 @@ interface CartProviderProps {
 }
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isFetching, setIsFetching] = useState<boolean>(true);
 
   const { data: session } = useSession();
@@ -70,80 +47,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     }
   }, [userId]);
 
-  // ----------------------- POST CART -------------------------------------------
-
-  const addToCartBtn = useCallback(
-    async (productId: string) => {
-      try {
-        setIsLoading(true);
-        const response = await axios.post(`/api/cart`, {
-          productId,
-          userId,
-        });
-        if (response.data.statusbar === 200) {
-          await getToCartBtn();
-          toast.success(response.data.message);
-        } else {
-          toast.error(response.data.error);
-        }
-      } catch (error) {
-        console.error("Error adding product to cart:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [getToCartBtn, userId]
-  );
-
-  // ----------------------- DELETE CART -------------------------------------------
-
-  const DeleteHandle = async (cartId: string) => {
-    try {
-      const response = await axios.delete(`/api/cart?cartId=${cartId}`);
-      if (response.data.statusbar === 200) {
-        await getToCartBtn();
-        toast.success(response.data.message);
-      } else {
-        toast.error(response.data.error);
-      }
-    } catch (error) {
-      console.error("Error removing product from cart:", error);
-    } finally {
-    }
-  };
-
-  // ----------------------- PUT INCREASE CART -------------------------------------------
-
-  const handleUpdateCartIncrease = async (_id: string, qty: number) => {
-    try {
-      const response = await axios.put(`/api/cart?increase=${_id}`, { qty });
-      if (response.data.statusbar === 200) {
-        await getToCartBtn();
-        toast.success(response.data.message);
-      } else {
-        toast.error(response.data.error);
-      }
-    } catch (error) {
-      console.error("Error adding product to cart:", error);
-    }
-  };
-
-  // ----------------------- PUT DECREASE CART -------------------------------------------
-
-  const handleUpdateCartDecrease = async (_id: string, qty: number) => {
-    try {
-      const response = await axios.put(`/api/cart?decrease=${_id}`, { qty });
-      if (response.data.statusbar === 200) {
-        await getToCartBtn();
-        toast.success(response.data.message);
-      } else {
-        toast.error(response.data.error);
-      }
-    } catch (error) {
-      console.error("Error adding product to cart:", error);
-    }
-  };
-
   useEffect(() => {
     if (userId) {
       getToCartBtn();
@@ -153,15 +56,10 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   return (
     <CartContext.Provider
       value={{
-        isLoading,
         isFetching,
 
         cart,
-        addToCartBtn,
         getToCartBtn,
-        DeleteHandle,
-        handleUpdateCartIncrease,
-        handleUpdateCartDecrease,
       }}
     >
       {children}

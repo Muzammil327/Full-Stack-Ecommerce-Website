@@ -97,10 +97,10 @@ export async function POST(req: NextRequest) {
       });
     }
   } catch (error) {
-    console.error("Error during registration:", error);
+    console.error("Error during add to cart:", error);
     return NextResponse.json({
       statusbar: 400,
-      error: "Error Registering",
+      error: "Error during add to cart",
     });
   }
 }
@@ -108,27 +108,27 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const cartId = searchParams.get("cartId");
+
   await connectDB();
 
   try {
     if (!cartId) {
       return NextResponse.json({
         statusbar: 400,
-        error: "CARt Id is Required.",
+        error: "CART Id is Required.",
       });
     }
-    const deletedCart = await Cart.findByIdAndDelete({ _id: cartId });
+    await Cart.findByIdAndDelete({ _id: cartId });
 
     return NextResponse.json({
       statusbar: 200,
       message: "Item delete from Cart!",
-      deletedCart,
     });
   } catch (error) {
-    console.error("Error during registration:", error);
+    console.error("Error during deleting Cart item:", error);
     return NextResponse.json({
       statusbar: 400,
-      error: "Error Registering",
+      error: "Error during deleting Cart item",
     });
   }
 }
@@ -154,7 +154,7 @@ export async function PUT(req: NextRequest) {
           await existingProduct.save();
           return NextResponse.json({
             statusbar: 200,
-            error: "Cart Item Increased Updated.",
+            error: "Cart Item Increased Successfully.",
           });
         } else {
           return NextResponse.json({
@@ -182,7 +182,7 @@ export async function PUT(req: NextRequest) {
             await existingProduct.save();
             return NextResponse.json({
               statusbar: 200,
-              error: "Cart Item Decrease Updated.",
+              error: "Cart Item Decrease Successfully.",
             });
           } else {
             // If quantity is 1 or less, remove the item from the cart
@@ -210,7 +210,7 @@ export async function PUT(req: NextRequest) {
     console.error("Error during updating increase and decrease:", error);
     return NextResponse.json({
       statusbar: 400,
-      error: "Error Registering",
+      error: "Error during updating increase and decrease",
     });
   }
 }

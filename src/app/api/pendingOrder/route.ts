@@ -1,7 +1,6 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
 import PendingOrder from "@/src/models/pendingOrderModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
-import mongoose from "mongoose";
 
 export async function POST(req: NextRequest) {
   const { productId, userId, qty } = await req.json();

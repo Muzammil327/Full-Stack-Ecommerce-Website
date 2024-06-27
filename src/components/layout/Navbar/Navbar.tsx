@@ -207,10 +207,9 @@ export default function NavbarView({ userId }: { userId: string }) {
               
               <button
                 type="button"
-                className="fixed top-32 left-0 p-2 lg:hidden btnIcon_outline_2"
+                className="fixed top-32 left-0 p-2 lg:hidden btnIcon_outline_2 z-50"
                 onClick={() => setOpen(true)}
               >
-                <span className="absolute -inset-0.5" />
                 <span className="sr-only">Open menu</span>
                 <FaBars />
               </button>

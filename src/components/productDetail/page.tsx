@@ -35,7 +35,13 @@ export interface ProductCardData {
   reviews: [];
 }
 
-export default function ProductDetail({ params }: { params: string }) {
+export default function ProductDetail({
+  params,
+  userId,
+}: {
+  params: string;
+  userId: string;
+}) {
   const [data, setData] = useState<ProductCardData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
@@ -142,11 +148,11 @@ export default function ProductDetail({ params }: { params: string }) {
                     {/* ------------- Product Button ------------- */}
                     <div className="mt-6 max-w-full flex flex-wrap md:gap-5 sm:gap-4 gap-3 flex-col">
                       <div className="w-full">
-                        <AddtoCartBtn product={data._id} />
+                        <AddtoCartBtn product={data._id} userId={userId} />
                       </div>
                       <div className="flex md:gap-3 gap-2 md:justify-between items-center">
                         {/* favourite button  */}
-                        <FavouriteBtn product={data._id} />
+                        <FavouriteBtn product={data._id} userId={userId} />
 
                         {/* like button  */}
                         <LikeBtn fetchProduct={fetchProduct} datas={data} />

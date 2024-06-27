@@ -3,15 +3,20 @@ import React, { useEffect, useState } from "react";
 import Button from "@/src/components/ui/Button";
 import Processing from "@/src/components/ui/Loading/Processing";
 import axios from "axios";
-import { useCart } from "@/src/components/context/cartContext";
 import { useRouter } from "next/navigation";
+import { CartItem } from "@/src/types/page";
 
 interface Product {
   product: string;
   qty: number;
 }
-export default function CheckoutButton({ userId }: { userId: string }) {
-  const { cart, isFetching } = useCart();
+export default function CheckoutButton({
+  userId,
+  cart,
+}: {
+  userId: string;
+  cart: any;
+}) {
   const [loading, setLoading] = useState<boolean>(false);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -24,7 +29,7 @@ export default function CheckoutButton({ userId }: { userId: string }) {
     let totalTax = 0;
 
     if (cart) {
-      cart.forEach((item: any) => {
+      cart.forEach((item: CartItem) => {
         subTotal +=
           (item.product_Detail.price - item.product_Detail.discountprice) *
           item.qty;
@@ -72,7 +77,7 @@ export default function CheckoutButton({ userId }: { userId: string }) {
         <span>Tax Charges</span>
         <span>{totalTax}</span>
       </div>
-      <div className="total border-t py-2 flex items-center justify-between">
+      <div className="total border-t border-solid border-slate-300 py-5 flex items-center justify-between">
         <span>Total</span>
         <span>{total}</span>
       </div>
@@ -82,7 +87,7 @@ export default function CheckoutButton({ userId }: { userId: string }) {
             className="button_bg w-full"
             onClick={() =>
               handleSubmit(
-                cart.map((item) => ({
+                cart.map((item: CartItem) => ({
                   product: item.product_Detail._id,
                   qty: item.qty,
                 }))
