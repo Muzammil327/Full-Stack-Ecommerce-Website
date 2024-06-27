@@ -26,7 +26,7 @@ const CategoryPageContent = () => {
       <div className="py-12">
         <Container>
           {loading ? (
-            <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 mx-4 mt-5">
+            <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 md:mx-4 mt-5">
               <LoadingProductCard />
               <LoadingProductCard />
               <LoadingProductCard />
@@ -36,7 +36,7 @@ const CategoryPageContent = () => {
             </div>
           ) : (
             <>
-              <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 mx-4 mt-5">
+              <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 md:mx-4 mt-5">
                 <StoreProducts data={data} />
               </div>
               <StorePagination setPage={setPage} data={data} />

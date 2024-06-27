@@ -38,3 +38,10 @@
 .rc-rate-star-second {
   @apply text-gray-400;
 }
+
+.product_description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

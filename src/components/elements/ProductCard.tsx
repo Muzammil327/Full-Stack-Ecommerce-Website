@@ -31,12 +31,12 @@ export default function ProductCard({ product }: IProps) {
           </div>
           <div className="mt-4 flex flex-col">
             <div className="flex items-center justify-between">
-              <p className="mt-1 text-sm text-gray-500">{product.category}</p>
+              <p className="mt-1 text-sm t1">{product.category}</p>
               <p className="text-sm font-medium text-gray-900">
-                Rs.{product.price - product.discountprice}.00
+                Rs.{product.price}
               </p>
             </div>
-            <h3 className="md:text-lg text-base text-gray-700">
+            <h3 className="md:text-lg text-base text-gray-700 product_description">
               <span aria-hidden="true" className="absolute inset-0"></span>
               {product.name}
             </h3>
