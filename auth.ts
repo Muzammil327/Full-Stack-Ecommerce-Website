@@ -1,42 +1,8 @@
-import NextAuth, { CredentialsSignin } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import connectDB from "@/src/utils/db";
 import User from "@/src/models/userModel";
 import bcrypt from "bcrypt";
-
-interface ErrorOptions {
-  message?: string;
-  cause?: Record<string, unknown> & { err: Error };
-  stack?: string;
-  type?: string;
-}
-
-class AuthError extends Error {
-  cause?: Record<string, unknown> & { err: Error };
-  type: string;
-
-  constructor(message?: string | ErrorOptions, errorOptions?: ErrorOptions) {
-    if (typeof message === "string") {
-      super(message);
-      this.message = message;
-      this.type = errorOptions?.type || "AuthError";
-    } else if (typeof message === "object") {
-      super(message?.message || "Error");
-      this.cause = message?.cause;
-      this.stack = message?.stack;
-      this.type = message?.type || "AuthError";
-    } else {
-      super("Error");
-      this.type = "AuthError";
-    }
-
-    this.name = "AuthError";
-  }
-}
-
-class InvalidLoginError extends CredentialsSignin {
-  code = "Invalid email or password";
-}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -52,33 +18,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const password = credentials?.password;
 
           if (!email || !password) {
-            // throw new AuthError("Invalid User", {
-            //   type: "InvalidUser",
-            // });
-            // throw new Error("hello");
-            throw new InvalidLoginError();
+            throw new Error("Invalid email or password.")
           }
 
-          // const user = await User.findOne({ email }).select("+password");
-          // if (user.emailVerified !== true) {
-          //   throw new AuthError("User not found", {
-          //     type: "NotUserFound",
-          //   });
-          // }
+          const user = await User.findOne({ email }).select("+password");
+          if (user.emailVerified !== true) {
+            throw new Error("User not found.")
+          }
 
-          // const passwordMatch = await bcrypt.compare(password, user.password);
-          // if (!passwordMatch) {
-          //   throw new InvalidLoginError();
-          // }
+          const passwordMatch = await bcrypt.compare(password, user.password);
+          if (!passwordMatch) {
+            throw new Error("Password not Match.")
+          }
 
-          // return {
-          //   _id: user._id,
-          //   username: user.username,
-          //   email: user.email,
-          //   role: user.role,
-          //   emailVerified: user.emailVerified,
-          // };
-          return;
+          return {
+            _id: user._id,
+            username: user.username,
+            email: user.email,
+            role: user.role,
+            emailVerified: user.emailVerified,
+          };
         } catch (error) {
           console.log(error);
         }

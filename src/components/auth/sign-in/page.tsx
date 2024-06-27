@@ -29,28 +29,23 @@ export default function SignView() {
     e.preventDefault(); // Prevent form submission
     setLoading(true);
 
-    // if (!data.email || !data.password) {
-    //   setLoading(false);
-    //   return toast.error("Email and password are required.");
-    // }
+    if (!data.email || !data.password) {
+      setLoading(false);
+      return toast.error("Email and password are required.");
+    }
     try {
       const response = await signIn("credentials", {
         redirect: false,
         email: data.email,
         password: data.password,
       });
+      if (response?.error) {
+        toast.error(response.error);
+      }
       console.log("response:", response);
       console.log("signIn:", signIn);
     } catch (error) {
-      const authError = error as AuthError;
-      if (
-        authError.response &&
-        authError.response.data.code === "Invalid email or password"
-      ) {
-        toast.error("Invalid email or password");
-      } else {
-        toast.error("An unexpected error occurred. Please try again later.");
-      }
+      toast.warning("Internal server Error.");
     }
   };
 
