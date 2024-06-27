@@ -36,7 +36,7 @@ export default function ProductCard({ product }: IProps) {
                 Rs.{product.price - product.discountprice}.00
               </p>
             </div>
-            <h3 className="text-lg text-gray-700">
+            <h3 className="md:text-lg text-base text-gray-700">
               <span aria-hidden="true" className="absolute inset-0"></span>
               {product.name}
             </h3>

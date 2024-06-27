@@ -187,7 +187,7 @@ export default function StorePage() {
               ) : null}
             </ul>
             {loading ? (
-              <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mx-4 mt-5">
+              <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 lg:mx-4 mt-5">
                 <LoadingProductCard />
                 <LoadingProductCard />
                 <LoadingProductCard />
@@ -197,7 +197,7 @@ export default function StorePage() {
               </div>
             ) : (
               <>
-                <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 mx-4 mt-5">
+                <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 lg:mx-4 mt-5">
                   <StoreProducts data={data} />
                 </div>
                 <StorePagination setPage={setPage} data={data} />

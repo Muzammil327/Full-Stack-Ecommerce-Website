@@ -12,7 +12,6 @@ import {
   FaBars,
   FaFacebook,
   FaInstagram,
-  FaSearch,
   FaShoppingBasket,
   FaTimes,
 } from "react-icons/fa";
@@ -34,7 +33,7 @@ export default function NavbarView({ userId }: { userId: string }) {
     <section className="bg-white">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog className="relative z-40 lg:hidden" onClose={setOpen}>
+        <Dialog className="relative z-50 lg:hidden" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -204,16 +203,14 @@ export default function NavbarView({ userId }: { userId: string }) {
         <Container>
           <div className="">
             <div className="flex items-center py-3">
-              
               <button
                 type="button"
-                className="fixed top-32 left-0 p-2 lg:hidden btnIcon_outline_2 z-50"
+                className="fixed top-32 right-0 p-2 lg:hidden btnIcon_outline_2 z-40"
                 onClick={() => setOpen(true)}
               >
                 <span className="sr-only">Open menu</span>
                 <FaBars />
               </button>
-              {/* Logo */}
               <div>
                 <Logo />
               </div>
