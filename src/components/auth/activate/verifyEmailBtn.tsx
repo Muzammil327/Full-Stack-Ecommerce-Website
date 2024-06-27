@@ -38,6 +38,7 @@ export default function VerifyEmailBtn({ activationToken }: any) {
       <Button className="button_bg" onClick={verifyEmailAndRedirect}>
         Send Email Verification Link
       </Button>
+      <p>Check also spam folder.</p>
     </div>
   );
 }

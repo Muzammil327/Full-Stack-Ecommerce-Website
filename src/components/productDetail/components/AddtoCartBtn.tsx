@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import Button from "../../ui/Button";
 import { useCart } from "../../context/cartContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-export default function AddtoCartBtn({ product }: { product: string }) {
-  const { isLoading, addToCartBtn } = useCart();
+export default function AddtoCartBtn({
+  product,
+  userId,
+}: {
+  product: string;
+  userId: string;
+}) {
+  const { getToCartBtn } = useCart();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const addToCartBtn = async (productId: string) => {
+    try {
+      setIsLoading(true);
+      const response = await axios.post(`/api/cart`, {
+        productId,
+        userId,
+      });
+      if (response.data.statusbar === 200) {
+        await getToCartBtn();
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>

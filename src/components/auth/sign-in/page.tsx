@@ -6,20 +6,16 @@ import { signIn } from "next-auth/react";
 import Processing from "@/src/components/ui/Loading/Processing";
 import Button from "@/src/components/ui/Button";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export interface LoginFormData {
   email: string;
   password: string;
 }
-type AuthError = {
-  response: {
-    data: {
-      code: string;
-    };
-  };
-};
+
 export default function SignView() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter()
   const [data, setData] = useState<LoginFormData>({
     email: "",
     password: "",
@@ -44,6 +40,7 @@ export default function SignView() {
       }
       console.log("response:", response);
       console.log("signIn:", signIn);
+      router.push("/dashboard")
     } catch (error) {
       toast.warning("Internal server Error.");
     }

@@ -1,6 +1,7 @@
 import React from "react";
 import ProductDetail from "@/src/components/productDetail/page";
 import { getProductDetails } from "./FetchSeoData";
+import { getSession } from "@/src/utils/getSession";
 
 interface productDetail {
   productDetail: string;
@@ -10,10 +11,12 @@ interface Iprops {
   params: productDetail;
 }
 
-export default function Page({ params }: Iprops) {
+export default async function Page({ params }: Iprops) {
+  const session = await getSession();
+  const userId = session?.user?._id as string;
   return (
     <main>
-      <ProductDetail params={params.productDetail} />
+      <ProductDetail params={params.productDetail} userId={userId} />
     </main>
   );
 }
