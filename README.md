@@ -1,86 +1,36 @@
-## Ecommmerce Website
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-### Functionality 
-- User and Admin Roles
-- Pagination
-- Sorting
-- Filtering
-- Add to Cart
-- Add to Wishlist
-- User Order Placement
-- Status Change by Admin
-- Product Management
-- Like and DisLike
+## Getting Started
 
-#### Future
-- Product Rating and Review
-- Email Verification
-- Searching
-- Stripe Integratiom
+First, run the development server:
 
---------------------------------
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-### Tech Stacks
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- React Js
-- Next Js
-- Typescript
-- Tailwind CSS
-- sass
-- Mongoose
-- MongoDB
-- Axios
-- next-auth
-- cloudinary
-- Node Js
-- Express Js
-- Sentry 
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-#### Future
-- GraphQL Integration
-- SWR
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
---------------------------------
+## Learn More
 
-### Packages
+To learn more about Next.js, take a look at the following resources:
 
-- react-icons
-- react-toastify
-- swiper
-- react-tagsinput
-- bcrypt
-- react-select
-- multer
-- react-share
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-#### Future
-- react-simple-star-rating
-- nodemailer
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
+## Deploy on Vercel
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-
-import { FaChevronDown } from "react-icons/fa6";
-import { FaChevronLeft } from "react-icons/fa6";
-import { FaChevronRight } from "react-icons/fa6";
-import { FaChevronUp } from "react-icons/fa6";
-import { FaCheck } from "react-icons/fa6";
-import { FaCircleCheck } from "react-icons/fa6";
-import { FaSquareCheck } from "react-icons/fa6";
-import { FaHeart } from "react-icons/fa6";
-import { FaHouse } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa6";
-import { FaSquareInstagram } from "react-icons/fa6";
-
-import { FaLocationDot } from "react-icons/fa6";
-import { FaPhoneVolume } from "react-icons/fa6";
-import { FaRegCalendarDays } from "react-icons/fa6";
-import { FaRegMoon } from "react-icons/fa6";
-import { FaRegThumbsUp } from "react-icons/fa6";
-import { FaRegThumbsDown } from "react-icons/fa6";
-import { FaRegSun } from "react-icons/fa6";
-import { FaShareNodes } from "react-icons/fa6";
-import { FaTrashCan } from "react-icons/fa6";
-import { FaWhatsapp } from "react-icons/fa6";
-import { FaYoutube } from "react-icons/fa6";
-import { FaXmark } from "react-icons/fa6";
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

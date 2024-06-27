@@ -1,5 +1,5 @@
 import React from "react";
-import ProductDetail from "@/src/views/productDetail";
+import ProductDetail from "@/src/components/productDetail/page";
 import { getProductDetails } from "./FetchSeoData";
 
 interface productDetail {

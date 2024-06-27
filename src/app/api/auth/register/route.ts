@@ -1,6 +1,15 @@
+import { cookies } from 'next/headers'
+
 import User from "@/src/models/userModel";
 import connectDB from "@/src/utils/db";
 import { NextRequest, NextResponse } from "next/server";
+import { sendActivationEmail } from "@/src/utils/email";
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
+
+function generateActivationToken(): string {
+  return crypto.randomBytes(32).toString("hex");
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,13 +18,13 @@ export async function POST(req: NextRequest) {
 
     if (!username) {
       return NextResponse.json({
-        success: false,
+        statusbar: 400,
         error: "Username is Required.",
       });
     }
     if (!email || !password) {
       return NextResponse.json({
-        success: false,
+        statusbar: 400,
         error: "Email and Password is Required.",
       });
     }
@@ -24,7 +33,7 @@ export async function POST(req: NextRequest) {
     const existingUserName = await User.findOne({ username: username });
     if (existingUserName) {
       return NextResponse.json({
-        success: false,
+        statusbar: 400,
         error: "Username already exists",
       });
     }
@@ -33,22 +42,48 @@ export async function POST(req: NextRequest) {
     const existingEmail = await User.findOne({ email: email });
     if (existingEmail) {
       return NextResponse.json({
-        success: false,
+        statusbar: 400,
         error: "Email already exists",
       });
     }
-    // If the email doesn't exist, create a new user document
-    const newUser = new User({ email, password, username });
-    await newUser.save();
 
+    // Generate activation token
+    const activationToken = generateActivationToken();
+
+    // Create a new user with activation token
+    const newUser = await new User({
+      email,
+      password,
+      username,
+      tokenActivate: activationToken,
+    }).save();
+
+    // send activation email
+    await sendActivationEmail(email, activationToken);
+
+    // store email in local storage
+
+    cookies().set({
+      name: 'activationToken',
+      value: activationToken,
+      // httpOnly: true,
+      path: '/',
+    })
+
+    // back response
     return NextResponse.json({
-      success: true,
+      statusbar: 200,
       message: "User added successfully",
-      user: newUser,
+      newUser: {
+        email: newUser.email,
+        tokenActivate: newUser.tokenActivate,
+        emailVerified: newUser.emailVerified,
+      },
     });
   } catch (error) {
+    console.error("Error during registration:", error);
     return NextResponse.json({
-      success: false,
+      statusbar: 400,
       error: "Error Registering",
     });
   }

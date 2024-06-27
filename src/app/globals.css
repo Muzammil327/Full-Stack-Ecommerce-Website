@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg1 {
+  @apply bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 duration-300 ease-in-out;
+}
+.t1 {
+  @apply text-indigo-600 duration-300 ease-in-out;
+}
+.link1 {
+  @apply text-indigo-600 hover:text-indigo-700 duration-300 ease-in-out;
+}
+
+/*---------------------
+  Button
+-----------------------*/
+.button_bg {
+  @apply flex justify-center items-center py-3 sm:px-4 px-2 border border-transparent bg1 rounded-md shadow-sm text-base font-medium;
+}
+
+/*---------------------
+  Button Icon
+-----------------------*/
+.btnIcon_outline {
+  @apply flex justify-center items-center p-3 h-12 lg:w-24 sm:w-20 w-16 border border-solid border-indigo-600 rounded-md shadow-sm text-xl font-medium text-indigo-600 hover:text-white bg-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 duration-300 ease-in-out;
+}
+.btnIcon_outline_2 {
+  @apply flex justify-center items-center border border-solid border-indigo-600 rounded-md shadow-sm text-xl font-medium text-indigo-600 hover:text-white bg-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 duration-300 ease-in-out;
+}
+/*---------------------
+  Star Rating Style
+-----------------------*/
+.rc-rate-star {
+  font-size: 1.2em; /* Adjust the size as needed */
+}
+.rc-rate-star-first,
+.rc-rate-star-second {
+  @apply text-gray-400;
+}

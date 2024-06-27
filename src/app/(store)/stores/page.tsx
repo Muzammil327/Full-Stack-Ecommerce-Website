@@ -1,5 +1,5 @@
 import React from "react";
-import StorePage from "@/src/views/store";
+import StorePage from "@/src/components/store/page";
 import type { Metadata } from "next";
 
 const data = {

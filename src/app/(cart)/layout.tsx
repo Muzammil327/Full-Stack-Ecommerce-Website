@@ -1,11 +1,11 @@
-export default function ChartLayout({
+export default function CartLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <>
-      <div>{children}</div>
+      <>{children}</>
     </>
   );
 }

@@ -11,9 +11,7 @@ declare module "next-auth" {
     zipCode: string;
     address: string;
     phone: string;
-    // accessToken: string;
-    // refreshToken: string;
-    // accessTokenExpires: number;
+    emailVerified: string | null;
   }
 
   interface Session {
@@ -34,5 +32,6 @@ declare module "next-auth/jwt" {
     zipCode: string;
     address: string;
     phone: string;
+    emailVerified: string | null;
   }
 }

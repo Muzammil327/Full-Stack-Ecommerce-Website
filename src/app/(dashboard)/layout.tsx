@@ -1,15 +1,9 @@
-import DashboardSidebar from "./components/Sidebar";
-import "./style.scss";
+import { OrderProvider } from "@/src/components/context/orderContext";
 
-export default function DashboardLayout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <DashboardSidebar />
-      {children}
-    </>
-  );
+  return <OrderProvider>{children}</OrderProvider>;
 }

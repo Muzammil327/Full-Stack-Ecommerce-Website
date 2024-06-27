@@ -1,28 +1,26 @@
+import axios from "axios";
 const URL = process.env.NEXT_PUBLIC_BACKENDAPI;
-export const Product_URL = "api/v1/product";
 
-export const Product_API_Endpoint = `${URL}/api/v1/product`;
+// ------------------ User API ------------------
+export const GET_User = `${URL}/api/user/put/address`;
+export const GET_User_Address = `${URL}/api/user/get`;
+export const GET_User_Address_Update = `${URL}/api/user/put/address`;
+export const ADDRESS_UPDATE_API = `${URL}/api/user/put/shipping`;
 
-// ------------------ Product API ------------------
-export const Product_POST = `${URL}/${Product_URL}/post`;
-export const Product_PUT = `${URL}/${Product_URL}/put`;
-export const Product_PUT_Slider = `${URL}/${Product_URL}/put/slider`;
-export const Product_PUT_LIKE = `${URL}/${Product_URL}/put/like`;
-export const Product_PUT_DISLIKE = `${URL}/${Product_URL}/put/dislike`;
-export const Product_GET = `${URL}/${Product_URL}/stats`;
-export const Product_STORE = `${URL}/${Product_URL}/get`;
-export const Product_GET_BYSLUG = `${URL}/${Product_URL}/get`;
-export const Product_GET_BYID = `${URL}/${Product_URL}/getid`;
-export const Product_DELETE = `${URL}/${Product_URL}/delete`;
-export const Product_DELETE_IMAGE = `${URL}/${Product_URL}/deleteImage`;
-export const Product_DELETE_SliderIMAGE = `${URL}/${Product_URL}/deleteSliderImage`;
+// ------------------ Cart API ------------------
+export const GET_Cart_User = `${URL}/api/user/put/shipping`;
 
+// ------------------ Order API ------------------
+export const GET_Order_User = `${URL}/api/user/put/shipping`;
 
-export const Cart_API_Endpoint = `${URL}/api/v1/cart`;
-export const Favourite_API_Endpoint = `${URL}/api/v1/wishlist`;
-export const PENDINGORDER_API_Endpoint = `${URL}/api/v1/pendingOrder`;
-export const ORDER_API_Endpoint = `${URL}/api/v1/order`;
-export const USER_API_Endpoint = `${URL}/api/v1/user`;
-export const ADDRESS_API_Endpoint = `${URL}/api/v1/address`;
+// ------------------ Wishlist API ------------------
+export const GET_Wishlist_User = `${URL}/api/user/put/shipping`;
 
-export const revalidate = 3600;
+// ------------------ Pending Order API ------------------
+export const GET_PendingOrder_User = `${URL}/api/user/put/shipping`;
+export const POST_PendingOrder_User = `${URL}/api/user/put/shipping`;
+export const DELETE_PendingOrder_User = `${URL}/api/user/put/shipping`;
+
+// ------------------ Review API ------------------
+export const GET_Review_User = `${URL}/api/user/put/shipping`;
+

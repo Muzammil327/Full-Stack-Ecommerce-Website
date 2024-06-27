@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import Facebook from "@/src/components/svg/Facebook";
-import Instagram from "@/src/components/svg/Instagram";
+import { BsInstagram } from "react-icons/bs";
+import { FaFacebook } from "react-icons/fa";
 
 export default function Header() {
   return (
@@ -29,12 +29,12 @@ export default function Header() {
         <ul className="flex gap-4">
           <li>
             <Link href="/">
-              <Facebook />
+              <FaFacebook />
             </Link>
           </li>
           <li>
             <Link href="/">
-              <Instagram />
+              <BsInstagram />
             </Link>
           </li>
         </ul>

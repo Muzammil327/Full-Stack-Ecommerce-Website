@@ -1,0 +1,99 @@
+"use client";
+import React, { useState } from "react";
+import Input from "@/src/components/ui/Input";
+import Label from "@/src/components/ui/Label";
+import { signIn } from "next-auth/react";
+import Processing from "@/src/components/ui/Loading/Processing";
+import Button from "@/src/components/ui/Button";
+import { toast } from "react-toastify";
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+type AuthError = {
+  response: {
+    data: {
+      code: string;
+    };
+  };
+};
+export default function SignView() {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<LoginFormData>({
+    email: "",
+    password: "",
+  });
+
+  const SubmitHandle = async (e: any) => {
+    e.preventDefault(); // Prevent form submission
+    setLoading(true);
+
+    // if (!data.email || !data.password) {
+    //   setLoading(false);
+    //   return toast.error("Email and password are required.");
+    // }
+    try {
+      const response = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+      console.log("response:", response);
+      console.log("signIn:", signIn);
+    } catch (error) {
+      const authError = error as AuthError;
+      if (
+        authError.response &&
+        authError.response.data.code === "Invalid email or password"
+      ) {
+        toast.error("Invalid email or password");
+      } else {
+        toast.error("An unexpected error occurred. Please try again later.");
+      }
+    }
+  };
+
+  return (
+    <>
+      <form onSubmit={SubmitHandle} className="my-20">
+        <div>
+          <h2 className="text-gray-900 lg:text-3xl text-2xl text-center t1">
+            Sign In
+          </h2>
+          <p className="my-4 text-center px-2 text-gray-500 text-base">
+            Welcome back! Sign in to access your account, track your orders,
+            save your favorite items, and enjoy a seamless shopping experience.
+            We&rsquo;re glad to see you again!
+          </p>
+        </div>
+        <div className="my-6">
+          <Label label="Email Address :" htmlFor="email" />
+          <Input
+            type="email"
+            value={data.email}
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+            placeholder="Enter your Email"
+          />
+        </div>
+        <div className="mb-6">
+          <Label label="Password :" htmlFor="password" />
+          <Input
+            type="password"
+            value={data.password}
+            onChange={(e) => setData({ ...data, password: e.target.value })}
+            placeholder="Enter your Password"
+          />
+        </div>
+        <Button className="button_bg w-full" disabled={loading}>
+          {loading ? <Processing /> : "Sign In"}
+        </Button>
+        <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+          {/* <Link href="/forgot-you-password" className="link1 ml-2"> */}
+          Forgot Your Passord?
+          {/* </Link> */}
+        </p>
+      </form>
+    </>
+  );
+}

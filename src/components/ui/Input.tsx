@@ -18,7 +18,7 @@ export default function Input({
       type={type}
       value={value}
       onChange={onChange}
-      className="shadow-sm rounded-md w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-red-500 focus:border-red-500"
+      className="shadow-sm rounded-md w-full px-4 py-3 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
       placeholder={placeholder}
     />
   );

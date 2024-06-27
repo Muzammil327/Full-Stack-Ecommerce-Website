@@ -1,7 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ProductCardProps } from "@/src/types/product";
-
+export interface ProductCardProps {
+  _id: string;
+  name: string;
+  slug: string;
+  category: string;
+  image: string;
+  price: number;
+  discountprice: number;
+}
 interface IProps {
   product: ProductCardProps;
 }
