@@ -41,7 +41,7 @@ export default function AddtoCartBtn({
   return (
     <>
       <Button
-        className="button_bg"
+        className="button_bg !px-4"
         onClick={() => addToCartBtn(product, userId)}
         disabled={isLoading}
       >

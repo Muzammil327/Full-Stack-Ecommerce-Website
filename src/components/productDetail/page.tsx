@@ -13,7 +13,7 @@ import ShareButton from "@/src/components/productDetail/components/shareButton";
 import ProductDetailTab from "@/src/components/productDetail/components/Tabs";
 import LikeBtn from "@/src/components/productDetail/components/LikeBtn";
 import DisLikeBtn from "@/src/components/productDetail/components/DisLikeBtn";
-import { FaMoneyCheck, FaRegThumbsDown } from "react-icons/fa";
+import { FcPaid } from "react-icons/fc";
 
 export interface ProductCardData {
   _id: string;
@@ -48,14 +48,11 @@ export default function ProductDetail({
   const D_Price = data?.discountprice ?? 0;
   const A_Price = data?.price ?? 0;
   const Actual = A_Price - D_Price;
-
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/product/get/productDetail/${params}`
-      );
-      setData(response.data);
+      const response = await axios.get(`/api/product/${params}`);
+      setData(response.data.singleProduct);
     } catch (error) {
       console.log(error);
       setError("Error Store PRODUCTS");
@@ -155,10 +152,18 @@ export default function ProductDetail({
                         <FavouriteBtn product={data._id} userId={userId} />
 
                         {/* like button  */}
-                        <LikeBtn fetchProduct={fetchProduct} datas={data} />
+                        <LikeBtn
+                          fetchProduct={fetchProduct}
+                          datas={data}
+                          userId={userId}
+                        />
 
                         {/* dislike button  */}
-                        <DisLikeBtn datas={data} />
+                        <DisLikeBtn
+                          fetchProduct={fetchProduct}
+                          datas={data}
+                          userId={userId}
+                        />
 
                         {/* shared button  */}
                         <ShareButton urlCurrentPage={params} />
@@ -168,28 +173,13 @@ export default function ProductDetail({
                   <div className="lg:col-span-2 bg-slate-50 py-4">
                     <div className="return flex items-center px-2">
                       <span className="text-gray-500">
-                        <FaRegThumbsDown />
+                        <FcPaid />
                       </span>
-                      <span className="ml-4 text-sm">7 days easy return</span>
-                    </div>
-                    <hr className="my-3" />
-                    <div className="cash_ondelivery flex items-center px-2">
-                      <span className="text-gray-500">
-                        <FaMoneyCheck />
-                      </span>
-                      <span className="ml-4 text-sm">
+                      <span className="ml-4 text-xs">
                         Cash on Delivery Available
                       </span>
                     </div>
                     <hr className="my-3" />
-                    <div className="cash_ondelivery flex items-center px-2">
-                      <span className="text-gray-500">
-                        <FaMoneyCheck />
-                      </span>
-                      <span className="ml-4 text-sm">
-                        Warranty not available
-                      </span>
-                    </div>
                   </div>
                 </div>
 

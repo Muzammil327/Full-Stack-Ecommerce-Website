@@ -4,7 +4,6 @@ import Image from "next/image";
 import LoadingLink from "@/src/components/ui/Loading/LoadingLink";
 
 export default function Footer() {
-
   return (
     <footer className="bg-slate-200">
       <Container>
@@ -23,17 +22,17 @@ export default function Footer() {
             <ul>
               <li className="text-slate-900 my-2 md:text-base text-sm">
                 <span className="font-semibold text-base pr-1">Address:</span>
-                Pakistan
+                Punjab, Pakistan
               </li>
 
               <li className="text-slate-900 my-2 md:text-base text-sm">
                 <span className="font-semibold text-base pr-1">Phone:</span> +92
-                314 4878 266
+                318 4910 327
               </li>
 
               <li className="text-slate-900 my-2 md:text-base text-sm">
                 <span className="font-semibold text-base pr-1">Email:</span>{" "}
-                mmuzammiloff327@gmail.com
+                smistore528982@gmail.com
               </li>
             </ul>
           </div>

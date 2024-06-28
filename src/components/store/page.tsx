@@ -5,18 +5,18 @@ import StorePrice from "@/src/components/store/components/StorePrice";
 import StoreTags from "@/src/components/store/components/StoreTags";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
 import StoreSort from "@/src/components/store/components/StoreSort";
-import StorePagination from "@/src/components/store/components/StorePagination";
-import StoreProducts from "@/src/components/store/components/StoreProducts";
 import { FaXmark } from "react-icons/fa6";
 
 import Container from "@/src/components/ui/Container";
 import { useProductCard } from "../context/productCard";
+import Button from "../ui/Button";
+import ProductCard from "../elements/ProductCard";
 
 export default function StorePage() {
   const {
     error,
     loading,
-    data,
+    products,
     page,
     setPage,
     setHighPrice,
@@ -26,6 +26,7 @@ export default function StorePage() {
     category,
     subCategory,
     setCategory,
+    pagination,
     setSubCategory,
     setTags,
     highPrice,
@@ -51,7 +52,11 @@ export default function StorePage() {
     setPriceHL(value);
     setPage(1);
   };
-
+  const handleLoadMore = () => {
+    if (pagination && page < pagination.totalPages) {
+      setPage((prevPage: any) => prevPage + 1);
+    }
+  };
   return (
     <Container>
       {error && <h1>Error fetching Store data...</h1>}
@@ -137,6 +142,17 @@ export default function StorePage() {
                     <FaXmark />
                   </button>{" "}
                 </li>
+              ) : null}{" "}
+              {tags ? (
+                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
+                  {tags}
+                  <button
+                    onClick={() => setTags("")}
+                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
+                  >
+                    <FaXmark />
+                  </button>{" "}
+                </li>
               ) : null}
               {highPrice && lowPrice ? (
                 <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
@@ -150,17 +166,6 @@ export default function StorePage() {
                   >
                     <FaXmark />
                   </button>
-                </li>
-              ) : null}
-              {tags ? (
-                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
-                  {tags}
-                  <button
-                    onClick={() => setTags("")}
-                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
-                  >
-                    <FaXmark />
-                  </button>{" "}
                 </li>
               ) : null}
               {priceLH ? (
@@ -198,9 +203,21 @@ export default function StorePage() {
             ) : (
               <>
                 <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 lg:mx-4 mt-5">
-                  <StoreProducts data={data} />
+                  {products.map((product: any) => (
+                    <ProductCard product={product} key={product._id} />
+                  ))}
                 </div>
-                <StorePagination setPage={setPage} data={data} />
+                <div className="flex items-center justify-center mt-8">
+                  {pagination && page < pagination.totalPages && (
+                    <Button
+                      onClick={handleLoadMore}
+                      className="button_bg !px-12"
+                    >
+                      {loading ? "Loading..." : "Load More"}
+                    </Button>
+                  )}
+                </div>
+                {/* <StorePagination setPage={setPage} data={data} /> */}
               </>
             )}
           </div>

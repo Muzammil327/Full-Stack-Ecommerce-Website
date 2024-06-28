@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import UserSidebar from "@/src/components/dashboard/UserDashboard/components/sidebar";
 import LoadingTableRow from "../../ui/Loading/LoadingTableRow";
-import ProfileImage from "./components/Card/ProfileImage";
 import ProfileCartCard from "./components/Card/ProfileCartCard";
 import ProfileOrderCard from "./components/Card/ProfileOrderCard";
 import ProfileWishListCard from "./components/Card/ProfileWishListCard";
@@ -79,7 +78,7 @@ export default function UserDashboard({ userId }: { userId?: string }) {
           </div>
         </div>
         <div className="col-span-5">
-          <ProfileImage userImage={data} />
+          {/* <ProfileImage userImage={data} /> */}
           <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
             <ProfileCartCard />
             <ProfileOrderCard userId={userId} />

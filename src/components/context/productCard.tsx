@@ -49,7 +49,7 @@ export const ProductCardProvider: React.FC<ProductCardProviderProps> = ({
   const [error, setError] = useState<string>("");
   const [data, setData] = useState<[]>([]);
   const [pagination, setPagination] = useState();
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState<any[]>([]);
   const [stats, setStats] = useState();
 
   const [page, setPage] = useState(1);
@@ -60,17 +60,31 @@ export const ProductCardProvider: React.FC<ProductCardProviderProps> = ({
   const [lowPrice, setLowPrice] = useState<number | null>(null);
   const [priceHL, setPriceHL] = useState<string>("");
   const [priceLH, setPriceLH] = useState<string>("");
-
+  interface PaginationData {
+    currentPage: number;
+    totalPages: number;
+    totalResults: number;
+    limit: number;
+  }
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/product/get/productCard?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+
+      const response = await axios.get<{
+        products: [];
+        pagination: PaginationData;
+      }>(
+        `/api/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
       );
-      setData(response.data);
-      setProducts(response.data.products);
-      setPagination(response.data.pagination);
-      setStats(response.data.pagination.totalResults);
+      console.log(response.data);
+      if (page === 1) {
+        setProducts(response.data.products);
+      } else {
+        setProducts((prevData) => [...prevData, ...response.data.products]);
+      }
+
+      setPagination(response.data.pagination as any);
+      setStats(response.data.pagination.totalResults as any);
     } catch (error) {
       console.log(error);
       setError("Error Store PRODUCTS");

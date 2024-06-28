@@ -217,7 +217,7 @@ export default function NavbarView({ userId }: { userId: string }) {
 
               {/* Flyout menus */}
               <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
-                <div className="flex h-full space-x-8">
+                <div className="flex h-full space-x-4">
                   {/* {navigation.categories.map((category) => (
                     <Popover key={category.name} className="flex">
                       {({ open, close }) => (
@@ -371,7 +371,7 @@ export default function NavbarView({ userId }: { userId: string }) {
                     class_name="group -m-2 flex items-center p-2 text-xl btnIcon_outline_2"
                   >
                     <FaShoppingBasket />
-                    <span className="ml-2 absolute -top-4 -right-4 rounded-full h-5 bg1 w-5 flex items-center justify-center text-sm font-medium text-white">
+                    <span className="ml-2 absolute -top-4 -right-4 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
                       {isFetching ? (
                         <span className="sr-only">items in cart, view bag</span>
                       ) : (
@@ -388,7 +388,7 @@ export default function NavbarView({ userId }: { userId: string }) {
                     class_name="group text-2xl -m-2 flex items-center p-2 btnIcon_outline_2"
                   >
                     <FaHeart />
-                    <span className="ml-2 absolute -top-4 -right-4 rounded-full h-5 bg1 w-5 flex items-center justify-center text-sm font-medium text-white">
+                    <span className="ml-2 absolute -top-4 -right-4 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
                       {isFetchingWishList ? (
                         <span className="sr-only">
                           items in wishList, view bag
@@ -535,5 +535,8 @@ const navigation = {
   //     ],
   //   },
   // ],
-  pages: [{ name: "Stores", href: "/stores" }],
+  pages: [
+    { name: "Home", href: "/" },
+    { name: "Stores", href: "/stores" }
+  ],
 };

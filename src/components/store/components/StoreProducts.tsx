@@ -16,7 +16,7 @@ interface StoreProductsProps {
 export default function StoreProducts({ data }: StoreProductsProps) {
   return (
     <>
-      {data.products.map((product: ProductCardProps) => (
+      {data.map((product: ProductCardProps) => (
         <ProductCard product={product} key={product._id} />
       ))}
     </>

@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { BsInstagram } from "react-icons/bs";
-import { FaFacebook } from "react-icons/fa";
+import { BsFacebook, BsInstagram, BsWhatsapp } from "react-icons/bs";
 
 export default function Header() {
   return (
@@ -28,13 +27,18 @@ export default function Header() {
       <section className="md:flex hidden justify-between items-center">
         <ul className="flex gap-4">
           <li>
-            <Link href="/">
-              <FaFacebook />
+            <Link href="https://web.facebook.com/smistore7/" target="_blank">
+              <BsFacebook />
             </Link>
           </li>
           <li>
-            <Link href="/">
+            <Link href="https://www.instagram.com/smistore7/" target="_blank">
               <BsInstagram />
+            </Link>
+          </li>
+          <li>
+            <Link href="https://wa.me/message/SF5VZYSETIYXN1" target="_blank">
+              <BsWhatsapp />
             </Link>
           </li>
         </ul>
