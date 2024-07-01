@@ -24,7 +24,7 @@ export async function GET(
       {
         $lookup: {
           from: "products", // Change this to the correct collection name if it's different
-          localField: "product.value",
+          localField: "productId.value",
           foreignField: "_id",
           as: "product_details", // Name of the field to store the related products
         },
@@ -54,6 +54,7 @@ export async function GET(
       },
     ]);
     const singleProduct = getProduct[0];
+    console.log("singleProduct:", singleProduct);
     if (singleProduct) {
       return NextResponse.json({
         statusbar: 200,

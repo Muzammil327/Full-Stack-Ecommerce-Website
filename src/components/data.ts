@@ -38,7 +38,7 @@ export const categories = [
         name: "Accessories",
         tags: [
           { id: "slicer", name: "Slicer" },
-          { id: "accessories", name: "Accessories" },
+          { id: "plates", name: "Plates" },
           { id: "brands", name: "Brands" },
         ],
       },
