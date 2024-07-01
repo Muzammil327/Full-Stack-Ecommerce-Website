@@ -24,6 +24,7 @@ export default function UserDashboard({ userId }: { userId?: string }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState<UserData | null>(null);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -17,7 +17,6 @@ interface ProductsDocument extends Document {
   freeDelivery: boolean;
   bestPrice: boolean;
   feature: boolean;
-  return: boolean;
   top: boolean;
   productId: mongoose.Schema.Types.ObjectId;
   like: mongoose.Schema.Types.ObjectId;

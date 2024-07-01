@@ -18,7 +18,8 @@ import { FcPaid } from "react-icons/fc";
 export interface ProductCardData {
   _id: string;
   name: string;
-  description: string;
+  Sdescription: string;
+  Ldescription: string;
   slug: string;
   category: string;
   subCategory: string;
@@ -45,9 +46,10 @@ export default function ProductDetail({
   const [data, setData] = useState<ProductCardData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  const D_Price = data?.discountprice ?? 0;
-  const A_Price = data?.price ?? 0;
-  const Actual = A_Price - D_Price;
+
+  const price = data?.price ?? 0; // Provide a default value of 0 if data.price is undefined
+  const actualPrice = Math.round(price * 1.45); // Calculate 15% of the price and round it
+
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
@@ -116,7 +118,7 @@ export default function ProductDetail({
                     <ProductDetailImageSlider data={data} />
                   </div>
 
-                  <div className="lg:col-span-4 lg:py-8 md:py-4 py-2">
+                  <div className="lg:col-span-4">
                     {/* -------------------------- Catgeory -------------------------- */}
                     <ProductDetailCatgeory data={data} />
 
@@ -128,22 +130,20 @@ export default function ProductDetail({
                     {/* -------------------------- Product Price -------------------------- */}
                     <div className="price flex gap-4 items-center">
                       <span className="line-through font-semibold text-xl text-gray-700">
-                        Rs{data.price}.00
+                        Rs{actualPrice}.00
                       </span>
                       <span className="font-semibold text-indigo-500 text-2xl">
-                        Rs{Actual}.00
+                        Rs{data.price}.00
                       </span>
                     </div>
 
                     {/* -------------------------- Product Short Description -------------------------- */}
-                    <p className="mt-4 mb-6 sm:text-base text-sm text-gray-500">
-                      <div
-                        dangerouslySetInnerHTML={{ __html: data.description }}
-                      />
+                    <p className="my-3 sm:text-base text-sm text-gray-500">
+                      {data.Sdescription}
                     </p>
 
                     {/* ------------- Product Button ------------- */}
-                    <div className="mt-6 max-w-full flex flex-wrap md:gap-5 sm:gap-4 gap-3 flex-col">
+                    <div className="mt-3 max-w-full flex flex-wrap md:gap-3 gap-2 flex-col">
                       <div className="w-full">
                         <AddtoCartBtn product={data._id} userId={userId} />
                       </div>

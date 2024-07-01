@@ -5,7 +5,7 @@ import "react-tabs/style/react-tabs.css";
 import ReviewView from "@/src/components/productDetail/components/Reviews/Reviews";
 interface ProductDetailTagProps {
   data: {
-    description: string;
+    Ldescription: string;
   };
 }
 
@@ -37,7 +37,7 @@ export default function ProductDetailTab({ data }: ProductDetailTagProps) {
       <TabPanel className="">
         <h1 className="text-2xl font-semibold my-2">Product Description</h1>
         <p className="mt-4 mb-6 sm:text-base text-sm text-gray-500">
-          <div dangerouslySetInnerHTML={{ __html: data.description }} />
+          <div dangerouslySetInnerHTML={{ __html: data.Ldescription }} />
         </p>
       </TabPanel>
       <TabPanel className="">

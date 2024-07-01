@@ -42,12 +42,12 @@ export default function ProductDetailImageSlider({
         <div className="max-w-full">
           <Image
             src={data.image}
-            width={400}
-            height={400}
+            width={500}
+            height={500}
             alt={data.name}
             title={data.name}
             priority
-            sizes="(max-width: 400px) 100vw, 300px"
+            sizes="(max-width: 500px) 100vw, 300px"
             className="max-w-full h-auto"
           />
         </div>
@@ -57,11 +57,11 @@ export default function ProductDetailImageSlider({
           <div className="max-w-full">
             <Image
               src={index}
-              width={400}
-              height={400}
+              width={500}
+              height={500}
               alt={data.name}
               title={data.name}
-              sizes="(max-width: 400px) 100vw, 300px"
+              sizes="(max-width: 500px) 100vw, 300px"
               className="max-w-full h-auto"
             />
           </div>

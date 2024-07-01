@@ -131,7 +131,7 @@ export async function GET(req: NextRequest) {
   const tags = searchParams.get("tags");
 
   const page = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || 3;
+  const limit = Number(searchParams.get("limit")) || 9;
 
   await connectDB();
   try {
@@ -145,6 +145,7 @@ export async function GET(req: NextRequest) {
         image: 1,
         price: 1, // Using the adjusted price
         category: 1,
+        slider: 1,
       },
     };
 

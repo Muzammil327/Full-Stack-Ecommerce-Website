@@ -13,6 +13,21 @@ export interface Order {
   totalAmount: number;
 }
 
+// -----------------------  Order -------------------------------------------
+
+export interface OrderItem {
+  _id: string;
+  qty: number;
+  product_Detail: {
+    _id: string;
+    name: string;
+    image: string;
+    price: number;
+    discountprice: number;
+    deliveryCharge: number;
+  };
+}
+
 // -----------------------  CART -------------------------------------------
 
 export interface CartItem {

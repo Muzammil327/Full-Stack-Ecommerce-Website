@@ -33,7 +33,8 @@ export async function GET(
         $project: {
           _id: 1,
           name: 1,
-          description: 1,
+          Sdescription: 1,
+          Ldescription: 1,
           slug: 1,
           image: 1,
           category: 1,

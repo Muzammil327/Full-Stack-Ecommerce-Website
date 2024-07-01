@@ -45,3 +45,10 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.react-tabs__tab-panel--selected ol {
+  @apply list-inside list-decimal;
+}
+.react-tabs__tab-panel--selected ol li {
+  @apply py-1;
+}

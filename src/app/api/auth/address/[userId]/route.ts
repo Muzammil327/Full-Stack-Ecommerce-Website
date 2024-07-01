@@ -60,7 +60,6 @@ export async function GET(
   { params }: { params: { userId: string } }
 ) {
   const userId = params.userId;
-
   try {
     if (!userId) {
       return NextResponse.json({
@@ -72,7 +71,6 @@ export async function GET(
     const get_user_address = await User.find({
       _id: new mongoose.Types.ObjectId(userId),
     });
-
     return NextResponse.json({
       statusbar: 200,
       message: "Email verified successfully",

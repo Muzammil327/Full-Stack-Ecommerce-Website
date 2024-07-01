@@ -11,7 +11,7 @@ interface SidebarDataIprops {
   link: string;
 }
 
-export default function UserSidebar() {
+export default function AdminSidebar() {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -56,7 +56,7 @@ export default function UserSidebar() {
                     <Logo />
                     <ul role="list" className="mt-6 flex flex-col space-y-6">
                       <>
-                        {SidebarData.map((data: SidebarDataIprops) => (
+                        {SidebarDataAdmin.map((data: SidebarDataIprops) => (
                           <li key={data.id} className="flow-root ">
                             <Link
                               href={`${data.link}`}
@@ -89,30 +89,20 @@ export default function UserSidebar() {
   );
 }
 
-const SidebarData: SidebarDataIprops[] = [
+const SidebarDataAdmin: SidebarDataIprops[] = [
   {
     id: 0,
-    title: "Profile",
-    link: "/dashboard",
+    title: "Products Manage",
+    link: "/dashboard/admin/products",
   },
   {
     id: 1,
-    title: "Carts",
-    link: "/cart",
+    title: "Orders Manage",
+    link: "/admin/orders",
   },
   {
-    id: 1,
-    title: "Wishlist",
-    link: "/wishlist",
-  },
-  {
-    id: 3,
-    title: "Active Orders",
-    link: "/dashboard/active-order",
-  },
-  {
-    id: 3,
-    title: "Address",
-    link: "/dashboard/address",
+    id: 2,
+    title: "Users Manage",
+    link: "/admin/users",
   },
 ];

@@ -1,14 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import UserSidebar from "@/src/components/dashboard/UserDashboard/components/sidebar";
 import LoadingTableRow from "../../ui/Loading/LoadingTableRow";
-import ProfileImage from "./components/Card/ProfileImage";
-import ProfileCartCard from "./components/Card/ProfileCartCard";
-import ProfileOrderCard from "./components/Card/ProfileOrderCard";
-import ProfileWishListCard from "./components/Card/ProfileWishListCard";
-import ProfileReviewCard from "./components/Card/ProfileReviewCard";
+import AdminCartCard from "./components/Card/AdminCartCard";
+import AdminWishListCard from "./components/Card/AdminWishListCard";
+import AdminOrderCard from "./components/Card/AdminOrderCard";
+import AdminPendingOrderCard from "./components/Card/AdminPendingOrderCard";
+import AdminProductCard from "./components/Card/AdminProductCard";
+import AdminUserCard from "./components/Card/AdminUserCard";
 import axios from "axios";
 import Table from "../../elements/Table";
+import AdminSidebar from "./components/sidebar";
+import Link from "next/link";
 
 interface UserData {
   email?: string;
@@ -21,15 +23,18 @@ interface UserData {
   username: string;
   emailVerified: boolean;
 }
-export default function AdminDashboard({ userId }: { userId?: string }) {
+export default function UserDashboard({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState<UserData | null>(null);
+  const [stats, setStats] = useState();
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(`/api/auth/address/${userId}`);
+        const stats = await axios.get(`/api/auth/admin`);
+        setStats(stats.data);
         const userDataFromApi = response.data.get_user_address[0];
         setData(userDataFromApi);
       } catch (error) {
@@ -47,7 +52,7 @@ export default function AdminDashboard({ userId }: { userId?: string }) {
 
   return (
     <main>
-      <UserSidebar />
+      <AdminSidebar />
       <div className="grid lg:grid-cols-9 grid-cols-1 md:gap-4 gap-2 my-6 md:px-8 px-4 mx-auto">
         <div className="col-span-4">
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg md:mx-4">
@@ -79,12 +84,34 @@ export default function AdminDashboard({ userId }: { userId?: string }) {
           </div>
         </div>
         <div className="col-span-5">
-          <ProfileImage userImage={data} />
+          {/* <ProfileImage userImage={data} /> */}
           <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
-            <ProfileCartCard />
-            <ProfileOrderCard userId={userId} />
-            <ProfileWishListCard />
-            <ProfileReviewCard userId={userId} />
+            <AdminCartCard stats={stats} isLoading={isLoading} error={error} />
+            <AdminWishListCard
+              stats={stats}
+              isLoading={isLoading}
+              error={error}
+            />
+            <Link href="/dashboard/admin/orders">
+              <AdminOrderCard
+                stats={stats}
+                isLoading={isLoading}
+                error={error}
+              />
+            </Link>
+            <AdminPendingOrderCard
+              stats={stats}
+              isLoading={isLoading}
+              error={error}
+            />
+            <Link href="/dashboard/admin/products">
+              <AdminProductCard
+                stats={stats}
+                isLoading={isLoading}
+                error={error}
+              />
+            </Link>
+            <AdminUserCard stats={stats} isLoading={isLoading} error={error} />
           </div>
         </div>
       </div>

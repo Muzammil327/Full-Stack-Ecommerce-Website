@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+
 export interface ProductCardProps {
   _id: string;
   name: string;
@@ -9,6 +10,7 @@ export interface ProductCardProps {
   price: number;
   discountprice: number;
 }
+
 interface IProps {
   product: ProductCardProps;
 }
@@ -23,9 +25,9 @@ export default function ProductCard({ product }: IProps) {
               src={`${product.image}`}
               alt={product.name}
               title={product.name}
-              sizes="(max-width: 600px) 90vw, 600px"
-              height={1080}
-              width={1080}
+              sizes="(max-width: 500px) 90vw, 500px"
+              height={500}
+              width={500}
               className="w-full block h-auto object-cover"
             />
           </div>
