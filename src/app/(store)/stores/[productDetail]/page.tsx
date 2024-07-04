@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Iprops) {
 
   const slug = params.productDetail;
 
-  const response = await fetch(`http://localhost:3000/api/product/${slug}`).then((res) => res.json())
+  const response = await fetch(`${process.env.NEXT_PUBLIC_FRONTENDPI}/api/product/${slug}`).then((res) => res.json())
   const data = response.singleProduct
 
   return {
