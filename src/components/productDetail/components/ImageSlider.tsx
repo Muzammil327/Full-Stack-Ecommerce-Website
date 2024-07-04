@@ -38,9 +38,9 @@ export default function ProductDetailImageSlider({
       modules={[EffectFlip, Pagination, Navigation, Autoplay]}
       className="mySwipe"
     >
-      <SwiperSlide>
+      {/* <SwiperSlide>
         <div className="max-w-full">
-          <Image
+        <Image
             src={data.image}
             width={500}
             height={500}
@@ -50,8 +50,9 @@ export default function ProductDetailImageSlider({
             sizes="(max-width: 500px) 100vw, 300px"
             className="max-w-full h-auto"
           />
+
         </div>
-      </SwiperSlide>
+      </SwiperSlide> */}
       {data.slider.map((index) => (
         <SwiperSlide key={index}>
           <div className="max-w-full">

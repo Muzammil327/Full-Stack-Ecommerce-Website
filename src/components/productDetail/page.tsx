@@ -46,7 +46,6 @@ export default function ProductDetail({
   const [data, setData] = useState<ProductCardData>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-console.log(data)
   const price = data?.price ?? 0; // Provide a default value of 0 if data.price is undefined
   const actualPrice = Math.round(price * 1.45); // Calculate 15% of the price and round it
 

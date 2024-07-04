@@ -381,6 +381,7 @@ const ProductAddPage = () => {
               <option value="markaz">markaz</option>
               <option value="hhcdropshipping">hhcdropshipping</option>
               <option value="sadadropship">sadadropship</option>
+              <option value="sadadropship">shoes</option>
             </select>
           </div>
 

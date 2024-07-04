@@ -1,6 +1,5 @@
 import React from "react";
 import ProductDetail from "@/src/components/productDetail/page";
-import { getProductDetails } from "./FetchSeoData";
 import { getSession } from "@/src/utils/getSession";
 
 interface productDetail {
@@ -22,11 +21,15 @@ export default async function Page({ params }: Iprops) {
 }
 
 export async function generateMetadata({ params }: Iprops) {
+
   const slug = params.productDetail;
-  const data = await getProductDetails(params.productDetail);
+
+  const response = await fetch(`http://localhost:3000/api/product/${slug}`).then((res) => res.json())
+  const data = response.singleProduct
+
   return {
     title: data?.name,
-    description: data?.description,
+    description: data?.Sdescription,
     // keywords: post?.data.keyword,
     alternates: {
       canonical: `/stores/${slug}`,
@@ -41,7 +44,7 @@ export async function generateMetadata({ params }: Iprops) {
     },
     openGraph: {
       title: data?.name,
-      description: data?.description,
+      description: data?.Sdescription,
       url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/stores/${slug}`,
       images: [
         {
@@ -52,7 +55,7 @@ export async function generateMetadata({ params }: Iprops) {
     },
     twitter: {
       title: data?.name,
-      description: data?.description,
+      description: data?.Sdescription,
       images: {
         url: data?.image,
         alt: data?.name,

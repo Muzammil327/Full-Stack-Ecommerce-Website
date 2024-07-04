@@ -15,7 +15,17 @@ export const categories = [
       { id: "accessories", name: "Accessories" },
     ],
   },
-  { id: "men", name: "Men" },
+  {
+    id: "men",
+    name: "Men",
+    subCategories: [
+      {
+        id: "accessories",
+        name: "Accessories",
+        tags: [{ id: "shoes", name: "Shoes" }],
+      },
+    ],
+  },
   {
     id: "electronics",
     name: "Electronics",
@@ -23,9 +33,7 @@ export const categories = [
       {
         id: "accessories",
         name: "Accessories",
-        tags: [
-          { id: "airpods", name: "Airpods" },
-        ],
+        tags: [{ id: "airpods", name: "Airpods" }],
       },
     ],
   },
@@ -45,6 +53,3 @@ export const categories = [
     ],
   },
 ];
-
-
-

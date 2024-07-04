@@ -20,7 +20,7 @@ export default function ProductCard({ product }: IProps) {
     <>
       <div className="card relative">
         <Link href={`/stores/${product.slug}`} className="relative">
-          <div className="w-full aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+          <div className="w-full h-[280px] relative overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
             <Image
               src={`${product.image}`}
               alt={product.name}
@@ -28,7 +28,7 @@ export default function ProductCard({ product }: IProps) {
               sizes="(max-width: 500px) 90vw, 500px"
               height={500}
               width={500}
-              className="w-full block h-auto object-cover"
+              className="w-full"
             />
           </div>
           <div className="mt-4 flex flex-col">

@@ -60,7 +60,7 @@ const productsSchema = new Schema<ProductsDocument>({
       "markaz",
       "hhcdropshipping",
       "sadadropship",
-      // "Shoes 03432229012",
+      "shoes",
     ],
     lowercase: true,
   },

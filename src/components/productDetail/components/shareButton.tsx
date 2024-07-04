@@ -18,9 +18,6 @@ export default function ShareButton({
 }) {
   const [isShareButton, setIsShareButton] = useState(false);
   const shareUrl = `https://full-stack-ecommerce-website-five.vercel.app/stores/${urlCurrentPage}/`;
-  const WhatsappShareUrl = `whatsapp://send?text=${encodeURIComponent(
-    `Check out this product: ${shareUrl}`
-  )}`;
 
   return (
     <div className="relative">
@@ -55,7 +52,7 @@ export default function ShareButton({
               setIsShareButton(false);
             }}
           >
-            <WhatsappShareButton url={WhatsappShareUrl}>
+            <WhatsappShareButton url={shareUrl}>
               <WhatsappIcon size={32} round />
             </WhatsappShareButton>
           </li>
