@@ -55,10 +55,13 @@ const StorePrice: React.FC<StorePriceProps> = ({ filterItem }) => {
 };
 
 const priceRanges: PriceRange[] = [
-  { id: 1, lowPrice: 400, highPrice: 800 },
-  { id: 2, lowPrice: 800, highPrice: 1200 },
-  { id: 3, lowPrice: 1200, highPrice: 1600 },
-  { id: 4, lowPrice: 1600, highPrice: 2000 },
+  { id: 1, lowPrice: 1, highPrice: 1000 },
+  { id: 2, lowPrice: 1000, highPrice: 2000 },
+  { id: 3, lowPrice: 2000, highPrice: 3000 },
+  { id: 4, lowPrice: 3000, highPrice: 4000 },
+  { id: 5, lowPrice: 4000, highPrice: 5000 },
+  { id: 6, lowPrice: 5000, highPrice: 6000 },
+  { id: 7, lowPrice: 6000, highPrice: 7000 },
 ];
 
 export default StorePrice;

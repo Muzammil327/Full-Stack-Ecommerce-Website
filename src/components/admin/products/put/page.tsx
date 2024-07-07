@@ -70,6 +70,7 @@ const AdminProductPut = () => {
 
   const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [slider, setSlider] = useState<File[]>([]);
+  const [size, setSize] = useState<string[]>([]);
 
   // Function to handle image selection
   const handleImageSliderChange = (
@@ -126,6 +127,7 @@ const AdminProductPut = () => {
       setIsFeatureCheckbox(response.data.feature);
       setIsTopCheckbox(response.data.top);
       setTags(response.data.keywords);
+      setSize(response.data.size);
       if (response.data.product) {
         const productArray = response.data.product.map((item: any) => ({
           value: item.value,
@@ -169,6 +171,11 @@ const AdminProductPut = () => {
       if (tags.length > 0) {
         tags.forEach((tags) => {
           formData.append("keywords", tags);
+        });
+      }
+      if (size.length > 0) {
+        size.forEach((size) => {
+          formData.append("size", size);
         });
       }
 
@@ -249,6 +256,11 @@ const AdminProductPut = () => {
 
   const handleTagsChange = (tags: string[]) => {
     setTags(tags);
+  };
+
+  // ---------------------- Handle size ----------------------
+  const handleSizesChange = (sizes: string[]) => {
+    setSize(sizes);
   };
 
   const deleteImage = async (publicId: any) => {
@@ -512,6 +524,7 @@ const AdminProductPut = () => {
               <option value="markaz">markaz</option>
               <option value="hhcdropshipping">hhcdropshipping</option>
               <option value="sadadropship">sadadropship</option>
+              <option value="shoes">shoes</option>
             </select>
           </div>
 
@@ -620,6 +633,8 @@ const AdminProductPut = () => {
           </select>
         </div>
 
+    
+        {/* ---------------------- Product Keywords -----------------------  */}
         <div className="mb-6">
           <label
             htmlFor="productId"
@@ -630,26 +645,18 @@ const AdminProductPut = () => {
           <TagsInput value={tags} onChange={handleTagsChange} />
         </div>
 
+        {/* ----------------------- Product Size -----------------------  */}
         <div className="mb-6">
           <label
             htmlFor="productId"
             className="block text-base font-medium text-gray-700 mb-2"
           >
-            Related Product
+            Size
           </label>
-          <Select
-            isMulti
-            options={
-              data.map(({ _id, name }) => ({
-                value: _id,
-                label: name,
-              })) as any[]
-            }
-            onChange={handleSelectChange}
-            value={productId}
-          />
+          <TagsInput value={size} onChange={handleSizesChange} />
         </div>
 
+        {/* ----------------------- Product Related -----------------------  */}
         <div className="mb-6">
           <label
             htmlFor="slider"

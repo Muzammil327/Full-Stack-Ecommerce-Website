@@ -12,6 +12,7 @@ interface ProductsDocument extends Document {
   price: number;
   image: string;
   keywords: [string];
+  size: [string];
   slider: [string];
   status: string;
   freeDelivery: boolean;
@@ -56,12 +57,7 @@ const productsSchema = new Schema<ProductsDocument>({
   platform: {
     type: String,
     required: [true, "Enter your Product Platform."],
-    enum: [
-      "markaz",
-      "hhcdropshipping",
-      "sadadropship",
-      "shoes",
-    ],
+    enum: ["markaz", "hhcdropshipping", "sadadropship", "shoes"],
     lowercase: true,
   },
   items: {
@@ -83,6 +79,9 @@ const productsSchema = new Schema<ProductsDocument>({
   keywords: {
     type: [String],
     required: [true, "Enter your Keywords."],
+  },
+  size: {
+    type: [String],
   },
   slider: {
     type: [String],

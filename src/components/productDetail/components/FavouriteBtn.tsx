@@ -5,6 +5,7 @@ import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../../context/wishlistContext";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Processing from "../../ui/Loading/Processing";
 
 export default function FavouriteBtn({
   product,
@@ -45,7 +46,7 @@ export default function FavouriteBtn({
         className="btnIcon_outline"
         onClick={() => addToFavouriteBtn(product)}
       >
-        <FaHeart />
+        {isLoadingWishList ? <Processing /> : <FaHeart className="mr-2" />}
       </Button>
     </>
   );

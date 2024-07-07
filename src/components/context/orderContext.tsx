@@ -10,23 +10,24 @@ import React, {
   useState,
 } from "react";
 import { toast } from "react-toastify";
+import { useCart } from "./cartContext";
 
 // Define the type for the cart item
 interface CartItem {
   _id: string;
   qty: number;
+  size: string;
   product_Detail: {
     _id: string;
     name: string;
     image: string;
     price: number;
-    discountprice: number;
-    deliveryCharge: number;
   };
 }
 interface Product {
   product: string;
   qty: number;
+  size: string;
 }
 
 // Define the type for the context value
@@ -51,11 +52,14 @@ interface OrderProviderProps {
 }
 
 export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
+  const { cart, getToCartBtn } = useCart(); // Assume useCart provides cartItems as well
+
   const [isLoadingOrder, setIsLoadingOrder] = useState<boolean>(false);
   const [isFetchingOrder, setIsFetchingOrder] = useState<boolean>(false);
   const { data: session } = useSession();
   const userId = session?.user._id;
   const router = useRouter();
+
   // --------------------------------------------------------------------------------------------
   // ----------------------- START GET Order ITEMS ----------------------------------------------
   // --------------------------------------------------------------------------------------------
@@ -86,13 +90,15 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
             await axios.post(`/api/order`, {
               productId: product.product, // Send only the product ID
               qty: product.qty, // Send the quantity
+              size: product.size, // Send the quantity
               userId,
               totalPrice,
             });
           })
         );
-
+        getToCartBtn();
         await getToOrderBtn();
+        router.refresh();
         router.push("/stores");
       } catch (error) {
         console.error("Error adding product to cart:", error);
@@ -100,7 +106,7 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
         setIsLoadingOrder(false);
       }
     },
-    [getToOrderBtn, router, userId]
+    [getToOrderBtn, router, userId, getToCartBtn]
   );
   // ----------------------- DELETE CART -------------------------------------------
 
@@ -118,6 +124,7 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
     } finally {
     }
   };
+
   useEffect(() => {
     if (userId) {
       getToOrderBtn();

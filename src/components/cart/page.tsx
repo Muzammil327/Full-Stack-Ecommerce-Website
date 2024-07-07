@@ -30,6 +30,9 @@ const CartView = ({ userId }: { userId: string }) => {
                     Price
                   </th>
                   <th scope="col" className="px-20 py-2">
+                    <span>Size</span>
+                  </th>
+                  <th scope="col" className="px-20 py-2">
                     Action
                   </th>
                 </tr>

@@ -41,55 +41,6 @@ export async function GET(req: NextRequest) {
         console.log(error);
       }
     }
-    // if (dislike) {
-    //   // find the product by id
-    //   const product = await Product.findById({ _id: productId });
-    //   if (!product) {
-    //     return NextResponse.json({
-    //       statusbar: 400,
-    //       error: "Product not found.",
-    //     });
-    //   }
-    //   try {
-    //     let updatedProduct;
-    //     const userIndex = product.dislike.indexOf(userId);
-
-    //     if (userIndex === -1 && userId) {
-    //       updatedProduct = await Product.findByIdAndUpdate(
-    //         { _id: new mongoose.Types.ObjectId(productId) },
-    //         {
-    //           $push: { dislike: new mongoose.Types.ObjectId(userId) },
-    //           $pull: { like: new mongoose.Types.ObjectId(userId) },
-    //         },
-    //         { new: true }
-    //       );
-    //       return NextResponse.json({
-    //         statusbar: 400,
-    //         message: "Product unliked successfully",
-    //       });
-    //     } else {
-    //       if (userId) {
-    //         updatedProduct = await Product.findByIdAndUpdate(
-    //           { _id: new mongoose.Types.ObjectId(productId) },
-    //           {
-    //             $pull: { dislike: new mongoose.Types.ObjectId(userId) },
-    //           },
-    //           { new: true }
-    //         );
-    //       }
-    //       return NextResponse.json({
-    //         statusbar: 200,
-    //         message: "Product return disliked successfully",
-    //       });
-    //     }
-    //   } catch (error) {
-    //     console.error("Error handling Cart item Decreasing:", error);
-    //     return NextResponse.json({
-    //       statusbar: 400,
-    //       error: "Error handling Cart item Decreasing",
-    //     });
-    //   }
-    // }
   } catch (error) {
     console.error("Error disLike Product:", error);
     return NextResponse.json({

@@ -5,7 +5,7 @@ import Cart from "@/src/models/cartModel";
 import PendingOrder from "@/src/models/pendingOrderModel";
 
 export async function POST(req: NextRequest) {
-  const { productId, userId, totalPrice, qty } = await req.json();
+  const { productId, userId, totalPrice, qty, size } = await req.json();
   await connectDB();
 
   try {
@@ -33,12 +33,15 @@ export async function POST(req: NextRequest) {
         error: "Quantity is Required.",
       });
     }
+
     const newOrder = new Order({
       productId,
       userId,
       totalPrice,
       qty,
+      size,
     });
+
     await newOrder.save();
     await Cart.deleteMany({ productId, userId }); // Assuming you can identify cart items by productId and userId
     await PendingOrder.deleteMany({ productId, userId });

@@ -14,6 +14,7 @@ import ProductDetailTab from "@/src/components/productDetail/components/Tabs";
 import LikeBtn from "@/src/components/productDetail/components/LikeBtn";
 import DisLikeBtn from "@/src/components/productDetail/components/DisLikeBtn";
 import { FcPaid } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 export interface ProductCardData {
   _id: string;
@@ -30,6 +31,7 @@ export interface ProductCardData {
   image: string;
   slider: [];
   keywords: [];
+  size: [];
   productId: [];
   like: [];
   dislike: [];
@@ -44,6 +46,11 @@ export default function ProductDetail({
   userId: string;
 }) {
   const [data, setData] = useState<ProductCardData>();
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const handleSizeChange = (e: any) => {
+    setSelectedSize(e.target.value);
+  };
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const price = data?.price ?? 0; // Provide a default value of 0 if data.price is undefined
@@ -141,10 +148,48 @@ export default function ProductDetail({
                       {data.Sdescription}
                     </p>
 
+                    {/* ------------- Size ------------- */}
+                    {data.items === "shoes" && (
+                      <>
+                        <div className="mt-4 grid grid-cols-4 gap-4">
+                          {data.size.map((data, index) => {
+                            return (
+                              <label
+                                key={index}
+                                className={`group relative flex cursor-pointer items-center justify-center rounded-md border ${
+                                  selectedSize === data
+                                    ? "border-indigo-500"
+                                    : "border-2"
+                                } bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1`}
+                              >
+                                <input
+                                  type="radio"
+                                  name="size-choice"
+                                  value={data}
+                                  onChange={handleSizeChange}
+                                  className="sr-only"
+                                />
+                                <span>{data}</span>
+                                <span
+                                  className="pointer-events-none absolute -inset-px rounded-md"
+                                  aria-hidden="true"
+                                ></span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </>
+                    )}
+
                     {/* ------------- Product Button ------------- */}
                     <div className="mt-3 max-w-full flex flex-wrap md:gap-3 gap-2 flex-col">
                       <div className="w-full">
-                        <AddtoCartBtn product={data._id} userId={userId} />
+                        <AddtoCartBtn
+                          product={data._id}
+                          userId={userId}
+                          size={selectedSize}
+                          data={data}
+                        />
                       </div>
                       <div className="flex md:gap-3 gap-2 md:justify-between items-center">
                         {/* favourite button  */}

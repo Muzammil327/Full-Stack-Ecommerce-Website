@@ -20,7 +20,6 @@ export default function CheckoutButton({
   const [loading, setLoading] = useState<boolean>(false);
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
-  const [totalTax, setTotalTax] = useState<number>(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,16 +30,15 @@ export default function CheckoutButton({
     if (cart) {
       cart.forEach((item: CartItem) => {
         subTotal +=
-          (item.product_Detail.price - item.product_Detail.discountprice) *
+          (item.product_Detail.price) *
           item.qty;
         totalTax += item.product_Detail.deliveryCharge * item.qty;
       });
     }
 
-    const total = subTotal + totalTax;
+    const total = subTotal;
     setSubtotal(subTotal);
     setTotal(total);
-    setTotalTax(totalTax);
   }, [cart]);
 
   const handleSubmit = async (products: Product[]) => {
@@ -60,7 +58,9 @@ export default function CheckoutButton({
     } catch (error) {
       console.error("Error adding product to cart:", error);
     } finally {
-      setLoading(false);
+      setInterval(() => {
+        setLoading(false);
+      }, 3000)
     }
   };
 
@@ -75,7 +75,7 @@ export default function CheckoutButton({
       </div>
       <div className="tax my-4 flex items-center justify-between">
         <span>Tax Charges</span>
-        <span>{totalTax}</span>
+        <span>0</span>
       </div>
       <div className="total border-t border-solid border-slate-300 py-5 flex items-center justify-between">
         <span>Total</span>

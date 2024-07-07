@@ -119,6 +119,27 @@ export async function PUT(req: NextRequest) {
   }
 }
 
+interface Product {
+  _id: string;
+  name: string;
+  slug: string;
+  image: string;
+  price: number;
+  category: string;
+  subcategory?: string;
+}
+
+interface AggregationPipeline {
+  $match?: any;
+  $sort?: any;
+  $project?: {
+    [key: string]: number | string | boolean; // Adjust as per your projection needs
+  };
+  $skip?: number;
+  $limit?: number;
+  // Add other stages as needed
+}
+
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
@@ -135,91 +156,70 @@ export async function GET(req: NextRequest) {
 
   await connectDB();
   try {
-    let aggregationPipeline = [];
-
+    // project stage
     const ProjectStage = {
       $project: {
         _id: 1,
         name: 1,
         slug: 1,
         image: 1,
-        price: 1, // Using the adjusted price
+        price: 1,
         category: 1,
-        slider: 1,
       },
     };
 
-    aggregationPipeline = [
-      ProjectStage,
-      { $skip: (page - 1) * limit },
-      { $limit: limit },
-    ];
+    // skip stage
+    const SkipStage = { $skip: (page - 1) * limit };
+
+    // limit stage
+    const LimitStage = { $limit: limit };
+
+    let aggregationPipeline: AggregationPipeline[] = [];
 
     if (category) {
-      aggregationPipeline = [
-        {
-          $match: {
-            category: category,
-          },
+      aggregationPipeline.push({
+        $match: {
+          category: category,
         },
-        ProjectStage,
-        { $skip: (page - 1) * limit },
-        { $limit: limit },
-      ];
+      });
     }
 
     if (subCatgeory) {
-      aggregationPipeline = [
-        {
-          $match: {
-            subCategory: subCatgeory,
-          },
+      aggregationPipeline.push({
+        $match: {
+          subCategory: subCatgeory,
         },
-        ProjectStage,
-        { $skip: (page - 1) * limit },
-        { $limit: limit },
-      ];
+      });
     }
 
     if (tags) {
-      aggregationPipeline = [
-        {
-          $match: {
-            items: tags,
-          },
+      aggregationPipeline.push({
+        $match: {
+          items: tags,
         },
-        ProjectStage,
-        { $skip: (page - 1) * limit },
-        { $limit: limit },
-      ];
+      });
     }
 
     if (lowPrice && highPrice) {
-      aggregationPipeline = [
-        { $match: { price: { $gte: lowPrice, $lte: highPrice } } },
-        ProjectStage,
-        { $skip: (page - 1) * limit },
-        { $limit: limit },
-      ];
+      aggregationPipeline.push({
+        $match: { price: { $gte: lowPrice, $lte: highPrice } },
+      });
     }
-    if (lowToHigh) {
 
-      aggregationPipeline = [
-        { $match: { price: { $gte: lowPrice, $lte: highPrice } } },
-        { $sort: { price: 1 } }, // Include the sorting stage conditionally
-        { $skip: (page - 1) * limit },
-        { $limit: limit },
-      ];
-    } 
-     if (highToLow) {
-      aggregationPipeline = [
-        { $match: { price: { $gte: lowPrice, $lte: highPrice } } },
-        { $sort: { price: -1 } }, // Include the sorting stage conditionally
-        { $skip: (page - 1) * limit },
-        { $limit: limit },
-      ];
-    }   
-    // Execute the aggregation pipeline
+    if (lowToHigh) {
+      aggregationPipeline.push({
+        $sort: { price: 1 },
+      });
+    }
+
+    if (highToLow) {
+      aggregationPipeline.push({
+        $sort: { price: -1 },
+      });
+    }
+
+    aggregationPipeline.push(ProjectStage, SkipStage, LimitStage);
+
     const products = await Product.aggregate(aggregationPipeline as any);
     const getproducts = await Product.find();
 

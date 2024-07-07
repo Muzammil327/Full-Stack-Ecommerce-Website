@@ -35,6 +35,7 @@ export async function GET(req: NextRequest) {
         $project: {
           _id: 1,
           qty: 1,
+          size: 1,
           "product_Detail._id": 1,
           "product_Detail.image": 1,
           "product_Detail.price": 1,
@@ -60,7 +61,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const { productId, userId } = await req.json();
+  const { productId, userId, size } = await req.json();
   await connectDB();
 
   try {
@@ -88,6 +89,7 @@ export async function POST(req: NextRequest) {
     } else {
       const newProduct = new Cart({
         productId,
+        size,
         userId,
       });
       await newProduct.save();

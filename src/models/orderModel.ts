@@ -5,6 +5,7 @@ interface OrdersDocument extends Document {
   userId: mongoose.Schema.Types.ObjectId;
   totalPrice: number;
   qty: number;
+  size: string;
   createdAt: Date;
   status: string;
 }
@@ -22,6 +23,9 @@ const ordersSchema = new Schema<OrdersDocument>({
     type: Number,
     min: 1,
     default: 1,
+  },
+  size: {
+    type: String,
   },
   status: {
     type: String,

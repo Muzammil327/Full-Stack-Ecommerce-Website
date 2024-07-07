@@ -18,6 +18,8 @@ export interface Order {
 export interface OrderItem {
   _id: string;
   qty: number;
+  size: string;
+
   product_Detail: {
     _id: string;
     name: string;
@@ -33,6 +35,7 @@ export interface OrderItem {
 export interface CartItem {
   _id: string;
   qty: number;
+  size: string;
   product_Detail: {
     _id: string;
     name: string;

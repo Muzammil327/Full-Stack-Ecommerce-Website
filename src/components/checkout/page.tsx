@@ -9,33 +9,27 @@ import { useOrder } from "@/src/components/context/orderContext";
 import AddressView from "../address/page";
 
 export default function CheckoutView() {
+  const { cart } = useCart(); // Assume useCart provides cartItems as well
+
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
-  const [totalTax, setTotalTax] = useState<number>(0);
-  const { cart } = useCart();
-
   const { addToOrder, isLoadingOrder } = useOrder();
 
   useEffect(() => {
     // Calculate subtotal, total, and total tax when cart changes
     let subTotal = 0;
     let total = 0;
-    let totalTax = 0;
 
     if (cart) {
       cart.forEach((item: any) => {
-        subTotal +=
-          (item.product_Detail.price - item.product_Detail.discountprice) *
-          item.qty;
-        totalTax = item.product_Detail.deliveryCharge * cart.length;
+        subTotal += item.product_Detail.price * item.qty;
       });
 
-      total = subTotal + totalTax;
+      total = subTotal;
     }
 
     setSubtotal(subTotal);
     setTotal(total);
-    setTotalTax(totalTax);
   }, [cart]);
 
   const [isFormFilled, setIsFormFilled] = useState(false);
@@ -59,6 +53,9 @@ export default function CheckoutView() {
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Price
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Size
                   </th>
                   <th scope="col" className="px-6 py-3">
                     Total Product price
@@ -89,13 +86,13 @@ export default function CheckoutView() {
                         {user.qty}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {user.product_Detail.price -
-                          user.product_Detail.discountprice}
+                        {user.product_Detail.price}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        {(user.product_Detail.price -
-                          user.product_Detail.discountprice) *
-                          user.qty}
+                        {user.size}
+                      </td>
+                      <td className="px-6 py-4 font-semibold text-gray-900">
+                        {user.product_Detail.price * user.qty}
                       </td>
                     </tr>
                   ))
@@ -118,9 +115,9 @@ export default function CheckoutView() {
             </div>
             <div className="tax my-4 flex items-center justify-between">
               <span>Tax Charges</span>
-              <span>{totalTax}</span>
+              <span>0</span>
             </div>
-            <div className="total border-t py-2 flex items-center justify-between">
+            <div className="total border-t py-5 flex items-center justify-between">
               <span>Total</span>
               <span>{total}</span>
             </div>
@@ -133,6 +130,7 @@ export default function CheckoutView() {
                       cart.map((item) => ({
                         product: item.product_Detail._id,
                         qty: item.qty,
+                        size: item.size,
                       })),
                       total
                     )

@@ -43,6 +43,7 @@ export async function GET(
           price: 1,
           slider: 1,
           like: 1,
+          size: 1,
           dislike: 1,
           "product_details._id": 1, // Include the related product_detailss in the result
           "product_details.name": 1, // Include the related product_detailss in the result
@@ -54,7 +55,6 @@ export async function GET(
       },
     ]);
     const singleProduct = getProduct[0];
-    console.log("singleProduct:", singleProduct);
     if (singleProduct) {
       return NextResponse.json({
         statusbar: 200,

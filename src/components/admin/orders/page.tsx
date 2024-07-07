@@ -10,7 +10,6 @@ import Button from "../../ui/Button";
 const AdminOrderView = () => {
   const [data, setData] = useState<OrderItem[]>([]);
   const [loadingOrder, setLoadingOrder] = useState(true);
-
   const fetchData = useCallback(async (status?: string) => {
     try {
       setLoadingOrder(true);
@@ -105,6 +104,9 @@ const AdminOrderView = () => {
                         Total Price
                       </th>
                       <th scope="col" className="px-6 py-3">
+                        Size
+                      </th>
+                      <th scope="col" className="px-6 py-3">
                         Status
                       </th>
                       <th scope="col" className="px-6 py-3">
@@ -137,6 +139,9 @@ const AdminOrderView = () => {
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             {user.totalPrice}
+                          </td>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            {user.size}
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             <select

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Button from "../../ui/Button";
 import { FaRegThumbsDown } from "react-icons/fa";
 import axios from "axios";
+import Processing from "../../ui/Loading/Processing";
 
 interface LikeBtnProps {
   fetchProduct: () => void;
@@ -17,10 +18,13 @@ export default function DisLikeBtn({
   userId,
   fetchProduct,
 }: LikeBtnProps) {
+  const [loading, setLoading] = useState<Boolean>(false);
+
   const HandleDisLikeClick = async (productId: string) => {
     if (!userId) {
       return toast.success("Login is Required.");
     }
+    setLoading(true);
     try {
       const response = await axios.put(`/api/product?dislike=dislike`, {
         productId,
@@ -35,6 +39,8 @@ export default function DisLikeBtn({
       }
     } catch (error) {
       console.error("Error dis liking product:", error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -42,7 +48,8 @@ export default function DisLikeBtn({
       onClick={() => HandleDisLikeClick(datas._id)}
       className="btnIcon_outline"
     >
-      <FaRegThumbsDown className="mr-2" /> {datas.dislike.length}{" "}
+      {loading ? <Processing /> : <FaRegThumbsDown className="mr-2" />}
+      {datas.dislike.length}{" "}
     </Button>
   );
 }

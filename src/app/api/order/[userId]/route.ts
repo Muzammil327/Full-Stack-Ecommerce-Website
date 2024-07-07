@@ -39,6 +39,7 @@ export async function GET(
           _id: 1,
           totalPrice: 1,
           status: 1,
+          size: 1,
           "product.image": 1,
           "product.name": 1,
         },

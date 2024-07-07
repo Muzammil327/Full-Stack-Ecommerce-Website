@@ -36,6 +36,9 @@ const ActiveOrderView = () => {
                         Total Price
                       </th>
                       <th scope="col" className="px-6 py-3">
+                        Size
+                      </th>
+                      <th scope="col" className="px-6 py-3">
                         Status
                       </th>
                       <th scope="col" className="px-6 py-3">
@@ -67,6 +70,9 @@ const ActiveOrderView = () => {
 
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             {user.totalPrice}
+                          </td>
+                          <td className="px-6 py-4 font-semibold text-gray-900">
+                            {user.size}
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             {user.status === "Pending" && (

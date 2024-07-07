@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { CartItem } from "@/src/types/page";
 import { FaMinus, FaPlus } from "react-icons/fa";
+import Processing from "../ui/Loading/Processing";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 export default function FetchCart({
   getToCartBtn,
@@ -12,9 +14,11 @@ export default function FetchCart({
   getToCartBtn: () => void;
   cart: CartItem[];
 }) {
+  const [loading, setLoading] = useState(false);
   // ----------------------- DELETE CART -------------------------------------------
 
   const DeleteHandle = async (cartId: string) => {
+    setLoading(true);
     try {
       const response = await axios.delete(`/api/cart?cartId=${cartId}`);
       if (response.data.statusbar === 200) {
@@ -26,12 +30,15 @@ export default function FetchCart({
     } catch (error) {
       console.error("Error removing product from cart:", error);
     } finally {
+      setLoading(false);
     }
   };
 
   // ----------------------- PUT INCREASE CART -------------------------------------------
 
   const handleUpdateCartIncrease = async (_id: string, qty: number) => {
+    setLoading(true);
+
     try {
       const response = await axios.put(`/api/cart?increase=${_id}`, { qty });
       if (response.data.statusbar === 200) {
@@ -42,12 +49,16 @@ export default function FetchCart({
       }
     } catch (error) {
       console.error("Error adding product to cart:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   // ----------------------- PUT DECREASE CART -------------------------------------------
 
   const handleUpdateCartDecrease = async (_id: string, qty: number) => {
+    setLoading(true);
+
     try {
       const response = await axios.put(`/api/cart?decrease=${_id}`, { qty });
       if (response.data.statusbar === 200) {
@@ -58,6 +69,8 @@ export default function FetchCart({
       }
     } catch (error) {
       console.error("Error adding product to cart:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,7 +100,7 @@ export default function FetchCart({
                   onClick={() => handleUpdateCartDecrease(user._id, user.qty)}
                 >
                   <span className="sr-only">Decrease Quantity</span>
-                  <FaMinus />
+                  {loading ? <Processing /> : <FaMinus />}
                 </button>
                 <input
                   type="number"
@@ -103,20 +116,22 @@ export default function FetchCart({
                   onClick={() => handleUpdateCartIncrease(user._id, user.qty)}
                 >
                   <span className="sr-only">Increase Quantity</span>
-                  <FaPlus />
+                  {loading ? <Processing /> : <FaPlus />}
                 </button>
               </form>
             </td>
             <td className="px-6 text-center py-4 font-semibold text-gray-900">
-              {(user.product_Detail.price - user.product_Detail.discountprice) *
-                user.qty}
+              {user.product_Detail.price * user.qty}
+            </td>
+            <td className="px-6 text-center py-4 font-semibold text-gray-900">
+              {user.size && user.size}
             </td>
             <td className="px-6 py-4 text-center">
               <button
                 className="font-medium t1 hover:underline"
                 onClick={() => DeleteHandle(user._id)}
               >
-                Remove
+                {loading ? <Processing /> : <FaDeleteLeft size={40} />}
               </button>
             </td>
           </tr>

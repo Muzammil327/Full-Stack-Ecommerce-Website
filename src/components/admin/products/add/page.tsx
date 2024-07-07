@@ -35,6 +35,7 @@ const ProductAddPage = () => {
   }
   const [productId, setProductId] = useState<Product[]>([]);
   const [tags, setTags] = useState<string[]>([]);
+  const [size, setSize] = useState<string[]>([]);
 
   // ---------------------- Handle Product Id Data Fetch Show Dropdown ----------------------
   const [data, setData] = useState([]);
@@ -90,6 +91,11 @@ const ProductAddPage = () => {
     setTags(tags);
   };
 
+  // ---------------------- Handle size ----------------------
+  const handleSizesChange = (sizes: string[]) => {
+    setSize(sizes);
+  };
+
   // ---------------------- Handle Product POST DATA ----------------------
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -109,6 +115,12 @@ const ProductAddPage = () => {
       if (tags.length > 0) {
         tags.forEach((tags) => {
           formData.append("keywords", tags);
+        });
+      }
+
+      if (size.length > 0) {
+        size.forEach((size) => {
+          formData.append("size", size);
         });
       }
 
@@ -381,7 +393,7 @@ const ProductAddPage = () => {
               <option value="markaz">markaz</option>
               <option value="hhcdropshipping">hhcdropshipping</option>
               <option value="sadadropship">sadadropship</option>
-              <option value="sadadropship">shoes</option>
+              <option value="shoes">shoes</option>
             </select>
           </div>
 
@@ -474,6 +486,7 @@ const ProductAddPage = () => {
           </div>
         </div>
 
+        {/* ----------------------- Product Keywords -----------------------  */}
         <div className="mb-6">
           <label
             htmlFor="productId"
@@ -483,7 +496,18 @@ const ProductAddPage = () => {
           </label>
           <TagsInput value={tags} onChange={handleTagsChange} />
         </div>
+        {/* ----------------------- Product Size -----------------------  */}
+        <div className="mb-6">
+          <label
+            htmlFor="productId"
+            className="block text-base font-medium text-gray-700 mb-2"
+          >
+            Size
+          </label>
+          <TagsInput value={size} onChange={handleSizesChange} />
+        </div>
 
+        {/* ----------------------- Product Related -----------------------  */}
         <div className="mb-6">
           <label
             htmlFor="productId"
@@ -504,6 +528,7 @@ const ProductAddPage = () => {
           />
         </div>
 
+        {/* ----------------------- Product image slider -----------------------  */}
         <div className="mb-6">
           <label
             htmlFor="slider"

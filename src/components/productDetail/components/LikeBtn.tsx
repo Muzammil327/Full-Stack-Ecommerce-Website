@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Button from "../../ui/Button";
 import { FaRegThumbsUp } from "react-icons/fa";
 import axios from "axios";
+import Processing from "../../ui/Loading/Processing";
 
 interface LikeBtnProps {
   fetchProduct: () => void;
@@ -14,10 +15,13 @@ interface LikeBtnProps {
 }
 
 export default function LikeBtn({ fetchProduct, datas, userId }: LikeBtnProps) {
+  const [loading, setLoading] = useState<Boolean>(false);
+
   const HandleLikeClick = async (productId: string) => {
     if (!userId) {
       return toast.success("Login is Required.");
     }
+    setLoading(true);
     try {
       const response = await axios.put(`/api/product?like=like`, {
         productId,
@@ -32,6 +36,8 @@ export default function LikeBtn({ fetchProduct, datas, userId }: LikeBtnProps) {
       }
     } catch (error) {
       console.error("Error liking product:", error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -39,7 +45,8 @@ export default function LikeBtn({ fetchProduct, datas, userId }: LikeBtnProps) {
       onClick={() => HandleLikeClick(datas._id)}
       className="btnIcon_outline"
     >
-      <FaRegThumbsUp className="mr-2" /> {datas.like.length}{" "}
+      {loading ? <Processing /> : <FaRegThumbsUp className="mr-2" />}
+      {datas.like.length}
     </Button>
   );
 }

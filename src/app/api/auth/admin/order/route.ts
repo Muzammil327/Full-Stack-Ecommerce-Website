@@ -38,6 +38,7 @@ export async function GET(req: NextRequest) {
           quantity: 1,
           totalPrice: 1,
           status: 1,
+          size: 1,
           createdAt: 1,
           "product.image": 1,
           "product.price": 1,
