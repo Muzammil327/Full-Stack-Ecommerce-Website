@@ -12,7 +12,6 @@ import Image from "next/image";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
-import { Button } from "@/src/components/ui/button";
 
 const ProductAddPage = () => {
   const [loadings, setLoading] = useState<boolean>(false);
@@ -551,13 +550,9 @@ const ProductAddPage = () => {
                           height={500}
                           width={500}
                         />
-                        <Button
-                          onClick={() => handleDeleteImage(index)}
-                          variant="icon"
-                          round="md"
-                        >
+                        <button onClick={() => handleDeleteImage(index)}>
                           X
-                        </Button>
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -598,7 +593,7 @@ const ProductAddPage = () => {
           </div>
         </div>
         <button className="button_bg">
-        {loadings ? "Submitting..." : "Submit"}
+          {loadings ? "Submitting..." : "Submit"}
         </button>
       </form>
     </>

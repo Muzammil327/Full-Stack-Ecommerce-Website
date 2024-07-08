@@ -23,7 +23,6 @@ import Image from "next/image";
 import { categories } from "@/src/components/data";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { Button } from "@/src/components/ui/button";
 
 interface Option {
   value: string;
@@ -677,16 +676,14 @@ const AdminProductPut = () => {
                         height={400}
                         width={400}
                       />
-                      <Button
+                      <button
                         onClick={() => {
                           deleteSliderImage(index);
                         }}
-                        variant="icon"
-                        round="md"
                         className="absolute top-1 right-1 bg1 h-12 w-12 rounded-full text-white flex items-center justify-center"
                       >
                         X
-                      </Button>
+                      </button>
                     </div>
                   ))}
                 </div>
