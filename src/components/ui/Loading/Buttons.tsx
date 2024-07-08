@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-export default function Button({
+export default function Buttons({
   children,
   className,
   disabled,
