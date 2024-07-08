@@ -2,33 +2,23 @@
 
 import { useEffect } from "react";
 import { Button } from "@/src/components/ui/button";
+import Link from "next/link";
 
 export default function Error({
   error,
-  reset,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
   return (
-    <div>
+    <section>
       <h2>Something went wrong!</h2>
-      <Button
-        variant="paddingWidth"
-        round="md"
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-        asChild
-      >
-        Try again
+      <Button variant="paddingWidth" round="md" asChild>
+        <Link href="/">Try again</Link>
       </Button>
-    </div>
+    </section>
   );
 }
