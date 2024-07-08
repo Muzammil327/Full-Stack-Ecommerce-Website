@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa";
 import { useCart } from "../../context/cartContext";
 import { useWishlist } from "../../context/wishlistContext";
-import { Button } from "../../ui/Button";
+import { ShadcnUIButton } from "@/src/components/shadcnUI/Shadcnui-Button";
 import { SearchIcon } from "./search";
 import { CatgeoryButton } from "../../home/HeroSlider";
 
@@ -139,7 +139,7 @@ export default function NavbarView({ userId }: { userId: string }) {
 
                 {/* Cart */}
                 <div className="flow-root md:ml-6 relative">
-                  <Button variant="iconSmall" round="md" asChild>
+                  <ShadcnUIButton variant="iconSmall" round="md" asChild>
                     <Link href="/cart">
                       <FaShoppingBasket />
                       <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
@@ -152,12 +152,12 @@ export default function NavbarView({ userId }: { userId: string }) {
                         )}
                       </span>{" "}
                     </Link>
-                  </Button>
+                  </ShadcnUIButton>
                 </div>
 
                 {/* Fvourite */}
                 <div className="ml-4 flow-root relative">
-                  <Button variant="iconSmall" round="md" asChild>
+                  <ShadcnUIButton variant="iconSmall" round="md" asChild>
                     <Link href="/wishlist">
                       <FaHeart />
                       <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
@@ -170,7 +170,7 @@ export default function NavbarView({ userId }: { userId: string }) {
                         )}
                       </span>{" "}
                     </Link>
-                  </Button>
+                  </ShadcnUIButton>
                 </div>
                 {/* Search */}
                 <div className="ml-4 flow-root relative">
@@ -181,12 +181,12 @@ export default function NavbarView({ userId }: { userId: string }) {
           </div>
           <div className="lg:hidden flex items-center w-full gap-4">
             <CatgeoryButton />
-            <Button
+            <ShadcnUIButton
               onClick={() => setOpen(true)}
               variant="bgIcon"
             >
               <FaBars />
-            </Button>
+            </ShadcnUIButton>
           </div>
         </Container>
       </div>
