@@ -38,9 +38,9 @@ export default function AdminProductView() {
       {error && <h1>Error fetching Catgeory data...</h1>}
 
       <div className="mx-auto md:px-6 px-4 my-8">
-        <Button variant="paddingWidth" round="md" asChild>
+        <button className="button_bg" onClick={handleLoadMore}>
           <Link href="/dashboard/admin/products/add">Add New Product</Link>
-        </Button>
+        </button>
 
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -137,13 +137,9 @@ export default function AdminProductView() {
               </div>
               <div>
                 {products.length === 10 && (
-                  <Button
-                    variant="paddingWidth"
-                    round="md"
-                    onClick={handleLoadMore}
-                  >
+                  <button className="button_bg" onClick={handleLoadMore}>
                     Load More
-                  </Button>
+                  </button>
                 )}
               </div>
             </div>

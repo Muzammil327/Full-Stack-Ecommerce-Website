@@ -711,9 +711,9 @@ const AdminProductPut = () => {
           </div>
         </div>
 
-        <Button className="w-full">
+        <button className="button_bg">
           {loadings1 ? "Submitting..." : "Submit"}
-        </Button>
+        </button>
       </form>
     </>
   );

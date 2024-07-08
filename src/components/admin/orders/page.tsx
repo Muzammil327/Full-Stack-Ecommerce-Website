@@ -5,7 +5,7 @@ import axios from "axios";
 import Container from "@/src/components/ui/Container";
 import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 import { OrderItem } from "@/src/types/page";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "../../ui/button";
 
 const AdminOrderView = () => {
   const [data, setData] = useState<OrderItem[]>([]);
@@ -46,41 +46,11 @@ const AdminOrderView = () => {
       <Container>
         <div className="my-20">
           <div className="flex gap-5 items-center my-8">
-            <Button
-              variant="paddingWidth"
-              round="md"
-              onClick={() => fetchData("Shipped")}
-            >
-              Shipped
-            </Button>
-            <Button
-              variant="paddingWidth"
-              round="md"
-              onClick={() => fetchData("Pending")}
-            >
-              Pending
-            </Button>
-            <Button
-              variant="paddingWidth"
-              round="md"
-              onClick={() => fetchData("Confirmed")}
-            >
-              Confirmed
-            </Button>
-            <Button
-              variant="paddingWidth"
-              round="md"
-              onClick={() => fetchData("Delivered")}
-            >
-              Delivered
-            </Button>
-            <Button
-              variant="paddingWidth"
-              round="md"
-              onClick={() => fetchData("Cancelled")}
-            >
-              Cancelled
-            </Button>
+            <button onClick={() => fetchData("Shipped")}>Shipped</button>
+            <button onClick={() => fetchData("Pending")}>Pending</button>
+            <button onClick={() => fetchData("Confirmed")}>Confirmed</button>
+            <button onClick={() => fetchData("Delivered")}>Delivered</button>
+            <button onClick={() => fetchData("Cancelled")}>Cancelled</button>
           </div>
           <div className="relative overflow-x-auto sm:rounded-lg mb-10">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500">

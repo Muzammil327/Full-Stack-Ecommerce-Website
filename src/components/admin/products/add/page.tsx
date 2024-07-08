@@ -597,9 +597,9 @@ const ProductAddPage = () => {
             </div>
           </div>
         </div>
-        <Button variant="paddingWidth" round="md">
-          {loadings ? "Submitting..." : "Submit"}
-        </Button>
+        <button className="button_bg">
+        {loadings ? "Submitting..." : "Submit"}
+        </button>
       </form>
     </>
   );
