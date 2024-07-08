@@ -331,7 +331,7 @@ export default function AddressView({ setIsFormFilled }: any) {
             </div>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-6">
-              <Button variant="paddingWidth" round="md">
+              <Button variant="paddingWidth" round="md" asChild>
                 {loading ? "Loading .." : "Submit Here"}
               </Button>
             </div>
