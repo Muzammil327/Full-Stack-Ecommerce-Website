@@ -16,7 +16,6 @@ export default function GlobalError({
           variant="paddingWidth"
           round="md"
           onClick={
-            // Attempt to recover by trying to re-render the segment
             () => reset()
           }
         >
