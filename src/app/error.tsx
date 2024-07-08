@@ -25,6 +25,7 @@ export default function Error({
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
+        asChild
       >
         Try again
       </Button>

@@ -1,6 +1,5 @@
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -38,24 +37,27 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, round, asChild = false, ...props }, ref) => {
+  ({ className, variant, round, asChild = false, onClick, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     const [loading, setLoading] = React.useState(false);
 
-    const handleLinkClick = (e: any) => {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
       setLoading(true);
-      // Simulate a network request or navigation delay
+      if (onClick) {
+        onClick(e);
+      }
       setTimeout(() => {
         setLoading(false);
       }, 2000);
     };
+
     return (
       <>
         <div className={`loader ${loading ? "active" : ""}`}>
           <div className="spinner"></div>
         </div>
         <Comp
-          onClick={handleLinkClick}
+          onClick={handleClick}
           className={cn(buttonVariants({ variant, className, round }))}
           ref={ref}
           {...props}
