@@ -10,10 +10,8 @@ import { categories } from "@/src/components/data";
 // Import Swiper styles
 import "swiper/css";
 import Container from "../ui/Container";
-import { Button } from "../ui/button";
-import { FaArrowCircleRight } from "react-icons/fa";
 import { FaChevronRight } from "react-icons/fa6";
-import { Dialog, Popover, Transition } from "@headlessui/react";
+import { Transition } from "@headlessui/react";
 import Link from "next/link";
 
 interface Tag {
@@ -112,9 +110,8 @@ export function CatgeoryButton() {
 
   return (
     <div className="w-full relative">
-      <Button
+      <button
         className="w-full"
-        variant="fullWidth"
         onClick={() => {
           setCat(!cat);
           setSelectedCategory(null);
@@ -122,7 +119,7 @@ export function CatgeoryButton() {
         }}
       >
         CATEGORIES
-      </Button>
+      </button>
 
       <Transition show={cat && !selectedCategory} as={Fragment}>
         <Transition.Child

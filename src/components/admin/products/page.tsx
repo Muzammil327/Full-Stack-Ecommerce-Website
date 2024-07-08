@@ -4,7 +4,6 @@ import axios from "axios";
 import Link from "next/link";
 import { useProductCard } from "../../context/productCard";
 import { PRODUCT_DELETE } from "@/src/utils/constant";
-import { Button } from "../../ui/button";
 
 interface ProductCardProps {
   _id: string;
@@ -94,9 +93,7 @@ export default function AdminProductView() {
                           >
                             Edit
                           </Link>
-                          <Button
-                            variant="paddingWidth"
-                            round="md"
+                          <button
                             onClick={() =>
                               DeleteProduct(
                                 product._id,
@@ -106,7 +103,7 @@ export default function AdminProductView() {
                             }
                           >
                             Remove
-                          </Button>
+                          </button>
                         </td>
                       </tr>
                     ))}

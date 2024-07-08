@@ -37,19 +37,19 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, round, asChild = false, onClick, ...props }, ref) => {
+  ({ className, variant, round, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     const [loading, setLoading] = React.useState(false);
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-      setLoading(true);
-      if (onClick) {
-        onClick(e);
-      }
-      setTimeout(() => {
-        setLoading(false);
-      }, 2000);
-    };
+    // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    //   setLoading(true);
+    //   if (onClick) {
+    //     onClick(e);
+    //   }
+    //   setTimeout(() => {
+    //     setLoading(false);
+    //   }, 2000);
+    // };
 
     return (
       <>
@@ -57,7 +57,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           <div className="spinner"></div>
         </div>
         <Comp
-          onClick={handleClick}
+          // onClick={handleClick}
           className={cn(buttonVariants({ variant, className, round }))}
           ref={ref}
           {...props}
