@@ -1,4 +1,4 @@
-import Input from "@/src/components/ui/Input";
+import Input from "@/src/components/ui/Loading/Input";
 import Label from "@/src/components/ui/Label";
 import Rate from "rc-rate";
 import "rc-rate/assets/index.css";

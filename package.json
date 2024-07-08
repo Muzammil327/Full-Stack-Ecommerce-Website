@@ -10,11 +10,16 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.1.0",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.0",
     "@tanstack/react-query": "^5.48.0",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "crypto": "^1.0.1",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.400.0",
     "mongoose": "^8.4.3",
     "multer": "^1.4.5-lts.1",
     "next": "^14.1.0",
@@ -31,7 +36,9 @@
     "react-tabs": "^6.0.2",
     "react-tagsinput": "^3.20.3",
     "react-toastify": "^10.0.5",
-    "swiper": "^11.1.4"
+    "swiper": "^11.1.4",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

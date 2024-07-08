@@ -2,7 +2,7 @@
 import { toast } from "react-toastify";
 import ReviewsForm from "./ReviewsForm";
 import axios from "axios";
-import Button from "@/src/components/ui/Button";
+import {Button} from "@/src/components/ui/button";
 import { FormEvent, useState } from "react";
 
 export default function ReviewsSubmit({
@@ -56,8 +56,8 @@ export default function ReviewsSubmit({
         rating={rating}
         handleRating={handleRating}
       />
-
-      <Button className="w-full button_bg">
+      <Button variant="fullWidth" round="md">
+        {" "}
         {loadings ? "Submitting..." : "Submit"}
       </Button>
     </form>

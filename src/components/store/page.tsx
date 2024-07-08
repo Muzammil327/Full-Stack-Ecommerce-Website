@@ -9,7 +9,7 @@ import { FaXmark } from "react-icons/fa6";
 
 import Container from "@/src/components/ui/Container";
 import { useProductCard } from "../context/productCard";
-import Button from "../ui/Button";
+import Button from "../ui/Loading/Buttons";
 import ProductCard from "../elements/ProductCard";
 
 export default function StorePage() {

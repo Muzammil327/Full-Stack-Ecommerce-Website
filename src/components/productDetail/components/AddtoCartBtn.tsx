@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
-import Button from "../../ui/Button";
+import { Button } from "../../ui/button";
 import { useCart } from "../../context/cartContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -39,6 +39,7 @@ export default function AddtoCartBtn({
       }
     }
     if (!userId) {
+      setIsLoading(false);
       return toast.success("Login is Required.");
     }
     try {
@@ -61,15 +62,14 @@ export default function AddtoCartBtn({
   };
 
   return (
-    <>
-      <Button
-        className="button_bg !px-4"
-        onClick={() => addToCartBtn(product, userId, size)}
-        disabled={isLoading}
-      >
-        {isLoading ? <Processing /> : <FaCartShopping className="mr-2" />}
-        Add to Cart
-      </Button>
-    </>
+    <Button
+      onClick={() => addToCartBtn(product, userId, size)}
+      disabled={isLoading}
+      variant="fullWidth"
+      round="md"
+    >
+      {isLoading ? <Processing /> : <FaCartShopping className="mr-2" />}
+      Add to Cart
+    </Button>
   );
 }

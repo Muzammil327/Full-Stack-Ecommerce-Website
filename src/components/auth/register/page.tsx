@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 
-import Input from "@/src/components/ui/Input";
+import Input from "@/src/components/ui/Loading/Input";
 import Label from "@/src/components/ui/Label";
 import Processing from "@/src/components/ui/Loading/Processing";
-import Button from "@/src/components/ui/Button";
+import Button from "@/src/components/ui/Loading/Buttons";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 

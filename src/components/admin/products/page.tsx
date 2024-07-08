@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import { useProductCard } from "../../context/productCard";
 import { PRODUCT_DELETE } from "@/src/utils/constant";
+import { Button } from "../../ui/button";
 
 interface ProductCardProps {
   _id: string;
@@ -37,15 +38,9 @@ export default function AdminProductView() {
       {error && <h1>Error fetching Catgeory data...</h1>}
 
       <div className="mx-auto md:px-6 px-4 my-8">
-        <button>
-          {" "}
-          <Link
-            href="/dashboard/admin/products/add"
-            className="bg-red-500 hover:bg-red-600 transition-all text-white py-3 px-8 my-3 rounded-md"
-          >
-            Add New Product
-          </Link>
-        </button>
+        <Button variant="paddingWidth" round="md" asChild>
+          <Link href="/dashboard/admin/products/add">Add New Product</Link>
+        </Button>
 
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -99,7 +94,9 @@ export default function AdminProductView() {
                           >
                             Edit
                           </Link>
-                          <button
+                          <Button
+                            variant="paddingWidth"
+                            round="md"
                             onClick={() =>
                               DeleteProduct(
                                 product._id,
@@ -107,10 +104,9 @@ export default function AdminProductView() {
                                 product.slider
                               )
                             }
-                            className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
                           >
                             Remove
-                          </button>
+                          </Button>
                         </td>
                       </tr>
                     ))}
@@ -141,12 +137,13 @@ export default function AdminProductView() {
               </div>
               <div>
                 {products.length === 10 && (
-                  <button
+                  <Button
+                    variant="paddingWidth"
+                    round="md"
                     onClick={handleLoadMore}
-                    className="bg-red-400 mx-auto my-4 py-1 px-4 text-white flex items-center justify-center"
                   >
                     Load More
-                  </button>
+                  </Button>
                 )}
               </div>
             </div>

@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Rate from "rc-rate";
 import "rc-rate/assets/index.css";
 import { FaTimes } from "react-icons/fa";
-import Button from "../../../ui/Button";
+import Button from "../../../ui/Loading/Buttons";
 import Dialogs from "../../../ui/Dialogs";
 import ReviewsSubmit from "./ReviewsSubmit";
 import Image from "next/image";

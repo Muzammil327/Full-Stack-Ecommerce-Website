@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ReactNode, useState } from "react";
-import Button from "./Button";
+import Button from "./Loading/Buttons";
 
 export default function Dialogs({
   className,

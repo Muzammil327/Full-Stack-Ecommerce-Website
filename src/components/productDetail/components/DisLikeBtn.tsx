@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import Button from "../../ui/Button";
+import { Button } from "../../ui/button";
 import { FaRegThumbsDown } from "react-icons/fa";
 import axios from "axios";
 import Processing from "../../ui/Loading/Processing";
@@ -46,7 +46,8 @@ export default function DisLikeBtn({
   return (
     <Button
       onClick={() => HandleDisLikeClick(datas._id)}
-      className="btnIcon_outline"
+      variant="icon"
+      round="md"
     >
       {loading ? <Processing /> : <FaRegThumbsDown className="mr-2" />}
       {datas.dislike.length}{" "}

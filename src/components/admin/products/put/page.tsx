@@ -1,5 +1,5 @@
 "use client";
-import Input from "@/src/components/ui/Input";
+import Input from "@/src/components/ui/Loading/Input";
 import Label from "@/src/components/ui/Label";
 import {
   PRODUCT_DELETE_IMAGE,
@@ -23,6 +23,7 @@ import Image from "next/image";
 import { categories } from "@/src/components/data";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Button } from "@/src/components/ui/button";
 
 interface Option {
   value: string;
@@ -633,7 +634,6 @@ const AdminProductPut = () => {
           </select>
         </div>
 
-    
         {/* ---------------------- Product Keywords -----------------------  */}
         <div className="mb-6">
           <label
@@ -677,15 +677,16 @@ const AdminProductPut = () => {
                         height={400}
                         width={400}
                       />
-                      <button
-                        type="button"
-                        className="absolute top-1 right-1 bg1 h-12 w-12 rounded-full text-white flex items-center justify-center"
+                      <Button
                         onClick={() => {
                           deleteSliderImage(index);
                         }}
+                        variant="icon"
+                        round="md"
+                        className="absolute top-1 right-1 bg1 h-12 w-12 rounded-full text-white flex items-center justify-center"
                       >
                         X
-                      </button>
+                      </Button>
                     </div>
                   ))}
                 </div>
@@ -710,12 +711,9 @@ const AdminProductPut = () => {
           </div>
         </div>
 
-        <button
-          type="submit"
-          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
+        <Button className="w-full">
           {loadings1 ? "Submitting..." : "Submit"}
-        </button>
+        </Button>
       </form>
     </>
   );

@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Button from "@/src/components/ui/Button";
+import Button from "@/src/components/ui/Loading/Buttons";
 import axios from "axios";
 import { toast } from "react-toastify";
 

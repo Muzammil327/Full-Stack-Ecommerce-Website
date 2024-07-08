@@ -4,7 +4,7 @@ import Image from "next/image";
 import Container from "@/src/components/ui/Container";
 
 import { useCart } from "@/src/components/context/cartContext";
-import Button from "@/src/components/ui/Button";
+import Button from "@/src/components/ui/Loading/Buttons";
 import { useOrder } from "@/src/components/context/orderContext";
 import AddressView from "../address/page";
 

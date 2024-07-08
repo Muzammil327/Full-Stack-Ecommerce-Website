@@ -5,10 +5,10 @@ import { useSession } from "next-auth/react";
 import Container from "@/src/components/ui/Container";
 import { Heading3 } from "@/src/components/ui/Typography";
 import Label from "@/src/components/ui/Label";
-import Input from "@/src/components/ui/Input";
+import Input from "@/src/components/ui/Loading/Input";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Button from "@/src/components/ui/Button";
+import { Button } from "@/src/components/ui/button";
 
 interface FormData {
   addressLine1: string;
@@ -331,7 +331,7 @@ export default function AddressView({ setIsFormFilled }: any) {
             </div>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-6">
-              <Button className="button_bg">
+              <Button variant="paddingWidth" round="md">
                 {loading ? "Loading .." : "Submit Here"}
               </Button>
             </div>

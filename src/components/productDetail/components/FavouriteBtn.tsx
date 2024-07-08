@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Button from "../../ui/Button";
+import { Button } from "../../ui/button";
 import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../../context/wishlistContext";
 import { toast } from "react-toastify";
@@ -40,14 +40,13 @@ export default function FavouriteBtn({
     }
   };
   return (
-    <>
-      <Button
-        disabled={isLoadingWishList}
-        className="btnIcon_outline"
-        onClick={() => addToFavouriteBtn(product)}
-      >
-        {isLoadingWishList ? <Processing /> : <FaHeart className="mr-2" />}
-      </Button>
-    </>
+    <Button
+      disabled={isLoadingWishList}
+      onClick={() => addToFavouriteBtn(product)}
+      variant="icon"
+      round="md"
+    >
+      {isLoadingWishList ? <Processing /> : <FaHeart />}
+    </Button>
   );
 }

@@ -121,7 +121,7 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image"; // Assuming you're using Next.js Image component
-import Button from "@/src/components/ui/Button";
+import Button from "@/src/components/ui/Loading/Buttons";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 

@@ -5,7 +5,7 @@ import axios from "axios";
 import Container from "@/src/components/ui/Container";
 import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 import { OrderItem } from "@/src/types/page";
-import Button from "../../ui/Button";
+import { Button } from "@/src/components/ui/button";
 
 const AdminOrderView = () => {
   const [data, setData] = useState<OrderItem[]>([]);
@@ -47,31 +47,36 @@ const AdminOrderView = () => {
         <div className="my-20">
           <div className="flex gap-5 items-center my-8">
             <Button
-              className="button_bg !px-4"
+              variant="paddingWidth"
+              round="md"
               onClick={() => fetchData("Shipped")}
             >
               Shipped
             </Button>
             <Button
-              className="button_bg !px-4"
+              variant="paddingWidth"
+              round="md"
               onClick={() => fetchData("Pending")}
             >
               Pending
             </Button>
             <Button
-              className="button_bg !px-4"
+              variant="paddingWidth"
+              round="md"
               onClick={() => fetchData("Confirmed")}
             >
               Confirmed
             </Button>
             <Button
-              className="button_bg !px-4"
+              variant="paddingWidth"
+              round="md"
               onClick={() => fetchData("Delivered")}
             >
               Delivered
             </Button>
             <Button
-              className="button_bg !px-4"
+              variant="paddingWidth"
+              round="md"
               onClick={() => fetchData("Cancelled")}
             >
               Cancelled
@@ -158,14 +163,6 @@ const AdminOrderView = () => {
                               <option value="Cancelled">Cancelled</option>
                             </select>
                           </td>
-                          {/* <td className="px-6 py-4">
-                            <button
-                              className="font-medium text-red-600 dark:text-red-500 hover:underline"
-                              onClick={() => DeleteHandle(user._id)}
-                            >
-                              Remove
-                            </button>
-                          </td> */}
                         </tr>
                       ))
                     ) : (

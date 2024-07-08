@@ -191,7 +191,7 @@ export default function ProductDetail({
                           data={data}
                         />
                       </div>
-                      <div className="flex md:gap-3 gap-2 md:justify-between items-center">
+                      <div className="grid grid-cols-3 gap-4">
                         {/* favourite button  */}
                         <FavouriteBtn product={data._id} userId={userId} />
 

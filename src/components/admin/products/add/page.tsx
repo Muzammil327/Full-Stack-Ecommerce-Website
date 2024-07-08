@@ -1,6 +1,6 @@
 "use client";
 import { categories } from "@/src/components/data";
-import Input from "@/src/components/ui/Input";
+import Input from "@/src/components/ui/Loading/Input";
 import Label from "@/src/components/ui/Label";
 import { PRODUCT_POST } from "@/src/utils/constant";
 import axios from "axios";
@@ -12,6 +12,7 @@ import Image from "next/image";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import { Button } from "@/src/components/ui/button";
 
 const ProductAddPage = () => {
   const [loadings, setLoading] = useState<boolean>(false);
@@ -550,13 +551,13 @@ const ProductAddPage = () => {
                           height={500}
                           width={500}
                         />
-                        <button
-                          type="button"
-                          className="absolute top-1 right-1 bg-red-500 h-6 w-6 rounded-full text-white flex items-center justify-center"
+                        <Button
                           onClick={() => handleDeleteImage(index)}
+                          variant="icon"
+                          round="md"
                         >
                           X
-                        </button>
+                        </Button>
                       </div>
                     ))}
                   </div>
@@ -596,13 +597,9 @@ const ProductAddPage = () => {
             </div>
           </div>
         </div>
-
-        <button
-          type="submit"
-          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
+        <Button variant="paddingWidth" round="md">
           {loadings ? "Submitting..." : "Submit"}
-        </button>
+        </Button>
       </form>
     </>
   );
