@@ -11,7 +11,7 @@ export default function Policy() {
           {data.map((data: any) => {
             return (
               <div className="card border border-solid py-6 px-4 flex items-center" key={data.id}>
-                <div className="icon bg-indigo-400 p-3 rounded-md text-white text-2xl">{data.icon}</div>
+                <div className="icon bg-indigo-400 hover:bg-none border-2 border-solid border-indigo-500 p-3 rounded-md text-white text-2xl">{data.icon}</div>
                 <div className="body ml-5">
                   <h3 className="text-lg">{data.name}</h3>
                   <p className="md:text-xs">{data.para}</p>
