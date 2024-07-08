@@ -11,9 +11,9 @@ export default function GlobalError({
     <html>
       <body>
         <h2>Something went wrong!</h2>
-        <Button variant="paddingWidth" round="md" asChild>
+        {/* <Button variant="paddingWidth" round="md" asChild>
           <Link href="/">Try again Later Plz Go to Home Page!</Link>
-        </Button>
+        </Button> */}
       </body>
     </html>
   );

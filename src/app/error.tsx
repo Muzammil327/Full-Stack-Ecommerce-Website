@@ -16,9 +16,9 @@ export default function Error({
   return (
     <section>
       <h2>Something went wrong!</h2>
-      <Button variant="paddingWidth" round="md" asChild>
+      {/* <Button variant="paddingWidth" round="md" asChild>
         <Link href="/">Try again</Link>
-      </Button>
+      </Button> */}
     </section>
   );
 }
