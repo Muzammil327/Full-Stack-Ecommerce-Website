@@ -2,7 +2,7 @@
 import { toast } from "react-toastify";
 import ReviewsForm from "./ReviewsForm";
 import axios from "axios";
-import {Button} from "@/src/components/ui/button";
+import {Button} from "@/src/components/ui/Button";
 import { FormEvent, useState } from "react";
 
 export default function ReviewsSubmit({

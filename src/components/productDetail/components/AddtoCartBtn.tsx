@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
-import { Button } from "../../ui/button";
+import { Button } from "../../ui/Button";
 import { useCart } from "../../context/cartContext";
 import axios from "axios";
 import { toast } from "react-toastify";

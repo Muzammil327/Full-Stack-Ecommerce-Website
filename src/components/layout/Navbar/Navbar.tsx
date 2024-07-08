@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa";
 import { useCart } from "../../context/cartContext";
 import { useWishlist } from "../../context/wishlistContext";
-import { Button } from "../../ui/button";
+import { Button } from "../../ui/Button";
 import { SearchIcon } from "./search";
 import { CatgeoryButton } from "../../home/HeroSlider";
 

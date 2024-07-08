@@ -36,23 +36,12 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const ShadcnUIButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, round, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
 
-    // const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //   setLoading(true);
-    //   if (onClick) {
-    //     onClick(e);
-    //   }
-    //   setTimeout(() => {
-    //     setLoading(false);
-    //   }, 2000);
-    // };
-
     return (
       <Comp
-        // onClick={handleClick}
         className={cn(buttonVariants({ variant, className, round }))}
         ref={ref}
         {...props}
@@ -60,6 +49,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     );
   }
 );
-Button.displayName = "Button";
 
-export { Button, buttonVariants };
+ShadcnUIButton.displayName = "ShadcnUIButton";
+
+export { ShadcnUIButton, buttonVariants };

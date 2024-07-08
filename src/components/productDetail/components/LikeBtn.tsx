@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Button } from "../../ui/button";
+import { Button } from "../../ui/Button";
 import { FaRegThumbsUp } from "react-icons/fa";
 import axios from "axios";
 import Processing from "../../ui/Loading/Processing";

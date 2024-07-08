@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/Button";
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -7,7 +7,7 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "react-share";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/src/components/ui/Button";
 import { FaShareNodes } from "react-icons/fa6";
 
 let URL;

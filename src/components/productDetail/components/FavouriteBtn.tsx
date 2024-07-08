@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "../../ui/button";
+import { Button } from "../../ui/Button";
 import { FaHeart } from "react-icons/fa";
 import { useWishlist } from "../../context/wishlistContext";
 import { toast } from "react-toastify";

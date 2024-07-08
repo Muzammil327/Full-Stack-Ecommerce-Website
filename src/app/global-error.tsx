@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
 import { Link } from "lucide-react";
 
 export default function GlobalError({

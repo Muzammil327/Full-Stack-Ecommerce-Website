@@ -4,7 +4,7 @@ import Container from "@/src/components/ui/Container";
 import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 import { FaSquareCheck } from "react-icons/fa6";
 import { useOrder } from "@/src/components/context/orderContext";
-import { Button } from "@/src/components/ui/button";
+import { ShadcnUIButton } from "@/src/components/shadcnUI/Shadcnui-Button";
 
 const ActiveOrderView = () => {
   const { order, isFetchingOrder, DeleteHandle } = useOrder();
@@ -104,13 +104,13 @@ const ActiveOrderView = () => {
                           </td>
                           <td className="px-6 py-4">
                             {user.status === "Pending" && (
-                              <Button
+                              <ShadcnUIButton
                                 variant="paddingWidth"
                                 round="md"
                                 onClick={() => DeleteHandle(user._id)}
                               >
                                 Remove
-                              </Button>
+                              </ShadcnUIButton>
                             )}
                           </td>
                         </tr>
