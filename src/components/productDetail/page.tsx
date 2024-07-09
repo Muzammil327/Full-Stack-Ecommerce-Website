@@ -7,14 +7,13 @@ import AddtoCartBtn from "@/src/components/productDetail/components/AddtoCartBtn
 import FavouriteBtn from "@/src/components/productDetail/components/FavouriteBtn";
 import RelatedProduct from "@/src/components/productDetail/components/RelatedProduct";
 
-import Container from "@/src/components/ui/Container";
+import { Container } from "@/src/components/ui/ui";
 import axios from "axios";
 import ShareButton from "@/src/components/productDetail/components/shareButton";
 import ProductDetailTab from "@/src/components/productDetail/components/Tabs";
 import LikeBtn from "@/src/components/productDetail/components/LikeBtn";
 import DisLikeBtn from "@/src/components/productDetail/components/DisLikeBtn";
 import { FcPaid } from "react-icons/fc";
-import { toast } from "react-toastify";
 
 export interface ProductCardData {
   _id: string;

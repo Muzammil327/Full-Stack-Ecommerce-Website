@@ -1,18 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-
-export interface ProductCardProps {
-  _id: string;
-  name: string;
-  slug: string;
-  category: string;
-  image: string;
-  price: number;
-  discountprice: number;
-}
+import { ProductCardType } from "@/src/types/page";
 
 interface IProps {
-  product: ProductCardProps;
+  product: ProductCardType;
 }
 
 export default function ProductCard({ product }: IProps) {
@@ -20,7 +11,7 @@ export default function ProductCard({ product }: IProps) {
     <>
       <div className="card relative">
         <Link href={`/stores/${product.slug}`} className="relative">
-          <div className="w-full h-[280px] relative overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+          <div className="w-full md:h-[300px] h-[290px] relative overflow-hidden rounded-lg group-hover:opacity-75">
             <Image
               src={`${product.image}`}
               alt={product.name}
@@ -31,9 +22,9 @@ export default function ProductCard({ product }: IProps) {
               className="w-full"
             />
           </div>
-          <div className="mt-4 flex flex-col">
+          <div className="md:mt-0 mt-4 flex flex-col">
             <div className="flex items-center justify-between">
-              <p className="mt-1 text-sm t1">{product.category}</p>
+              <span className="mt-1 text-sm t1">{product.category}</span>
               <p className="text-sm font-medium text-gray-900">
                 Rs.{product.price}
               </p>

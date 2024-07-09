@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ProductCard from "@/src/components/elements/ProductCard";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
 import Container from "@/src/components/ui/Container";
-import { Heading1 } from "@/src/components/ui/Typography";
+import { Heading2 } from "@/src/components/ui/ui";
 import axios from "axios";
 
 export default function FeaturedProduct() {
@@ -31,7 +31,7 @@ export default function FeaturedProduct() {
   return (
     <section>
       <Container>
-        <Heading1 title="Trending Products" />
+        <Heading2 title="Trending Products" className="" />
 
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 my-12 mb-10">
           {isFetching ? (

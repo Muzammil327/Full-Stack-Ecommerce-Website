@@ -7,7 +7,7 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from "react-share";
-import { Button } from "@/src/components/ui/Button";
+import Button from "@/src/components/ui/Button";
 import { FaShareNodes } from "react-icons/fa6";
 
 let URL;
@@ -23,8 +23,7 @@ export default function ShareButton({
     <div className="relative">
       <Button
         onClick={() => setIsShareButton(!isShareButton)}
-        variant="icon"
-        round="md"
+        className="button_outline px-4"
       >
         <FaShareNodes />
       </Button>

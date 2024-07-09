@@ -19,6 +19,9 @@ const config = {
     },
     extend: {
       colors: {
+        color1: 'var(--color1)', // Use a custom CSS variable
+        color2: 'var(--color2)',
+        color3: 'var(--color3)',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

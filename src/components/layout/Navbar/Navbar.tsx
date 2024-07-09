@@ -7,7 +7,6 @@ import Container from "@/src/components/ui/Container";
 import Auth from "@/src/components/layout/Navbar/auth";
 import AuthMobile from "./authMobile";
 import { FaHeart } from "react-icons/fa6";
-import LoadingLink from "@/src/components/ui/Loading/LoadingLink";
 import {
   FaBars,
   FaFacebook,
@@ -17,9 +16,9 @@ import {
 } from "react-icons/fa";
 import { useCart } from "../../context/cartContext";
 import { useWishlist } from "../../context/wishlistContext";
-import { ShadcnUIButton } from "@/src/components/shadcnUI/Shadcnui-Button";
 import { SearchIcon } from "./search";
 import { CatgeoryButton } from "../../home/HeroSlider";
+import { Links, Button } from "@/src/components/ui/ui";
 
 export interface Page {
   name: string;
@@ -111,82 +110,75 @@ export default function NavbarView({ userId }: { userId: string }) {
       </Transition.Root>
 
       {/* Desktop menu */}
-      <div className="relative bg-white border-b border-gray-200">
+      <div className="relative border-b">
         <Container>
-          <div className="">
-            <div className="flex items-center py-3">
-              <div>
-                <Logo />
+          <div className="flex items-center py-3">
+            <div>
+              <Logo />
+            </div>
+
+            {/* Flyout menus */}
+            <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
+              <div className="flex h-full space-x-10">
+                {navigation.pages.map((page: Page) => (
+                  <Links
+                    slug={page.href}
+                    className="flex items-center text-sm font-medium"
+                    key={page.name}
+                  >
+                    {page.name}
+                  </Links>
+                ))}
+              </div>
+            </Popover.Group>
+
+            <div className="ml-auto flex items-center">
+              <Auth userId={userId} />
+
+              {/* Cart */}
+              <div className="md:ml-6 relative">
+                <Button className="button_outline">
+                  <Link href="/cart">
+                    <FaShoppingBasket size={17} />
+                    <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
+                      {isFetching ? (
+                        <span className="sr-only">items in cart, view bag</span>
+                      ) : (
+                        <>{cart && cart.length}</>
+                      )}
+                    </span>
+                  </Link>
+                </Button>
               </div>
 
-              {/* Flyout menus */}
-              <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
-                <div className="flex h-full space-x-10">
-                  {navigation.pages.map((page: Page) => (
-                    <LoadingLink
-                      link={page.href}
-                      class_name="flex items-center hover-link text-sm font-medium text-gray-700"
-                      key={page.name}
-                    >
-                      {page.name}
-                    </LoadingLink>
-                  ))}
-                </div>
-              </Popover.Group>
-
-              <div className="ml-auto flex items-center">
-                <Auth userId={userId} />
-
-                {/* Cart */}
-                <div className="flow-root md:ml-6 relative">
-                  <ShadcnUIButton variant="iconSmall" round="md" asChild>
-                    <Link href="/cart">
-                      <FaShoppingBasket />
-                      <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
-                        {isFetching ? (
-                          <span className="sr-only">
-                            items in cart, view bag
-                          </span>
-                        ) : (
-                          <>{cart && cart.length}</>
-                        )}
-                      </span>{" "}
-                    </Link>
-                  </ShadcnUIButton>
-                </div>
-
-                {/* Fvourite */}
-                <div className="ml-4 flow-root relative">
-                  <ShadcnUIButton variant="iconSmall" round="md" asChild>
-                    <Link href="/wishlist">
-                      <FaHeart />
-                      <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
-                        {isFetchingWishList ? (
-                          <span className="sr-only">
-                            items in wishList, view bag
-                          </span>
-                        ) : (
-                          <>{wishList && wishList.length}</>
-                        )}
-                      </span>{" "}
-                    </Link>
-                  </ShadcnUIButton>
-                </div>
-                {/* Search */}
-                <div className="ml-4 flow-root relative">
-                  <SearchIcon />
-                </div>
+              {/* Fvourite */}
+              <div className="ml-4 relative">
+                <Button className="button_outline">
+                  <Link href="/wishlist">
+                    <FaHeart size={17} />
+                    <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
+                      {isFetchingWishList ? (
+                        <span className="sr-only">
+                          items in wishList, view bag
+                        </span>
+                      ) : (
+                        <>{wishList && wishList.length}</>
+                      )}
+                    </span>{" "}
+                  </Link>
+                </Button>
+              </div>
+              {/* Search */}
+              <div className="ml-4 relative">
+                <SearchIcon />
               </div>
             </div>
           </div>
           <div className="lg:hidden flex items-center w-full gap-4">
             <CatgeoryButton />
-            <ShadcnUIButton
-              onClick={() => setOpen(true)}
-              variant="bgIcon"
-            >
+            <Button onClick={() => setOpen(true)} className="button_solid !py-4 !px-4">
               <FaBars />
-            </ShadcnUIButton>
+            </Button>
           </div>
         </Container>
       </div>

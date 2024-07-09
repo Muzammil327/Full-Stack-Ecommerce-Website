@@ -1,27 +1,78 @@
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
-import Container from "@/src/components/ui/Container";
+import { Button, Container, Heading1 } from "@/src/components/ui/ui";
 import { useSearchParams } from "next/navigation";
-import { useProductCard } from "@/src/components/context/productCard";
-import StoreProducts from "@/src/components/store/components/StoreProducts";
-import StorePagination from "@/src/components/store/components/StorePagination";
+import axios from "axios";
+import {
+  PaginationType,
+  ProductCardDataType,
+  ProductCardType,
+} from "@/src/types/page";
+import ProductCard from "@/src/components/elements/ProductCard";
 
 const CategoryPageContent = () => {
   const searchParams = useSearchParams();
   const categorys = searchParams.get("cat");
   const subCategorys = searchParams.get("subCat");
   const Tags = searchParams.get("tags");
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [products, setProducts] = useState<ProductCardType[]>([]);
+  const [pagination, setPagination] = useState<PaginationType>();
+  const [page, setPage] = useState(1);
 
-  const { error, loading, data, setPage } = useProductCard();
+  const fetchProduct = useCallback(async () => {
+    try {
+      setLoading(true);
+      let response: any = [];
+      if (categorys) {
+        response = await axios.get<ProductCardDataType>(
+          `/api/product/catgeory?page=${page}&cat=${categorys}`
+        );
+      }
+      if (Tags) {
+        response = await axios.get<ProductCardDataType>(
+          `/api/product/catgeory?page=${page}&tags=${Tags}`
+        );
+      }
+      if (subCategorys) {
+        response = await axios.get<ProductCardDataType>(
+          `/api/product/catgeory?page=${page}&subCatgeory=${subCategorys}`
+        );
+      }
+      if (page === 1) {
+        setProducts(response.data.products);
+      } else {
+        setProducts((prevData) => [...prevData, ...response.data.products]);
+      }
 
+      setPagination(response.data.pagination as any);
+    } catch (error) {
+      console.log(error);
+      setError("Error Store PRODUCTS");
+    } finally {
+      setLoading(false);
+    }
+  }, [Tags, categorys, page, subCategorys]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+
+  const handleLoadMore = () => {
+    if (pagination && page < pagination.totalPages) {
+      setPage((prevPage: any) => prevPage + 1);
+    }
+  };
   return (
     <main>
       {error && <h1>Error fetching Catgeory data...</h1>}
       <div className="hero bg-slate-200 py-40 flex items-center justify-center">
-        <h1 className="text-4xl font-bold capitalize">
-          {categorys || subCategorys || Tags}
-        </h1>
+        <Heading1
+          className="capitalize"
+          title={categorys || subCategorys || Tags || ""}
+        />
       </div>
       <div className="py-12">
         <Container>
@@ -37,9 +88,20 @@ const CategoryPageContent = () => {
           ) : (
             <>
               <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 md:mx-4 mt-5">
-                <StoreProducts data={data} />
+                {products.map((product: any) => (
+                  <ProductCard product={product} key={product._id} />
+                ))}
               </div>
-              <StorePagination setPage={setPage} data={data} />
+              <div className="flex items-center justify-center mt-8">
+                {pagination && page < pagination.totalPages && (
+                  <Button
+                    onClick={handleLoadMore}
+                    className="button_solid w-full"
+                  >
+                    {loading ? "Loading..." : "Load More"}
+                  </Button>
+                )}
+              </div>{" "}
             </>
           )}
         </Container>

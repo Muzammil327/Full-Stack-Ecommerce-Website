@@ -9,7 +9,7 @@ import { FaXmark } from "react-icons/fa6";
 
 import Container from "@/src/components/ui/Container";
 import { useProductCard } from "../context/productCard";
-import Button from "../ui/Loading/Buttons";
+import { Button } from "../ui/ui";
 import ProductCard from "../elements/ProductCard";
 
 export default function StorePage() {
@@ -217,7 +217,6 @@ export default function StorePage() {
                     </Button>
                   )}
                 </div>
-                {/* <StorePagination setPage={setPage} data={data} /> */}
               </>
             )}
           </div>

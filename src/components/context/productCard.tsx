@@ -60,12 +60,14 @@ export const ProductCardProvider: React.FC<ProductCardProviderProps> = ({
   const [lowPrice, setLowPrice] = useState<number | null>(null);
   const [priceHL, setPriceHL] = useState<string>("");
   const [priceLH, setPriceLH] = useState<string>("");
+  
   interface PaginationData {
     currentPage: number;
     totalPages: number;
     totalResults: number;
     limit: number;
   }
+  
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);

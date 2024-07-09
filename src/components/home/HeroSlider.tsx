@@ -13,6 +13,7 @@ import Container from "../ui/Container";
 import { FaChevronRight } from "react-icons/fa6";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
+import { Button, Links } from "@/src/components/ui/ui";
 
 interface Tag {
   id: string;
@@ -109,123 +110,125 @@ export function CatgeoryButton() {
     useState<SubCategory | null>(null);
 
   return (
-    <div className="w-full relative">
-      <button
-        className="w-full"
-        onClick={() => {
-          setCat(!cat);
-          setSelectedCategory(null);
-          setSelectedSubCategory(null);
-        }}
-      >
-        CATEGORIES
-      </button>
-
-      <Transition show={cat && !selectedCategory} as={Fragment}>
-        <Transition.Child
-          as={Fragment}
-          enter="transition-opacity ease-linear duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity ease-linear duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
+    <>
+      <div className="w-full relative">
+        <Button
+          className="button_solid w-full"
+          onClick={() => {
+            setCat(!cat);
+            setSelectedCategory(null);
+            setSelectedSubCategory(null);
+          }}
         >
-          <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
-            {categories.map((category) => (
-              <li
-                key={category.id}
-                className="flex items-center justify-between"
-              >
+          CATEGORIES
+        </Button>
+
+        <Transition show={cat && !selectedCategory} as={Fragment}>
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
+              {categories.map((category) => (
+                <li
+                  key={category.id}
+                  className="flex items-center justify-between"
+                >
+                  <span
+                    className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    {category.name}
+                  </span>
+                  <span>
+                    <FaChevronRight />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Transition.Child>
+        </Transition>
+
+        <Transition
+          show={!!selectedCategory && !selectedSubCategory}
+          as={Fragment}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
+              <li className="flex items-center justify-between">
                 <span
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                  onClick={() => setSelectedCategory(category)}
+                  className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                  onClick={() => setSelectedCategory(null)}
                 >
-                  {category.name}
-                </span>
-                <span>
-                  <FaChevronRight />
+                  &larr; Back
                 </span>
               </li>
-            ))}
-          </ul>
-        </Transition.Child>
-      </Transition>
+              {selectedCategory?.subCategories.map((subCategory) => (
+                <li
+                  key={subCategory.id}
+                  className="flex items-center justify-between"
+                >
+                  <span
+                    className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                    onClick={() => setSelectedSubCategory(subCategory)}
+                  >
+                    {subCategory.name}
+                  </span>
+                  <span>
+                    <FaChevronRight />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </Transition.Child>
+        </Transition>
 
-      <Transition
-        show={!!selectedCategory && !selectedSubCategory}
-        as={Fragment}
-      >
-        <Transition.Child
-          as={Fragment}
-          enter="transition-opacity ease-linear duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity ease-linear duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
-            <li className="flex items-center justify-between">
-              <span
-                className="-m-2 block p-2 font-medium text-gray-900"
-                onClick={() => setSelectedCategory(null)}
-              >
-                &larr; Back
-              </span>
-            </li>
-            {selectedCategory?.subCategories.map((subCategory) => (
-              <li
-                key={subCategory.id}
-                className="flex items-center justify-between"
-              >
+        <Transition show={selectedSubCategory !== null} as={Fragment}>
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
+              <li className="flex items-center justify-between">
                 <span
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                  onClick={() => setSelectedSubCategory(subCategory)}
+                  className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                  onClick={() => setSelectedSubCategory(null)}
                 >
-                  {subCategory.name}
-                </span>
-                <span>
-                  <FaChevronRight />
+                  &larr; Back
                 </span>
               </li>
-            ))}
-          </ul>
-        </Transition.Child>
-      </Transition>
-
-      <Transition show={selectedSubCategory !== null} as={Fragment}>
-        <Transition.Child
-          as={Fragment}
-          enter="transition-opacity ease-linear duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity ease-linear duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
-            <li className="flex items-center justify-between">
-              <span
-                className="-m-2 block p-2 font-medium text-gray-900"
-                onClick={() => setSelectedSubCategory(null)}
-              >
-                &larr; Back
-              </span>
-            </li>
-            {selectedSubCategory?.tags?.map((tag) => (
-              <li key={tag.id} className="flex items-center justify-between">
-                <Link
-                  href="/"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  {tag.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Transition.Child>
-      </Transition>
-    </div>
+              {selectedSubCategory?.tags?.map((tag) => (
+                <li key={tag.id} className="flex items-center justify-between">
+                  <Links
+                    slug="/"
+                    className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
+                  >
+                    {tag.name}
+                  </Links>
+                </li>
+              ))}
+            </ul>
+          </Transition.Child>
+        </Transition>
+      </div>
+    </>
   );
 }

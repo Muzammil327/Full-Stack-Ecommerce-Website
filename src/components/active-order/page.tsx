@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
-import Container from "@/src/components/ui/Container";
+import { Container, Button } from "@/src/components/ui/ui";
 import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 import { FaSquareCheck } from "react-icons/fa6";
 import { useOrder } from "@/src/components/context/orderContext";
-import { ShadcnUIButton } from "@/src/components/shadcnUI/Shadcnui-Button";
 
 const ActiveOrderView = () => {
   const { order, isFetchingOrder, DeleteHandle } = useOrder();
@@ -104,13 +103,12 @@ const ActiveOrderView = () => {
                           </td>
                           <td className="px-6 py-4">
                             {user.status === "Pending" && (
-                              <ShadcnUIButton
-                                variant="paddingWidth"
-                                round="md"
+                              <Button
+                                className="button_simple"
                                 onClick={() => DeleteHandle(user._id)}
                               >
                                 Remove
-                              </ShadcnUIButton>
+                              </Button>
                             )}
                           </td>
                         </tr>

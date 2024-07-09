@@ -9,7 +9,7 @@ const Label: React.FC<LabelProps> = ({ label, htmlFor }) => {
   return (
     <label
       htmlFor={htmlFor}
-      className="block text-base font-medium text-gray-700 mb-2"
+      className={`font-medium tracking-wide text-gray-700 md:text-lg text-base`}
     >
       {label}
     </label>

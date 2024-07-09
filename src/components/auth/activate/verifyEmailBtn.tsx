@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Button from "@/src/components/ui/Loading/Buttons";
+import { Button } from "@/src/components/ui/ui";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -21,11 +21,8 @@ export default function VerifyEmailBtn({ activationToken }: any) {
   const verifyEmailAndRedirect = async () => {
     if (activationToken && activationToken.value) {
       try {
-        // Call backend API to verify email
         await verifyEmail(activationToken.value);
-        // If email verification succeeds, update activation status and redirect to sign-in page
       } catch (error) {
-        // If email verification fails, log the error and update activation status
         console.error("Error verifying email:", error);
       }
     } else {

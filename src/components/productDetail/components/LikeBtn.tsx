@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { Button } from "../../ui/Button";
+import Button from "../../ui/Button";
 import { FaRegThumbsUp } from "react-icons/fa";
 import axios from "axios";
 import Processing from "../../ui/Loading/Processing";
@@ -43,8 +43,7 @@ export default function LikeBtn({ fetchProduct, datas, userId }: LikeBtnProps) {
   return (
     <Button
       onClick={() => HandleLikeClick(datas._id)}
-      variant="icon"
-      round="md"
+      className="button_outline px-4"
     >
       {loading ? <Processing /> : <FaRegThumbsUp className="mr-2" />}
       {datas.like.length}

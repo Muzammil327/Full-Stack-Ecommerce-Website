@@ -1,4 +1,3 @@
-// types.ts
 export interface Product {
   id: number;
   name: string;
@@ -11,6 +10,30 @@ export interface Order {
   id: number;
   productIds: number[];
   totalAmount: number;
+}
+
+// -----------------------  Product Card -------------------------------------------
+
+export interface ProductCardType {
+  _id: string;
+  name: string;
+  slug: string;
+  image: string;
+  price: number;
+  category: string;
+  subcategory?: string;
+}
+
+export interface PaginationType {
+  currentPage: number;
+  totalPages: number;
+  totalResults: number;
+  limit: number;
+}
+
+export interface ProductCardDataType {
+  products: ProductCardType[];
+  pagination: PaginationType;
 }
 
 // -----------------------  Order -------------------------------------------

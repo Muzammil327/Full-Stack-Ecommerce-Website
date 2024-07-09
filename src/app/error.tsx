@@ -1,6 +1,7 @@
 "use client"; // Error components must be Client Components
 
 import { useEffect } from "react";
+import { Button, Heading1, Links } from "@/src/components/ui/ui";
 import Link from "next/link";
 
 export default function Error({
@@ -13,11 +14,11 @@ export default function Error({
   }, [error]);
 
   return (
-    <section>
-      <h2>Something went wrong!</h2>
-      {/* <Button variant="paddingWidth" round="md" asChild>
+    <section className="flex items-center justify-center py-20 flex-col">
+      <Heading1 title="Something went wrong!" className="" />
+      <Button className="button_solid px-6 mt-5">
         <Link href="/">Try again</Link>
-      </Button> */}
+      </Button>
     </section>
   );
 }

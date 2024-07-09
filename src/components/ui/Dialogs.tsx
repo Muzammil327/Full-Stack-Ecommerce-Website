@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 import { ReactNode, useState } from "react";
-import Button from "./Loading/Buttons";
+import Button from "@/src/components/ui/Button";
 
 export default function Dialogs({
   className,
@@ -50,12 +50,15 @@ export default function Dialogs({
               <Description>{description}</Description>
               <p> {para}</p>
               <div className="flex gap-4">
-                <Button onClick={() => setIsOpen(false)} className="button_bg">
+                <Button
+                  onClick={() => setIsOpen(false)}
+                  className="button_solid px-4"
+                >
                   Cancel
                 </Button>
-                <button onClick={onClick} className="button_bg">
+                <Button onClick={onClick} className="button_simple px-4">
                   Delete
-                </button>
+                </Button>
               </div>
             </DialogPanel>
           </div>
@@ -68,9 +71,9 @@ export default function Dialogs({
               </DialogTitle>
               <div className="flex gap-4 flex-col">
                 {form}
-                <button onClick={onClick} className="button_bg">
+                <Button onClick={onClick} className="button_solid px-4">
                   Submit
-                </button>
+                </Button>
               </div>
             </DialogPanel>
           </div>

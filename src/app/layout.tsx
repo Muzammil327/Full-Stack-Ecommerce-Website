@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
+import { montserrat } from "@/src/app/font";
 // Import toastify styles
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -10,8 +9,6 @@ import Providers from "@/src/components/Providers";
 import Footer from "@/src/components/layout/Footer/page";
 import Header from "../components/layout/header/page";
 import Navbar from "../components/layout/Navbar/page";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -79,7 +76,7 @@ export default function RootLayout({
           content={process.env.NEXT_PUBLIC_CREATOR}
         /> */}
       </head>
-      <body className={inter.className}>
+      <body className={montserrat.className}>
         <Providers>
           <Header />
           <Navbar />

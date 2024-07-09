@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../ui/Button";
 
 export default function StorePagination({ setPage, data }: any) {
   const handleLoadMore = () => {
@@ -23,12 +24,9 @@ export default function StorePagination({ setPage, data }: any) {
         </div>
         <div>
           {data.products.length === 6 && (
-            <button
-              onClick={handleLoadMore}
-              className="bg-red-400 mx-auto my-4 py-1 px-4 text-white flex items-center justify-center"
-            >
+            <Button onClick={handleLoadMore} className="button_solid px-4">
               Load More
-            </button>
+            </Button>
           )}
         </div>
       </div>

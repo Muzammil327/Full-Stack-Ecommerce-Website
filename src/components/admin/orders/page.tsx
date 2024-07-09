@@ -5,7 +5,6 @@ import axios from "axios";
 import Container from "@/src/components/ui/Container";
 import LoadingCart from "@/src/components/ui/Loading/LoadingCart";
 import { OrderItem } from "@/src/types/page";
-import { Button } from "../../ui/Button";
 
 const AdminOrderView = () => {
   const [data, setData] = useState<OrderItem[]>([]);

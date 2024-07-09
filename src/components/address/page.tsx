@@ -181,7 +181,7 @@ export default function AddressView({ setIsFormFilled }: any) {
       <div className="my-10">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <Heading3 title="Add Shipping Detail" />
+            <Heading3 title="Add Shipping Detail" className="" />
           </div>
 
           <form className="mt-5 sm:mt-10" onSubmit={handleSubmit}>

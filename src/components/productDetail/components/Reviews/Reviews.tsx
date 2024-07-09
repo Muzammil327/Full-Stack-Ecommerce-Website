@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import Rate from "rc-rate";
 import "rc-rate/assets/index.css";
 import { FaTimes } from "react-icons/fa";
-import Button from "../../../ui/Loading/Buttons";
+import Button from "../../../ui/Button";
 import Dialogs from "../../../ui/Dialogs";
 import ReviewsSubmit from "./ReviewsSubmit";
 import Image from "next/image";
@@ -177,7 +177,7 @@ export default function ReviewView(data: {
         )}
 
         {pagination && page < pagination.totalPages && (
-          <Button onClick={handleLoadMore} className="w-full button_bg">
+          <Button onClick={handleLoadMore} className="w-full button_solid">
             {loadingData ? "Loading..." : "Load More"}
           </Button>
         )}

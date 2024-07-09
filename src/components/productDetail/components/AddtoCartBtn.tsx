@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6";
-import { Button } from "../../ui/Button";
+import Button from "../../ui/Button";
 import { useCart } from "../../context/cartContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -65,8 +65,7 @@ export default function AddtoCartBtn({
     <Button
       onClick={() => addToCartBtn(product, userId, size)}
       disabled={isLoading}
-      variant="fullWidth"
-      round="md"
+     className="button_solid w-full"
     >
       {isLoading ? <Processing /> : <FaCartShopping className="mr-2" />}
       Add to Cart

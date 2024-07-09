@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Button from "@/src/components/ui/Loading/Buttons";
-import Processing from "@/src/components/ui/Loading/Processing";
+import { Button, Processing } from "@/src/components/ui/ui";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { CartItem } from "@/src/types/page";
@@ -29,9 +28,7 @@ export default function CheckoutButton({
 
     if (cart) {
       cart.forEach((item: CartItem) => {
-        subTotal +=
-          (item.product_Detail.price) *
-          item.qty;
+        subTotal += item.product_Detail.price * item.qty;
         totalTax += item.product_Detail.deliveryCharge * item.qty;
       });
     }
@@ -60,15 +57,15 @@ export default function CheckoutButton({
     } finally {
       setInterval(() => {
         setLoading(false);
-      }, 3000)
+      }, 3000);
     }
   };
 
   return (
-    <>
-      <span className="flex items-center justify-center pb-3 text-xl font-bold">
-        Cart Total
-      </span>
+    <React.Fragment>
+      <div className="flex items-center justify-center pb-3 text-xl font-bold">
+        <span>Cart Total</span>
+      </div>
       <div className="total flex items-center justify-between mt-8">
         <span>Sub Total</span>
         <span>{subtotal}</span>
@@ -84,7 +81,7 @@ export default function CheckoutButton({
       <div className="checkout_btn">
         {cart.length === 0 ? null : (
           <Button
-            className="button_bg w-full"
+            className="button_solid w-full"
             onClick={() =>
               handleSubmit(
                 cart.map((item: CartItem) => ({
@@ -99,6 +96,6 @@ export default function CheckoutButton({
           </Button>
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 }

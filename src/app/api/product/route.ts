@@ -150,7 +150,6 @@ export async function GET(req: NextRequest) {
   const category = searchParams.get("category");
   const subCatgeory = searchParams.get("subCatgeory");
   const tags = searchParams.get("tags");
-
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 9;
 
@@ -165,6 +164,8 @@ export async function GET(req: NextRequest) {
         image: 1,
         price: 1,
         category: 1,
+        subCategory: 1,
+        items: 1,
       },
     };
 
