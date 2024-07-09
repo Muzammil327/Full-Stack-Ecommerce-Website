@@ -2,10 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import Container from "@/src/components/ui/Container";
-import { Heading3 } from "@/src/components/ui/Typography";
-import Label from "@/src/components/ui/Label";
-import Input from "@/src/components/ui/Loading/Input";
+import {Label, Input, Heading3, Container, Button} from "@/src/components/ui/ui";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -330,9 +327,9 @@ export default function AddressView({ setIsFormFilled }: any) {
             </div>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-6">
-              <button className="button_bg">
+              <Button className="button_solid px-6">
                 {loading ? "Loading .." : "Submit Here"}
-              </button>
+              </Button>
             </div>
           </form>
         </Container>

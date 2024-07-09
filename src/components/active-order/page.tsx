@@ -7,7 +7,6 @@ import { useOrder } from "@/src/components/context/orderContext";
 
 const ActiveOrderView = () => {
   const { order, isFetchingOrder, DeleteHandle } = useOrder();
-
   return (
     <>
       <Container>
@@ -104,7 +103,7 @@ const ActiveOrderView = () => {
                           <td className="px-6 py-4">
                             {user.status === "Pending" && (
                               <Button
-                                className="button_simple"
+                                className="button_simple px-3"
                                 onClick={() => DeleteHandle(user._id)}
                               >
                                 Remove
