@@ -1,7 +1,6 @@
 "use client";
 import { categories } from "@/src/components/data";
-import Input from "@/src/components/ui/Loading/Input";
-import Label from "@/src/components/ui/Label";
+import { Input, Label } from "@/src/components/ui/ui";
 import { PRODUCT_POST } from "@/src/utils/constant";
 import axios from "axios";
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";

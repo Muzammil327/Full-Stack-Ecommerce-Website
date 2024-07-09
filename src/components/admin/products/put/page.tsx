@@ -1,6 +1,5 @@
 "use client";
-import Input from "@/src/components/ui/Loading/Input";
-import Label from "@/src/components/ui/Label";
+import { Input, Label } from "@/src/components/ui/ui";
 import {
   PRODUCT_DELETE_IMAGE,
   PRODUCT_DELETE_SLIDER_IMAGE,
