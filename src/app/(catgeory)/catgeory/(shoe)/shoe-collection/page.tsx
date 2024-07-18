@@ -170,7 +170,7 @@ const process = {
   ],
 };
 
-export function CircleSvg() {
+function CircleSvg() {
   return (
     <div className="bg-yellow-400 rounded-full w-6 h-6 flex items-center justify-center mr-2">
       <svg
