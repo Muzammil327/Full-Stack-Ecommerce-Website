@@ -1,121 +1,54 @@
-"use client";
-import React, { Suspense, useCallback, useEffect, useState } from "react";
-import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
-import { Button, Container, Heading1 } from "@/src/components/ui/ui";
-import { useSearchParams } from "next/navigation";
-import axios from "axios";
-import {
-  PaginationType,
-  ProductCardDataType,
-  ProductCardType,
-} from "@/src/types/page";
-import ProductCard from "@/src/components/elements/ProductCard";
+import Container from "@/src/components/ui/Container";
+import { Heading1 } from "@/src/components/ui/Typography";
+import Link from "next/link";
+import React from "react";
 
-const CategoryPageContent = () => {
-  const searchParams = useSearchParams();
-  const categorys = searchParams.get("cat");
-  const subCategorys = searchParams.get("subCat");
-  const Tags = searchParams.get("tags");
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
-  const [products, setProducts] = useState<ProductCardType[]>([]);
-  const [pagination, setPagination] = useState<PaginationType>();
-  const [page, setPage] = useState(1);
-
-  const fetchProduct = useCallback(async () => {
-    try {
-      setLoading(true);
-      let response: any = [];
-      if (categorys) {
-        response = await axios.get<ProductCardDataType>(
-          `/api/product/catgeory?page=${page}&cat=${categorys}`
-        );
-      }
-      if (Tags) {
-        response = await axios.get<ProductCardDataType>(
-          `/api/product/catgeory?page=${page}&tags=${Tags}`
-        );
-      }
-      if (subCategorys) {
-        response = await axios.get<ProductCardDataType>(
-          `/api/product/catgeory?page=${page}&subCatgeory=${subCategorys}`
-        );
-      }
-      if (page === 1) {
-        setProducts(response.data.products);
-      } else {
-        setProducts((prevData) => [...prevData, ...response.data.products]);
-      }
-
-      setPagination(response.data.pagination as any);
-    } catch (error) {
-      console.log(error);
-      setError("Error Store PRODUCTS");
-    } finally {
-      setLoading(false);
-    }
-  }, [Tags, categorys, page, subCategorys]);
-
-  useEffect(() => {
-    fetchProduct();
-  }, [fetchProduct]);
-
-  const handleLoadMore = () => {
-    if (pagination && page < pagination.totalPages) {
-      setPage((prevPage: any) => prevPage + 1);
-    }
-  };
+export default function Page() {
   return (
-    <main>
-      {error && <h1>Error fetching Catgeory data...</h1>}
-      <div className="hero bg-slate-200 py-40 flex items-center justify-center">
-        <Heading1
-          className="capitalize"
-          title={categorys || subCategorys || Tags || ""}
-        />
-      </div>
-      <div className="py-12">
+    <main className="wrapper">
+      <section className="hero bg-slate-200 py-40 flex items-center justify-center content">
+        <Heading1 className="capitalize" title="Catgeory" />
+      </section>
+      <section className="my-20">
         <Container>
-          {loading ? (
-            <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 md:mx-4 mt-5">
-              <LoadingProductCard />
-              <LoadingProductCard />
-              <LoadingProductCard />
-              <LoadingProductCard />
-              <LoadingProductCard />
-              <LoadingProductCard />
-            </div>
-          ) : (
-            <>
-              <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 md:mx-4 mt-5">
-                {products.map((product: any) => (
-                  <ProductCard product={product} key={product._id} />
-                ))}
-              </div>
-              <div className="flex items-center justify-center mt-8">
-                {pagination && page < pagination.totalPages && (
-                  <Button
-                    onClick={handleLoadMore}
-                    className="button_solid w-full"
-                  >
-                    {loading ? "Loading..." : "Load More"}
-                  </Button>
-                )}
-              </div>{" "}
-            </>
-          )}
+          <div className="grid grid-cols-3 gap-4">
+            {data.map((data) => {
+              return (
+                <div
+                  className="flex items-center justify-center bg-gray-100"
+                  key={data.id}
+                >
+                  <div className="relative group">
+                    <img
+                      src={data.image}
+                      alt="Sample Image"
+                      className="w-full h-auto group-hover:blur-lg transition duration-300 ease-in-out"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition duration-300 ease-in-out">
+                      <Link
+                        href={data.slug}
+                        className="text-xl text-white font-semibold flex items-center justify-center absolute left-5 bottom-5"
+                      >
+                        {data.name}
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </Container>
-      </div>
+      </section>
     </main>
   );
-};
+}
 
-const CategoryPage = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <CategoryPageContent />
-    </Suspense>
-  );
-};
-
-export default CategoryPage;
+const data = [
+  {
+    id: 0,
+    name: "Shoes Acessories",
+    image:
+      "https://cdn.thewirecutter.com/wp-content/media/2024/05/runningshoesforyou-2048px-2251.jpg?auto=webp&quality=75&width=1024",
+    slug: "/catgeory/shoe-collection/",
+  },
+];

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/src/style/globals.scss";
 import { montserrat } from "@/src/app/font";
 // Import toastify styles
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 import Providers from "@/src/components/Providers";
 import Footer from "@/src/components/layout/Footer/page";
@@ -84,6 +85,7 @@ export default function RootLayout({
           <Footer />
           <ToastContainer />
         </Providers>
+        <GoogleTagManager gtmId="GTM-NFBWLHRN" />
       </body>
     </html>
   );

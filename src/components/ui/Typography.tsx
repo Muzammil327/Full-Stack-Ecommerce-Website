@@ -6,7 +6,7 @@ export function Heading1({
   title,
   className,
 }: {
-  title: string;
+  title: any;
   className: string;
 }) {
   return (

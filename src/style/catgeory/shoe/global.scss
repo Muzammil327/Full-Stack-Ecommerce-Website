@@ -1,0 +1,145 @@
+.wrapper {
+
+    .hero {
+        @apply relative;
+
+        .inner {
+            @apply grid lg:grid-cols-9 grid-cols-1 relative gap-5;
+
+            .c1 {
+                @apply lg:col-span-5 bg-indigo-600 flex flex-col lg:py-36 md:py-28 py-20 lg:px-20 md:px-12 sm:px-8 px-4 relative;
+
+                span {
+                    @apply text-color3 border-solid border-indigo-500 border-2 rounded-md w-60 py-1 px-2 block relative;
+                }
+
+                h1 {
+                    @apply lg:text-5xl md:text-4xl text-3xl py-4 font-semibold text-white;
+                    line-height: 1.2;
+                }
+
+                p {
+                    @apply text-color3 py-2;
+                }
+
+                .button {
+                    @apply flex items-center justify-between my-5;
+
+                    button {
+                        @apply bg-white hover:bg-color2 hover:text-white duration-300 ease-in-out py-3 px-6 text-sm border-2 border-solid border-color2;
+                    }
+                }
+
+            }
+
+            .c2 {
+                @apply lg:col-span-4 flex px-8 lg:mt-12 mt-5;
+            }
+        }
+    }
+
+    .about {
+        @apply my-40 relative;
+
+        .inner {
+            @apply grid md:grid-cols-2 gap-10;
+
+            .c2 {
+                span {
+                    @apply text-sm text-color2;
+                }
+
+                h3 {
+                    @apply text-4xl py-5 font-bold text-black;
+                }
+
+                p {
+                    line-height: 1.5
+                }
+
+                .c2layout {
+                    @apply flex items-center justify-between gap-4 py-4;
+
+                    p {
+                        line-height: 1.5;
+
+                        ul {
+                            list-style-type: none;
+                            @apply mt-3;
+
+                            li {
+                                @apply flex items-center mb-3;
+                            }
+                        }
+
+
+                    }
+
+                    img {
+                        @apply h-60 w-full;
+                    }
+                }
+            }
+        }
+    }
+
+    .process {
+        @apply relative mt-10 mb-20;
+
+        .head {
+            span {
+                @apply text-sm text-color2;
+            }
+
+            h3 {
+                @apply text-4xl py-2 font-bold text-black md:w-1/2 w-full;
+            }
+        }
+
+        .inner {
+            @apply relative grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4 my-10;
+
+            .card {
+                @apply border px-8 py-10 text-center relative mb-8;
+
+                span {
+                    @apply text-color2 text-4xl font-bold;
+                }
+
+                h5 {
+                    @apply py-3 text-lg font-semibold;
+                }
+
+                p {
+                    @apply text-sm text-gray-400;
+                }
+
+                .icon {
+                    @apply absolute -top-5 shadow-lg rounded-md left-5 bg-black text-white p-4;
+                }
+
+                &:first-child {
+                    @apply bg-color2;
+
+                    span {
+                        @apply text-color3;
+                    }
+
+                    h5 {
+                        @apply text-yellow-300;
+                    }
+
+                    p {
+                        @apply text-gray-100;
+                    }
+
+                    .icon {
+                        @apply absolute -top-5 shadow-lg rounded-md left-5 bg-yellow-400 p-4;
+                    }
+                }
+            }
+        }
+    }
+
+
+}
