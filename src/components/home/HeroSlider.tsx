@@ -4,16 +4,18 @@ import Image from "next/image";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
-
 import { categories } from "@/src/components/data";
 
 // Import Swiper styles
 import "swiper/css";
-import Container from "../ui/Container";
 import { FaChevronRight } from "react-icons/fa6";
 import { Transition } from "@headlessui/react";
-import Link from "next/link";
-import { Button, ImageContainer, Links } from "@/src/components/ui/ui";
+import {
+  Button,
+  ImageContainer,
+  Container,
+  Links,
+} from "@/src/components/ui/ui";
 
 interface Tag {
   id: string;
