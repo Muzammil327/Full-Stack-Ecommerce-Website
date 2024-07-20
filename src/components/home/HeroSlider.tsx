@@ -13,7 +13,7 @@ import Container from "../ui/Container";
 import { FaChevronRight } from "react-icons/fa6";
 import { Transition } from "@headlessui/react";
 import Link from "next/link";
-import { Button, Links } from "@/src/components/ui/ui";
+import { Button, ImageContainer, Links } from "@/src/components/ui/ui";
 
 interface Tag {
   id: string;
@@ -55,13 +55,13 @@ export default function HeroSlider() {
             className="mySwiper md:mt-0 mt-3 lg:col-span-5 w-full"
           >
             <SwiperSlide>
-              <Image
+              <ImageContainer
                 src="/slider/headphones.png"
                 sizes="(max-width: 1600px) 90vw, 600px"
                 alt=""
-                title=""
                 height={720}
                 width={1600}
+                priority
               />
             </SwiperSlide>
             <SwiperSlide>
