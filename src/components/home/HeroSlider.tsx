@@ -47,7 +47,7 @@ export default function HeroSlider() {
             loop={true}
             centeredSlides={true}
             autoplay={{
-              delay: 4000,
+              delay: 6000,
               disableOnInteraction: false,
             }}
             pagination={{
@@ -75,6 +75,7 @@ export default function HeroSlider() {
                 title=""
                 height={720}
                 width={1600}
+                loading="lazy"
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -85,6 +86,7 @@ export default function HeroSlider() {
                 title=""
                 height={720}
                 width={1600}
+                loading="lazy"
               />
             </SwiperSlide>
             <SwiperSlide>
