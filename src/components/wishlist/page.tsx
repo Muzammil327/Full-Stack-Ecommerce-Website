@@ -82,6 +82,7 @@ const WishlistView = () => {
                         <Button
                           className="button_simple px-3"
                           onClick={() => DeleteHandle(user._id)}
+                          title="remove from wishlist"
                         >
                           Remove
                         </Button>

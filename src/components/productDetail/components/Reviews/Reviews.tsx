@@ -177,7 +177,7 @@ export default function ReviewView(data: {
         )}
 
         {pagination && page < pagination.totalPages && (
-          <Button onClick={handleLoadMore} className="w-full button_solid">
+          <Button onClick={handleLoadMore} className="w-full button_solid" title="review load more">
             {loadingData ? "Loading..." : "Load More"}
           </Button>
         )}

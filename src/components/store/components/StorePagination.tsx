@@ -24,7 +24,11 @@ export default function StorePagination({ setPage, data }: any) {
         </div>
         <div>
           {data.products.length === 6 && (
-            <Button onClick={handleLoadMore} className="button_solid px-4">
+            <Button
+              onClick={handleLoadMore}
+              className="button_solid px-4"
+              title="load more products"
+            >
               Load More
             </Button>
           )}

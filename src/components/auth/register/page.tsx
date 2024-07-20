@@ -91,7 +91,7 @@ export default function RegisterAccountView() {
           placeholder="Enter your Password"
         />
       </div>
-      <Button className="button_solid w-full" disabled={loading}>
+      <Button className="button_solid w-full" disabled={loading} title="create account">
         {loading ? <Processing /> : "Create Account"}
       </Button>
 

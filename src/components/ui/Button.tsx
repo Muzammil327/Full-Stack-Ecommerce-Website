@@ -6,9 +6,11 @@ export default function Button({
   className,
   disabled,
   onClick,
+  title,
 }: {
   children: ReactNode;
   className?: string;
+  title?: string;
   disabled?: boolean;
   onClick?: () => void;
 }) {
@@ -17,6 +19,7 @@ export default function Button({
       className={`${className} button_default px-3 ${montserrat.className}`}
       onClick={onClick}
       disabled={disabled}
+      aria-label={title}
     >
       {children}
     </button>

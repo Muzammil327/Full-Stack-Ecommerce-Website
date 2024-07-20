@@ -44,6 +44,7 @@ export default function LikeBtn({ fetchProduct, datas, userId }: LikeBtnProps) {
     <Button
       onClick={() => HandleLikeClick(datas._id)}
       className="button_outline px-4"
+      title="like button for vote product"
     >
       {loading ? <Processing /> : <FaRegThumbsUp className="mr-2" />}
       {datas.like.length}

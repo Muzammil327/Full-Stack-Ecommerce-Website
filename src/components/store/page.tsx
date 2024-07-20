@@ -212,6 +212,7 @@ export default function StorePage() {
                     <Button
                       onClick={handleLoadMore}
                       className="button_bg !px-12"
+                      title="load more button"
                     >
                       {loading ? "Loading..." : "Load More"}
                     </Button>

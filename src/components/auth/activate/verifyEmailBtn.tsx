@@ -32,7 +32,7 @@ export default function VerifyEmailBtn({ activationToken }: any) {
 
   return (
     <div>
-      <Button className="button_bg" onClick={verifyEmailAndRedirect}>
+      <Button className="button_bg" onClick={verifyEmailAndRedirect} title="send email verfication link">
         Send Email Verification Link
       </Button>
       <p>Check also spam folder.</p>

@@ -66,6 +66,7 @@ export default function AddtoCartBtn({
       onClick={() => addToCartBtn(product, userId, size)}
       disabled={isLoading}
      className="button_solid w-full"
+     title="add product to cart"
     >
       {isLoading ? <Processing /> : <FaCartShopping className="mr-2" />}
       Add to Cart

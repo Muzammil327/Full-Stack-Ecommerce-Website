@@ -79,7 +79,7 @@ export default function SignView() {
           placeholder="Enter your Password"
         />
       </div>
-      <Button className="button_solid w-full" disabled={loading}>
+      <Button className="button_solid w-full" disabled={loading} title="sign in">
         {loading ? <Processing /> : "Sign In"}
       </Button>
       <Paragraph

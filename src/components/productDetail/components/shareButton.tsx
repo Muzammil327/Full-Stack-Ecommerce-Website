@@ -24,6 +24,7 @@ export default function ShareButton({
       <Button
         onClick={() => setIsShareButton(!isShareButton)}
         className="button_outline px-4"
+        title="share on social media"
       >
         <FaShareNodes />
       </Button>

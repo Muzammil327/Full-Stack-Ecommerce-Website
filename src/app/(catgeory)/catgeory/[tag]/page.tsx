@@ -81,6 +81,7 @@ const CategoryPageContent = () => {
                   <Button
                     onClick={handleLoadMore}
                     className="button_solid w-full"
+                    title="Load more"
                   >
                     {loading ? "Loading..." : "Load More"}
                   </Button>

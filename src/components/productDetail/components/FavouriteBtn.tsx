@@ -44,6 +44,7 @@ export default function FavouriteBtn({
       disabled={isLoadingWishList}
       onClick={() => addToFavouriteBtn(product)}
       className="button_outline px-4"
+      title="add to favourite button"
     >
       {isLoadingWishList ? <Processing /> : <FaHeart />}
     </Button>

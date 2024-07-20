@@ -16,7 +16,7 @@ export default function Error({
   return (
     <section className="flex items-center justify-center py-20 flex-col">
       <Heading1 title="Something went wrong!" className="" />
-      <Button className="button_solid px-6 mt-5">
+      <Button className="button_solid px-6 mt-5" title="Try again">
         <Link href="/">Try again</Link>
       </Button>
     </section>
