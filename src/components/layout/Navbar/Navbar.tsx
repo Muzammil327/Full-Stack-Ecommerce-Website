@@ -113,7 +113,7 @@ export default function NavbarView({ userId }: { userId: string }) {
       <div className="relative">
         <Container>
           <div className="flex items-center py-3">
-            <div className="relative xl:w-[250px]  md:w-[200px]  sm:w-[150px] w-[100px] h-auto">
+            <div className="relative xl:w-[250px] lg:w-[200px] sm:w-[170px] w-[130px] h-auto">
               <ImageContainer
                 src="/smi-logo.png"
                 alt="SMI shop"
