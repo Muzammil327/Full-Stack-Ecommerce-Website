@@ -1,6 +1,5 @@
 import React from "react";
-import Image from "next/image";
-import Container from "@/src/components/ui/Container";
+import { Container, ImageContainer } from "@/src/components/ui/ui";
 import Link from "next/link";
 import styles from "@/src/components/layout/Footer/footer.module.css";
 
@@ -11,10 +10,9 @@ export default function Footer() {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 py-12">
           <div className="first">
             <div className="relative w-full max-w-[200px] h-auto md:mb-2 mb-4">
-              <Image
+              <ImageContainer
                 src="/smi-logo.png"
                 alt="SMI shop"
-                title="SMI shop"
                 layout="responsive"
                 width={250}
                 height={91}

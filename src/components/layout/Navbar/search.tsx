@@ -4,7 +4,7 @@ import { FaSearch } from "react-icons/fa";
 
 export function SearchIcon() {
   return (
-    <Button className="button_outline">
+    <Button className="button_outline md:!p-3 !p-2">
       <FaSearch />
     </Button>
   );

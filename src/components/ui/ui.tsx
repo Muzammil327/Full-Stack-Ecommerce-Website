@@ -5,6 +5,7 @@ import Input from "@/src/components/ui/Input";
 import Dialogs from "@/src/components/ui/Dialogs";
 import Table from "@/src/components/ui/Table";
 import Processing from "@/src/components/ui/Loading/Processing";
+import ImageContainer from "@/src/components/ui/Image";
 import {
   Heading1,
   Heading2,
@@ -34,4 +35,5 @@ export {
   Heading5,
   Heading6,
   Paragraph,
+  ImageContainer,
 };

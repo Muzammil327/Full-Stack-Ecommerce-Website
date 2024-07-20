@@ -18,7 +18,7 @@ import { useCart } from "../../context/cartContext";
 import { useWishlist } from "../../context/wishlistContext";
 import { SearchIcon } from "./search";
 import { CatgeoryButton } from "../../home/HeroSlider";
-import { Links, Button } from "@/src/components/ui/ui";
+import { Links, Button, ImageContainer } from "@/src/components/ui/ui";
 
 export interface Page {
   name: string;
@@ -113,8 +113,16 @@ export default function NavbarView({ userId }: { userId: string }) {
       <div className="relative border-b">
         <Container>
           <div className="flex items-center py-3">
-            <div>
-              <Logo />
+            <div className="relative w-full max-w-[200px] h-auto md:mb-2 mb-4">
+              <ImageContainer
+                src="/smi-logo.png"
+                alt="SMI shop"
+                height={91}
+                width={400}
+                className="w-full h-auto"
+                sizes="(max-width: 200px) 100vw, 400px"
+                priority
+              />
             </div>
 
             {/* Flyout menus */}
@@ -137,7 +145,7 @@ export default function NavbarView({ userId }: { userId: string }) {
 
               {/* Cart */}
               <div className="md:ml-6 relative">
-                <Button className="button_outline">
+                <Button className="button_outline md:!p-3 !p-2">
                   <Link href="/cart">
                     <FaShoppingBasket size={17} />
                     <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
@@ -153,7 +161,7 @@ export default function NavbarView({ userId }: { userId: string }) {
 
               {/* Fvourite */}
               <div className="ml-4 relative">
-                <Button className="button_outline">
+                <Button className="button_outline md:!p-3 !p-2">
                   <Link href="/wishlist">
                     <FaHeart size={17} />
                     <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
@@ -176,7 +184,10 @@ export default function NavbarView({ userId }: { userId: string }) {
           </div>
           <div className="lg:hidden flex items-center w-full gap-4">
             <CatgeoryButton />
-            <Button onClick={() => setOpen(true)} className="button_solid !py-4 !px-4">
+            <Button
+              onClick={() => setOpen(true)}
+              className="button_solid !py-4 !px-4"
+            >
               <FaBars />
             </Button>
           </div>
