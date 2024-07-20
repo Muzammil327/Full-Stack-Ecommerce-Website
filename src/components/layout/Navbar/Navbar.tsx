@@ -22,7 +22,7 @@ export default function NavbarView({ userId }: { userId: string }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="bg-white border-b mb-2">
+    <nav className="bg-white border-b mb-2">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog className="relative z-50 lg:hidden" onClose={setOpen}>
@@ -150,7 +150,7 @@ export default function NavbarView({ userId }: { userId: string }) {
           </div>
         </Container>
       </div>
-    </section>
+    </nav>
   );
 }
 

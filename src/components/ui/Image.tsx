@@ -5,6 +5,7 @@ interface ImageProps {
   src: string;
   alt: string;
   layout?: "responsive" | "fill" | undefined;
+  loading?: "lazy" | "eager" | undefined;
   className?: string;
   sizes?: string;
   width: number;
@@ -21,6 +22,7 @@ export default function ImageContainer({
   height,
   priority,
   sizes,
+  loading,
 }: ImageProps) {
   return (
     <div title={alt}>
@@ -33,6 +35,9 @@ export default function ImageContainer({
         className={className}
         priority={priority}
         sizes={sizes}
+        placeholder="blur"
+        blurDataURL="/blur.jpg"
+        loading={loading}
       />
     </div>
   );

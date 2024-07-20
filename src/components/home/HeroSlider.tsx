@@ -12,8 +12,8 @@ import { FaChevronRight } from "react-icons/fa6";
 import { Transition } from "@headlessui/react";
 import {
   Button,
-  ImageContainer,
   Container,
+  ImageContainer,
   Links,
 } from "@/src/components/ui/ui";
 
@@ -36,78 +36,66 @@ interface Category {
 
 export default function HeroSlider() {
   return (
-    <section className="border-b border-gray-200 my-2">
-      <Container>
-        <div className="grid lg:grid-cols-7 items-start gap-4">
-          <div className="lg:flex items-center w-full gap-4 hidden lg:col-span-2">
-            <CatgeoryButton />
-          </div>
-          <Swiper
-            spaceBetween={30}
-            loop={true}
-            centeredSlides={true}
-            autoplay={{
-              delay: 6000,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Autoplay]}
-            className="mySwiper md:mt-0 mt-3 lg:col-span-5 w-full"
-          >
-            <SwiperSlide>
-              <Image
-                src="/slider/headphones.png"
-                alt="Headphones"
-                priority
-                width={1600}
-                height={720}
-                sizes="(max-width: 1600px) 90vw, 600px"
-                placeholder="blur"
-                blurDataURL="/blur.jpg"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src="/slider/airpods.png"
-                alt=""
-                width={1600}
-                height={720}
-                sizes="(max-width: 1600px) 90vw, 600px"
-                placeholder="blur"
-                blurDataURL="/blur.jpg"
-                loading="lazy"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src="/slider/shoes.png"
-                alt=""
-                width={1600}
-                height={720}
-                sizes="(max-width: 1600px) 90vw, 600px"
-                placeholder="blur"
-                blurDataURL="/blur.jpg"
-                loading="lazy"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                src="/slider/watches.png"
-                alt=""
-                width={1600}
-                height={720}
-                sizes="(max-width: 1600px) 90vw, 600px"
-                placeholder="blur"
-                blurDataURL="/blur.jpg"
-                loading="lazy"
-              />
-            </SwiperSlide>
-          </Swiper>
+    <Container>
+      <div className="grid lg:grid-cols-7 items-start gap-4 border-b border-gray-200 my-2">
+        <div className="lg:flex items-center w-full gap-4 hidden lg:col-span-2">
+          <CatgeoryButtonDesktop />
         </div>
-      </Container>
-    </section>
+        <Swiper
+          spaceBetween={30}
+          loop={true}
+          centeredSlides={true}
+          autoplay={{
+            delay: 6000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay]}
+          className="mySwiper md:mt-0 mt-3 lg:col-span-5 w-full"
+        >
+          <SwiperSlide className="w-full h-auto">
+            <ImageContainer
+              src="/slider/headphones.png"
+              alt="Headphones"
+              priority
+              layout="responsive"
+              width={1600}
+              height={720}
+            />
+          </SwiperSlide>
+          <SwiperSlide className="w-full h-auto">
+            <ImageContainer
+              src="/slider/airpods.png"
+              alt=""
+              width={1600}
+              height={720}
+              layout="responsive"
+              loading="lazy"
+            />
+          </SwiperSlide>
+          <SwiperSlide className="w-full h-auto">
+            <ImageContainer
+              src="/slider/shoes.png"
+              alt=""
+              layout="responsive"
+              width={1600}
+              height={720}
+            />
+          </SwiperSlide>
+          <SwiperSlide className="w-full h-auto">
+            <Image
+              src="/slider/watches.png"
+              alt=""
+              width={1600}
+              height={720}
+              layout="responsive"
+            />
+          </SwiperSlide>
+        </Swiper>
+      </div>
+    </Container>
   );
 }
 
@@ -120,125 +108,166 @@ export function CatgeoryButton() {
     useState<SubCategory | null>(null);
 
   return (
-    <>
-      <div className="w-full relative">
-        <Button
-          className="button_solid w-full !py-2 capitalize"
-          onClick={() => {
-            setCat(!cat);
-            setSelectedCategory(null);
-            setSelectedSubCategory(null);
-          }}
-        >
-          Categories
-        </Button>
+    <CatgeoryLayout
+      cat={cat}
+      setCat={setCat}
+      selectedCategory={selectedCategory}
+      setSelectedCategory={setSelectedCategory}
+      selectedSubCategory={selectedSubCategory}
+      setSelectedSubCategory={setSelectedSubCategory}
+    />
+  );
+}
 
-        <Transition show={cat && !selectedCategory} as={Fragment}>
-          <Transition.Child
-            as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
-              {categories.map((category) => (
-                <li
-                  key={category.id}
-                  className="flex items-center justify-between"
-                >
-                  <span
-                    className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                    onClick={() => setSelectedCategory(category)}
-                  >
-                    {category.name}
-                  </span>
-                  <span>
-                    <FaChevronRight />
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Transition.Child>
-        </Transition>
+function CatgeoryButtonDesktop() {
+  const [cat, setCat] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
+  const [selectedSubCategory, setSelectedSubCategory] =
+    useState<SubCategory | null>(null);
 
-        <Transition
-          show={!!selectedCategory && !selectedSubCategory}
+  return (
+    <CatgeoryLayout
+      cat={cat}
+      setCat={setCat}
+      selectedCategory={selectedCategory}
+      setSelectedCategory={setSelectedCategory}
+      selectedSubCategory={selectedSubCategory}
+      setSelectedSubCategory={setSelectedSubCategory}
+    />
+  );
+}
+
+function CatgeoryLayout({
+  cat,
+  setCat,
+  selectedCategory,
+  setSelectedCategory,
+  selectedSubCategory,
+  setSelectedSubCategory,
+}: any) {
+  return (
+    <div className="w-full relative">
+      <Button
+        className="button_solid w-full !py-2 capitalize"
+        onClick={() => {
+          setCat(!cat);
+          setSelectedCategory(null);
+          setSelectedSubCategory(null);
+        }}
+      >
+        Categories
+      </Button>
+
+      <Transition show={cat && !selectedCategory} as={Fragment}>
+        <Transition.Child
           as={Fragment}
+          enter="transition-opacity ease-linear duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity ease-linear duration-300"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
-          <Transition.Child
-            as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
-              <li className="flex items-center justify-between">
+          <ul className="absolute left-0 right-0 top-12 z-50 bg-slate-100 flex flex-col">
+            {categories.map((category) => (
+              <li
+                key={category.id}
+                className="flex items-center justify-between border-b-2 py-4 px-5"
+              >
                 <span
-                  className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                  onClick={() => setSelectedCategory(null)}
+                  className="block font-medium text-gray-900 cursor-pointer"
+                  onClick={() => setSelectedCategory(category)}
                 >
-                  &larr; Back
+                  {category.name}
+                </span>
+                <span>
+                  <FaChevronRight />
                 </span>
               </li>
-              {selectedCategory?.subCategories.map((subCategory) => (
-                <li
-                  key={subCategory.id}
-                  className="flex items-center justify-between"
-                >
-                  <span
-                    className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                    onClick={() => setSelectedSubCategory(subCategory)}
-                  >
-                    {subCategory.name}
-                  </span>
-                  <span>
-                    <FaChevronRight />
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </Transition.Child>
-        </Transition>
+            ))}
+          </ul>
+        </Transition.Child>
+      </Transition>
 
-        <Transition show={selectedSubCategory !== null} as={Fragment}>
-          <Transition.Child
-            as={Fragment}
-            enter="transition-opacity ease-linear duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="transition-opacity ease-linear duration-300"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col space-y-6 p-8">
-              <li className="flex items-center justify-between">
+      <Transition
+        show={!!selectedCategory && !selectedSubCategory}
+        as={Fragment}
+      >
+        <Transition.Child
+          as={Fragment}
+          enter="transition-opacity ease-linear duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity ease-linear duration-300"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col">
+            <li className="flex items-center justify-between border-b-2 py-5 px-5">
+              <span
+                className="-m-2 block font-medium text-gray-900 cursor-pointer"
+                onClick={() => setSelectedCategory(null)}
+              >
+                &larr; Back
+              </span>
+            </li>
+            {selectedCategory?.subCategories.map((subCategory: any) => (
+              <li
+                key={subCategory.id}
+                className="flex items-center justify-between border-b-2 py-5 px-5"
+              >
                 <span
-                  className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                  onClick={() => setSelectedSubCategory(null)}
+                  className="-m-2 block font-medium text-gray-900 cursor-pointer"
+                  onClick={() => setSelectedSubCategory(subCategory)}
                 >
-                  &larr; Back
+                  {subCategory.name}
+                </span>
+                <span>
+                  <FaChevronRight />
                 </span>
               </li>
-              {selectedSubCategory?.tags?.map((tag) => (
-                <li key={tag.id} className="flex items-center justify-between">
-                  <Links
-                    slug="/"
-                    className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer"
-                  >
-                    {tag.name}
-                  </Links>
-                </li>
-              ))}
-            </ul>
-          </Transition.Child>
-        </Transition>
-      </div>
-    </>
+            ))}
+          </ul>
+        </Transition.Child>
+      </Transition>
+
+      <Transition show={selectedSubCategory !== null} as={Fragment}>
+        <Transition.Child
+          as={Fragment}
+          enter="transition-opacity ease-linear duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity ease-linear duration-300"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col">
+            <li className="flex items-center justify-between border-b-2 py-5 px-5">
+              <span
+                className="-m-2 block font-medium text-gray-900 cursor-pointer"
+                onClick={() => setSelectedSubCategory(null)}
+              >
+                &larr; Back
+              </span>
+            </li>
+            {selectedSubCategory?.tags?.map((tag: any) => (
+              <li
+                key={tag.id}
+                className="flex items-center justify-between border-b-2 py-5 px-5"
+              >
+                <Links
+                  slug="/"
+                  className="-m-2 block font-medium text-gray-900 cursor-pointer"
+                >
+                  {tag.name}
+                </Links>
+              </li>
+            ))}
+          </ul>
+        </Transition.Child>
+      </Transition>
+    </div>
   );
 }
