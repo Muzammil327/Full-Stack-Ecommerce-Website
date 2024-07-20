@@ -17,6 +17,7 @@ export function Heading1({
     </h1>
   );
 }
+
 export function Heading2({
   title,
   className,
@@ -26,12 +27,13 @@ export function Heading2({
 }) {
   return (
     <h2
-      className={`mt-10 scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 ${roboto.className} ${className}`}
+      className={`mt-10 scroll-m-20 border-b pb-2 md:text-3xl sm:text-2xl text-xl font-semibold tracking-tight transition-colors first:mt-0 ${roboto.className} ${className}`}
     >
       {title}
     </h2>
   );
 }
+
 export function Heading3({
   title,
   className,

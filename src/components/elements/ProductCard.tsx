@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ProductCardType } from "@/src/types/page";
 import ImageContainer from "../ui/Image";
 
@@ -25,13 +24,12 @@ export default function ProductCard({ product }: IProps) {
 
           <div className="md:mt-0 mt-4 flex flex-col">
             <div className="flex items-center justify-between">
-              <span className="mt-1 text-sm t1">{product.category}</span>
-              <p className="text-sm font-medium text-gray-900">
+              <span className="mt-1 text-sm text-color1 font-sans">{product.category}</span>
+              <p className="text-sm font- text-gray-900 font-sans">
                 Rs.{product.price}
               </p>
             </div>
-            <h3 className="md:text-lg text-base text-gray-700 product_description">
-              <span aria-hidden="true" className="absolute inset-0"></span>
+            <h3 className="md:text-lg text-base text-gray-700 product_description font-sans">
               {product.name}
             </h3>
           </div>
