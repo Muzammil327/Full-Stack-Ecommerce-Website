@@ -10,7 +10,7 @@ export default function FavouriteIcon() {
   return (
     <div className="ml-4 relative">
       <Button className="button_outline md:!p-3 !p-2">
-        <Link href="/wishlist">
+        <Link href="/wishlist" aria-label="add to favourite">
           <FaHeart size={17} />
           <span className="ml-2 absolute -top-2 -right-2 rounded-full md:h-5 h-4 bg1 md:w-5 w-4 flex items-center justify-center text-sm font-medium text-white">
             {isFetchingWishList ? (

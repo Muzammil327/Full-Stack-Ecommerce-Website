@@ -74,7 +74,7 @@ export default function Footer() {
       <div className="py-4 border-t-[1px] border-solid border-gray-300 ">
         <Container>
           <div className="">
-            <p className="text-gray-500 lg:text-left text-center text-sm">
+            <p className="text-gray-700 lg:text-left text-center text-sm">
               Copyright ©2024 All rights reserved.
             </p>
           </div>
