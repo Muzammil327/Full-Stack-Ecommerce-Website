@@ -113,14 +113,14 @@ export function CatgeoryButton() {
     <>
       <div className="w-full relative">
         <Button
-          className="button_solid w-full"
+          className="button_solid w-full !py-2 capitalize"
           onClick={() => {
             setCat(!cat);
             setSelectedCategory(null);
             setSelectedSubCategory(null);
           }}
         >
-          CATEGORIES
+          Categories
         </Button>
 
         <Transition show={cat && !selectedCategory} as={Fragment}>
