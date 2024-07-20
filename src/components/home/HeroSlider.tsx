@@ -60,9 +60,10 @@ export default function HeroSlider() {
               <Image
                 src="/slider/headphones.png"
                 alt="Headphones"
+                priority
                 width={1600}
                 height={720}
-                priority
+                sizes="(max-width: 1600px) 90vw, 600px"
                 placeholder="blur"
                 blurDataURL="/blur.jpg"
               />
@@ -70,33 +71,37 @@ export default function HeroSlider() {
             <SwiperSlide>
               <Image
                 src="/slider/airpods.png"
-                sizes="(max-width: 1600px) 90vw, 600px"
                 alt=""
-                title=""
-                height={720}
                 width={1600}
+                height={720}
+                sizes="(max-width: 1600px) 90vw, 600px"
+                placeholder="blur"
+                blurDataURL="/blur.jpg"
                 loading="lazy"
               />
             </SwiperSlide>
             <SwiperSlide>
               <Image
                 src="/slider/shoes.png"
-                sizes="(max-width: 1600px) 90vw, 600px"
                 alt=""
-                title=""
-                height={720}
                 width={1600}
+                height={720}
+                sizes="(max-width: 1600px) 90vw, 600px"
+                placeholder="blur"
+                blurDataURL="/blur.jpg"
                 loading="lazy"
               />
             </SwiperSlide>
             <SwiperSlide>
               <Image
                 src="/slider/watches.png"
-                sizes="(max-width: 1600px) 90vw, 600px"
                 alt=""
-                title=""
-                height={720}
                 width={1600}
+                height={720}
+                sizes="(max-width: 1600px) 90vw, 600px"
+                placeholder="blur"
+                blurDataURL="/blur.jpg"
+                loading="lazy"
               />
             </SwiperSlide>
           </Swiper>
