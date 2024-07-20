@@ -259,6 +259,7 @@ function CatgeoryLayout({
               >
                 <Links
                   slug="/"
+                  title="product cageory name or list"
                   className="-m-2 block font-medium text-gray-900 cursor-pointer"
                 >
                   {tag.name}

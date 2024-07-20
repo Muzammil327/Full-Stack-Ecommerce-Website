@@ -12,10 +12,12 @@ import { CatgeoryButton } from "../../home/HeroSlider";
 import { Links, Button, ImageContainer } from "@/src/components/ui/ui";
 import FavouriteIcon from "./Favourite";
 import CartIcon from "./cart";
+import { HeaderSocial } from "../header/page";
 
 export interface Page {
   name: string;
   href: string;
+  prefetch: boolean;
 }
 
 export default function NavbarView({ userId }: { userId: string }) {
@@ -50,48 +52,44 @@ export default function NavbarView({ userId }: { userId: string }) {
             >
               <Dialog.Panel className="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl">
                 <div className="flex pb-2 px-4 absolute top-4 right-0">
-                  <button
-                    type="button"
-                    className="relative -m-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400"
+                  <Button
+                    className="button_outline !p-2"
                     onClick={() => setOpen(false)}
                   >
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Close menu</span>
                     <FaTimes />
-                  </button>
+                  </Button>
                 </div>
 
-                <div className="p-6">
-                  <Logo />
+                <div className="relative xl:w-[250px] lg:w-[200px] sm:w-[170px] w-[130px] h-auto my-5 mx-auto">
+                  <ImageContainer
+                    src="/smi-logo.png"
+                    alt="SMI shop"
+                    height={91}
+                    width={400}
+                    className="w-full h-auto"
+                  />
                 </div>
                 <div className="space-y-6 border-t border-gray-200 px-4 py-8">
                   {navigation.pages.map((page: Page) => (
                     <div key={page.name} className="flow-root">
-                      <Link
-                        href={page.href}
+                      <Links
+                        slug={page.href}
+                        title="mobile menu"
+                        prefetch={page.prefetch}
                         className="-m-2 block p-2 font-medium text-gray-900"
                         onClick={() => setOpen(false)}
                       >
                         {page.name}
-                      </Link>
+                      </Links>
                     </div>
                   ))}
                 </div>
 
                 <AuthMobile userId={userId} setOpen={setOpen} />
-                <div className="px-4 border-t border-gray-200 py-6">
-                  <ul className="flex gap-4">
-                    <li>
-                      <Link href="/">
-                        <FaFacebook />
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/">
-                        <FaInstagram />
-                      </Link>
-                    </li>
-                  </ul>
+                <div className="px-4 border-t border-gray-200 py-6 flex items-center justify-center">
+                  <HeaderSocial />
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -122,8 +120,10 @@ export default function NavbarView({ userId }: { userId: string }) {
                 {navigation.pages.map((page: Page) => (
                   <Links
                     slug={page.href}
+                    title="menu"
                     className="flex items-center text-sm font-medium"
                     key={page.name}
+                    prefetch={page.prefetch}
                   >
                     {page.name}
                   </Links>
@@ -156,9 +156,9 @@ export default function NavbarView({ userId }: { userId: string }) {
 
 const navigation = {
   pages: [
-    { name: "Home", href: "/" },
-    { name: "Stores", href: "/stores" },
-    { name: "Blogs", href: "/" },
-    { name: "Contact", href: "/" },
+    { name: "Home", href: "/", prefetch: true },
+    { name: "Stores", href: "/stores", prefetch: true },
+    { name: "Blogs", href: "/", prefetch: false },
+    { name: "Contact", href: "/", prefetch: false },
   ],
 };

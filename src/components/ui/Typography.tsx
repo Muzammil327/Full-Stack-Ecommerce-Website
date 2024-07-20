@@ -88,7 +88,9 @@ export function Paragraph({
   className: string;
 }) {
   return (
-    <p className={`leading-7 [&:not(:first-child)]:mt-6 ${montserrat.className} ${className}`}>
+    <p
+      className={`leading-7 [&:not(:first-child)]:mt-6 ${montserrat.className} ${className}`}
+    >
       {title}
     </p>
   );
@@ -98,15 +100,27 @@ export function Links({
   children,
   className,
   slug,
+  onClick,
+  title,
+  prefetch = true,
+  target = "_blank" || undefined,
 }: {
   children: ReactNode;
   className?: string;
+  prefetch?: boolean;
   slug: string;
+  title: string;
+  target?: string;
+  onClick?: () => void;
 }) {
   return (
     <Link
       href={slug}
       className={`${className} font-medium text-primary link1 ${montserrat.className}`}
+      target={target}
+      prefetch={prefetch}
+      aria-label={title}
+      onClick={onClick}
     >
       {children}
     </Link>
@@ -121,6 +135,10 @@ export function Lead({
   className: string;
 }) {
   return (
-    <p className={`text-xl text-muted-foreground ${montserrat.className} ${className}`}>{title}</p>
+    <p
+      className={`text-xl text-muted-foreground ${montserrat.className} ${className}`}
+    >
+      {title}
+    </p>
   );
 }
