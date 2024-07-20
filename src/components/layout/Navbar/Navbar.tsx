@@ -32,7 +32,7 @@ export default function NavbarView({ userId }: { userId: string }) {
   const { isFetchingWishList, wishList } = useWishlist();
 
   return (
-    <section className="bg-white">
+    <section className="bg-white border-b">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog className="relative z-50 lg:hidden" onClose={setOpen}>
@@ -110,10 +110,10 @@ export default function NavbarView({ userId }: { userId: string }) {
       </Transition.Root>
 
       {/* Desktop menu */}
-      <div className="relative border-b">
+      <div className="relative">
         <Container>
           <div className="flex items-center py-3">
-            <div className="relative w-full max-w-[200px] h-auto md:mb-2 mb-4">
+            <div className="relative xl:w-[250px]  md:w-[200px]  sm:w-[150px] w-[100px] h-auto">
               <ImageContainer
                 src="/smi-logo.png"
                 alt="SMI shop"
