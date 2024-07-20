@@ -60,7 +60,7 @@ export default function HeroSlider() {
               src="/slider/headphones.png"
               alt="Headphones"
               priority
-              layout="responsive"
+              sizes="(max-width: 1600px) 90vw, 600px"
               width={1600}
               height={720}
             />
@@ -71,7 +71,7 @@ export default function HeroSlider() {
               alt=""
               width={1600}
               height={720}
-              layout="responsive"
+              sizes="(max-width: 1600px) 90vw, 600px"
               loading="lazy"
             />
           </SwiperSlide>
@@ -79,7 +79,7 @@ export default function HeroSlider() {
             <ImageContainer
               src="/slider/shoes.png"
               alt=""
-              layout="responsive"
+              sizes="(max-width: 1600px) 90vw, 600px"
               width={1600}
               height={720}
             />
@@ -90,7 +90,7 @@ export default function HeroSlider() {
               alt=""
               width={1600}
               height={720}
-              layout="responsive"
+              sizes="(max-width: 1600px) 90vw, 600px"
             />
           </SwiperSlide>
         </Swiper>

@@ -5,10 +5,10 @@ import Policy from "./policy";
 
 export default function HomeView() {
   return (
-    <>
+    <React.Fragment>
       <HeroSlider />
       <Policy />
-      {/* <FeaturedProduct /> */}
-    </>
+      <FeaturedProduct />
+    </React.Fragment>
   );
 }

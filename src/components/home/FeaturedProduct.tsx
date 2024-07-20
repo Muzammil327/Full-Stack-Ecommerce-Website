@@ -3,8 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import ProductCard from "@/src/components/elements/ProductCard";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
-import Container from "@/src/components/ui/Container";
-import { Heading2 } from "@/src/components/ui/ui";
+import { Heading2, Container } from "@/src/components/ui/ui";
 import axios from "axios";
 
 export default function FeaturedProduct() {

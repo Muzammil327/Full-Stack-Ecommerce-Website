@@ -13,7 +13,7 @@ export default function Footer() {
               <ImageContainer
                 src="/smi-logo.png"
                 alt="SMI shop"
-                layout="responsive"
+                sizes="(max-width: 1600px) 90vw, 600px"
                 width={250}
                 height={91}
                 className="object-contain"

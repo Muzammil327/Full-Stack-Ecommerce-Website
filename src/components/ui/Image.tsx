@@ -1,44 +1,39 @@
 import React from "react";
 import Image from "next/image";
 
-interface ImageProps {
+interface ImageContainerProps {
   src: string;
   alt: string;
-  layout?: "responsive" | "fill" | undefined;
-  loading?: "lazy" | "eager" | undefined;
   className?: string;
   sizes?: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   priority?: boolean;
+  loading?: "lazy" | "eager" | undefined;
 }
 
 export default function ImageContainer({
   src,
   alt,
-  layout,
   className,
+  sizes,
   width,
   height,
-  priority,
-  sizes,
   loading,
-}: ImageProps) {
+  priority = false,
+}: ImageContainerProps) {
   return (
-    <div title={alt}>
-      <Image
-        src={src}
-        alt={alt}
-        layout={layout}
-        width={width}
-        height={height}
-        className={className}
-        priority={priority}
-        sizes={sizes}
-        placeholder="blur"
-        blurDataURL="/blur.jpg"
-        loading={loading}
-      />
-    </div>
+    <Image
+      src={src}
+      alt={alt}
+      title={alt}
+      width={width}
+      height={height}
+      className={className}
+      loading={loading}
+      priority={priority}
+      sizes={sizes}
+      style={{ objectFit: "contain" }} // Example style, adjust as needed
+    />
   );
 }

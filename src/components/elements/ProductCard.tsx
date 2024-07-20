@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ProductCardType } from "@/src/types/page";
+import ImageContainer from "../ui/Image";
 
 interface IProps {
   product: ProductCardType;
@@ -11,17 +12,17 @@ export default function ProductCard({ product }: IProps) {
     <>
       <div className="card relative">
         <Link href={`/stores/${product.slug}`} className="relative">
-          <div className="w-full md:h-[300px] h-[290px] relative overflow-hidden rounded-lg group-hover:opacity-75">
-            <Image
-              src={`${product.image}`}
+          <div className="w-full h-auto relative overflow-hidden rounded-lg group-hover:opacity-75">
+            <ImageContainer
+              src={product.image}
               alt={product.name}
-              title={product.name}
               sizes="(max-width: 500px) 90vw, 500px"
               height={500}
               width={500}
-              className="w-full"
+              className="object-cover object-center w-full h-full"
             />
           </div>
+
           <div className="md:mt-0 mt-4 flex flex-col">
             <div className="flex items-center justify-between">
               <span className="mt-1 text-sm t1">{product.category}</span>
