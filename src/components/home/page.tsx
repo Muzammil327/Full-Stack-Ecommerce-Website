@@ -6,9 +6,9 @@ import Policy from "./policy";
 export default function HomeView() {
   return (
     <>
-      <HeroSlider />
-      <Policy />
-      <FeaturedProduct />
+      {/* <HeroSlider /> */}
+      {/* <Policy /> */}
+      {/* <FeaturedProduct /> */}
     </>
   );
 }

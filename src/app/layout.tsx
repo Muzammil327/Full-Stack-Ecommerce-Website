@@ -5,11 +5,12 @@ import { montserrat } from "@/src/app/font";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { GoogleTagManager } from "@next/third-parties/google";
+import dynamic from "next/dynamic";
 
 import Providers from "@/src/components/Providers";
 import Footer from "@/src/components/layout/Footer/page";
 import Header from "../components/layout/header/page";
-import Navbar from "../components/layout/Navbar/page";
+const Navbar = dynamic(() => import("../components/layout/Navbar/page"));
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -80,7 +81,7 @@ export default function RootLayout({
       <body className={montserrat.className}>
         <Providers>
           <Header />
-          <Navbar />
+          {/* <Navbar /> */}
           {children}
           <Footer />
           <ToastContainer />
