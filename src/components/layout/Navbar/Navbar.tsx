@@ -143,6 +143,7 @@ export default function NavbarView({ userId }: { userId: string }) {
             <Button
               onClick={() => setOpen(true)}
               className="button_solid !p-3"
+              title="open navbar in mobile device"
             >
               <FaBars />
             </Button>
