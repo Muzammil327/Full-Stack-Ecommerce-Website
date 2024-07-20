@@ -97,7 +97,7 @@ export default function RegisterAccountView() {
 
       <p className="my-8 block text-center">
         Already have an account?
-        <Links slug="/sign-in" className="ml-2">
+        <Links slug="/sign-in" className="ml-2" title="register user">
           Sign In
         </Links>
       </p>
