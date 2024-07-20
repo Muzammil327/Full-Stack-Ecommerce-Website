@@ -1,0 +1,15 @@
+.link {
+  @apply md:text-base text-base text-slate-800 hover:text-color2;
+}
+
+.span {
+  @apply font-semibold text-base pr-1;
+}
+
+.li {
+  @apply text-slate-900 my-2 md:text-base text-sm;
+}
+
+.h3 {
+  @apply md:text-xl text-lg font-semibold mb-3 text-black font-sans;
+}

@@ -77,10 +77,23 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
+
+*,
+*::before,
+*::after {
+  @apply m-0 p-0 box-border;
+}
+
+button,
+input {
+  @apply outline-none;
+}
+
 
 /* ----------------------------------------------------------
 --------------------------- Color ---------------------------
@@ -89,12 +102,15 @@
 .bg1 {
   @apply bg-color1 hover:bg-color2 text-white hover:text-color1;
 }
+
 .bg2 {
   @apply border-2 border-solid border-indigo-600 hover:bg-indigo-600 hover:text-white text-indigo-600;
 }
+
 .t1 {
   @apply text-indigo-600 duration-300 ease-in-out;
 }
+
 .link1 {
   @apply text-slate-600 hover:text-indigo-700 duration-300 ease-in-out;
 }
@@ -129,6 +145,7 @@ button {
 .rc-rate-star {
   font-size: 1.2em;
 }
+
 .rc-rate-star-first,
 .rc-rate-star-second {
   @apply text-gray-400;
@@ -144,6 +161,7 @@ button {
 .react-tabs__tab-panel--selected ol {
   @apply list-inside list-decimal;
 }
+
 .react-tabs__tab-panel--selected ol li {
   @apply py-1;
 }
@@ -157,7 +175,8 @@ button {
   height: 4px;
   background-color: transparent;
   z-index: 1000;
-  display: none; /* Initially hidden */
+  display: none;
+  /* Initially hidden */
 }
 
 .loader.active {

@@ -36,7 +36,7 @@ export default function Header() {
 
 export function HeaderSocial() {
   return (
-    <ul className="flex gap-4">
+    <ul className="flex gap-6">
       <li>
         <Link href="https://web.facebook.com/smistore7/" target="_blank">
           <BsFacebook />
