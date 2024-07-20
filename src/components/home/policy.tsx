@@ -45,7 +45,7 @@ const data = [
   },
   {
     id: 2,
-    name: "HAVE QUESTIONS?",
+    name: "Have Questions?",
     para: "Get in touch with us for any queries.",
     icon: <FaQuestion />,
   },

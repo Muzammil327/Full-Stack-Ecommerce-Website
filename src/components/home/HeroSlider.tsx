@@ -57,13 +57,14 @@ export default function HeroSlider() {
             className="mySwiper md:mt-0 mt-3 lg:col-span-5 w-full"
           >
             <SwiperSlide>
-              <ImageContainer
+              <Image
                 src="/slider/headphones.png"
-                sizes="(max-width: 1600px) 90vw, 600px"
-                alt=""
-                height={720}
+                alt="Headphones"
                 width={1600}
+                height={720}
                 priority
+                placeholder="blur"
+                blurDataURL="/blur.jpg"
               />
             </SwiperSlide>
             <SwiperSlide>
