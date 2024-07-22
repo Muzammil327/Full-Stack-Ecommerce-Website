@@ -1,28 +1,46 @@
 export const categories = [
   {
-    id: "women",
-    name: "Women",
+    id: "women fashion",
+    name: "Women Fashion",
     subCategories: [
       {
         id: "clothing",
         name: "Clothing",
+        tags: [{ id: "brands", name: "Brands" }],
+      },
+      {
+        id: "shoes",
+        name: "Shoes",
         tags: [
-          { id: "clothing", name: "Clothing" },
-          { id: "accessories", name: "Accessories" },
-          { id: "brands", name: "Brands" },
+          { id: "nike", name: "Nike" },
+          { id: "jordan", name: "Jordan" },
         ],
       },
-      { id: "accessories", name: "Accessories" },
     ],
   },
   {
-    id: "men",
-    name: "Men",
+    id: "men fashion",
+    name: "Men Fashion",
     subCategories: [
       {
-        id: "accessories",
-        name: "Accessories",
-        tags: [{ id: "shoes", name: "Shoes" }],
+        id: "clothing",
+        name: "Clothing",
+        tags: [{ id: "brands", name: "Brands" }],
+      },
+      {
+        id: "shoes",
+        name: "Shoes",
+        tags: [
+          { id: "nike", name: "Nike" },
+          { id: "jordan", name: "Jordan" },
+        ],
+      },
+      {
+        id: "shirt",
+        name: "Shirt",
+        tags: [
+          { id: "polo shirt", name: "Polo Shirt" },
+        ],
       },
     ],
   },
@@ -31,19 +49,47 @@ export const categories = [
     name: "Electronics",
     subCategories: [
       {
-        id: "accessories",
-        name: "Accessories",
-        tags: [{ id: "airpods", name: "Airpods" }],
+        id: "audio accessories",
+        name: "Audio Accessories",
+        tags: [
+          { id: "airpods", name: "Airpods" },
+          { id: "handfree", name: "Handfree" },
+          { id: "headphones", name: "Headphones" },
+          { id: "neckband", name: "Neckbank" },
+          { id: "microphones", name: "Microphones" },
+          { id: "speakers", name: "Speakers" },
+        ],
+      },
+      {
+        id: "tv accessories",
+        name: "TV Accessories",
+        tags: [],
+      },
+      {
+        id: "computer accessories",
+        name: "Computer Accessories",
+        tags: [
+          { id: "mouse", name: "Mouse" },
+          { id: "mouse pad", name: "Mouse Pad" },
+          { id: "keyboard", name: "Keyboard" },
+          { id: "usb", name: "USB" },
+          { id: "charger", name: "Charger" },
+        ],
+      },
+      {
+        id: "wearable accessories",
+        name: "Wearable Accessories",
+        tags: [{ id: "watches", name: "Watches" }],
       },
     ],
   },
   {
-    id: "kitchen",
-    name: "Kitchen",
+    id: "home & lifestyle",
+    name: "Home & LifeStyle",
     subCategories: [
       {
-        id: "accessories",
-        name: "Accessories",
+        id: "kitchen accessories",
+        name: "Kitchen Accessories",
         tags: [
           { id: "slicer", name: "Slicer" },
           { id: "plates", name: "Plates" },

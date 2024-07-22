@@ -1,6 +1,5 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-
 import ProductCard from "@/src/components/elements/ProductCard";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
 import { Heading2, Container, Links } from "@/src/components/ui/ui";
