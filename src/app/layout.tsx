@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "@/src/style/globals.scss";
-import { montserrat } from "@/src/app/font";
+import { inter } from "@/src/app/font";
 // Import toastify styles
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -78,7 +78,7 @@ export default function RootLayout({
           content={process.env.NEXT_PUBLIC_CREATOR}
         /> */}
       </head>
-      <body className={montserrat.className}>
+      <body className={inter.className}>
         <Providers>
           <Header />
           <Navbar />
