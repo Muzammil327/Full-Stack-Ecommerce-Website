@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import User from "@/src/models/userModel"; // Adjust path as per your project
+import user from "@/src/models/userModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -27,7 +27,7 @@ export async function PUT(
       });
     }
     await connectDB();
-    await User.findOneAndUpdate(
+    await user.findOneAndUpdate(
       { _id: new mongoose.Types.ObjectId(userId) },
       {
         phone1,
@@ -38,7 +38,7 @@ export async function PUT(
         country,
         city,
         postalCode,
-      }, // Remove tokenActivate field
+      },
       { new: true }
     );
 
@@ -68,9 +68,8 @@ export async function GET(
       });
     }
     await connectDB();
-    const get_user_address = await User.find({
-      _id: new mongoose.Types.ObjectId(userId),
-    });
+    const get_user_address = await user.findById(new mongoose.Types.ObjectId(userId));
+
     return NextResponse.json({
       statusbar: 200,
       message: "Email verified successfully",

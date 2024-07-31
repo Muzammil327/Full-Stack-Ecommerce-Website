@@ -5,5 +5,5 @@ export default function MainLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return { children };
+  return <main>{children}</main>;
 }

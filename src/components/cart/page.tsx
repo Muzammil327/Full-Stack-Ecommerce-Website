@@ -9,21 +9,24 @@ import { Table } from "@/src/components/ui/ui";
 
 const CartView = ({ userId }: { userId: string }) => {
   const { isFetching, cart, getToCartBtn } = useCart(); // Assume useCart provides cartItems as well
-
+  // t1: "Image",
+  // t2: "Name",
+  // t3: "Qty",
+  // t4: "Price",
+  // t5: "Size",
+  // t6: "Action",
   return (
     <Container>
       <div className="grid lg:grid-cols-6 grid-cols-1 gap-x-8 md:my-20 my-10">
         <div className="lg:col-span-4 col-span-1 relative overflow-x-auto sm:rounded-lg mb-10">
-          <Table
-            data={{
-              t1: "Image",
-              t2: "Name",
-              t3: "Qty",
-              t4: "Price",
-              t5: "Size",
-              t6: "Action",
-            }}
-          >
+          <Table columns={[
+            "Image",
+            "Name",
+            "Qty",
+            "Price",
+            "Size",
+            "Action",
+          ]} loading={isFetching} cellCount={6}>
             {isFetching ? (
               Array(4)
                 .fill(0)

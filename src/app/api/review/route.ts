@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import Review from "@/src/models/reviewModel"; // Adjust path as per your project
+import review from "@/src/models/reviewModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    await new Review({
+    await new review({
       rating,
       text,
       userId,
@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
         });
       }
 
-      const get_user_review = await Review.aggregate([
+      const get_user_review = await review.aggregate([
         {
           $match: {
             productId: new mongoose.Types.ObjectId(productId),
@@ -78,7 +78,7 @@ export async function GET(req: NextRequest) {
         },
         {
           $lookup: {
-            from: "users",
+            from: "user",
             localField: "userId",
             foreignField: "_id",
             as: "user_detail",
@@ -101,7 +101,7 @@ export async function GET(req: NextRequest) {
         { $limit: limit },
       ]);
 
-      const totalResults = await Review.countDocuments({
+      const totalResults = await review.countDocuments({
         productId: new mongoose.Types.ObjectId(productId),
       });
       const totalPages = Math.ceil(totalResults / limit);
@@ -125,7 +125,7 @@ export async function GET(req: NextRequest) {
           error: "Users not found.",
         });
       }
-      const get_user_review = await Review.aggregate([
+      const get_user_review = await review.aggregate([
         {
           $match: {
             userId: new mongoose.Types.ObjectId(userId),
@@ -165,7 +165,7 @@ export async function DELETE(req: NextRequest) {
       });
     }
 
-    await Review.findByIdAndDelete(productId);
+    await review.findByIdAndDelete(productId);
 
     return NextResponse.json({
       statusbar: 200,

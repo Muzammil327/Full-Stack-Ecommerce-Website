@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import Wishlist from "@/src/models/wishlistModel"; // Adjust path as per your project
+import wishlist from "@/src/models/wishlistModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       });
     }
     await connectDB();
-    const get_user_wishlist = await Wishlist.aggregate([
+    const get_user_wishlist = await wishlist.aggregate([
       {
         $match: {
           userId: new mongoose.Types.ObjectId(userId),
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
       },
       {
         $lookup: {
-          from: "products", // Name of the collection to join with
+          from: "product", // Name of the collection to join with
           localField: "productId", // Field in the Carts collection
           foreignField: "_id", // Field in the Products collection
           as: "product_Detail", // Alias for the joined data
@@ -38,7 +38,6 @@ export async function GET(req: NextRequest) {
           "product_Detail.price": 1,
           "product_Detail.name": 1,
           "product_Detail.slug": 1,
-          "product_Detail.discountprice": 1,
         },
       },
     ]);
@@ -73,15 +72,15 @@ export async function POST(req: NextRequest) {
         error: "Login is Required.",
       });
     }
-    const wishlist = await Wishlist.findOne({ productId, userId });
+    const checkWishlist = await wishlist.findOne({ productId, userId });
 
-    if (wishlist) {
+    if (checkWishlist) {
       return NextResponse.json({
         statusbar: 200,
         message: "Already in Wishlist.",
       });
     } else {
-      const newWishList = new Wishlist({
+      const newWishList = new wishlist({
         productId,
         userId,
       });
@@ -112,7 +111,7 @@ export async function DELETE(req: NextRequest) {
         error: "Wishlist Id is Required.",
       });
     }
-    const deletedWishlist = await Wishlist.findByIdAndDelete({
+    const deletedWishlist = await wishlist.findByIdAndDelete({
       _id: wishlistId,
     });
 

@@ -1,5 +1,4 @@
 import { OrderProvider } from "@/src/components/context/orderContext";
-import { ProductCardProvider } from "@/src/components/context/productCard";
 
 export default function AuthLayout({
   children,
@@ -8,7 +7,7 @@ export default function AuthLayout({
 }>) {
   return (
     <OrderProvider>
-      <ProductCardProvider>{children}</ProductCardProvider>
+      {children}
     </OrderProvider>
   );
 }

@@ -6,7 +6,8 @@ import { useWishlist } from "@/src/components/context/wishlistContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import React from "react";
-import { Table, Button, Container } from "@/src/components/ui/ui";
+import { Table, Button, Container, Dialogs } from "@/src/components/ui/ui";
+import { FaTimes } from "react-icons/fa";
 
 const WishlistView = () => {
   const { isFetchingWishList, wishList, getToWishlistBtn } = useWishlist();
@@ -34,12 +35,9 @@ const WishlistView = () => {
       <Container>
         <div className="my-20">
           <Table
-            data={{
-              t1: "Image",
-              t2: "Name",
-              t3: "Price",
-              t4: "Action",
-            }}
+            columns={["Image", "Name", "Price", "Action"]}
+            loading={isFetchingWishList}
+            cellCount={4}
           >
             {isFetchingWishList ? (
               Array(4)
@@ -61,12 +59,12 @@ const WishlistView = () => {
                     >
                       <td className="p-3">
                         <Image
-                          src={user.product_Detail.image}
+                          src={`https://res.cloudinary.com/desggllml/image/upload/w_80,h_80,c_fill,g_center/${user.product_Detail.image}`}
                           alt={user.product_Detail.name}
                           title={user.product_Detail.name}
-                          height={1080}
-                          width={1080}
-                          className="h-20 w-20 mx-auto"
+                          height={80}
+                          width={80}
+                          className="h-20 w-20"
                           objectFit="cover"
                         />
                       </td>
@@ -75,17 +73,19 @@ const WishlistView = () => {
                           {user.product_Detail.name}
                         </Link>
                       </td>
-                      <td className="px-6 py-4 font-semibold text-gray-900 text-center">
+                      <td className="px-6 py-4 font-semibold text-gray-900">
                         {user.product_Detail.price}
                       </td>
                       <td className="px-6 py-4 text-center">
-                        <Button
-                          className="button_simple px-3"
+                        <Dialogs
+                          className="button_outline p-1"
+                          title="Delete Wishlist."
+                          description="This will permanently delete your product from this wishlist."
+                          para="Are you sure you want to delete your Wishlist Product?"
                           onClick={() => DeleteHandle(user._id)}
-                          title="remove from wishlist"
                         >
-                          Remove
-                        </Button>
+                          <FaTimes />
+                        </Dialogs>
                       </td>
                     </tr>
                   ))

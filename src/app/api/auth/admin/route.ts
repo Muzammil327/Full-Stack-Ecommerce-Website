@@ -1,17 +1,17 @@
 import connectDB from "@/src/utils/db";
-import Cart from "@/src/models/cartModel";
-import Order from "@/src/models/orderModel";
-import PendingOrder from "@/src/models/pendingOrderModel";
-import Product from "@/src/models/productModel";
-import User from "@/src/models/userModel";
-import Wishlist from "@/src/models/wishlistModel";
+import cart from "@/src/models/cartModel";
+import order from "@/src/models/orderModel";
+import pendingorder from "@/src/models/pendingOrderModel";
+import product from "@/src/models/product/productModel";
+import user from "@/src/models/userModel";
+import wishlist from "@/src/models/wishlistModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
 
-    const get_admin_cart = await Cart.aggregate([
+    const get_admin_cart = await cart.aggregate([
       {
         $project: {
           _id: 1,
@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
       },
     ]);
 
-    const get_admin_order = await Order.aggregate([
+    const get_admin_order = await order.aggregate([
       {
         $project: {
           _id: 1,
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
       },
     ]);
 
-    const get_admin_pendingorder = await PendingOrder.aggregate([
+    const get_admin_pendingorder = await pendingorder.aggregate([
       {
         $project: {
           _id: 1,
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
       },
     ]);
 
-    const get_admin_product = await Product.aggregate([
+    const get_admin_product = await product.aggregate([
       {
         $project: {
           _id: 1,
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
       },
     ]);
 
-    const get_admin_user = await User.aggregate([
+    const get_admin_user = await user.aggregate([
       {
         $project: {
           _id: 1,
@@ -52,7 +52,7 @@ export async function GET(req: NextRequest) {
       },
     ]);
 
-    const get_admin_wishlist = await Wishlist.aggregate([
+    const get_admin_wishlist = await wishlist.aggregate([
       {
         $project: {
           _id: 1,

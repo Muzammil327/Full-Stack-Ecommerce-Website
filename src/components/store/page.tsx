@@ -10,9 +10,13 @@ import { FaXmark } from "react-icons/fa6";
 import Container from "@/src/components/ui/Container";
 import { useProductCard } from "../context/productCard";
 import { Button } from "../ui/ui";
-import ProductCard from "../elements/ProductCard";
+import ProductCard from "../elements/ProductCard/page";
+import { useState } from "react";
 
-export default function StorePage() {
+export default function StorePage({ userId }: any) {
+  const [catShow, setCatShow] = useState<string>("");
+  const [subCatShow, setSubCatShow] = useState<string>("");
+  const [tagShow, setTagShow] = useState<string>("");
   const {
     error,
     loading,
@@ -73,9 +77,12 @@ export default function StorePage() {
           category={category}
           setSubCategory={setSubCategory}
           subCategory={subCategory}
+          tags={tags}
           setTags={setTags}
           setHighPrice={setHighPrice}
           setLowPrice={setLowPrice}
+          setCatShow={setCatShow}
+          setSubCatShow={setSubCatShow}
         />
       </section>
 
@@ -87,22 +94,25 @@ export default function StorePage() {
         <aside className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
           <div className="hidden lg:block">
             <StoreCatgeory
-              filterItem={(value: string) => {
-                setCategory(value.toLowerCase());
+              filterItem={(value: string, _id: string) => {
+                setCategory(_id);
+                setCatShow(value.toLowerCase());
                 setPage(1);
               }}
             />
             <StoreSubCatgeory
-              filterItem={(value: string) => {
-                setSubCategory(value.toLowerCase());
+              filterItem={(value: string, _id: string) => {
+                setSubCategory(_id);
+                setSubCatShow(value.toLowerCase());
                 setPage(1);
               }}
               catgeorySet={category}
             />
 
             <StoreTags
-              filterItem={(value: string) => {
-                setTags(value.toLowerCase());
+              filterItem={(value: string, _id: string) => {
+                setTags(_id);
+                setTagShow(value.toLowerCase());
                 setPage(1);
               }}
               catgeorySet={category}
@@ -118,73 +128,82 @@ export default function StorePage() {
 
           <div className="lg:col-span-3">
             <ul className="flex items-center gap-3">
-              <li className="border text-black rounded py-1 px-2">
+              <li className="border text-black rounded py-1 px-2 md:text-base text-sm capitalize">
                 page {page}
               </li>
-              {category ? (
-                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
-                  {category}
+              {catShow ? (
+                <li className="border text-black rounded py-1 px-2 flex items-center justify-between capitalize">
+                  {catShow}
                   <button
-                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
-                    onClick={() => setCategory("")}
+                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black md:ml-4 ml-2"
+                    onClick={() => {
+                      setCategory("");
+                      setCatShow("");
+                    }}
                   >
                     <FaXmark />
                   </button>
                 </li>
               ) : null}
-              {subCategory ? (
-                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
-                  {subCategory}
+              {subCatShow ? (
+                <li className="border text-black rounded py-1 px-2 md:text-base text-sm flex items-center justify-between">
+                  {subCatShow}
                   <button
-                    onClick={() => setSubCategory("")}
-                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
+                    onClick={() => {
+                      setSubCategory("");
+                      setSubCatShow("");
+                    }}
+                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black md:ml-4 ml-2"
                   >
                     <FaXmark />
                   </button>{" "}
                 </li>
               ) : null}{" "}
-              {tags ? (
-                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
-                  {tags}
+              {tagShow ? (
+                <li className="border text-black rounded py-1 px-2 md:text-base text-sm flex items-center justify-between">
+                  {tagShow}
                   <button
-                    onClick={() => setTags("")}
-                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
+                    onClick={() => {
+                      setTags("");
+                      setTagShow("");
+                    }}
+                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black md:ml-4 ml-2"
                   >
                     <FaXmark />
                   </button>{" "}
                 </li>
               ) : null}
               {highPrice && lowPrice ? (
-                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
+                <li className="border text-black rounded py-1 px-2 md:text-base text-sm flex items-center justify-between">
                   {lowPrice} - {highPrice}
                   <button
                     onClick={() => {
                       setLowPrice(null);
                       setHighPrice(null);
                     }}
-                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
+                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black md:ml-4 ml-2"
                   >
                     <FaXmark />
                   </button>
                 </li>
               ) : null}
               {priceLH ? (
-                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
+                <li className="border text-black rounded py-1 px-2 md:text-base text-sm flex items-center justify-between">
                   Price Low to High
                   <button
                     onClick={() => setPriceLH("")}
-                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
+                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black md:ml-4 ml-2"
                   >
                     <FaXmark />
                   </button>{" "}
                 </li>
               ) : null}
               {priceHL ? (
-                <li className="border text-black rounded py-1 px-2 flex items-center justify-between">
+                <li className="border text-black rounded py-1 px-2 md:text-base text-sm flex items-center justify-between">
                   Price High to Low
                   <button
                     onClick={() => setPriceHL("")}
-                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black ml-4"
+                    className="bg-white h-4 w-4 flex items-center justify-center rounded text-black md:ml-4 ml-2"
                   >
                     <FaXmark />
                   </button>{" "}
@@ -204,7 +223,11 @@ export default function StorePage() {
               <>
                 <div className="grid lg:grid-cols-3 grid-cols-2 gap-4 lg:mx-4 mt-5">
                   {products.map((product: any) => (
-                    <ProductCard product={product} key={product._id} />
+                    <ProductCard
+                      product={product}
+                      key={product._id}
+                      userId={userId}
+                    />
                   ))}
                 </div>
                 <div className="flex items-center justify-center mt-8">

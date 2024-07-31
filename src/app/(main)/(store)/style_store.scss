@@ -1,0 +1,17 @@
+.product_description_panel {
+    h3 {
+        @apply text-lg py-2 text-indigo-500 font-semibold;
+    }
+
+    ul {
+        li {
+            @apply py-2;
+        }
+    }
+
+    ol {
+        li {
+            @apply py-2;
+        }
+    }
+}

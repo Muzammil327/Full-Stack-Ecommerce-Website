@@ -23,7 +23,7 @@ export default function ShareButton({
     <div className="relative">
       <Button
         onClick={() => setIsShareButton(!isShareButton)}
-        className="button_outline px-4"
+        className="button_outline px-4 !py-4"
         title="share on social media"
       >
         <FaShareNodes />

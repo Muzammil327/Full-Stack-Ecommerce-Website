@@ -1,58 +1,65 @@
 import React from "react";
+import { LoadingTableRow } from "./Loading";
+
+interface TableProps {
+  columns: string[];
+  loading: boolean;
+  cellCount: number;
+  children: React.ReactNode;
+}
 
 export default function Table({
+  columns,
+  loading,
   children,
-  data,
-}: {
-  children: React.ReactNode;
-  data: {
-    t1: string;
-    t2?: string;
-    t3?: string;
-    t4?: string;
-    t5?: string;
-    t6?: string;
-  };
-}) {
+  cellCount,
+}: TableProps) {
   return (
-    <div className="overflow-x-auto">
-      <table className="min-w-full text-sm text-left rtl:text-right text-gray-500">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+    <div className="relative overflow-x-auto sm:rounded-lg mt-8">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 border rounded-bl-lg rounded-br-lg">
+        <thead className="text-xs text-gray-700 uppercase bg-indigo-100 dark:bg-gray-700 dark:text-gray-400 whitespace-nowrap">
           <tr>
-            {data.t1 && (
-              <th scope="col" className="px-12 py-2">
-                {data.t1}
+            {columns.map((column, index) => (
+              <th key={index} scope="col" className="px-6 py-3">
+                {column}
               </th>
-            )}
-            {data.t2 && (
-              <th scope="col" className="px-12 py-2">
-                {data.t2}
-              </th>
-            )}
-            {data.t3 && (
-              <th scope="col" className="px-12 py-2">
-                {data.t3}
-              </th>
-            )}
-            {data.t4 && (
-              <th scope="col" className="px-12 py-2">
-                {data.t4}
-              </th>
-            )}
-            {data.t5 && (
-              <th scope="col" className="px-12 py-2">
-                {data.t5}
-              </th>
-            )}
-            {data.t6 && (
-              <th scope="col" className="px-12 py-2">
-                {data.t6}
-              </th>
-            )}
+            ))}
           </tr>
         </thead>
-        <tbody className="w-full">{children}</tbody>
+        <tbody className="w-full">
+          {loading ? (
+            [...Array(4)].map((_, index) => (
+              <LoadingTableRow cellCount={cellCount} key={index} />
+            ))
+          ) : (
+            <>{children}</>
+          )}
+        </tbody>
       </table>
     </div>
+  );
+}
+
+interface TableRowProps {
+  columns: Array<string | number>; // columns can be either string or number
+  tableHeading: string;
+  children?: React.ReactNode;
+}
+
+export function TableRow({ tableHeading, columns, children }: TableRowProps) {
+  return (
+    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-gray-600">
+      <th scope="col" className="px-6 py-4">
+        {tableHeading}
+      </th>
+      {columns.map((column, index) => (
+        <td key={index} scope="col" className="px-6 py-4">
+          {column}
+        </td>
+      ))}
+      {children && (
+        <td className="flex px-6 py-4 whitespace-nowrap">{children}</td>
+      )}
+    </tr>
   );
 }

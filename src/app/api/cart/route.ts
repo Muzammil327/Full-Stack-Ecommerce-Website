@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import Cart from "@/src/models/cartModel"; // Adjust path as per your project
+import cart from "@/src/models/cartModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
       });
     }
     await connectDB();
-    const get_user_cart = await Cart.aggregate([
+    const get_user_cart = await cart.aggregate([
       {
         $match: {
           userId: new mongoose.Types.ObjectId(userId),
@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
       },
       {
         $lookup: {
-          from: "products", // Name of the collection to join with
+          from: "product", // Name of the collection to join with
           localField: "productId", // Field in the Carts collection
           foreignField: "_id", // Field in the Products collection
           as: "product_Detail", // Alias for the joined data
@@ -77,17 +77,17 @@ export async function POST(req: NextRequest) {
         error: "Login is Required.",
       });
     }
-    const cart = await Cart.findOne({ productId, userId });
+    const checkCart = await cart.findOne({ productId, userId });
 
-    if (cart) {
-      cart.qty += 1;
-      await cart.save();
+    if (checkCart) {
+      checkCart.qty += 1;
+      await checkCart.save();
       return NextResponse.json({
         statusbar: 200,
         message: "Cart updated successfully.",
       });
     } else {
-      const newProduct = new Cart({
+      const newProduct = new cart({
         productId,
         size,
         userId,
@@ -120,7 +120,7 @@ export async function DELETE(req: NextRequest) {
         error: "CART Id is Required.",
       });
     }
-    await Cart.findByIdAndDelete({ _id: cartId });
+    await cart.findByIdAndDelete({ _id: cartId });
 
     return NextResponse.json({
       statusbar: 200,
@@ -147,7 +147,7 @@ export async function PUT(req: NextRequest) {
   try {
     if (increase) {
       try {
-        const existingProduct = await Cart.findOne({
+        const existingProduct = await cart.findOne({
           _id: increase,
         });
         if (existingProduct) {
@@ -174,7 +174,7 @@ export async function PUT(req: NextRequest) {
     }
     if (decrease) {
       try {
-        const existingProduct = await Cart.findOne({
+        const existingProduct = await cart.findOne({
           _id: decrease,
         });
         if (existingProduct) {
@@ -188,7 +188,7 @@ export async function PUT(req: NextRequest) {
             });
           } else {
             // If quantity is 1 or less, remove the item from the cart
-            await Cart.deleteOne({ _id: decrease }); // Adjust this line
+            await cart.deleteOne({ _id: decrease }); // Adjust this line
             return NextResponse.json({
               statusbar: 200,
               error: "Product removed from cart.",

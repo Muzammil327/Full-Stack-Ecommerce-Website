@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import ProductCard from "@/src/components/elements/ProductCard";
+import ProductCard from "@/src/components/elements/ProductCard/Productcard";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
 import { Heading2, Container, Links } from "@/src/components/ui/ui";
 import axios from "axios";
@@ -98,7 +98,7 @@ any) {
           <React.Fragment>
             {featureProduct?.map((product: any) => (
               <SwiperSlide key={product._id}>
-                <ProductCard product={product} />
+                <ProductCard product={product} session={undefined} />
               </SwiperSlide>
             ))}
           </React.Fragment>

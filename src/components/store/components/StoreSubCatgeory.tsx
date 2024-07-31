@@ -1,16 +1,19 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { categories } from "@/src/components/data";
+import { SubCatgeory } from "@/src/utils/fetchSubCatgeory";
 
 interface Props {
-  filterItem: (title: string) => void;
+  filterItem: (title: string, _id: string) => void;
   catgeorySet: string;
 }
 
 const StoreSubCategory: React.FC<Props> = ({ filterItem, catgeorySet }) => {
   const [isSubCategoryOpen, setIsSubCategoryOpen] = useState(false);
+
+  const { error, loading, subCatgeory } = SubCatgeory();
+  if (error) return <h1>Error from store catgeory.</h1>;
 
   const toggleSubCategoryOptions = () => {
     setIsSubCategoryOpen(!isSubCategoryOpen);
@@ -37,22 +40,28 @@ const StoreSubCategory: React.FC<Props> = ({ filterItem, catgeorySet }) => {
 
       <div className={`pt-6 ${isSubCategoryOpen ? "" : "hidden"}`}>
         <div className="space-y-4">
-          {categories
-            .filter((data) => data.id === catgeorySet)
-            .map((data) => (
-              <React.Fragment key={data.id}>
-                {data.subCategories?.map((subData) => (
-                  <ul className="flex items-center" key={subData.name}>
-                    <li
-                      className="ml-3 text-sm text-gray-600 cursor-pointer"
-                      onClick={() => filterItem(subData.name)}
-                    >
-                      {subData.name}
-                    </li>
-                  </ul>
-                ))}
-              </React.Fragment>
-            ))}
+          {loading ? (
+            ""
+          ) : (
+            <React.Fragment>
+              {subCatgeory.map((data: any) =>
+                data.cat
+                  .filter((subData: any) => subData._id === catgeorySet) // Filter by subData._id
+                  .map((subData: any) => (
+                    <React.Fragment key={data._id}>
+                      <ul className="flex items-center">
+                        <li
+                          className="ml-3 text-sm text-gray-600 cursor-pointer"
+                          onClick={() => filterItem(data.name, data._id)}
+                        >
+                          {data.name}{" "}
+                        </li>
+                      </ul>
+                    </React.Fragment>
+                  ))
+              )}
+            </React.Fragment>
+          )}
         </div>
       </div>
     </div>

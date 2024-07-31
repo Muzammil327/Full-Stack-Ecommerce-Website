@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import LoadingTableRow from "../../ui/Loading/LoadingTableRow";
 import AdminCartCard from "./components/Card/AdminCartCard";
 import AdminWishListCard from "./components/Card/AdminWishListCard";
 import AdminOrderCard from "./components/Card/AdminOrderCard";
@@ -11,6 +10,7 @@ import axios from "axios";
 import Table from "../../elements/Table";
 import AdminSidebar from "./components/sidebar";
 import Link from "next/link";
+import { LoadingTableRow } from "../../ui/Loading";
 
 interface UserData {
   email?: string;
@@ -23,11 +23,13 @@ interface UserData {
   username: string;
   emailVerified: boolean;
 }
+
 export default function UserDashboard({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [data, setData] = useState<UserData | null>(null);
   const [stats, setStats] = useState();
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,17 +60,17 @@ export default function UserDashboard({ userId }: { userId: string }) {
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg md:mx-4">
             {isLoading ? (
               <>
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
+                <LoadingTableRow cellCount={3} />
               </>
             ) : (
               <>

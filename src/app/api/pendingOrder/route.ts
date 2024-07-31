@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import PendingOrder from "@/src/models/pendingOrderModel"; // Adjust path as per your project
+import pendingorder from "@/src/models/pendingOrderModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
         error: "Quantity is Required.",
       });
     }
-    const existingPendingOrder = await PendingOrder.findOne({
+    const existingPendingOrder = await pendingorder.findOne({
       productId,
       userId,
     });
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       });
     } else {
       // If it's a new product for the user, create a new pending order entry
-      const newPendingOrder = new PendingOrder({
+      const newPendingOrder = new pendingorder({
         productId,
         userId,
         qty,

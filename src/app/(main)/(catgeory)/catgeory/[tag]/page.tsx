@@ -9,7 +9,7 @@ import {
   ProductCardDataType,
   ProductCardType,
 } from "@/src/types/page";
-import ProductCard from "@/src/components/elements/ProductCard";
+import ProductCard from "@/src/components/elements/ProductCard/Productcard";
 
 const CategoryPageContent = () => {
   const param = useParams();
@@ -73,7 +73,7 @@ const CategoryPageContent = () => {
             <>
               <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 md:mx-4 mt-5">
                 {products.map((product: any) => (
-                  <ProductCard product={product} key={product._id} />
+                  <ProductCard product={product} key={product._id} session={undefined} />
                 ))}
               </div>
               <div className="flex items-center justify-center mt-8">

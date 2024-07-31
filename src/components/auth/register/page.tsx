@@ -68,8 +68,7 @@ export default function RegisterAccountView() {
           type="text"
           value={data.username}
           onChange={(e) => setData({ ...data, username: e.target.value })}
-          placeholder="Enter your Username"
-        />
+          placeholder="Enter your Username" name={"username"}        />
       </div>
 
       <div className="mb-6">
@@ -78,8 +77,7 @@ export default function RegisterAccountView() {
           type="email"
           value={data.email}
           onChange={(e) => setData({ ...data, email: e.target.value })}
-          placeholder="Enter your Email"
-        />
+          placeholder="Enter your Email" name={"email"}        />
       </div>
 
       <div className="mb-6">
@@ -88,8 +86,7 @@ export default function RegisterAccountView() {
           type="password"
           value={data.password}
           onChange={(e) => setData({ ...data, password: e.target.value })}
-          placeholder="Enter your Password"
-        />
+          placeholder="Enter your Password" name={"password"}        />
       </div>
       <Button className="button_solid w-full" disabled={loading} title="create account">
         {loading ? <Processing /> : "Create Account"}

@@ -1,19 +1,22 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { categories } from "@/src/components/data";
+import { Catgeory } from "@/src/utils/fetchCatgeory";
 
 interface Props {
-  filterItem: (title: string) => void;
+  filterItem: (title: string, _id: string) => void;
 }
 
 const StoreCategory: React.FC<Props> = ({ filterItem }) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const { error, loading, categories } = Catgeory();
+  if (error) return <h1>Error from store catgeory.</h1>;
 
   const toggleCategoryOptions = () => {
     setIsCategoryOpen(!isCategoryOpen);
   };
+
 
   return (
     <div className="border-b border-gray-200 py-6">
@@ -36,16 +39,22 @@ const StoreCategory: React.FC<Props> = ({ filterItem }) => {
 
       <div className={`pt-6 ${isCategoryOpen ? "" : "hidden"}`}>
         <div className="space-y-4">
-          {categories.map((data) => (
-            <ul className="flex items-center" key={data.id}>
-              <li
-                className="ml-3 text-sm text-gray-600 cursor-pointer"
-                onClick={() => filterItem(data.name)}
-              >
-                {data.name}
-              </li>
-            </ul>
-          ))}
+          {loading ? (
+            ""
+          ) : (
+            <React.Fragment>
+              {categories.map((data: any) => (
+                <ul className="flex items-center" key={data._id}>
+                  <li
+                    className="ml-3 text-sm text-gray-600 cursor-pointer capitalize"
+                    onClick={() => filterItem(data.name, data._id)}
+                  >
+                    {data.name}
+                  </li>
+                </ul>
+              ))}
+            </React.Fragment>
+          )}
         </div>
       </div>
     </div>

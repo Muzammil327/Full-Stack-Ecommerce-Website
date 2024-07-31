@@ -1,4 +1,69 @@
-export const categories = [
+interface CatgeoryType {
+  id: string;
+  name: string;
+  subCategories: SubCatgeoryType[];
+}
+interface SubCatgeoryType {
+  id: string;
+  name: string;
+  tags: TagType[];
+}
+interface TagType {
+  id: string;
+  name: string;
+}
+
+interface CatTypes {
+  id: string;
+  name: string;
+}
+
+export const Category: CatTypes[] = [
+  {
+    id: "women fashion",
+    name: "Women Fashion",
+  },
+  {
+    id: "men fashion",
+    name: "Men Fashion",
+  },
+  {
+    id: "men and women fashion",
+    name: "Men and Women Fashion",
+  },
+  {
+    id: "electronics",
+    name: "Electronics",
+  },
+  {
+    id: "home & lifestyle",
+    name: "Home & LifeStyle",
+  },
+];
+
+export const SubCategory: CatTypes[] = [
+  {
+    id: "clothing",
+    name: "Clothing",
+  },
+  {
+    id: "shoes",
+    name: "Shoes",
+  },
+  {
+    id: "shirt",
+    name: "Shirt",
+  },
+];
+
+export const Items: CatTypes[] = [
+  { id: "brands", name: "Brands" },
+  { id: "nike", name: "Nike" },
+  { id: "jordan", name: "Jordan" },
+  { id: "polo shirt", name: "Polo Shirt" },
+];
+
+export const categories: CatgeoryType[] = [
   {
     id: "women fashion",
     name: "Women Fashion",
@@ -38,9 +103,7 @@ export const categories = [
       {
         id: "shirt",
         name: "Shirt",
-        tags: [
-          { id: "polo shirt", name: "Polo Shirt" },
-        ],
+        tags: [{ id: "polo shirt", name: "Polo Shirt" }],
       },
     ],
   },

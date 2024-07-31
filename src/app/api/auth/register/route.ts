@@ -1,11 +1,10 @@
 import { cookies } from 'next/headers'
 
-import User from "@/src/models/userModel";
+import user from "@/src/models/userModel";
 import connectDB from "@/src/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 import { sendActivationEmail } from "@/src/utils/email";
 import crypto from "crypto";
-import jwt from "jsonwebtoken";
 
 function generateActivationToken(): string {
   return crypto.randomBytes(32).toString("hex");
@@ -30,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if the username already exists in the database
-    const existingUserName = await User.findOne({ username: username });
+    const existingUserName = await user.findOne({ username: username });
     if (existingUserName) {
       return NextResponse.json({
         statusbar: 400,
@@ -39,7 +38,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if the email already exists in the database
-    const existingEmail = await User.findOne({ email: email });
+    const existingEmail = await user.findOne({ email: email });
     if (existingEmail) {
       return NextResponse.json({
         statusbar: 400,
@@ -51,7 +50,7 @@ export async function POST(req: NextRequest) {
     const activationToken = generateActivationToken();
 
     // Create a new user with activation token
-    const newUser = await new User({
+    const newUser = await new user({
       email,
       password,
       username,

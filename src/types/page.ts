@@ -20,7 +20,8 @@ export interface ProductCardType {
   slug: string;
   image: string;
   price: number;
-  category: string;
+  dPrice: number;
+  cat: [name: string];
   subcategory?: string;
 }
 

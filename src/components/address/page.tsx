@@ -1,8 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import {Label, Input, Heading3, Container, Button} from "@/src/components/ui/ui";
+import {
+  Label,
+  Input,
+  Heading3,
+  Container,
+  Button,
+} from "@/src/components/ui/ui";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -17,7 +23,7 @@ interface FormData {
   additionalInfo: string;
 }
 
-export default function AddressView({ setIsFormFilled }: any) {
+export default function AddressView() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -112,14 +118,7 @@ export default function AddressView({ setIsFormFilled }: any) {
         postalCode: "",
         additionalInfo: "",
       });
-      setIsFormFilled(true);
-      const previousPage = sessionStorage.getItem("checkout Page Router");
-      if (previousPage) {
-        router.push(previousPage);
-      } else {
-        // If previousPage is not stored, redirect to a default page
-        router.push("/profile");
-      }
+      fetchUserData();
     } catch (error) {
       setError("Error during User Address Update");
     } finally {
@@ -127,51 +126,26 @@ export default function AddressView({ setIsFormFilled }: any) {
     }
   };
 
-  useEffect(() => {
-    if (
-      addressData.phone1 &&
-      addressData.phone2 &&
-      addressData.addressLine1 &&
-      addressData.addressLine2 &&
-      addressData.country &&
-      addressData.city &&
-      addressData.additionalInfo &&
-      addressData.postalCode
-    ) {
-      setIsFormFilled(true);
-    }
-  }, [
-    addressData.phone1,
-    addressData.phone2,
-    addressData.addressLine1,
-    addressData.addressLine2,
-    addressData.country,
-    addressData.city,
-    addressData.postalCode,
-    addressData.additionalInfo,
-    setIsFormFilled,
-  ]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(`/api/auth/address/${userId}`);
-        const userDataFromApi: FormData = response.data.get_user_address[0];
-        if (userDataFromApi) {
-          setAddressData(userDataFromApi);
-        }
-      } catch (error) {
-        setError("Error fetching Address User data");
-      } finally {
-        setLoading(false);
+  const fetchUserData = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`/api/auth/address/${userId}`);
+      const userDataFromApi: FormData = response.data.get_user_address;
+      if (userDataFromApi) {
+        setAddressData(userDataFromApi);
       }
-    };
+    } catch (error) {
+      setError("Error fetching Address User data");
+    } finally {
+      setLoading(false);
+    }
+  }, [userId]);
 
+  useEffect(() => {
     if (userId) {
       fetchUserData();
     }
-  }, [userId]);
+  }, [fetchUserData, userId]);
 
   return (
     <>
@@ -187,8 +161,9 @@ export default function AddressView({ setIsFormFilled }: any) {
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               <div>
                 <Label label="Phone Number 1" htmlFor="Phone Number 1" />
-                <div className="mt-2.5">
+                <div className="">
                   <Input
+                    name="phone1"
                     type="number"
                     value={addressData.phone1 || ""}
                     placeholder="xx xxx xxxx xxx"
@@ -203,8 +178,9 @@ export default function AddressView({ setIsFormFilled }: any) {
               </div>
               <div>
                 <Label label="Phone Number 2" htmlFor="Phone Number 2" />
-                <div className="mt-2.5">
+                <div className="">
                   <Input
+                    name="phone2"
                     type="number"
                     value={addressData.phone2 || ""}
                     placeholder="xx xxx xxxx xxx"
@@ -222,8 +198,9 @@ export default function AddressView({ setIsFormFilled }: any) {
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 my-4">
               <div>
                 <Label label="Address Line 1" htmlFor="Address Line 1" />
-                <div className="mt-2.5">
+                <div className="">
                   <Input
+                    name="address1"
                     type="text"
                     placeholder="Enter Your Address 1"
                     value={addressData.addressLine1 || ""}
@@ -238,8 +215,9 @@ export default function AddressView({ setIsFormFilled }: any) {
               </div>
               <div>
                 <Label label="Address Line 2" htmlFor="Address Line 2" />
-                <div className="mt-2.5">
+                <div className="">
                   <Input
+                    name="address2"
                     type="text"
                     placeholder="Enter Your Address 2"
                     value={addressData.addressLine2 || ""}
@@ -257,8 +235,9 @@ export default function AddressView({ setIsFormFilled }: any) {
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-3 my-4">
               <div>
                 <Label label="Country" htmlFor="Country" />
-                <div className="mt-2.5">
+                <div className="">
                   <Input
+                    name="country"
                     type="text"
                     placeholder="Enter Your Country"
                     value={addressData.country || ""}
@@ -274,8 +253,9 @@ export default function AddressView({ setIsFormFilled }: any) {
 
               <div>
                 <Label label="City" htmlFor="City" />
-                <div className="mt-2.5">
+                <div className="">
                   <Input
+                    name="city"
                     type="text"
                     placeholder="Enter Your City"
                     value={addressData.city || ""}
@@ -291,8 +271,9 @@ export default function AddressView({ setIsFormFilled }: any) {
 
               <div>
                 <Label label="Postal Code" htmlFor="Postal Code" />
-                <div className="mt-2.5">
+                <div className="">
                   <Input
+                    name="zip code"
                     type="text"
                     placeholder="Enter Your Zip Code"
                     value={addressData.postalCode || ""}
@@ -314,7 +295,7 @@ export default function AddressView({ setIsFormFilled }: any) {
               />
 
               <textarea
-                className="shadow-sm rounded-md w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                className="shadow-sm rounded-md w-full px-4 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-2"
                 value={addressData.additionalInfo || ""}
                 placeholder="Enter Your Nearby shops"
                 onChange={(e) =>

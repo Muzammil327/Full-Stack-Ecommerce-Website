@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import User from "@/src/models/userModel"; // Adjust path as per your project
+import user from "@/src/models/userModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
@@ -15,7 +15,7 @@ export async function PUT(
       });
     }
     await connectDB();
-    await User.findOneAndUpdate(
+    await user.findOneAndUpdate(
       { tokenActivate: token },
       { $set: { emailVerified: true }, $unset: { tokenActivate: "" } }, // Remove tokenActivate field
       { new: true }

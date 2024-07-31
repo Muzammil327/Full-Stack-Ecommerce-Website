@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { FaXmark, FaBars } from "react-icons/fa6";
 import { Fragment } from "react";
@@ -19,6 +19,9 @@ export interface StoreSortProps {
   setLowPrice: (price: number | null) => void;
   category: string;
   subCategory: string;
+  setCatShow: any;
+  setSubCatShow: any;
+  tags: any;
 }
 
 export default function StoreSort({
@@ -32,6 +35,9 @@ export default function StoreSort({
   setLowPrice,
   category,
   subCategory,
+  setCatShow,
+  setSubCatShow,
+  tags,
 }: StoreSortProps) {
   const [isSortOpen, setIsSortOpen] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -158,17 +164,17 @@ export default function StoreSort({
                 {/* Links */}
                 <div className="mt-12 px-4">
                   <StoreCatgeory
-                    filterItem={(value: string) => {
-                      setCategory(value.toLowerCase());
+                    filterItem={(value: string, _id: string) => {
+                      setCategory(_id);
+                      setCatShow(value.toLowerCase());
                       setPage(1);
-                      setOpen(false);
                     }}
                   />
                   <StoreSubCatgeory
-                    filterItem={(value: string) => {
-                      setSubCategory(value.toLowerCase());
+                    filterItem={(value: string, _id: string) => {
+                      setSubCategory(_id);
+                      setSubCatShow(value.toLowerCase());
                       setPage(1);
-                      setOpen(false);
                     }}
                     catgeorySet={category}
                   />

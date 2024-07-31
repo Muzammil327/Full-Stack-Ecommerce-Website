@@ -12,7 +12,7 @@ import "swiper/css/effect-flip";
 // import required modules
 import { Autoplay } from "swiper/modules";
 import { Navigation } from "swiper/modules";
-import ProductCard from "../../elements/ProductCard";
+import ProductCard from "../../elements/ProductCard/Productcard";
 
 // import required modules
 
@@ -48,7 +48,7 @@ export default function RelatedProduct({ relatedProducts }: any) {
           {relatedProducts.product_details.map((data: any) => (
             <>
               <SwiperSlide>
-                <ProductCard product={data} key={data.id} />
+                <ProductCard product={data} key={data.id} session={undefined} />
               </SwiperSlide>
             </>
           ))}

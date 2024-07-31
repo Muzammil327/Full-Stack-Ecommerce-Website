@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import Order from "@/src/models/orderModel"; // Adjust path as per your project
+import order from "@/src/models/orderModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -17,7 +17,7 @@ export async function GET(
       });
     }
     await connectDB();
-    const get_user_order = await Order.aggregate([
+    const get_user_order = await order.aggregate([
       {
         $match: {
           userId: new mongoose.Types.ObjectId(userId),
@@ -25,7 +25,7 @@ export async function GET(
       },
       {
         $lookup: {
-          from: "products", // Name of the collection to join with
+          from: "product", // Name of the collection to join with
           localField: "productId", // Field in the Carts collection
           foreignField: "_id", // Field in the Products collection
           as: "product", // Alias for the joined data

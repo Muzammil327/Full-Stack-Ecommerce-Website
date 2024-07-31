@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import User from "@/src/models/userModel"; // Adjust path as per your project
+import user from "@/src/models/userModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 import { sendActivationEmail } from "@/src/utils/email";
 
@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     }
     await connectDB();
 
-    const response = await User.aggregate([
+    const response = await user.aggregate([
       {
         $match: {
           tokenActivate: token,
@@ -28,10 +28,10 @@ export async function POST(req: NextRequest) {
         },
       },
     ]);
-    const user = response[0];
+    const users = response[0];
 
     // send activation email
-    await sendActivationEmail(user.email, token);
+    await sendActivationEmail(users.email, token);
 
     return NextResponse.json({
       statusbar: 200,
@@ -49,7 +49,6 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const token = searchParams.get("token");
-  console.log("token:", token);
   try {
     if (!token) {
       return NextResponse.json({
@@ -58,7 +57,7 @@ export async function PUT(req: NextRequest) {
       });
     }
     await connectDB();
-    await User.findOneAndUpdate(
+    await user.findOneAndUpdate(
       { tokenActivate: token },
       { $set: { emailVerified: true }, $unset: { tokenActivate: "" } }, // Remove tokenActivate field
       { new: true }

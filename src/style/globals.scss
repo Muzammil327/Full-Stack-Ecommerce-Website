@@ -123,7 +123,7 @@ button {
 }
 
 .button_default {
-  @apply flex justify-center items-center rounded-md shadow-sm text-base font-medium focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-color2 duration-300 ease-in-out cursor-pointer py-3;
+  @apply flex justify-center items-center rounded-md shadow-sm text-base font-medium focus:outline-none duration-300 ease-in-out cursor-pointer py-3;
 }
 
 .button_outline {

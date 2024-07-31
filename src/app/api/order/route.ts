@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import Order from "@/src/models/orderModel"; // Adjust path as per your project
+import order from "@/src/models/orderModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 import Cart from "@/src/models/cartModel";
 import PendingOrder from "@/src/models/pendingOrderModel";
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const newOrder = new Order({
+    const newOrder = new order({
       productId,
       userId,
       totalPrice,
@@ -70,7 +70,7 @@ export async function DELETE(req: NextRequest) {
         error: "Order Id is Required.",
       });
     }
-    const deletedOrder = await Order.findByIdAndDelete({ _id: orderId });
+    const deletedOrder = await order.findByIdAndDelete({ _id: orderId });
 
     return NextResponse.json({
       statusbar: 200,

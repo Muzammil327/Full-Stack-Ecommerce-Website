@@ -2,7 +2,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import ProductDetailImageSlider from "@/src/components/productDetail/components/ImageSlider";
-import ProductDetailCatgeory from "@/src/components/productDetail/components/catgeory";
+import ProductDetailCatgeory, {
+  ProductDetailItems,
+} from "@/src/components/productDetail/components/catgeory";
 import AddtoCartBtn from "@/src/components/productDetail/components/AddtoCartBtn";
 import FavouriteBtn from "@/src/components/productDetail/components/FavouriteBtn";
 import RelatedProduct from "@/src/components/productDetail/components/RelatedProduct";
@@ -21,9 +23,10 @@ export interface ProductCardData {
   Sdescription: string;
   Ldescription: string;
   slug: string;
-  category: string;
+  cat: [];
+  scat: [];
   subCategory: string;
-  items: string;
+  item: [];
   price: number;
   discountprice?: number;
   quantity: number;
@@ -46,10 +49,10 @@ export default function ProductDetail({
 }) {
   const [data, setData] = useState<ProductCardData>();
   const [selectedSize, setSelectedSize] = useState("");
-
-  const handleSizeChange = (e: any) => {
-    setSelectedSize(e.target.value);
-  };
+  console.log(data);
+  // const handleSizeChange = (e: any) => {
+  //   setSelectedSize(e.target.value);
+  // };
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const price = data?.price ?? 0; // Provide a default value of 0 if data.price is undefined
@@ -128,7 +131,7 @@ export default function ProductDetail({
                     <ProductDetailCatgeory data={data} />
 
                     {/* -------------------------- Product Name -------------------------- */}
-                    <h1 className="md:text-2xl text-xl font-bold my-4">
+                    <h1 className="md:text-2xl text-xl font-bold my-4 capitalize">
                       {data.name}
                     </h1>
 
@@ -148,7 +151,7 @@ export default function ProductDetail({
                     </p>
 
                     {/* ------------- Size ------------- */}
-                    {data.items === "shoes" && (
+                    {/* {data.item === "shoes" && (
                       <>
                         <div className="mt-4 grid grid-cols-4 gap-4">
                           {data.size.map((data, index) => {
@@ -178,18 +181,21 @@ export default function ProductDetail({
                           })}
                         </div>
                       </>
-                    )}
+                    )} */}
 
                     {/* ------------- Product Button ------------- */}
                     <div className="mt-3 max-w-full flex flex-wrap md:gap-3 gap-2 flex-col">
-                      <div className="w-full">
+                      <div className="grid grid-cols-2 gap-4 items-center justify-between">
                         <AddtoCartBtn
                           product={data._id}
                           userId={userId}
                           size={selectedSize}
                           data={data}
                         />
+
+                        <ShareButton urlCurrentPage={params} />
                       </div>
+
                       <div className="grid grid-cols-3 gap-4">
                         {/* favourite button  */}
                         <FavouriteBtn product={data._id} userId={userId} />
@@ -207,10 +213,8 @@ export default function ProductDetail({
                           datas={data}
                           userId={userId}
                         />
-
-                        {/* shared button  */}
-                        <ShareButton urlCurrentPage={params} />
                       </div>
+                      <ProductDetailItems data={data} />
                     </div>
                   </div>
                   <div className="lg:col-span-2 bg-slate-50 py-4">

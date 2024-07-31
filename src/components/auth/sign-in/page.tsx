@@ -44,8 +44,6 @@ export default function SignView() {
       if (response?.error) {
         toast.error(response.error);
       }
-      console.log("response:", response);
-      console.log("signIn:", signIn);
       router.push("/dashboard");
     } catch (error) {
       toast.warning("Internal server Error.");
@@ -68,6 +66,7 @@ export default function SignView() {
           value={data.email}
           onChange={(e) => setData({ ...data, email: e.target.value })}
           placeholder="Enter your Email"
+          name={"email"}
         />
       </div>
       <div className="mb-6">
@@ -77,9 +76,14 @@ export default function SignView() {
           value={data.password}
           onChange={(e) => setData({ ...data, password: e.target.value })}
           placeholder="Enter your Password"
+          name={"password"}
         />
       </div>
-      <Button className="button_solid w-full" disabled={loading} title="sign in">
+      <Button
+        className="button_solid w-full"
+        disabled={loading}
+        title="sign in"
+      >
         {loading ? <Processing /> : "Sign In"}
       </Button>
       <Paragraph

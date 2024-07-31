@@ -1,93 +1,78 @@
-import connectDB from "@/src/utils/db";
-import Product from "@/src/models/productModel";
+import connectDB from "@/src/utils/db"; // Adjust path as per your project
+import catgeory from "@/src/models/product/catgeoryModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
-import mongoose from "mongoose";
 
-export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-
-  const cat = searchParams.get("cat");
-  const subCatgeory = searchParams.get("subCatgeory");
-  const tags = searchParams.get("tags");
-  const page = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || 9;
+export async function POST(req: NextRequest) {
+  const { name } = await req.json();
   await connectDB();
   try {
-    // project stage
-    const ProjectStage = {
-      $project: {
-        _id: 1,
-        name: 1,
-        slug: 1,
-        image: 1,
-        price: 1,
-        category: 1,
-      },
-    };
-
-    // skip stage
-    const SkipStage = { $skip: (page - 1) * limit };
-
-    // limit stage
-    const LimitStage = { $limit: limit };
-
-    let products = [];
-
-    if (cat) {
-      products = await Product.aggregate([
-        {
-          $match: {
-            category: cat,
-          },
-        },
-        ProjectStage,
-        SkipStage,
-        LimitStage,
-      ]);
+    if (!name) {
+      return NextResponse.json({
+        statusbar: 400,
+        error: "Enter Catgeory Name.",
+      });
     }
-    if (subCatgeory) {
-      products = await Product.aggregate([
-        {
-          $match: {
-            subCategory: subCatgeory,
-          },
-        },
-        ProjectStage,
-        SkipStage,
-        LimitStage,
-      ]);
-    }
-    if (tags) {
-      products = await Product.aggregate([
-        {
-          $match: {
-            items: tags,
-          },
-        },
-        ProjectStage,
-        SkipStage,
-        LimitStage,
-      ]);
-    }
-
-    const getproducts = await Product.find();
-
-    const totalResults = getproducts.length;
-    const totalPages = Math.ceil(totalResults / limit);
+    await catgeory.create({ name });
 
     return NextResponse.json({
       statusbar: 200,
-      message: "Product successfully getting.",
-      products,
-      pagination: {
-        currentPage: page,
-        totalPages: totalPages,
-        totalResults: totalResults,
-        limit: limit,
-      },
+      message: "Catgeory successfully Added.",
     });
   } catch (error) {
-    console.error("Error verifying review:", error);
+    console.error("Error verifying add catgeory:", error);
+    return NextResponse.json({
+      statusbar: 400,
+      error: "Internal Server Error",
+    });
+  }
+}
+
+export async function GET(req: NextRequest) {
+  await connectDB();
+  try {
+    const get_catgeory = await catgeory.aggregate([
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+        },
+      },
+    ]);
+    return NextResponse.json({
+      statusbar: 200,
+      message: "Catgeory successfully getting.",
+      get_catgeory,
+    });
+  } catch (error) {
+    console.error("Error getting Catgeory:", error);
+    return NextResponse.json({
+      statusbar: 400,
+      error: "Internal Server Error",
+    });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const searchParams = req.nextUrl.searchParams;
+  const catgeoryId = searchParams.get("catgeoryId");
+
+  await connectDB();
+  try {
+    if (!catgeoryId) {
+      return NextResponse.json({
+        statusbar: 400,
+        error: "Catgeory Id not found.",
+      });
+    }
+
+    await catgeory.findByIdAndDelete(catgeoryId);
+
+    return NextResponse.json({
+      statusbar: 200,
+      message: "Catgeory Id delete successfully",
+    });
+  } catch (error) {
+    console.error("Error verifying Catgeory Id deleting:", error);
     return NextResponse.json({
       statusbar: 400,
       error: "Internal Server Error",

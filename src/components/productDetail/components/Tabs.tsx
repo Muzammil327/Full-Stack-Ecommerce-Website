@@ -36,7 +36,7 @@ export default function ProductDetailTab({ data }: ProductDetailTagProps) {
 
       <TabPanel className="">
         <h1 className="text-2xl font-semibold my-2">Product Description</h1>
-        <p className="mt-4 mb-6 sm:text-base text-sm text-gray-500">
+        <p className="mt-4 mb-6 sm:text-base text-sm text-gray-500 product_description_panel">
           <div dangerouslySetInnerHTML={{ __html: data.Ldescription }} />
         </p>
       </TabPanel>

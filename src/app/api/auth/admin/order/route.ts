@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db";
-import Order from "@/src/models/orderModel";
+import order from "@/src/models/orderModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -9,10 +9,10 @@ export async function GET(req: NextRequest) {
   try {
     await connectDB();
     let getTotalOrder;
-    getTotalOrder = await Order.aggregate([
+    getTotalOrder = await order.aggregate([
       {
         $lookup: {
-          from: "products", // Name of the collection to join with
+          from: "SMI_Product", // Name of the collection to join with
           localField: "productId", // Field in the Carts collection
           foreignField: "_id", // Field in the Products collection
           as: "product", // Alias for the joined data
@@ -59,7 +59,7 @@ export async function GET(req: NextRequest) {
     ]);
     // const orders = await Orders.find({ status }); // Fetch orders with the specified status
     if (status) {
-      getTotalOrder = await Order.aggregate([
+      getTotalOrder = await order.aggregate([
         {
           $match: {
             status: status,
@@ -115,7 +115,7 @@ export async function PUT(req: NextRequest) {
   await connectDB();
 
   try {
-    const updatedOrder = await Order.findByIdAndUpdate(
+    const updatedOrder = await order.findByIdAndUpdate(
       orderId,
       { status },
       { new: true }

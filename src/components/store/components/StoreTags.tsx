@@ -1,11 +1,11 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { categories } from "@/src/components/data";
+import { Items } from "@/src/utils/fetchItems";
 
 interface StoreTagsProps {
-  filterItem: (title: string) => void;
+  filterItem: (title: string, _id: string) => void;
   catgeorySet: string;
   subCatgeorySet: string;
 }
@@ -16,6 +16,9 @@ const StoreTags: React.FC<StoreTagsProps> = ({
   subCatgeorySet,
 }) => {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
+
+  const { error, loading, items } = Items();
+  if (error) return <h1>Error from store catgeory.</h1>;
 
   const toggleTagsOptions = () => {
     setIsTagsOpen((prevIsTagsOpen) => !prevIsTagsOpen);
@@ -42,28 +45,36 @@ const StoreTags: React.FC<StoreTagsProps> = ({
 
       <div className={`pt-6 ${isTagsOpen ? "" : "hidden"}`}>
         <div className="space-y-4">
-          {categories
-            .filter((data) => data.id === catgeorySet)
-            .map((data) => (
-              <React.Fragment key={data.id}>
-                {data.subCategories
-                  ?.filter((subData) => subData.id === subCatgeorySet)
-                  .map((subDatas) => (
-                    <React.Fragment key={data.id}>
-                      {subDatas.tags?.map((subDatas) => (
-                         <ul className="flex items-center" key={subDatas.name}>
-                         <li
-                           className="ml-3 text-sm text-gray-600 cursor-pointer"
-                           onClick={() => filterItem(subDatas.name)}
-                         >
-                           {subDatas.name}
-                         </li>
-                       </ul>
-                      ))}
-                    </React.Fragment>
-                  ))}
-              </React.Fragment>
-            ))}
+          {loading ? (
+            ""
+          ) : (
+            <React.Fragment>
+              {items.map((data: any) => {
+                const filteredCats = data.cat.filter(
+                  (catData: any) => catData._id === catgeorySet
+                );
+                const filteredSubcats = data.subcat.filter(
+                  (subcatData: any) => subcatData._id === subCatgeorySet
+                );
+
+                return (
+                  <React.Fragment key={data._id}>
+                    {(filteredCats.length > 0 ||
+                      filteredSubcats.length > 0) && (
+                      <ul className="flex items-center">
+                        <li
+                          className="ml-3 text-sm text-gray-600"
+                          onClick={() => filterItem(data.name, data._id)}
+                        >
+                          {data.name}
+                        </li>
+                      </ul>
+                    )}
+                  </React.Fragment>
+                );
+              })}
+            </React.Fragment>
+          )}
         </div>
       </div>
     </div>

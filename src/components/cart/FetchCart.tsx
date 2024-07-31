@@ -81,7 +81,7 @@ export default function FetchCart({
           <tr className="bg-white border-b hover:bg-gray-50" key={index}>
             <td className="p-3">
               <Image
-                src={user.product_Detail.image}
+                src={`https://res.cloudinary.com/desggllml/image/upload/w_80,h_80,c_fill,g_center/${user.product_Detail.image}`}
                 alt={user.product_Detail.name}
                 title={user.product_Detail.name}
                 height={1080}

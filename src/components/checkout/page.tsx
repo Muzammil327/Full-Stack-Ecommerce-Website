@@ -5,6 +5,7 @@ import { useCart } from "@/src/components/context/cartContext";
 import { Button, Container, Table } from "@/src/components/ui/ui";
 import { useOrder } from "@/src/components/context/orderContext";
 import AddressView from "../address/page";
+import AddressCheckoutView from "../address/addressCheckout";
 
 export default function CheckoutView() {
   const { cart } = useCart(); // Assume useCart provides cartItems as well
@@ -37,21 +38,23 @@ export default function CheckoutView() {
       <div className="grid lg:grid-cols-9 grid-cols-1 gap-2 my-12">
         <div className="lg:col-span-6 col-span-1">
           <Table
-            data={{
-              t1: "Image",
-              t2: "Name",
-              t3: "Qty",
-              t4: "Price",
-              t5: "Size",
-              t6: "Total Product price",
-            }}
+            columns={[
+              "Image",
+              "Name",
+              "Qty",
+              "Price",
+              "Size",
+              "Total Product price",
+            ]}
+            loading={isLoadingOrder}
+            cellCount={6}
           >
             {cart ? ( // Check if userData is not null before rendering
               cart.map((user, index) => (
                 <tr className="bg-white border-b hover:bg-gray-50" key={index}>
                   <td className="p-4">
                     <Image
-                      src={user.product_Detail.image}
+                      src={`https://res.cloudinary.com/desggllml/image/upload/w_80,h_80,c_fill,g_center/${user.product_Detail.image}`}
                       alt={user.product_Detail.name}
                       title={user.product_Detail.name}
                       height={1080}
@@ -81,7 +84,7 @@ export default function CheckoutView() {
             )}
           </Table>
 
-          <AddressView setIsFormFilled={setIsFormFilled} />
+          <AddressCheckoutView setIsFormFilled={setIsFormFilled} />
         </div>
         <div className="lg:col-span-3 col-span-1 md:mt-0 mt-8">
           <div className="cart-total bg-slate-100 rounded-md p-4">

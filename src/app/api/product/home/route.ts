@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db";
-import Product from "@/src/models/productModel";
+import product from "@/src/models/product/productModel";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
   try {
     if (feature) {
       try {
-        const get_Feature_Products = await Product.aggregate([
+        const get_Feature_Products = await product.aggregate([
           {
             $match: {
               feature: true,

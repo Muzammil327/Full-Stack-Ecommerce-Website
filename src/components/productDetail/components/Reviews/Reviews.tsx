@@ -7,7 +7,7 @@ import Rate from "rc-rate";
 import "rc-rate/assets/index.css";
 import { FaTimes } from "react-icons/fa";
 import Button from "../../../ui/Button";
-import Dialogs from "../../../ui/Dialogs";
+import Dialogs, { DialogPanels } from "../../../ui/Dialogs";
 import ReviewsSubmit from "./ReviewsSubmit";
 import Image from "next/image";
 
@@ -127,7 +127,7 @@ export default function ReviewView(data: {
             <>
               <div
                 key={data._id}
-                className="flex items-center gap-x-10 md:mt-0 mt-8 mb-4 relative"
+                className="flex items-center gap-x-10 md:mt-0 mt-8 mb-4 relative border shadow-md p-4 rounded-md"
               >
                 <div className="image md:h-16 h-12 md:w-16 w-12">
                   {data.user_detail && (
@@ -138,7 +138,7 @@ export default function ReviewView(data: {
                           : "/hero_img.jpg"
                       }
                       alt="User Image"
-                      className="text-center md:h-16 h-12 md:w-16 w-12 rounded-md"
+                      className="text-center md:h-16 h-12 md:w-16 w-12 rounded-md shadow-lg"
                       height={100}
                       width={100}
                     />
@@ -157,14 +157,13 @@ export default function ReviewView(data: {
                     <p>{data.text}</p>
                   </div>
                   {userId === data.user_detail._id && (
-                    <div className="flex items-center gap-3 absolute top-0 right-0">
+                    <div className="flex items-center gap-3 absolute top-6 right-4">
                       <Dialogs
-                        className="btnIcon_outline_2 p-1"
+                        className="button_outline p-1"
                         title="Delete Comment."
                         description="This will permanently delete your Comment from this product."
                         para="Are you sure you want to delete your Comment?"
                         onClick={() => HandleDeleteComment(data._id)}
-                        delete
                       >
                         <FaTimes />
                       </Dialogs>
@@ -177,7 +176,11 @@ export default function ReviewView(data: {
         )}
 
         {pagination && page < pagination.totalPages && (
-          <Button onClick={handleLoadMore} className="w-full button_solid" title="review load more">
+          <Button
+            onClick={handleLoadMore}
+            className="w-full button_solid"
+            title="review load more"
+          >
             {loadingData ? "Loading..." : "Load More"}
           </Button>
         )}

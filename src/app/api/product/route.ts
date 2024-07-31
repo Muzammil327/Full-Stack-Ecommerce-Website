@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db";
-import Product from "@/src/models/productModel";
+import product from "@/src/models/product/productModel";
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -14,8 +14,8 @@ export async function PUT(req: NextRequest) {
   try {
     if (like) {
       // find the product by id
-      const product = await Product.findById({ _id: productId });
-      if (!product) {
+      const products = await product.findById({ _id: productId });
+      if (!products) {
         return NextResponse.json({
           statusbar: 400,
           error: "Product not found.",
@@ -23,10 +23,10 @@ export async function PUT(req: NextRequest) {
       }
       try {
         let updatedProduct;
-        const userIndex = product.like.indexOf(userId);
+        const userIndex = products.like.indexOf(userId);
 
         if (userIndex === -1 && userId) {
-          updatedProduct = await Product.findByIdAndUpdate(
+          updatedProduct = await product.findByIdAndUpdate(
             { _id: new mongoose.Types.ObjectId(productId) },
             {
               $push: { like: new mongoose.Types.ObjectId(userId) },
@@ -40,7 +40,7 @@ export async function PUT(req: NextRequest) {
           });
         } else {
           if (userId) {
-            updatedProduct = await Product.findByIdAndUpdate(
+            updatedProduct = await product.findByIdAndUpdate(
               { _id: new mongoose.Types.ObjectId(productId) },
               {
                 $pull: { like: new mongoose.Types.ObjectId(userId) },
@@ -63,8 +63,8 @@ export async function PUT(req: NextRequest) {
     }
     if (dislike) {
       // find the product by id
-      const product = await Product.findById({ _id: productId });
-      if (!product) {
+      const products = await product.findById({ _id: productId });
+      if (!products) {
         return NextResponse.json({
           statusbar: 400,
           error: "Product not found.",
@@ -72,10 +72,10 @@ export async function PUT(req: NextRequest) {
       }
       try {
         let updatedProduct;
-        const userIndex = product.dislike.indexOf(userId);
+        const userIndex = products.dislike.indexOf(userId);
 
         if (userIndex === -1 && userId) {
-          updatedProduct = await Product.findByIdAndUpdate(
+          updatedProduct = await product.findByIdAndUpdate(
             { _id: new mongoose.Types.ObjectId(productId) },
             {
               $push: { dislike: new mongoose.Types.ObjectId(userId) },
@@ -89,7 +89,7 @@ export async function PUT(req: NextRequest) {
           });
         } else {
           if (userId) {
-            updatedProduct = await Product.findByIdAndUpdate(
+            updatedProduct = await product.findByIdAndUpdate(
               { _id: new mongoose.Types.ObjectId(productId) },
               {
                 $pull: { dislike: new mongoose.Types.ObjectId(userId) },
@@ -137,6 +137,7 @@ interface AggregationPipeline {
   };
   $skip?: number;
   $limit?: number;
+  $lookup?: any;
   // Add other stages as needed
 }
 
@@ -152,7 +153,6 @@ export async function GET(req: NextRequest) {
   const tags = searchParams.get("tags");
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 9;
-
   await connectDB();
   try {
     // project stage
@@ -163,9 +163,18 @@ export async function GET(req: NextRequest) {
         slug: 1,
         image: 1,
         price: 1,
-        category: 1,
+        dPrice: 1,
+        "cat.name": 1,
         subCategory: 1,
         items: 1,
+      },
+    };
+    const LookupStage = {
+      $lookup: {
+        from: "catgeory", // Change this to the correct collection name if it's different
+        localField: "categoryId",
+        foreignField: "_id",
+        as: "cat", // Name of the field to store the related products
       },
     };
 
@@ -178,25 +187,42 @@ export async function GET(req: NextRequest) {
     let aggregationPipeline: AggregationPipeline[] = [];
 
     if (category) {
+      // Convert category to ObjectId
+      const categoryId = Array.isArray(category)
+        ? category.map((id) => new mongoose.Types.ObjectId(id || ""))
+        : [new mongoose.Types.ObjectId(category || "")];
       aggregationPipeline.push({
         $match: {
-          category: category,
+          categoryId: {
+            $in: categoryId,
+          },
         },
       });
     }
 
     if (subCatgeory) {
+      // Convert category to ObjectId
+      const subCategoryId = Array.isArray(subCatgeory)
+        ? subCatgeory.map((id) => new mongoose.Types.ObjectId(id || ""))
+        : [new mongoose.Types.ObjectId(subCatgeory || "")];
       aggregationPipeline.push({
         $match: {
-          subCategory: subCatgeory,
+          subCategoryId: {
+            $in: subCategoryId,
+          },
         },
       });
     }
-
     if (tags) {
+      // Convert category to ObjectId
+      const itemId = Array.isArray(tags)
+        ? tags.map((id) => new mongoose.Types.ObjectId(id || ""))
+        : [new mongoose.Types.ObjectId(tags || "")];
       aggregationPipeline.push({
         $match: {
-          items: tags,
+          itemId: {
+            $in: itemId,
+          },
         },
       });
     }
@@ -219,10 +245,10 @@ export async function GET(req: NextRequest) {
       });
     }
 
-    aggregationPipeline.push(ProjectStage, SkipStage, LimitStage);
+    aggregationPipeline.push(LookupStage, ProjectStage, SkipStage, LimitStage);
 
-    const products = await Product.aggregate(aggregationPipeline as any);
-    const getproducts = await Product.find();
+    const products = await product.aggregate(aggregationPipeline as any);
+    const getproducts = await product.find();
 
     const totalResults = getproducts.length;
     const totalPages = Math.ceil(totalResults / limit);

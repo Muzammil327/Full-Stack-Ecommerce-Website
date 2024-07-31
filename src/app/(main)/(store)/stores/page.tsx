@@ -1,6 +1,7 @@
 import React from "react";
 import StorePage from "@/src/components/store/page";
 import type { Metadata } from "next";
+import { getSession } from "@/src/utils/getSession";
 
 const data = {
   title: "SMI Store",
@@ -18,10 +19,12 @@ const data = {
     "muzammil portfolio",
   ],
 };
-export default function Page() {
+export default async function Page() {
+  const session = await getSession();
+  const userId = session?.user?._id as string;
   return (
     <main>
-      <StorePage />
+      <StorePage userId={userId} />
     </main>
   );
 }

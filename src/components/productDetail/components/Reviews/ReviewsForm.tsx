@@ -21,8 +21,7 @@ export default function ReviewsForm({
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Enter your Review."
-          type="text"
-        />
+          type="text" name={"reviewtext"}        />
       </div>
       <div className="mb-6">
         <Label label="Your Rating:" htmlFor="rating" />

@@ -1,6 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface OrdersDocument extends Document {
+interface SMI_OrderDocument extends Document {
   productId: mongoose.Schema.Types.ObjectId;
   userId: mongoose.Schema.Types.ObjectId;
   totalPrice: number;
@@ -9,37 +9,43 @@ interface OrdersDocument extends Document {
   createdAt: Date;
   status: string;
 }
-const ordersSchema = new Schema<OrdersDocument>({
-  userId: { type: Schema.Types.ObjectId, ref: "users" },
-  totalPrice: {
-    type: Number,
-    required: true,
-  },
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "products",
-  },
-  qty: {
-    type: Number,
-    min: 1,
-    default: 1,
-  },
-  size: {
-    type: String,
-  },
-  status: {
-    type: String,
-    enum: ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"],
-    default: "Pending",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
 
-const Order =
-  mongoose.models.orders ||
-  mongoose.model<OrdersDocument>("orders", ordersSchema);
+const SMI_OrderSchema = new Schema<SMI_OrderDocument>(
+  {
+    userId: { type: Schema.Types.ObjectId, ref: "user" },
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product",
+    },
+    qty: {
+      type: Number,
+      min: 1,
+      default: 1,
+    },
+    size: {
+      type: String,
+    },
+    status: {
+      type: String,
+      enum: ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"],
+      default: "Pending",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    collection: "order",
+  }
+);
 
-export default Order;
+const order =
+  mongoose.models.order ||
+  mongoose.model<SMI_OrderDocument>("order", SMI_OrderSchema, "order");
+
+export default order;

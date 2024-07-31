@@ -11,9 +11,9 @@ interface ProductDetailCatgeoryProps {
   userId: string;
   size: string;
   data: {
-    category: string;
+    cat: [];
     subCategory: string;
-    items: string;
+    item: [];
   };
 }
 
@@ -32,12 +32,12 @@ export default function AddtoCartBtn({
     size: string
   ) => {
     setIsLoading(true);
-    if (data.items === "shoes") {
-      if (!size) {
-        setIsLoading(false);
-        return toast.success("Size is Required.");
-      }
-    }
+    // if (data.items === "shoes") {
+    //   if (!size) {
+    //     setIsLoading(false);
+    //     return toast.success("Size is Required.");
+    //   }
+    // }
     if (!userId) {
       setIsLoading(false);
       return toast.success("Login is Required.");
@@ -65,8 +65,8 @@ export default function AddtoCartBtn({
     <Button
       onClick={() => addToCartBtn(product, userId, size)}
       disabled={isLoading}
-     className="button_solid w-full"
-     title="add product to cart"
+      className="button_solid w-full"
+      title="add product to cart"
     >
       {isLoading ? <Processing /> : <FaCartShopping className="mr-2" />}
       Add to Cart

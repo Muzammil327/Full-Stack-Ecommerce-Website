@@ -1,19 +1,28 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-interface wishlistsDocument extends Document {
+interface SMI_WishlistDocument extends Document {
   productId: mongoose.Schema.Types.ObjectId;
   userId: mongoose.Schema.Types.ObjectId;
 }
-const wishlistSchema = new Schema<wishlistsDocument>({
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "products",
+const SMI_WishlistSchema = new Schema<SMI_WishlistDocument>(
+  {
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product",
+    },
+    userId: { type: Schema.Types.ObjectId, ref: "user" },
   },
-  userId: { type: Schema.Types.ObjectId, ref: "users" },
-});
+  {
+    collection: "wishlist",
+  }
+);
 
-const Wishlist =
-  mongoose.models.wishlists ||
-  mongoose.model<wishlistsDocument>("wishlists", wishlistSchema);
+const wishlist =
+  mongoose.models.wishlist ||
+  mongoose.model<SMI_WishlistDocument>(
+    "wishlist",
+    SMI_WishlistSchema,
+    "wishlist"
+  );
 
-export default Wishlist;
+export default wishlist;

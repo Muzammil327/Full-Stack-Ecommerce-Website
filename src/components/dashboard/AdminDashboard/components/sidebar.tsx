@@ -105,4 +105,19 @@ const SidebarDataAdmin: SidebarDataIprops[] = [
     title: "Users Manage",
     link: "/admin/users",
   },
+  {
+    id: 3,
+    title: "Platform Manage",
+    link: "/dashboard/admin/platform",
+  },
+  {
+    id: 4,
+    title: "Size Manage",
+    link: "/dashboard/admin/size",
+  },
+  {
+    id: 5,
+    title: "Color Manage",
+    link: "/dashboard/admin/color",
+  },
 ];

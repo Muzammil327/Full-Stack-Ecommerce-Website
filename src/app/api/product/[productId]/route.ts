@@ -1,5 +1,5 @@
 import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import Product from "@/src/models/productModel"; // Adjust path as per your project
+import product from "@/src/models/product/productModel"; // Adjust path as per your project
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -15,7 +15,7 @@ export async function GET(
       });
     }
     await connectDB();
-    const getProduct = await Product.aggregate([
+    const getProduct = await product.aggregate([
       {
         $match: {
           slug: productId,
@@ -23,10 +23,34 @@ export async function GET(
       },
       {
         $lookup: {
-          from: "products", // Change this to the correct collection name if it's different
+          from: "item", // Change this to the correct collection name if it's different
+          localField: "itemId",
+          foreignField: "_id",
+          as: "item", // Name of the field to store the related products
+        },
+      },
+      {
+        $lookup: {
+          from: "catgeory", // Change this to the correct collection name if it's different
+          localField: "categoryId",
+          foreignField: "_id",
+          as: "cat", // Name of the field to store the related products
+        },
+      },
+      {
+        $lookup: {
+          from: "subcatgeory",
+          localField: "subCategoryId",
+          foreignField: "_id",
+          as: "scat",
+        },
+      },
+      {
+        $lookup: {
+          from: "product",
           localField: "productId.value",
           foreignField: "_id",
-          as: "product_details", // Name of the field to store the related products
+          as: "product_details",
         },
       },
       {
@@ -37,20 +61,39 @@ export async function GET(
           Ldescription: 1,
           slug: 1,
           image: 1,
-          category: 1,
-          subCategory: 1,
-          items: 1,
           price: 1,
+          dPrice: 1,
           slider: 1,
           like: 1,
-          size: 1,
           dislike: 1,
-          "product_details._id": 1, // Include the related product_detailss in the result
-          "product_details.name": 1, // Include the related product_detailss in the result
-          "product_details.image": 1, // Include the related product_detailss in the result
-          "product_details.slug": 1, // Include the related product_detailss in the result
-          "product_details.price": 1, // Include the related product_detailss in the result
-          "product_details.category": 1, // Include the related products in the result
+          "scat.name": 1,
+          "item.name": 1,
+          cat: {
+            $map: {
+              input: "$cat.name",
+              as: "name",
+              in: {
+                name: "$$name",
+              },
+            },
+          },
+          product_details: {
+            _id: 1,
+            name: 1,
+            image: 1,
+            slug: 1,
+            price: 1,
+            dPrice: 1,
+            cat: {
+              $map: {
+                input: "$cat.name",
+                as: "name",
+                in: {
+                  name: "$$name",
+                },
+              },
+            },
+          },
         },
       },
     ]);

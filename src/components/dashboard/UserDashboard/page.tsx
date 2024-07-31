@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import UserSidebar from "@/src/components/dashboard/UserDashboard/components/sidebar";
-import LoadingTableRow from "../../ui/Loading/LoadingTableRow";
 import ProfileCartCard from "./components/Card/ProfileCartCard";
 import ProfileOrderCard from "./components/Card/ProfileOrderCard";
 import ProfileWishListCard from "./components/Card/ProfileWishListCard";
 import ProfileReviewCard from "./components/Card/ProfileReviewCard";
 import axios from "axios";
 import Table from "../../elements/Table";
+import { LoadingTableRow } from "../../ui/Loading";
 
 interface UserData {
   email?: string;
@@ -53,17 +53,17 @@ export default function UserDashboard({ userId }: { userId?: string }) {
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg md:mx-4">
             {isLoading ? (
               <>
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
-                <LoadingTableRow />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
+                <LoadingTableRow cellCount={1} />
               </>
             ) : (
               <>

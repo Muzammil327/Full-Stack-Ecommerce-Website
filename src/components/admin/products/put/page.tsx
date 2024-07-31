@@ -280,7 +280,6 @@ const AdminProductPut = () => {
   const fetchSliderImages = useCallback(async () => {
     try {
       const response = await axios.get(`${PRODUCT_GET_BY_ID}/${productId}`);
-      console.log(response.data);
       setImageUrls(response.data.slider);
     } catch (error) {
       console.error("Error fetching slider images:", error);
@@ -405,8 +404,7 @@ const AdminProductPut = () => {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your product name."
-            type="text"
-          />
+            type="text" name={"productname"}          />
         </div>
 
         {/* ----------------------- Product Catgeory and sub catgeory -----------------------  */}
