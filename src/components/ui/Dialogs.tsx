@@ -100,7 +100,12 @@ export function DialogPanels({
                 >
                   Cancel
                 </Button>
-                <Button onClick={onClick} className="button_outline px-4">
+                <Button
+                  onClick={() => {
+                    setIsOpen(true), onClick;
+                  }}
+                  className="button_outline px-4"
+                >
                   Delete
                 </Button>
               </div>

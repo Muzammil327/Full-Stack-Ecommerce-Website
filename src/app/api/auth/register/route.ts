@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
     }).save();
 
     // send activation email
-    await sendActivationEmail(email, activationToken);
+    await sendActivationEmail(email, activationToken, username);
 
     // store email in local storage
 

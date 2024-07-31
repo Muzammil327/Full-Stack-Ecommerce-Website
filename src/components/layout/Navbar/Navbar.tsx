@@ -118,15 +118,14 @@ export default function NavbarView({ userId }: { userId: string }) {
             <Popover.Group className="hidden lg:ml-8 lg:block lg:self-stretch">
               <div className="flex h-full space-x-10">
                 {navigation.pages.map((page: Page) => (
-                  <Links
-                    slug={page.href}
+                  <Link
+                    href={page.href}
                     title="menu"
                     className="flex items-center text-sm font-medium"
                     key={page.name}
-                    prefetch={page.prefetch}
                   >
                     {page.name}
-                  </Links>
+                  </Link>
                 ))}
               </div>
             </Popover.Group>
@@ -158,7 +157,7 @@ const navigation = {
   pages: [
     { name: "Home", href: "/", prefetch: true },
     { name: "Stores", href: "/stores", prefetch: true },
-    { name: "Blogs", href: "/", prefetch: false },
-    { name: "Contact", href: "/", prefetch: false },
+    { name: "Blogs", href: "/", prefetch: true },
+    { name: "Contact", href: "/", prefetch: true },
   ],
 };

@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
       },
       {
         $project: {
+          username: 1,
           email: 1,
         },
       },
@@ -31,7 +32,7 @@ export async function POST(req: NextRequest) {
     const users = response[0];
 
     // send activation email
-    await sendActivationEmail(users.email, token);
+    await sendActivationEmail(users.email, token, users.username);
 
     return NextResponse.json({
       statusbar: 200,

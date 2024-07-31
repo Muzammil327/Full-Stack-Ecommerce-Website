@@ -18,7 +18,7 @@ export default function ProductDetailCatgeory({
           {data.cat.map((data: any) => data.name)}
           <FaChevronRight className="text-xs text-indigo-500" />
         </li>
-        <li className="text-gray-500 flex md:gap-3 gap-2 items-center">
+        <li className="text-gray-500 flex md:gap-3 gap-2 items-center capitalize">
         {data.scat.map((data: any) => data.name)}
           <FaChevronRight className="text-xs text-indigo-500" />
         </li>

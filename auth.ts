@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import connectDB from "@/src/utils/db";
-import User from "@/src/models/userModel";
+import user from "@/src/models/userModel";
 import bcrypt from "bcrypt";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -21,22 +21,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new Error("Invalid email or password.")
           }
 
-          const user = await User.findOne({ email }).select("+password");
-          if (user.emailVerified !== true) {
+          const users = await user.findOne({ email }).select("+password");
+          if (users.emailVerified !== true) {
             throw new Error("User not found.")
           }
 
-          const passwordMatch = await bcrypt.compare(password, user.password);
+          const passwordMatch = await bcrypt.compare(password, users.password);
           if (!passwordMatch) {
             throw new Error("Password not Match.")
           }
 
           return {
-            _id: user._id,
-            username: user.username,
-            email: user.email,
-            role: user.role,
-            emailVerified: user.emailVerified,
+            _id: users._id,
+            username: users.username,
+            email: users.email,
+            role: users.role,
+            emailVerified: users.emailVerified,
           };
         } catch (error) {
           console.log(error);

@@ -17,21 +17,27 @@ export async function GET(req: NextRequest) {
               feature: true,
             },
           },
+          {
+            $lookup:{
+              from:"catgeory",
+              localField:"categoryId",
+              foreignField:"_id",
+              as:"cat"
+            }
+          },
           { $limit: 8 },
           {
             $project: {
               _id: 1,
               name: 1,
               slug: 1,
-              category: 1,
               price: 1,
-              discountprice: 1,
+              dPrice: 1,
               image: 1,
-              feature: 1,
+              "cat.name": 1,
             },
           },
         ]);
-
         return NextResponse.json({
           success: true,
           message: "Fetch Features Products",
