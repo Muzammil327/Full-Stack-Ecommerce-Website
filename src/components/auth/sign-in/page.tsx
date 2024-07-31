@@ -42,7 +42,7 @@ export default function SignView() {
         password: data.password,
       });
       if (response?.error) {
-        toast.error(response.error);
+        toast.error("Credential Failed");
       }
       router.push("/dashboard");
     } catch (error) {
