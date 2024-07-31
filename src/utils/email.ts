@@ -17,7 +17,7 @@ export async function sendActivationEmail(
 ) {
   const activationLink = `${process.env.NEXT_PUBLIC_FRONTENDPI}/activate/${token}`;
   const message = {
-    from: process.env.EMAIL_FROM,
+    from: "SMI Store",
     to: email,
     subject: "Activate Your SMI Store Account",
     text: `Click this link to activate your account: ${activationLink}`,
