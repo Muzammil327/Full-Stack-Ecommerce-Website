@@ -14,12 +14,12 @@ export default function HomeView() {
   return (
     <React.Fragment>
       <HeroSlider />
+      <Product title="Feature Product" slug="/stores" /> {/* Feature */}
       <Policy />
       {/* <CatgeoryHome /> */}
       {/* <Product title="Flash Deals" slug="" /> Flash Deals */}
       {/* <TagHome /> */}
       {/* <Product title="New Product" slug="" /> New */}
-      <Product title="Feature Product" slug="/stores" /> {/* Feature */}
       {/* <Product title="Top Home Appliances" slug="" /> Home Appliances */}
     </React.Fragment>
   );
