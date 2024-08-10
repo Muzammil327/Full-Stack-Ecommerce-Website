@@ -17,9 +17,9 @@ export async function sendActivationEmail(
 ) {
   const activationLink = `${process.env.NEXT_PUBLIC_FRONTENDPI}/activate/${token}`;
   const message = {
-    from: "SMI Store",
+    from: "SMI Shop Mart",
     to: email,
-    subject: "Activate Your SMI Store Account",
+    subject: "Activate Your SMI Shop Mart Account",
     text: `Click this link to activate your account: ${activationLink}`,
     html: `
     <html>
@@ -81,17 +81,17 @@ export async function sendActivationEmail(
       <body>
         <div class="container">
           <div class="header">
-            <h1>Welcome to SMI Store!</h1>
+            <h1>Welcome to SMI Shop Mart!</h1>
           </div>
           <div class="content">
             <p>Hello, ${username}</p>
-            <p>Thank you for signing up at SMI Store. To complete your registration, please click the button below to activate your account:</p>
+            <p>Thank you for signing up at SMI Shop Mart. To complete your registration, please click the button below to activate your account:</p>
             <a href="${activationLink}" class="button">Activate Your Account</a>
             <p>If you did not create an account with us, please ignore this email.</p>
-            <p>Best regards,<br>The SMI Store Team</p>
+            <p>Best regards,<br>The SMI Shop Mart Team</p>
           </div>
           <div class="footer">
-            <p>&copy; ${new Date().getFullYear()} SMI Store. All rights reserved.</p>
+            <p>&copy; ${new Date().getFullYear()} SMI Shop Mart. All rights reserved.</p>
             <p>If you have any questions, contact us at <a href="mailto:smistore528982@gmail.com">smistore528982@gmail.com</a></p>
           </div>
         </div>

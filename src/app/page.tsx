@@ -2,7 +2,7 @@ import HomeView from "@/src/components/home/page";
 import type { Metadata } from "next";
 
 const data = {
-  title: "SMI Store",
+  title: "SMI Shop Mart",
   description:
     "I am a Full Stack Developer With Frontend Backend and Deveops Enginerr with Javascript, Typescript, Phython, PHP, Node JS and SQL.",
   canonical: "/",

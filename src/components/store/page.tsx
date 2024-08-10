@@ -66,7 +66,7 @@ export default function StorePage({ userId }: any) {
       {error && <h1>Error fetching Store data...</h1>}
       <section className="flex items-baseline justify-between border-b border-gray-200 py-3">
         <h1 className="lg:text-3xl md:text-2xl text-xl font-bold tracking-tight text-gray-900">
-          SMI Store
+          SMI Shop Mart
         </h1>
 
         <StoreSort

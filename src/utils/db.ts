@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URL as string, {
-      serverSelectionTimeoutMS: 10000, // Timeout after 5 seconds if server selection fails
+      serverSelectionTimeoutMS: 20000, // Timeout after 5 seconds if server selection fails
       socketTimeoutMS: 45000, // Increase socket timeout to 45 seconds
     });
 
