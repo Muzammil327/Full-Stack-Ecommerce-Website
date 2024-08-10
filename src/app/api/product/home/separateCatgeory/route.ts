@@ -1,17 +1,29 @@
 import connectDB from "@/src/utils/db";
 import Product from "@/src/models/product/productModel";
+import item from "@/src/models/product/itemsModel";
 import { NextRequest, NextResponse } from "next/server";
+import mongoose from "mongoose";
 
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
-  const cat = searchParams.get("cat");
-  const subCatgeory = searchParams.get("subCatgeory");
   const tags = searchParams.get("tags");
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 9;
+
   await connectDB();
   try {
+    const getitems = await item.aggregate([
+      {
+        $match: {
+          name: tags,
+        },
+      },
+    ]);
+
+    const getitemsmap = getitems.map((data) => data._id);
+    const extractedId = getitemsmap[0];
+
     // project stage
     const ProjectStage = {
       $project: {
@@ -20,7 +32,8 @@ export async function GET(req: NextRequest) {
         slug: 1,
         image: 1,
         price: 1,
-        category: 1,
+        dPrice: 1,
+        "cat.name": 1,
       },
     };
 
@@ -30,44 +43,24 @@ export async function GET(req: NextRequest) {
     // limit stage
     const LimitStage = { $limit: limit };
 
-    let products = [];
-
-    if (cat) {
-      products = await Product.aggregate([
-        {
-          $match: {
-            category: cat,
-          },
+    const products = await Product.aggregate([
+      {
+        $lookup: {
+          from: "catgeory", // Change this to the correct collection name if it's different
+          localField: "categoryId",
+          foreignField: "_id",
+          as: "cat", // Name of the field to store the related products
         },
-        ProjectStage,
-        SkipStage,
-        LimitStage,
-      ]);
-    }
-    if (subCatgeory) {
-      products = await Product.aggregate([
-        {
-          $match: {
-            subCategory: subCatgeory,
-          },
+      },
+      {
+        $match: {
+          itemId: new mongoose.Types.ObjectId(extractedId),
         },
-        ProjectStage,
-        SkipStage,
-        LimitStage,
-      ]);
-    }
-    if (tags) {
-      products = await Product.aggregate([
-        {
-          $match: {
-            items: tags,
-          },
-        },
-        ProjectStage,
-        SkipStage,
-        LimitStage,
-      ]);
-    }
+      },
+      ProjectStage,
+      SkipStage,
+      LimitStage,
+    ]);
 
     const getproducts = await Product.find();
 
@@ -75,7 +68,7 @@ export async function GET(req: NextRequest) {
     const totalPages = Math.ceil(totalResults / limit);
 
     console.log("products:", products);
-    
+
     return NextResponse.json({
       statusbar: 200,
       message: "Product successfully getting.",

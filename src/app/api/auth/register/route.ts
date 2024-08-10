@@ -47,27 +47,27 @@ export async function POST(req: NextRequest) {
     }
 
     // Generate activation token
-    const activationToken = generateActivationToken();
+    // const activationToken = generateActivationToken();
 
     // Create a new user with activation token
     const newUser = await new user({
       email,
       password,
       username,
-      tokenActivate: activationToken,
+      // tokenActivate: activationToken,
     }).save();
 
     // send activation email
-    await sendActivationEmail(email, activationToken, username);
+    // await sendActivationEmail(email, activationToken, username);
 
     // store email in local storage
 
-    cookies().set({
-      name: 'activationToken',
-      value: activationToken,
-      // httpOnly: true,
-      path: '/',
-    })
+    // cookies().set({
+    //   name: 'activationToken',
+    //   value: activationToken,
+    //   // httpOnly: true,
+    //   path: '/',
+    // })
 
     // back response
     return NextResponse.json({

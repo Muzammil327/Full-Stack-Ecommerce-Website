@@ -45,6 +45,7 @@ export default function SignView() {
         toast.error("Credential Failed");
       }
       router.push("/dashboard");
+      window.location.reload();
     } catch (error) {
       toast.warning("Internal server Error.");
     }

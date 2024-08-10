@@ -22,9 +22,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
 
           const users = await user.findOne({ email }).select("+password");
-          if (users.emailVerified !== true) {
-            throw new Error("User not found.")
-          }
 
           const passwordMatch = await bcrypt.compare(password, users.password);
           if (!passwordMatch) {

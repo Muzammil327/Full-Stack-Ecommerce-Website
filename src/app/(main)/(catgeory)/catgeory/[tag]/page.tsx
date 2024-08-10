@@ -25,7 +25,7 @@ const CategoryPageContent = () => {
       let response: any = [];
       if (param.tag) {
         response = await axios.get<ProductCardDataType>(
-          `/api/product/catgeory?page=${page}&tags=${param.tag}`
+          `/api/product/home/separateCatgeory?page=${page}&tags=${param.tag}`
         );
       }
       if (page === 1) {
@@ -73,7 +73,11 @@ const CategoryPageContent = () => {
             <>
               <div className="grid lg:grid-cols-4 grid-cols-2 gap-4 md:mx-4 mt-5">
                 {products.map((product: any) => (
-                  <ProductCard product={product} key={product._id} session={undefined} />
+                  <ProductCard
+                    product={product}
+                    key={product._id}
+                    session={undefined}
+                  />
                 ))}
               </div>
               <div className="flex items-center justify-center mt-8">

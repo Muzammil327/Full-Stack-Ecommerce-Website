@@ -28,7 +28,7 @@ export interface ProductCardData {
   subCategory: string;
   item: [];
   price: number;
-  discountprice?: number;
+  dPrice?: number;
   quantity: number;
   image: string;
   slider: [];
@@ -49,14 +49,11 @@ export default function ProductDetail({
 }) {
   const [data, setData] = useState<ProductCardData>();
   const [selectedSize, setSelectedSize] = useState("");
-  console.log(data);
   // const handleSizeChange = (e: any) => {
   //   setSelectedSize(e.target.value);
   // };
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
-  const price = data?.price ?? 0; // Provide a default value of 0 if data.price is undefined
-  const actualPrice = Math.round(price * 1.45); // Calculate 15% of the price and round it
 
   const fetchProduct = useCallback(async () => {
     try {
@@ -138,7 +135,7 @@ export default function ProductDetail({
                     {/* -------------------------- Product Price -------------------------- */}
                     <div className="price flex gap-4 items-center">
                       <span className="line-through font-semibold text-xl text-gray-700">
-                        Rs{actualPrice}.00
+                        Rs{data.dPrice}.00
                       </span>
                       <span className="font-semibold text-indigo-500 text-2xl">
                         Rs{data.price}.00

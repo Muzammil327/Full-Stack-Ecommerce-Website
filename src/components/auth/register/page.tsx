@@ -42,8 +42,8 @@ export default function RegisterAccountView() {
           email: "",
           password: "",
         });
-        toast.success("Plz Activate Your Email");
-        router.push("/activate");
+        toast.success("Plz Sign In with your Email");
+        router.push("/sign-in");
       }
     } catch (error) {
       console.error("An error occurred during registration:", error);
