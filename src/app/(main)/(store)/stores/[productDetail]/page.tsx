@@ -22,7 +22,7 @@ export default async function Page({ params }: Iprops) {
 export async function generateMetadata({ params }: Iprops) {
   const slug = params.productDetail;
   const convertToLowercaseWithHyphen = (text: string) => {
-    return text.toLowerCase().replace(/\s+/g, "-");
+    return text.toUpperCase().replace(/-/g, " ").replace(/\s+/g, " ");
   };
 
   let response;
