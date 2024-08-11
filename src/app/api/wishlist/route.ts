@@ -102,6 +102,7 @@ export async function POST(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const wishlistId = searchParams.get("wishlistId");
+  console.log("wishlistId:", wishlistId);
   await connectDB();
 
   try {

@@ -1,14 +1,32 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+import { redirect, useRouter } from "next/navigation";
 import { useCart } from "@/src/components/context/cartContext";
 import { Button, Container, Table } from "@/src/components/ui/ui";
 import { useOrder } from "@/src/components/context/orderContext";
-import AddressView from "../address/page";
-import AddressCheckoutView from "../address/addressCheckout";
+import Link from "next/link";
+import { LoadingTableRow } from "../ui/Loading";
+import Table1 from "../elements/Table";
 
-export default function CheckoutView() {
-  const { cart } = useCart(); // Assume useCart provides cartItems as well
+interface UserData {
+  email?: string;
+  phone1: string;
+  phone2: string;
+  addressLine1: string;
+  image: string;
+  country: string;
+  city: string;
+  postalCode: string;
+  username: string;
+  additionalInfo: string;
+  emailVerified: boolean;
+}
+
+export default function CheckoutView({ userId }: any) {
+  const { cart, isFetching } = useCart();
+  const router = useRouter();
 
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
@@ -17,21 +35,16 @@ export default function CheckoutView() {
   useEffect(() => {
     // Calculate subtotal, total, and total tax when cart changes
     let subTotal = 0;
-    let total = 0;
 
     if (cart) {
       cart.forEach((item: any) => {
         subTotal += item.product_Detail.price * item.qty;
       });
-
-      total = subTotal;
     }
 
     setSubtotal(subTotal);
-    setTotal(total);
+    setTotal(subTotal); // Assuming total is equal to subtotal in this case
   }, [cart]);
-
-  const [isFormFilled, setIsFormFilled] = useState(false);
 
   return (
     <Container>
@@ -46,10 +59,10 @@ export default function CheckoutView() {
               "Size",
               "Total Product price",
             ]}
-            loading={isLoadingOrder}
+            loading={isFetching}
             cellCount={6}
           >
-            {cart ? ( // Check if userData is not null before rendering
+            {cart ? (
               cart.map((user, index) => (
                 <tr className="bg-white border-b hover:bg-gray-50" key={index}>
                   <td className="p-4">
@@ -80,11 +93,17 @@ export default function CheckoutView() {
                 </tr>
               ))
             ) : (
-              <p>NO user Cart...</p>
+              <p>No items in cart...</p>
             )}
           </Table>
-
-          <AddressCheckoutView setIsFormFilled={setIsFormFilled} />
+          <div className="mt-5">
+            <Link href="/dashboard/address/" className="!mb-5">
+              <Button className="button_solid !inline-block">
+                Edit Address
+              </Button>
+            </Link>
+            <UserData userId={userId} />
+          </div>
         </div>
         <div className="lg:col-span-3 col-span-1 md:mt-0 mt-8">
           <div className="cart-total bg-slate-100 rounded-md p-4">
@@ -103,29 +122,86 @@ export default function CheckoutView() {
               <span>Total</span>
               <span>{total}</span>
             </div>
-            {isFormFilled && (
-              <>
-                <Button
-                  className="button_solid w-full"
-                  onClick={() =>
-                    addToOrder(
-                      cart.map((item) => ({
-                        product: item.product_Detail._id,
-                        qty: item.qty,
-                        size: item.size,
-                      })),
-                      total
-                    )
-                  }
-                  disabled={isLoadingOrder}
-                >
-                  {isLoadingOrder ? "Processing..." : "Place Order"}
-                </Button>
-              </>
-            )}
+
+            <Button
+              className="button_solid w-full"
+              onClick={() =>
+                addToOrder(
+                  cart.map((item) => ({
+                    product: item.product_Detail._id,
+                    qty: item.qty,
+                    size: item.size,
+                  })),
+                  total
+                )
+              }
+              disabled={isFetching}
+            >
+              {isFetching ? "Processing..." : "Place Order"}
+            </Button>
           </div>
-        </div>{" "}
+        </div>
       </div>
     </Container>
+  );
+}
+
+export function UserData({ userId }: any) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<UserData | null>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`/api/auth/address/${userId}`);
+        const userDataFromApi = response.data.get_user_address;
+
+        if (!userDataFromApi.additionalInfo) {
+          localStorage.setItem("lastVisitedPage", window.location.pathname);
+
+          router.push("/dashboard/address/");
+          return;
+        }
+
+        setData(userDataFromApi);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setError("Error fetching user data.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchData();
+    }
+  }, [router, userId]);
+
+  return (
+    <div className="relative overflow-x-auto shadow-md sm:rounded-lg md:mx-4 mt-5">
+      {isLoading ? (
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+          <caption className="p-5 text-lg font-semibold rtl:text-right text-gray-900 text-center bg-slate-200">
+            User Checkout Detail
+          </caption>
+          {[...Array(10)].map((_, index) => (
+            <LoadingTableRow key={index} cellCount={2} />
+          ))}
+        </table>
+      ) : (
+        <>
+          {error && <span className="text-red-500">{error}</span>}
+          <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+            <caption className="p-5 text-lg font-semibold rtl:text-right text-gray-900 text-center bg-slate-200">
+              User Profile
+            </caption>
+            <Table1 userProfile={data} />
+          </table>
+        </>
+      )}
+    </div>
   );
 }

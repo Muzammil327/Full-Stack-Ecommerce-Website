@@ -6,10 +6,12 @@ export default function Button({
   className,
   disabled,
   onClick,
+  type,
   title,
 }: {
   children: ReactNode;
   className?: string;
+  type?: "submit" | "reset" | undefined;
   title?: string;
   disabled?: boolean;
   onClick?: () => void;
@@ -20,6 +22,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       aria-label={title}
+      type={type}
     >
       {children}
     </button>

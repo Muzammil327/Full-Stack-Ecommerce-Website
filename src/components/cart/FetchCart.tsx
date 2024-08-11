@@ -15,6 +15,8 @@ export default function FetchCart({
   cart: CartItem[];
 }) {
   const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   // ----------------------- DELETE CART -------------------------------------------
 
   const DeleteHandle = async (cartId: string) => {
@@ -37,7 +39,7 @@ export default function FetchCart({
   // ----------------------- PUT INCREASE CART -------------------------------------------
 
   const handleUpdateCartIncrease = async (_id: string, qty: number) => {
-    setLoading(true);
+    setLoading1(true);
 
     try {
       const response = await axios.put(`/api/cart?increase=${_id}`, { qty });
@@ -50,14 +52,14 @@ export default function FetchCart({
     } catch (error) {
       console.error("Error adding product to cart:", error);
     } finally {
-      setLoading(false);
+      setLoading1(false);
     }
   };
 
   // ----------------------- PUT DECREASE CART -------------------------------------------
 
   const handleUpdateCartDecrease = async (_id: string, qty: number) => {
-    setLoading(true);
+    setLoading2(true);
 
     try {
       const response = await axios.put(`/api/cart?decrease=${_id}`, { qty });
@@ -70,7 +72,7 @@ export default function FetchCart({
     } catch (error) {
       console.error("Error adding product to cart:", error);
     } finally {
-      setLoading(false);
+      setLoading2(false);
     }
   };
 
@@ -100,7 +102,7 @@ export default function FetchCart({
                   onClick={() => handleUpdateCartDecrease(user._id, user.qty)}
                 >
                   <span className="sr-only">Decrease Quantity</span>
-                  {loading ? <Processing /> : <FaMinus />}
+                  {loading2 ? <Processing /> : <FaMinus />}
                 </button>
                 <input
                   type="number"
@@ -116,7 +118,7 @@ export default function FetchCart({
                   onClick={() => handleUpdateCartIncrease(user._id, user.qty)}
                 >
                   <span className="sr-only">Increase Quantity</span>
-                  {loading ? <Processing /> : <FaPlus />}
+                  {loading1 ? <Processing /> : <FaPlus />}
                 </button>
               </form>
             </td>

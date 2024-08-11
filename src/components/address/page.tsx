@@ -119,6 +119,13 @@ export default function AddressView() {
         additionalInfo: "",
       });
       fetchUserData();
+      const lastVisitedPage = localStorage.getItem("lastVisitedPage");
+      console.log("lastVisitedPage:", lastVisitedPage);
+      if (lastVisitedPage) {
+        router.push(lastVisitedPage);
+        // Optionally, clear the last visited page from localStorage if you don't need it anymore
+        localStorage.removeItem("lastVisitedPage");
+      }
     } catch (error) {
       setError("Error during User Address Update");
     } finally {
@@ -131,6 +138,7 @@ export default function AddressView() {
       setLoading(true);
       const response = await axios.get(`/api/auth/address/${userId}`);
       const userDataFromApi: FormData = response.data.get_user_address;
+
       if (userDataFromApi) {
         setAddressData(userDataFromApi);
       }

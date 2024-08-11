@@ -8,7 +8,7 @@ export default async function page() {
   if (!session) redirect("/sign-in");
   return (
     <main>
-      <CheckoutView />
+      <CheckoutView userId={session.user._id} />
     </main>
   );
 }

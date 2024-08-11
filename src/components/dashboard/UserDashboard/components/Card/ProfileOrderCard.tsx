@@ -27,7 +27,7 @@ export default function ProfileOrderCard({ userId }: { userId: any }) {
     }
   }, [userId]);
   return (
-    <Link href="/profile/active-order/">
+    <Link href="/dashboard/active-order/">
       <StatCard
         error={error}
         length={isLoading ? 0 : data.length}

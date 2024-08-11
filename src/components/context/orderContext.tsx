@@ -96,10 +96,12 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
             });
           })
         );
+
         getToCartBtn();
         await getToOrderBtn();
         router.refresh();
         router.push("/stores");
+    
       } catch (error) {
         console.error("Error adding product to cart:", error);
       } finally {

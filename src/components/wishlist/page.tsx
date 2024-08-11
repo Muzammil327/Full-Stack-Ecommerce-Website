@@ -15,6 +15,8 @@ const WishlistView = () => {
   // ----------------------- DELETE WISHLIST -------------------------------------------
 
   const DeleteHandle = async (wishlistId: string) => {
+    console.log("wishlistId:", wishlistId);
+
     try {
       const response = await axios.delete(
         `/api/wishlist?wishlistId=${wishlistId}`
@@ -77,15 +79,14 @@ const WishlistView = () => {
                         {user.product_Detail.price}
                       </td>
                       <td className="px-6 py-4 text-center">
-                        <Dialogs
-                          className="button_outline p-1"
-                          title="Delete Wishlist."
-                          description="This will permanently delete your product from this wishlist."
-                          para="Are you sure you want to delete your Wishlist Product?"
-                          onClick={() => DeleteHandle(user._id)}
+                        <Button
+                          onClick={() => {
+                            DeleteHandle(user._id);
+                          }}
+                          className="button_outline px-4 py-4"
                         >
                           <FaTimes />
-                        </Dialogs>
+                        </Button>
                       </td>
                     </tr>
                   ))

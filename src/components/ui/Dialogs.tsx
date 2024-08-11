@@ -67,7 +67,11 @@ export function DialogPanels({
 }: DialogPanelProps) {
   return (
     <Fragment>
-      <Button className={className} onClick={() => setIsOpen(true)}>
+      <Button
+        className={className}
+        onClick={() => setIsOpen(true)}
+        type="submit"
+      >
         {children}
       </Button>
       <Dialog
@@ -102,7 +106,7 @@ export function DialogPanels({
                 </Button>
                 <Button
                   onClick={() => {
-                    setIsOpen(true), onClick;
+                    setIsOpen(false), onClick;
                   }}
                   className="button_outline px-4"
                 >

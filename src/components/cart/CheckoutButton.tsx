@@ -9,12 +9,15 @@ interface Product {
   product: string;
   qty: number;
 }
+
 export default function CheckoutButton({
   userId,
   cart,
+  isLoading,
 }: {
   userId: string;
   cart: any;
+  isLoading: any;
 }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [subtotal, setSubtotal] = useState<number>(0);
@@ -51,7 +54,9 @@ export default function CheckoutButton({
         })
       );
       router.push("/checkout");
-      setLoading(false);
+      setInterval(() => {
+        setLoading(false);
+      }, 3000);
     } catch (error) {
       console.error("Error adding product to cart:", error);
     } finally {
@@ -92,7 +97,13 @@ export default function CheckoutButton({
             }
             disabled={loading}
           >
-            {loading ? <Processing /> : "Proceed to Checkout"}
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : (
+              <React.Fragment>
+                {loading ? <Processing /> : "Proceed to Checkout"}
+              </React.Fragment>
+            )}
           </Button>
         )}
       </div>
