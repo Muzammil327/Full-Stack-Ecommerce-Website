@@ -35,6 +35,7 @@ export async function generateMetadata({ params }: Iprops) {
     }
     const data = await response.json();
     const productData = data.singleProduct;
+    const image = `https://res.cloudinary.com/desggllml/image/upload/w_304,h_304,c_fill,e_improve,e_sharpen/${data.image}`
 
     return {
       title: convertToLowercaseWithHyphen(productData?.name),
@@ -56,7 +57,7 @@ export async function generateMetadata({ params }: Iprops) {
         url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/stores/${slug}`,
         images: [
           {
-            url: productData?.image,
+            url: image,
             alt: productData?.name,
           },
         ],
@@ -65,7 +66,7 @@ export async function generateMetadata({ params }: Iprops) {
         title: productData?.name,
         description: productData?.Sdescription,
         images: {
-          url: productData?.image,
+          url: image,
           alt: productData?.name,
         },
       },
