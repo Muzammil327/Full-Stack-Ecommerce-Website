@@ -25,7 +25,7 @@ const CartView = ({ userId }: { userId: string }) => {
   const { isFetching, cart, getToCartBtn } = useCart();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<Boolean>(false);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,9 +38,14 @@ const CartView = ({ userId }: { userId: string }) => {
           !userDataFromApi?.country ||
           !userDataFromApi?.additionalInfo
         ) {
-          setTimeout(() => {
-            router.push("/dashboard/address/");
-          }, 5000); // 5-second delay before redirecting
+          if (!userDataFromApi.additionalInfo) {
+            localStorage.setItem("lastVisitedPage", window.location.pathname);
+
+            setTimeout(() => {
+              router.push("/dashboard/address/");
+            }, 5000);          
+            return;
+          }
         }
       } catch (error) {
         console.error("Error fetching user data:", error);

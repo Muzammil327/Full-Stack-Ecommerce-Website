@@ -65,45 +65,40 @@ export const Items: CatTypes[] = [
 
 export const categories: CatgeoryType[] = [
   {
-    id: "women fashion",
-    name: "Women Fashion",
-    subCategories: [
-      {
-        id: "clothing",
-        name: "Clothing",
-        tags: [{ id: "brands", name: "Brands" }],
-      },
-      {
-        id: "shoes",
-        name: "Shoes",
-        tags: [
-          { id: "nike", name: "Nike" },
-          { id: "jordan", name: "Jordan" },
-        ],
-      },
-    ],
-  },
-  {
     id: "men fashion",
-    name: "Men Fashion",
+    name: "Men & Fashion",
     subCategories: [
-      {
-        id: "clothing",
-        name: "Clothing",
-        tags: [{ id: "brands", name: "Brands" }],
-      },
       {
         id: "shoes",
         name: "Shoes",
-        tags: [
-          { id: "nike", name: "Nike" },
-          { id: "jordan", name: "Jordan" },
-        ],
+        tags: [{ id: "jordan", name: "Jordan" }],
       },
       {
         id: "shirt",
         name: "Shirt",
-        tags: [{ id: "polo shirt", name: "Polo Shirt" }],
+        tags: [{ id: "polo", name: "Polo" }],
+      },
+    ],
+  },
+  {
+    id: "women fashion",
+    name: "Women & Fashion",
+    subCategories: [
+      {
+        id: "shoes",
+        name: "Shoes",
+        tags: [{ id: "jordan", name: "Jordan" }],
+      },
+    ],
+  },
+  {
+    id: "health beauty",
+    name: "Health & Beauty",
+    subCategories: [
+      {
+        id: "fitness & exercise",
+        name: "Fitness & Exercise",
+        tags: [{ id: "brands", name: "Brands" }],
       },
     ],
   },
@@ -158,6 +153,31 @@ export const categories: CatgeoryType[] = [
           { id: "plates", name: "Plates" },
           { id: "brands", name: "Brands" },
         ],
+      },
+      {
+        id: "heating cooling accessories",
+        name: "Heating & Cooling",
+        tags: [{ id: "slicer", name: "Slicer" }],
+      },
+      {
+        id: "cleaning dusting accessories",
+        name: "Cleaning & Dusting",
+        tags: [{ id: "slicer", name: "Slicer" }],
+      },
+      {
+        id: "home decor",
+        name: "Home Decor",
+        tags: [{ id: "slicer", name: "Slicer" }],
+      },
+      {
+        id: "travel accessories",
+        name: "Travel Accessories",
+        tags: [{ id: "slicer", name: "Slicer" }],
+      },
+      {
+        id: "bathroom accessories",
+        name: "Bathroom Accessories",
+        tags: [{ id: "slicer", name: "Slicer" }],
       },
     ],
   },

@@ -45,7 +45,6 @@ export default function Footer() {
               </li>
               <li className={styles.link}>About Us</li>
               <li className={styles.link}>Contact Us</li>
-              <li className={styles.link}>About Our Shop</li>
               <li className={styles.link}>Secure Shopping</li>
               <li className={styles.link}>Delivery infomation</li>
               <li className={styles.link}>Our Services</li>

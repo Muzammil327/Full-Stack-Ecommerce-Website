@@ -22,7 +22,7 @@ export default function AuthMobile({ setOpen, userId }: any) {
             <div className="flow-root">
               <button
                 onClick={() => {
-                  signOut({ callbackUrl: "/" });
+                  signOut({ callbackUrl: "https://smishopmart.vercel.app/" });
                   setOpen(false);
                 }}
                 className="text-sm font-medium text-gray-700 hover:text-gray-800"

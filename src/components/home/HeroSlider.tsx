@@ -174,7 +174,7 @@ function CatgeoryLayout({
             {categories.map((category) => (
               <li
                 key={category.id}
-                className="flex items-center justify-between border-b-2 py-4 px-5"
+                className="flex items-center justify-between border-b-2 py-3 px-5"
               >
                 <span
                   className="block font-medium text-gray-900 cursor-pointer"
@@ -205,7 +205,7 @@ function CatgeoryLayout({
           leaveTo="opacity-0"
         >
           <ul className="absolute left-0 right-0 top-12 z-50 bg-gray-100 flex flex-col">
-            <li className="flex items-center justify-between border-b-2 py-5 px-5">
+            <li className="flex items-center justify-between border-b-2 py-2 px-5">
               <span
                 className="-m-2 block font-medium text-gray-900 cursor-pointer"
                 onClick={() => setSelectedCategory(null)}
@@ -258,7 +258,7 @@ function CatgeoryLayout({
                 className="flex items-center justify-between border-b-2 py-5 px-5"
               >
                 <Links
-                  slug="/"
+                  slug={`/catgeory/${tag.id}`}
                   title="product cageory name or list"
                   className="-m-2 block font-medium text-gray-900 cursor-pointer"
                 >

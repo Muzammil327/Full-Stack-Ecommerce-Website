@@ -10,6 +10,7 @@ import {
   ProductCardType,
 } from "@/src/types/page";
 import ProductCard from "@/src/components/elements/ProductCard/Productcard";
+import Pagination from "@/src/components/admin/products/AdminProductView/pagination";
 
 const CategoryPageContent = () => {
   const param = useParams();
@@ -47,11 +48,6 @@ const CategoryPageContent = () => {
     fetchProduct();
   }, [fetchProduct]);
 
-  const handleLoadMore = () => {
-    if (pagination && page < pagination.totalPages) {
-      setPage((prevPage: any) => prevPage + 1);
-    }
-  };
   return (
     <main>
       {error && <h1>Error fetching Catgeory data...</h1>}
@@ -81,14 +77,15 @@ const CategoryPageContent = () => {
                 ))}
               </div>
               <div className="flex items-center justify-center mt-8">
-                {pagination && page < pagination.totalPages && (
-                  <Button
-                    onClick={handleLoadMore}
-                    className="button_solid w-full"
-                    title="Load more"
-                  >
-                    {loading ? "Loading..." : "Load More"}
-                  </Button>
+                {products.length > 9 && (
+                  <Pagination
+                    pagination={pagination}
+                    setPage={(page: number) => {
+                      setPage(page);
+                    }}
+                    page={page}
+                    loading={loading}
+                  />
                 )}
               </div>{" "}
             </>

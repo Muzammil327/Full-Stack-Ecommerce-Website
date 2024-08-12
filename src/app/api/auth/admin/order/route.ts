@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     getTotalOrder = await order.aggregate([
       {
         $lookup: {
-          from: "SMI_Product", // Name of the collection to join with
+          from: "product", // Name of the collection to join with
           localField: "productId", // Field in the Carts collection
           foreignField: "_id", // Field in the Products collection
           as: "product", // Alias for the joined data
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
       },
       {
         $lookup: {
-          from: "users", // Name of the collection to join with
+          from: "user", // Name of the collection to join with
           localField: "userId", // Field in the Carts collection
           foreignField: "_id", // Field in the Products collection
           as: "user", // Alias for the joined data
@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
         },
         {
           $lookup: {
-            from: "products", // Name of the collection to join with
+            from: "product", // Name of the collection to join with
             localField: "productId", // Field in the Carts collection
             foreignField: "_id", // Field in the Products collection
             as: "product", // Alias for the joined data
@@ -77,16 +77,38 @@ export async function GET(req: NextRequest) {
           $unwind: "$product",
         },
         {
+          $lookup: {
+            from: "user", // Name of the collection to join with
+            localField: "userId", // Field in the Carts collection
+            foreignField: "_id", // Field in the Products collection
+            as: "user", // Alias for the joined data
+          },
+        },
+        {
+          $unwind: "$user",
+        },
+        {
           $project: {
             _id: 1,
             quantity: 1,
             totalPrice: 1,
             status: 1,
+            size: 1,
+            createdAt: 1,
             "product.image": 1,
             "product.price": 1,
             "product.name": 1,
             "product.slug": 1,
             "product.discountprice": 1,
+            "user.username": 1,
+            "user.phone1": 1,
+            "user.phone2": 1,
+            "user.addressLine1": 1,
+            "user.addressLine2": 1,
+            "user.city": 1,
+            "user.postalCode": 1,
+            "user.country": 1,
+            "user.additionalInfo": 1,
           },
         },
       ]);

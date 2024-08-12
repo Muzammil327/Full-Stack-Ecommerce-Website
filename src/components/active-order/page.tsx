@@ -68,15 +68,12 @@ const ActiveOrderView = () => {
                   </td>
                   <td className="px-6 py-4">
                     {user.status === "Pending" && (
-                      <Dialogs
+                      <Button
                         className="button_outline p-1"
-                        title="Delete Wishlist."
-                        description="This will permanently delete your product from this wishlist."
-                        para="Are you sure you want to delete your Wishlist Product?"
                         onClick={() => DeleteHandle(user._id)}
                       >
                         <FaTimes />
-                      </Dialogs>
+                      </Button>
                     )}
                   </td>
                 </tr>

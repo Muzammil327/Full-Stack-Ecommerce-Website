@@ -71,10 +71,6 @@ export default function AddressCheckoutView({ setIsFormFilled }: any) {
       toast.error("Enter Your address 1");
       return;
     }
-    if (!addressData.addressLine2) {
-      toast.error("Enter Your address 2");
-      return;
-    }
     if (!addressData.postalCode) {
       toast.error("Enter Your Postal Code");
       return;

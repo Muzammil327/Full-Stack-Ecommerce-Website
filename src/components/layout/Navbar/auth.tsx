@@ -15,7 +15,7 @@ export default function Auth({ userId }: any) {
             <span className="sr-only">Admin Profile</span>
           </Link>
           <button
-            onClick={() => signOut({ callbackUrl: "/" })}
+            onClick={() => signOut({ callbackUrl: "https://smishopmart.vercel.app/" })}
             className="text-sm font-medium text-gray-700 hover:text-gray-800"
           >
             <span className="sr-only">Admin and User Sign Out</span>

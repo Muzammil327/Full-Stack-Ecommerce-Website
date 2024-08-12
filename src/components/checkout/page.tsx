@@ -30,21 +30,24 @@ export default function CheckoutView({ userId }: any) {
 
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
+  const [delivery, setDelivery] = useState<number | undefined>(undefined);
   const { addToOrder, isLoadingOrder } = useOrder();
 
   useEffect(() => {
     // Calculate subtotal, total, and total tax when cart changes
     let subTotal = 0;
+    let Total = 0;
 
     if (cart) {
       cart.forEach((item: any) => {
+        Total += item.product_Detail.price * item.qty + Number(delivery);
         subTotal += item.product_Detail.price * item.qty;
       });
     }
 
     setSubtotal(subTotal);
-    setTotal(subTotal); // Assuming total is equal to subtotal in this case
-  }, [cart]);
+    setTotal(Total); // Assuming total is equal to subtotal in this case
+  }, [cart, delivery]);
 
   return (
     <Container>
@@ -110,36 +113,61 @@ export default function CheckoutView({ userId }: any) {
             <span className="flex items-center justify-center pb-3 text-xl font-bold">
               Cart Total
             </span>
-            <div className="total flex items-center justify-between mt-8">
+            <div className="total flex items-center justify-between my-8">
               <span>Sub Total</span>
               <span>{subtotal}</span>
             </div>
+            <span className="my-2 text-xl font-semibold">Tax Charges</span>
+
             <div className="tax my-4 flex items-center justify-between">
-              <span>Tax Charges</span>
-              <span>0</span>
+              <select onChange={(e) => setDelivery(Number(e.target.value))} className="bg-color2 text-white rounded-md border-none outline-none py-3 px-5">
+                <option value="">Select Delivery</option>
+                <option value="250">Leapards</option>
+                <option value="300">Tcs</option>
+              </select>
+              <span>{delivery}</span>
             </div>
             <div className="total border-t py-5 flex items-center justify-between">
               <span>Total</span>
               <span>{total}</span>
             </div>
-
-            <Button
-              className="button_solid w-full"
-              onClick={() =>
-                addToOrder(
-                  cart.map((item) => ({
-                    product: item.product_Detail._id,
-                    qty: item.qty,
-                    size: item.size,
-                  })),
-                  total
-                )
-              }
-              disabled={isFetching}
-            >
-              {isFetching ? "Processing..." : "Place Order"}
-            </Button>
+            {delivery && (
+              <Button
+                className="button_solid w-full"
+                onClick={() =>
+                  addToOrder(
+                    cart.map((item) => ({
+                      product: item.product_Detail._id,
+                      qty: item.qty,
+                      size: item.size,
+                    })),
+                    total
+                  )
+                }
+                disabled={isFetching}
+              >
+                {isFetching ? "Processing..." : "Place Order"}
+              </Button>
+            )}
           </div>
+          {delivery === 250 && (
+            <p className="p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Recusandae explicabo libero minus fugit beatae labore, cumque
+              perspiciatis necessitatibus possimus repellendus fuga nam
+              similique corrupti veniam, ea laudantium, consectetur reiciendis
+              quaerat!
+            </p>
+          )}
+          {delivery === 300 && (
+            <p className="p-4">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Recusandae explicabo libero minus fugit beatae labore, cumque
+              perspiciatis necessitatibus possimus repellendus fuga nam
+              similique corrupti veniam, ea laudantium, consectetur reiciendis
+              quaerat!
+            </p>
+          )}
         </div>
       </div>
     </Container>

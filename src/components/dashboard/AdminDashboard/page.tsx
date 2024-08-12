@@ -29,16 +29,16 @@ export default function UserDashboard({ userId }: { userId: string }) {
   const [error, setError] = useState("");
   const [data, setData] = useState<UserData | null>(null);
   const [stats, setStats] = useState();
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(`/api/auth/address/${userId}`);
+        const userDataFromApi = response.data.get_user_address;
+        setData(userDataFromApi);
         const stats = await axios.get(`/api/auth/admin`);
         setStats(stats.data);
-        const userDataFromApi = response.data.get_user_address[0];
-        setData(userDataFromApi);
       } catch (error) {
         console.error("Error fetching user data:", error);
         setError("Error fetching user data:");
@@ -59,19 +59,14 @@ export default function UserDashboard({ userId }: { userId: string }) {
         <div className="col-span-4">
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg md:mx-4">
             {isLoading ? (
-              <>
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-                <LoadingTableRow cellCount={3} />
-              </>
+              <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+                <caption className="p-5 text-lg font-semibold rtl:text-right text-gray-900 text-center bg-slate-200">
+                  Admin Profile
+                </caption>
+                {[...Array(10)].map((_, index) => (
+                  <LoadingTableRow key={index} cellCount={2} />
+                ))}
+              </table>
             ) : (
               <>
                 {error && <span className="text-red-500">{error}</span>}

@@ -17,7 +17,6 @@ const AdminOrderView = () => {
       if (status) {
         response = await axios.get(`/api/auth/admin/order?status=${status}`);
       }
-
       setData(response.data.getTotalOrder);
     } catch (error) {
       console.error("Error fetching product data:", error);
@@ -45,11 +44,36 @@ const AdminOrderView = () => {
       <Container>
         <div className="my-20">
           <div className="flex gap-5 items-center my-8">
-            <button onClick={() => fetchData("Shipped")}>Shipped</button>
-            <button onClick={() => fetchData("Pending")}>Pending</button>
-            <button onClick={() => fetchData("Confirmed")}>Confirmed</button>
-            <button onClick={() => fetchData("Delivered")}>Delivered</button>
-            <button onClick={() => fetchData("Cancelled")}>Cancelled</button>
+            <button
+              className="button_solid py-3 rounded-md px-6"
+              onClick={() => fetchData("Shipped")}
+            >
+              Shipped
+            </button>
+            <button
+              className="button_solid py-3 rounded-md px-6"
+              onClick={() => fetchData("Pending")}
+            >
+              Pending
+            </button>
+            <button
+              className="button_solid py-3 rounded-md px-6"
+              onClick={() => fetchData("Confirmed")}
+            >
+              Confirmed
+            </button>
+            <button
+              className="button_solid py-3 rounded-md px-6"
+              onClick={() => fetchData("Delivered")}
+            >
+              Delivered
+            </button>
+            <button
+              className="button_solid py-3 rounded-md px-6"
+              onClick={() => fetchData("Cancelled")}
+            >
+              Cancelled
+            </button>
           </div>
           <div className="relative overflow-x-auto sm:rounded-lg mb-10">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500">
@@ -89,7 +113,7 @@ const AdminOrderView = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data ? ( // Check if userData is not null before rendering
+                    {data ? (
                       data.map((user: any) => (
                         <tr
                           className="bg-white border-b hover:bg-gray-50"
@@ -97,16 +121,24 @@ const AdminOrderView = () => {
                         >
                           <td className="p-4">
                             <Image
-                              src={`${user.product.image}`}
+                              src={`https://res.cloudinary.com/desggllml/image/upload/w_600,c_fill,g_center/${user.product.image}`}
                               alt={user.product.name}
                               title={user.product.name}
                               height={1080}
                               width={1080}
-                              className="w-full block h-20"
+                              className="w-full block h-40"
                             />
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
-                            {user.product.name}
+                            {user.product.name} <br />
+                            Username: {user.user.username} <br />
+                            Adress 1: {user.user.addressLine1} <br />
+                            Adress 2: {user.user.addressLine2} <br />
+                            Additional Info: {user.user.additionalInfo} <br />
+                            Location: {user.user.additionalInfo}-{" "}
+                            {user.user.additionalInfo} <br />
+                            Phone: {user.user.phone1} - {user.user.phone2}{" "}
+                            <br />
                           </td>
                           <td className="px-6 py-4 font-semibold text-gray-900">
                             {user.product.price}
