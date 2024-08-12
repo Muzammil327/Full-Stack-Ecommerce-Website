@@ -11,9 +11,6 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-flip";
 
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
-
 // import required modules
 import { Autoplay } from "swiper/modules";
 import { EffectFlip, Pagination, Navigation } from "swiper/modules";
