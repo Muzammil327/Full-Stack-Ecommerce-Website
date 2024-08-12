@@ -20,7 +20,7 @@ export default function ProductCardElement({ product, session }: IProps) {
             width={304}
             className="object-cover object-center w-full h-full hover:scale-[1.5] duration-300 overflow-hidden"
           />
-          <span className="mt-1 text-sm text-black font-sans capitalize absolute top-1 left-2 bg-white rounded-md px-2 py-1">
+          <span className="mt-1 text-sm text-black font-sans capitalize absolute top-1 right-1 bg-white rounded-md px-2 py-1">
             {product.cat.map((data: any) => data.name)}
           </span>
         </div>

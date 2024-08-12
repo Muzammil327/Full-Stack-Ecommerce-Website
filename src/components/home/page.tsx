@@ -63,7 +63,7 @@ export default function HomeView() {
         loading={isFetchingTop}
       />{" "}
       {/* Feature */}
-      <TagHome />
+      {/* <TagHome /> */}
       <Product
         title="Flash Deal Product"
         slug="/stores"

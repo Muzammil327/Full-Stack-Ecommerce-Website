@@ -13,11 +13,13 @@ export default function Product({ title, slug, loading, products }: any) {
   return (
     <Container>
       <div className="flex items-center justify-between">
-        <Heading2 title={title} className="!text-color2" />
+        <h2 className="mt-10 text-color2 scroll-m-20 md:text-2xl sm:text-xl text-lg font-semibold transition-colors first:mt-0">
+          {title}
+        </h2>
         <Links
           slug={slug}
           title="read more"
-          className="flex gap-2 items-center"
+          className="flex gap-2 items-center md:text-base text-sm"
         >
           View All
           <FaChevronRight />
@@ -53,7 +55,7 @@ export default function Product({ title, slug, loading, products }: any) {
             spaceBetween: 50,
           },
         }}
-        className="md:mt-12 mb-16"
+        className="md:mt-10 mt-6 mb-10"
       >
         {loading ? (
           <React.Fragment>

@@ -31,14 +31,14 @@ export default function Policy() {
 const data = [
   {
     id: 0,
-    name: "Free Delivery",
+    name: "Fast Delivery",
     para: "Experience hassle-free delivery on all your orders.",
     icon: <FaShippingFast />,
   },
   {
     id: 1,
-    name: "Available 24/7",
-    para: "Our customer support is available around the clock.",
+    name: "Online Support",
+    para: "Our customer support is available 24/7.",
     icon: <FaComment />,
   },
   {

@@ -11,7 +11,7 @@ export default function Footer() {
           <div className="first">
             <div className="relative w-full max-w-[200px] h-auto md:mb-2 mb-4">
               <ImageContainer
-                src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_60,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
+                src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_55,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
                 alt="SMI shop mart"
                 height={388}
                 width={1446}
@@ -49,6 +49,7 @@ export default function Footer() {
               <li className={styles.link}>Delivery infomation</li>
               <li className={styles.link}>Our Services</li>
               <li className={styles.link}>Innovation</li>
+              <li className={styles.link}>FAQ&apos;s</li>
             </ul>
           </div>
           <div className="third">

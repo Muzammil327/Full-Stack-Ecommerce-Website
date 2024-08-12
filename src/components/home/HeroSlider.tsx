@@ -45,14 +45,9 @@ export default function HeroSlider() {
           spaceBetween={30}
           loop={true}
           centeredSlides={true}
-          autoplay={{
-            delay: 6000,
-            disableOnInteraction: false,
-          }}
           pagination={{
             clickable: true,
           }}
-          modules={[Autoplay]}
           className="mySwiper md:mt-0 mt-3 lg:col-span-5 w-full"
         >
           <SwiperSlide className="w-full h-auto">
