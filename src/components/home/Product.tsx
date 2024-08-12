@@ -53,7 +53,7 @@ export default function Product({ title, slug, loading, products }: any) {
             spaceBetween: 50,
           },
         }}
-        className="mt-12 mb-16"
+        className="md:mt-12 mb-16"
       >
         {loading ? (
           <React.Fragment>
