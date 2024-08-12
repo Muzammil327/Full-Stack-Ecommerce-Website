@@ -64,10 +64,10 @@ export default function NavbarView({ userId }: { userId: string }) {
 
                 <div className="relative xl:w-[250px] lg:w-[200px] sm:w-[170px] w-[130px] h-auto my-5 mx-auto">
                   <ImageContainer
-                    src="/smi-logo.png"
-                    alt="SMI shop"
-                    height={91}
-                    width={400}
+                    src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_60,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
+                    alt="SMI shop mart"
+                    height={388}
+                    width={1446}
                     className="w-full h-auto"
                   />
                 </div>
@@ -103,13 +103,12 @@ export default function NavbarView({ userId }: { userId: string }) {
           <div className="flex items-center py-3">
             {/* logo  */}
             <div className="relative xl:w-[250px] lg:w-[200px] sm:w-[170px] w-[130px] h-auto">
-              <ImageContainer
-                src="/smi-logo.png"
-                alt="SMI shop"
-                height={91}
-                width={400}
+            <ImageContainer
+                src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_50,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
+                alt="SMI shop mart"
+                height={388}
+                width={1446}
                 className="w-full h-auto"
-                sizes="(max-width: 200px) 100vw, 400px"
                 priority
               />
             </div>

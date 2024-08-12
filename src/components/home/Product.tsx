@@ -9,31 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-export default function Product({
-  title,
-  slug,
-}: // featureProduct
-any) {
-  const [isFetching, setIsFetching] = useState<boolean>(true);
-  const [featureProduct, setFeatureProduct] = useState<[]>([]);
-
-  const getToCartBtn = useCallback(async () => {
-    try {
-      setIsFetching(true);
-
-      const response = await axios.get(`/api/product/home?feature=feature`);
-      setFeatureProduct(response.data.get_Feature_Products);
-    } catch (error) {
-      console.error("Error fetching cart data:", error);
-    } finally {
-      setIsFetching(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    getToCartBtn();
-  }, [getToCartBtn]);
-
+export default function Product({ title, slug, loading, products }: any) {
   return (
     <Container>
       <div className="flex items-center justify-between">
@@ -79,7 +55,7 @@ any) {
         }}
         className="mt-12 mb-16"
       >
-        {isFetching ? (
+        {loading ? (
           <React.Fragment>
             <SwiperSlide>
               <LoadingProductCard />
@@ -96,7 +72,7 @@ any) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {featureProduct?.map((product: any) => (
+            {products?.map((product: any) => (
               <SwiperSlide key={product._id}>
                 <ProductCard product={product} session={undefined} />
               </SwiperSlide>

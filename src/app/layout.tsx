@@ -11,6 +11,7 @@ import Providers from "@/src/components/Providers";
 import Navbar from "@/src/components/layout/Navbar/page";
 import Header from "../components/layout/header/page";
 const Footer = dynamic(() => import("@/src/components/layout/Footer/page"));
+const Policy = dynamic(() => import("@/src/components/layout/policy"));
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -83,6 +84,7 @@ export default function RootLayout({
           <Header />
           <Navbar />
           {children}
+          <Policy />
           <Footer />
           <ToastContainer />
         </Providers>

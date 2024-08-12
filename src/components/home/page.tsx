@@ -1,26 +1,75 @@
-import React from "react";
+"use client";
+import React, { useCallback, useEffect, useState } from "react";
 import HeroSlider from "@/src/components/home/HeroSlider";
-import Policy from "@/src/components/home/policy";
 import CatgeoryHome from "@/src/components/home/CatgeoryHome";
-import Flash_Deal_Data from "@/src/components/home/data/flash_deal";
-import New_Product_Data from "@/src/components/home/data/new_product";
-import Feature_Products_Data from "@/src/components/home/data/feature_product";
 
 import dynamic from "next/dynamic";
+import axios from "axios";
 const Product = dynamic(() => import("@/src/components/home/Product"));
 const TagHome = dynamic(() => import("@/src/components/home/TagHome"));
 
 export default function HomeView() {
+  const [featureProducts, setFeatureProducts] = useState([]);
+  const [isFetchingFeature, setIsFetchingFeature] = useState(false);
+
+  const [isFetchingTop, setIsFetchingTop] = useState(false);
+  const [topProducts, setTopProducts] = useState([]);
+
+  const [isFetchingDeal, setIsFetchingDeal] = useState(false);
+  const [dealProducts, setDealProducts] = useState([]);
+
+  const fetchProducts = useCallback(
+    async (feature: any, setProducts: any, setIsFetching: any) => {
+      try {
+        setIsFetching(true);
+
+        const response = await axios.get(
+          `/api/product/home?${feature}=${feature}`
+        );
+        setProducts(response.data.get_Products);
+      } catch (error) {
+        console.error("Error fetching cart data:", error);
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    []
+  );
+
+  useEffect(() => {
+    fetchProducts("feature", setFeatureProducts, setIsFetchingFeature);
+    fetchProducts("top", setTopProducts, setIsFetchingTop);
+    fetchProducts(
+      "bestPrice",
+      setDealProducts,
+      setIsFetchingDeal
+    ); /* Flash Deals */
+  }, [fetchProducts]);
+
   return (
     <React.Fragment>
       <HeroSlider />
-      <Product title="Feature Product" slug="/stores" /> {/* Feature */}
-      <Policy />
-      {/* <CatgeoryHome /> */}
-      {/* <Product title="Flash Deals" slug="" /> Flash Deals */}
-      {/* <TagHome /> */}
-      {/* <Product title="New Product" slug="" /> New */}
-      {/* <Product title="Top Home Appliances" slug="" /> Home Appliances */}
+      <CatgeoryHome />
+      <Product
+        title="Feature Products"
+        slug=""
+        products={featureProducts}
+        loading={isFetchingFeature}
+      />{" "}
+      <Product
+        title="Top Products"
+        slug="/stores"
+        products={topProducts}
+        loading={isFetchingTop}
+      />{" "}
+      {/* Feature */}
+      <TagHome />
+      <Product
+        title="Flash Deal Product"
+        slug="/stores"
+        products={dealProducts}
+        loading={isFetchingDeal}
+      />
     </React.Fragment>
   );
 }

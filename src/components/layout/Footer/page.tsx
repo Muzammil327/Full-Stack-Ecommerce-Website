@@ -11,12 +11,12 @@ export default function Footer() {
           <div className="first">
             <div className="relative w-full max-w-[200px] h-auto md:mb-2 mb-4">
               <ImageContainer
-                src="/smi-logo.png"
-                alt="SMI shop"
-                sizes="(max-width: 1600px) 90vw, 600px"
-                width={250}
-                height={91}
-                className="object-contain"
+                src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_60,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
+                alt="SMI shop mart"
+                height={388}
+                width={1446}
+                className="w-full h-auto"
+                priority
               />
             </div>
             <ul>
