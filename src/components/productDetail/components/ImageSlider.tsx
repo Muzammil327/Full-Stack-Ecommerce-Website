@@ -42,7 +42,7 @@ export default function ProductDetailImageSlider({
         <SwiperSlide key={index}>
           <div className="max-w-full">
             <Image
-              src={`https://res.cloudinary.com/desggllml/image/upload/w_500,h_500,c_fill,g_center/${index}`}
+              src={`https://res.cloudinary.com/desggllml/image/upload/c_fill,w_500,h_500,e_improve,e_sharpen/${index}`}
               width={500}
               height={500}
               alt={data.name}

@@ -13,11 +13,11 @@ export default function ProductCardElement({ product, session }: IProps) {
       <Link href={`/stores/${product.slug}`} className="relative">
         <div className="w-full h-auto relative overflow-hidden rounded-lg group-hover:opacity-75">
           <ImageContainer
-            src={`https://res.cloudinary.com/desggllml/image/upload/w_500,h_500,c_fill,g_center/${product.image}`}
+            src={`https://res.cloudinary.com/desggllml/image/upload/w_304,h_304,c_fill,g_center/${product.image}`}
             alt={product.name}
-            sizes="(max-width: 500px) 90vw, 500px"
-            height={500}
-            width={500}
+            sizes="(max-width: 400px) 180px, (min-width: 808px) 371px, (min-width: 1023px) 478px"
+            height={304}
+            width={304}
             className="object-cover object-center w-full h-full hover:scale-[1.5] duration-300 overflow-hidden"
           />
           <span className="mt-1 text-sm text-black font-sans capitalize absolute top-1 left-2 bg-white rounded-md px-2 py-1">
