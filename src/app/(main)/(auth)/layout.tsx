@@ -1,3 +1,4 @@
+import { LOGO_IMAGE, LOGO_TITLE } from "@/src/utils/constant";
 import Image from "next/image";
 
 export default function AuthLayout({
@@ -10,9 +11,9 @@ export default function AuthLayout({
       <div className="grid md:grid-cols-8">
         <div className="md:col-span-4">
           <Image
-            src="/3.jpg"
-            alt={`${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
-            title={`${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+            src="https://res.cloudinary.com/duif39fso/image/upload/v1723610968/3_fuh9gb.jpg"
+            alt={LOGO_TITLE}
+            title={LOGO_TITLE}
             height={430}
             width={750}
             className="sm:h-screen h-60 w-full"

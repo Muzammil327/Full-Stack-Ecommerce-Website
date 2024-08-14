@@ -32,7 +32,7 @@ const data = [
   {
     id: 0,
     name: "Fast Delivery",
-    para: "Experience hassle-free delivery on all your orders.",
+    para: "Lightning-fast shipping for quick delivery.",
     icon: <FaShippingFast />,
   },
   {

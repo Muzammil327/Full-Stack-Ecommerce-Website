@@ -1,5 +1,5 @@
 .link {
-  @apply md:text-base text-base text-slate-800 hover:text-color2;
+  @apply text-base text-slate-800 hover:text-color2;
 }
 
 .span {
@@ -7,9 +7,13 @@
 }
 
 .li {
-  @apply text-slate-900 my-2 md:text-base text-sm;
+  @apply text-slate-900 my-[10px] md:text-base text-sm;
 }
 
 .h3 {
-  @apply md:text-xl text-lg font-semibold mb-3 text-black font-sans;
+  @apply md:text-2xl text-lg font-semibold mb-5 text-black font-sans;
+}
+
+.socialLink {
+  @apply border-color2 border-solid border-2 hover:bg-color2 rounded-md h-10 w-10 flex items-center justify-center text-black hover:text-white duration-300 transition-all ease-in-out;
 }

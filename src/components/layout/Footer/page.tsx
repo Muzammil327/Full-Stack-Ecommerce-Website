@@ -1,28 +1,36 @@
 import React from "react";
-import { Container, ImageContainer } from "@/src/components/ui/ui";
 import Link from "next/link";
+import { Container, ImageContainer } from "@/src/components/ui/ui";
 import styles from "@/src/components/layout/Footer/footer.module.css";
+import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
+import {
+  FACEBOOOK_SOCIAL_URL,
+  INSTRAGRAM_SOCIAL_URL,
+  LOGO_IMAGE,
+  LOGO_TITLE,
+  WHATSAPP_SOCIAL_URL,
+} from "@/src/utils/constant";
 
 export default function Footer() {
   return (
     <footer className="bg-slate-200">
       <Container>
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 py-12">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4 py-16">
           <div className="first">
-            <div className="relative w-full max-w-[200px] h-auto md:mb-2 mb-4">
+            <div className="relative w-full max-w-[200px] h-auto">
               <ImageContainer
-                src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_55,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
-                alt="SMI shop mart"
+                src={LOGO_IMAGE}
+                alt={LOGO_TITLE}
                 height={388}
                 width={1446}
                 className="w-full h-auto"
                 priority
               />
             </div>
-            <ul>
+            <ul className="my-5">
               <li className={styles.li}>
                 <span className={styles.span}>Address:</span>
-                Punjab, Pakistan
+                Lahore, Punjab, Pakistan
               </li>
 
               <li className={styles.li}>
@@ -34,28 +42,48 @@ export default function Footer() {
                 smistore528982@gmail.com
               </li>
             </ul>
+            <div className="social_footer">
+              <ul className="flex gap-4 items-center">
+                <li className={styles.socialLink}>
+                  <Link href={FACEBOOOK_SOCIAL_URL}>
+                    <FaFacebook size={18} />
+                  </Link>
+                </li>
+                <li className={styles.socialLink}>
+                  <Link href={INSTRAGRAM_SOCIAL_URL}>
+                    <FaInstagram size={18} />
+                  </Link>
+                </li>
+                <li className={styles.socialLink}>
+                  <Link href={WHATSAPP_SOCIAL_URL}>
+                    <FaWhatsapp size={18} />
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
           <div className="second md:mb-0 mb-5">
             <h3 className={styles.h3}>Useful Links</h3>
-            <ul className="grid grid-cols-2 gap-2 items-center gap-y-5">
+            <ul className="grid grid-cols-1 gap-2 items-center gap-y-4">
               <li>
                 <Link href="/" className={styles.link}>
                   Home
                 </Link>
               </li>
-              <li className={styles.link}>About Us</li>
-              <li className={styles.link}>Contact Us</li>
-              <li className={styles.link}>Secure Shopping</li>
-              <li className={styles.link}>Delivery infomation</li>
+              <li className={styles.link}>Order Tracking</li>
+              <li className={styles.link}>Returns / Exchanges</li>
+              <li className={styles.link}>Refund Policy</li>
               <li className={styles.link}>Our Services</li>
-              <li className={styles.link}>Innovation</li>
-              <li className={styles.link}>FAQ&apos;s</li>
+              {/* <li className={styles.link}>Innovation</li> */}
+              <li className={styles.link}>Term & Conditions</li>
             </ul>
           </div>
           <div className="third">
             <h3 className={styles.h3}>Join Our Newsletter Now</h3>
-            <p className="mb-7 text-gray-600 text-sm">
-              Get E-mail updates about our latest shop and special offers.
+            <p className="mb-7 text-gray-600">
+              Get updates all the best deals, sales and special offers from the
+              best online shopping store in Pakistan.{" "}
+              <Link href="/create-account">Sign up now</Link> !
             </p>
 
             <div className="input min-w-full flex items-center my-4">

@@ -16,6 +16,7 @@ import {
   ImageContainer,
   Links,
 } from "@/src/components/ui/ui";
+import Link from "next/link";
 
 interface Tag {
   id: string;
@@ -52,7 +53,7 @@ export default function HeroSlider() {
         >
           <SwiperSlide className="w-full h-auto">
             <ImageContainer
-              src="/slider/headphones.png"
+              src="https://res.cloudinary.com/duif39fso/image/upload/w_720,h_324,c_fill,e_improve,e_sharpen/v1723610939/headphones_aqkzss.png"
               alt="Headphones"
               priority
               sizes="(max-width: 1600px) 90vw, 600px"
@@ -62,8 +63,8 @@ export default function HeroSlider() {
           </SwiperSlide>
           <SwiperSlide className="w-full h-auto">
             <ImageContainer
-              src="/slider/airpods.png"
-              alt=""
+              src="https://res.cloudinary.com/duif39fso/image/upload/w_720,h_324,c_fill,e_improve,e_sharpen/v1723610910/airpods_jhlwdf.png"
+              alt="AIRPODS"
               width={1600}
               height={720}
               sizes="(max-width: 1600px) 90vw, 600px"
@@ -71,18 +72,20 @@ export default function HeroSlider() {
             />
           </SwiperSlide>
           <SwiperSlide className="w-full h-auto">
-            <ImageContainer
-              src="/slider/shoes.png"
-              alt=""
-              sizes="(max-width: 1600px) 90vw, 600px"
-              width={1600}
-              height={720}
-            />
+            <Link href="#">
+              <ImageContainer
+                src="https://res.cloudinary.com/duif39fso/image/upload/w_720,h_324,c_fill,e_improve,e_sharpen/v1723610936/shoes_kyajvb.png"
+                alt="SHOES"
+                sizes="(max-width: 1600px) 90vw, 600px"
+                width={1600}
+                height={720}
+              />
+            </Link>
           </SwiperSlide>
           <SwiperSlide className="w-full h-auto">
             <Image
-              src="/slider/watches.png"
-              alt=""
+              src="https://res.cloudinary.com/duif39fso/image/upload/w_720,h_324,c_fill,e_improve,e_sharpen/v1723610929/watches_o2c5js.png"
+              alt="WATCHES"
               width={1600}
               height={720}
               sizes="(max-width: 1600px) 90vw, 600px"

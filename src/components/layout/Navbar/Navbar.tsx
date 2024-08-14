@@ -13,6 +13,7 @@ import { Links, Button, ImageContainer } from "@/src/components/ui/ui";
 import FavouriteIcon from "./Favourite";
 import CartIcon from "./cart";
 import { HeaderSocial } from "../header/page";
+import { LOGO_IMAGE, LOGO_TITLE } from "@/src/utils/constant";
 
 export interface Page {
   name: string;
@@ -64,8 +65,8 @@ export default function NavbarView({ userId }: { userId: string }) {
 
                 <div className="relative xl:w-[250px] lg:w-[200px] sm:w-[170px] w-[130px] h-auto my-5 mx-auto">
                   <ImageContainer
-                    src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_60,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
-                    alt="SMI shop mart"
+                    src={LOGO_IMAGE}
+                    alt={LOGO_TITLE}
                     height={388}
                     width={1446}
                     className="w-full h-auto"
@@ -103,9 +104,9 @@ export default function NavbarView({ userId }: { userId: string }) {
           <div className="flex items-center py-3">
             {/* logo  */}
             <div className="relative xl:w-[250px] lg:w-[200px] sm:w-[170px] w-[130px] h-auto">
-            <ImageContainer
-                src="https://res.cloudinary.com/desggllml/image/upload/w_200,h_50,e_improve,e_sharpen/v1723461642/smi-logo_fmmcqy.png"
-                alt="SMI shop mart"
+              <ImageContainer
+                src={LOGO_IMAGE}
+                alt={LOGO_TITLE}
                 height={388}
                 width={1446}
                 className="w-full h-auto"

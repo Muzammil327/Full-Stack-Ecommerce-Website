@@ -66,7 +66,7 @@ export const Items: CatTypes[] = [
 export const categories: CatgeoryType[] = [
   {
     id: "men fashion",
-    name: "Men & Fashion",
+    name: "Men Fashion",
     subCategories: [
       {
         id: "shoes",
@@ -82,7 +82,18 @@ export const categories: CatgeoryType[] = [
   },
   {
     id: "women fashion",
-    name: "Women & Fashion",
+    name: "Women Fashion",
+    subCategories: [
+      {
+        id: "shoes",
+        name: "Shoes",
+        tags: [{ id: "jordan", name: "Jordan" }],
+      },
+    ],
+  },
+  {
+    id: "child fashion",
+    name: "Child Fashion",
     subCategories: [
       {
         id: "shoes",

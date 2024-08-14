@@ -49,16 +49,18 @@ export default function HomeView() {
   return (
     <React.Fragment>
       <HeroSlider />
-      <CatgeoryHome />
-      <Product
-        title="Feature Products"
-        slug=""
-        products={featureProducts}
-        loading={isFetchingFeature}
-      />{" "}
+      {/* <CatgeoryHome /> */}
+      <div className="mt-8">
+        <Product
+          title="Feature Products"
+          slug="/stores"
+          products={featureProducts}
+          loading={isFetchingFeature}
+        />{" "}
+      </div>
       <Product
         title="Top Products"
-        slug="/stores"
+        slug="#"
         products={topProducts}
         loading={isFetchingTop}
       />{" "}
@@ -66,7 +68,7 @@ export default function HomeView() {
       {/* <TagHome /> */}
       <Product
         title="Flash Deal Product"
-        slug="/stores"
+        slug="#"
         products={dealProducts}
         loading={isFetchingDeal}
       />

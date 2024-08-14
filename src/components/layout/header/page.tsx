@@ -1,6 +1,11 @@
 import React from "react";
 import { BsFacebook, BsInstagram, BsWhatsapp } from "react-icons/bs";
 import { Links, Container } from "@/src/components/ui/ui";
+import {
+  FACEBOOOK_SOCIAL_URL,
+  INSTRAGRAM_SOCIAL_URL,
+  WHATSAPP_SOCIAL_URL,
+} from "@/src/utils/constant";
 
 export default function Header() {
   return (
@@ -38,7 +43,7 @@ export function HeaderSocial() {
     <ul className="flex gap-6">
       <li>
         <Links
-          slug="https://web.facebook.com/smistore7/"
+          slug={FACEBOOOK_SOCIAL_URL}
           target="_blank"
           title="Facebook"
           prefetch
@@ -48,7 +53,7 @@ export function HeaderSocial() {
       </li>
       <li>
         <Links
-          slug="https://www.instagram.com/smistore7/"
+          slug={INSTRAGRAM_SOCIAL_URL}
           target="_blank"
           title="Instagram"
           prefetch
@@ -58,7 +63,7 @@ export function HeaderSocial() {
       </li>
       <li>
         <Links
-          slug="https://wa.me/message/SF5VZYSETIYXN1"
+          slug={WHATSAPP_SOCIAL_URL}
           target="_blank"
           title="Whatsapp"
           prefetch
