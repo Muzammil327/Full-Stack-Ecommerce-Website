@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import axios from "axios";
+import { RegisterIprops } from "@/src/types/auth/page";
 import {
   Button,
   Processing,
@@ -10,50 +10,24 @@ import {
   Lead,
   Links,
 } from "@/src/components/ui/ui";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-
-export interface RegisterFormData {
-  username: string;
-  email: string;
-  password: string;
-}
+import RegisterAction from "@/src/action/auth/RegisterAction";
 
 export default function RegisterAccountView() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
-  const [data, setData] = useState<RegisterFormData>({
+
+  const [data, setData] = useState<RegisterIprops>({
     username: "",
     email: "",
     password: "",
   });
 
-  const SubmitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Prevent form submission
-    setLoading(true);
+  const router = useRouter();
 
-    try {
-      const response = await axios.post("/api/auth/register", data);
-      if (response.data.statusbar === 400) {
-        toast.error(response.data.error);
-      } else {
-        setData({
-          username: "",
-          email: "",
-          password: "",
-        });
-        toast.success("Plz Sign In with your Email");
-        router.push("/sign-in");
-      }
-    } catch (error) {
-      console.error("An error occurred during registration:", error);
-      toast.warning("An error occurred during registration.");
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
-    <form onSubmit={SubmitHandle} className="my-20">
+    <form
+      onSubmit={(e) => RegisterAction(e, data, setLoading, setData, router)}
+    >
       <Heading1 title="Create Account" className="text-center" />
       <Lead
         className="py-6"
@@ -63,38 +37,67 @@ export default function RegisterAccountView() {
       />
 
       <div className="my-6">
-        <Label label="User Name :" htmlFor="username" />
+        <Label
+          label="User Name :"
+          htmlFor="username"
+          ariaLabel="Enter username"
+        />
         <Input
           type="text"
           value={data.username}
+          placeholder="Enter your Username"
           onChange={(e) => setData({ ...data, username: e.target.value })}
-          placeholder="Enter your Username" name={"username"}        />
+          name="username"
+          ariaLabel="Enter Username"
+          disabled={loading}
+        />
       </div>
 
       <div className="mb-6">
-        <Label label="Email Address :" htmlFor="email" />
+        <Label
+          label="Email Address :"
+          htmlFor="email"
+          ariaLabel="Enter Email"
+        />
         <Input
           type="email"
           value={data.email}
           onChange={(e) => setData({ ...data, email: e.target.value })}
-          placeholder="Enter your Email" name={"email"}        />
+          placeholder="Enter your Email"
+          name="email"
+          ariaLabel="Enter Email"
+          disabled={loading}
+        />
       </div>
 
       <div className="mb-6">
-        <Label label="Password :" htmlFor="password" />
+        <Label
+          label="Password :"
+          htmlFor="password"
+          ariaLabel="Enter Password"
+        />
         <Input
           type="password"
           value={data.password}
           onChange={(e) => setData({ ...data, password: e.target.value })}
-          placeholder="Enter your Password" name={"password"}        />
+          placeholder="Enter your Password"
+          name="password"
+          ariaLabel="Enter Password"
+          disabled={loading}
+        />
       </div>
-      <Button className="button_solid w-full" disabled={loading} title="create account">
+      <Button
+        variant="solid"
+        type="submit"
+        disabled={loading}
+        title="create account"
+      >
         {loading ? <Processing /> : "Create Account"}
       </Button>
 
       <p className="my-8 block text-center">
-        Already have an account?
-        <Links slug="/sign-in" className="ml-2" title="register user">
+        Already have an account ?
+        <Links slug="/sign-in" className="ml-2" title="signin user">
           Sign In
         </Links>
       </p>

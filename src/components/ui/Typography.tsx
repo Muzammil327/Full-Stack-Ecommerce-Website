@@ -1,30 +1,35 @@
 import Link from "next/link";
 import React, { ReactNode } from "react";
-import { roboto, montserrat } from "@/src/app/font";
+import { roboto } from "@/src/app/font";
 
+// Utility type for combining custom class names
+type ClassNameProps = {
+  className?: string;
+};
+
+// Heading1 Component
 export function Heading1({
   title,
   className,
 }: {
-  title: any;
-  className: string;
-}) {
+  title: ReactNode;
+} & ClassNameProps) {
   return (
     <h1
-      className={`scroll-m-20 text-4xl font-semibold lg:text-5xl h1 ${roboto.className} ${className}`}
+      className={`scroll-m-20 text-4xl font-semibold lg:text-5xl ${roboto.className} ${className}`}
     >
       {title}
     </h1>
   );
 }
 
+// Heading2 Component
 export function Heading2({
   title,
   className,
 }: {
-  title: string;
-  className: string;
-}) {
+  title: ReactNode;
+} & ClassNameProps) {
   return (
     <h2
       className={`mt-10 scroll-m-20 border-b pb-2 md:text-3xl sm:text-2xl text-xl font-semibold tracking-tight transition-colors first:mt-0 ${roboto.className} ${className}`}
@@ -34,13 +39,13 @@ export function Heading2({
   );
 }
 
+// Heading3 Component
 export function Heading3({
   title,
   className,
 }: {
-  title: string;
-  className: string;
-}) {
+  title: ReactNode;
+} & ClassNameProps) {
   return (
     <h3
       className={`mt-8 scroll-m-20 text-2xl font-semibold tracking-tight ${roboto.className} ${className}`}
@@ -49,13 +54,14 @@ export function Heading3({
     </h3>
   );
 }
+
+// Heading4 Component
 export function Heading4({
   title,
   className,
 }: {
-  title: string;
-  className: string;
-}) {
+  title: ReactNode;
+} & ClassNameProps) {
   return (
     <h4
       className={`scroll-m-20 text-xl font-semibold tracking-tight ${className}`}
@@ -64,63 +70,65 @@ export function Heading4({
     </h4>
   );
 }
+
+// Heading5 Component
 export function Heading5({
   title,
   className,
 }: {
-  title: string;
-  className: string;
-}) {
-  return <h4 className={`text-2xl font-semibold ${className}`}>{title}</h4>;
+  title: ReactNode;
+} & ClassNameProps) {
+  return <h5 className={`text-xl font-semibold ${className}`}>{title}</h5>;
 }
+
+// Heading6 Component
 export function Heading6({
   title,
   className,
 }: {
-  title: string;
-  className: string;
-}) {
-  return <h4 className={`text-2xl font-semibold ${className}`}>{title}</h4>;
+  title: ReactNode;
+} & ClassNameProps) {
+  return <h6 className={`text-lg font-semibold ${className}`}>{title}</h6>;
 }
+
+// Paragraph Component
 export function Paragraph({
-  title,
+  children,
   className,
 }: {
-  title: string;
-  className: string;
-}) {
+  children: ReactNode;
+} & ClassNameProps) {
   return (
     <p
-      className={`leading-7 [&:not(:first-child)]:mt-6 ${montserrat.className} ${className}`}
+      className={`leading-7 [&:not(:first-child)]:mt-6 ${className}`}
     >
-      {title}
+      {children}
     </p>
   );
 }
 
+// Links Component
 export function Links({
   children,
   className,
   slug,
   onClick,
   title,
-  prefetch = true,
-  target = "_blank" || undefined,
+  target = "_self",
 }: {
   children: ReactNode;
   className?: string;
   prefetch?: boolean;
   slug: string;
   title: string;
-  target?: string;
+  target?: "_self" | "_blank";
   onClick?: () => void;
 }) {
   return (
     <Link
       href={slug}
-      className={`${className} font-medium text-primary link1 ${montserrat.className}`}
+      className={`${className} font-medium text-primary link1`}
       target={target}
-      prefetch={prefetch}
       aria-label={title}
       onClick={onClick}
     >
@@ -129,18 +137,14 @@ export function Links({
   );
 }
 
+// Lead Component
 export function Lead({
   title,
   className,
 }: {
-  title: string;
-  className: string;
-}) {
+  title: ReactNode;
+} & ClassNameProps) {
   return (
-    <p
-      className={`text-xl text-muted-foreground ${montserrat.className} ${className}`}
-    >
-      {title}
-    </p>
+    <p className={`text-xl text-muted-foreground ${className}`}>{title}</p>
   );
 }

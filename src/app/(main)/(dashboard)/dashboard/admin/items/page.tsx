@@ -1,5 +1,5 @@
 import React from "react";
-import AdminItemView from "@/src/components/admin/products/AdminItemView/page";
+import AdminItemView from "@/src/components/dashboard/AdminDashboard/item/page";
 import { getSession } from "@/src/utils/getSession";
 import { redirect } from "next/navigation";
 

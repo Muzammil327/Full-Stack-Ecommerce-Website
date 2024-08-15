@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { Items } from "@/src/utils/fetchItems";
+import GETAdminItemAction from "@/src/action/admin/GETAdminItemAction";
 
 interface StoreTagsProps {
   filterItem: (title: string, _id: string) => void;
@@ -17,7 +17,7 @@ const StoreTags: React.FC<StoreTagsProps> = ({
 }) => {
   const [isTagsOpen, setIsTagsOpen] = useState(false);
 
-  const { error, loading, items } = Items();
+  const { error, loading, items } = GETAdminItemAction();
   if (error) return <h1>Error from store catgeory.</h1>;
 
   const toggleTagsOptions = () => {

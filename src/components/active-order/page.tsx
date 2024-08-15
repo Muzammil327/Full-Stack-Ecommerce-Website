@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Container, Button, Table, Dialogs } from "@/src/components/ui/ui";
+import { Container, Button, Table } from "@/src/components/ui/ui";
 import { FaSquareCheck } from "react-icons/fa6";
 import { useOrder } from "@/src/components/context/orderContext";
 import { FaTimes } from "react-icons/fa";
@@ -79,7 +79,7 @@ const ActiveOrderView = () => {
                 </tr>
               ))
             ) : (
-              <p>NO user WishList...</p>
+              <p>NO Orders...</p>
             )}
           </Table>
         </div>

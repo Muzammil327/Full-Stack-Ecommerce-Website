@@ -6,7 +6,7 @@ import { useWishlist } from "@/src/components/context/wishlistContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import React from "react";
-import { Table, Button, Container, Dialogs } from "@/src/components/ui/ui";
+import { Table, Button, Container } from "@/src/components/ui/ui";
 import { FaTimes } from "react-icons/fa";
 
 const WishlistView = () => {

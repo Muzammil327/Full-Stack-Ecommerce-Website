@@ -86,7 +86,9 @@ export default function CheckoutButton({
       <div className="checkout_btn">
         {cart.length === 0 ? null : (
           <Button
-            className="button_solid w-full"
+            type="submit"
+            variant="solid"
+            className="w-full"
             onClick={() =>
               handleSubmit(
                 cart.map((item: CartItem) => ({

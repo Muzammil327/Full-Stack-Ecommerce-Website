@@ -56,8 +56,7 @@ export default function ReviewsSubmit({
         rating={rating}
         handleRating={handleRating}
       />
-      <Button className="button_solid w-full"
-      title="submit reviews">
+      <Button className="w-full" variant="solid" title="submit reviews" type="submit">
         {loadings ? "Submitting..." : "Submit"}
       </Button>
     </form>

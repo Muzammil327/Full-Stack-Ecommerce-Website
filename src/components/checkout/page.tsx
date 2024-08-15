@@ -1,14 +1,14 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/src/components/context/cartContext";
 import { Button, Container, Table } from "@/src/components/ui/ui";
 import { useOrder } from "@/src/components/context/orderContext";
 import Link from "next/link";
-import { LoadingTableRow } from "../ui/Loading";
-import Table1 from "../elements/Table";
+import { LoadingTableRow } from "../ui/Loading/LoadingTableRow";
+import Table1 from "@/src/components/ui/Table/Table1";
 
 interface UserData {
   email?: string;
@@ -120,7 +120,10 @@ export default function CheckoutView({ userId }: any) {
             <span className="my-2 text-xl font-semibold">Tax Charges</span>
 
             <div className="tax my-4 flex items-center justify-between">
-              <select onChange={(e) => setDelivery(Number(e.target.value))} className="bg-color2 text-white rounded-md border-none outline-none py-3 px-5">
+              <select
+                onChange={(e) => setDelivery(Number(e.target.value))}
+                className="bg-color2 text-white rounded-md border-none outline-none py-3 px-5"
+              >
                 <option value="">Select Delivery</option>
                 <option value="250">Leapards</option>
                 <option value="300">Tcs</option>
@@ -133,7 +136,8 @@ export default function CheckoutView({ userId }: any) {
             </div>
             {delivery && (
               <Button
-                className="button_solid w-full"
+                variant="solid"
+                className="flex items-center justify-center w-full"
                 onClick={() =>
                   addToOrder(
                     cart.map((item) => ({

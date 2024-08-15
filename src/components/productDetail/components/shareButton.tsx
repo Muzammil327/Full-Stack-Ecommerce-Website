@@ -23,7 +23,8 @@ export default function ShareButton({
     <div className="relative">
       <Button
         onClick={() => setIsShareButton(!isShareButton)}
-        className="button_outline px-4 !py-4"
+        className="flex items-center justify-center"
+        variant="outline"
         title="share on social media"
       >
         <FaShareNodes />

@@ -103,7 +103,7 @@ export const categories: CatgeoryType[] = [
     ],
   },
   {
-    id: "health beauty",
+    id: "health & beauty",
     name: "Health & Beauty",
     subCategories: [
       {

@@ -1,8 +1,8 @@
 "use client";
+import GETAdminCatgeoryAction from "@/src/action/admin/GETAdminCatgeoryAction";
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { Catgeory } from "@/src/utils/fetchCatgeory";
 
 interface Props {
   filterItem: (title: string, _id: string) => void;
@@ -10,7 +10,7 @@ interface Props {
 
 const StoreCategory: React.FC<Props> = ({ filterItem }) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const { error, loading, categories } = Catgeory();
+  const { error, loading, categories } = GETAdminCatgeoryAction();
   if (error) return <h1>Error from store catgeory.</h1>;
 
   const toggleCategoryOptions = () => {

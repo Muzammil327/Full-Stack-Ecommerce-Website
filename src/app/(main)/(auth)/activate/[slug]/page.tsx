@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
+import { useParams, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { Heading1 } from "@/src/components/ui/ui";
 
 async function verifyEmail(token: any) {
   try {
@@ -43,8 +44,8 @@ export default function ActivatePage() {
   }, [slug, router]); // Dependencies: 'slug' and 'router'
 
   return (
-    <div>
-      <h1 className="text-center">{activationStatus}</h1>
-    </div>
+    <main>
+      <Heading1 title={activationStatus} className="text-center" />
+    </main>
   );
 }

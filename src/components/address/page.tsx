@@ -312,7 +312,7 @@ export default function AddressView() {
             </div>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-6">
-              <Button className="button_solid px-6" title="add address here">
+              <Button className="button_solid px-6" title="add address here" type="submit">
                 {loading ? "Loading .." : "Submit Here"}
               </Button>
             </div>

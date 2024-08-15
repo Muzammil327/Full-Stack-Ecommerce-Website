@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { signIn } from "next-auth/react";
 import {
   Button,
   Processing,
@@ -8,51 +7,24 @@ import {
   Input,
   Heading1,
   Lead,
-  Links,
-  Paragraph,
 } from "@/src/components/ui/ui";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-
-export interface LoginFormData {
-  email: string;
-  password: string;
-}
+import { LoginIprops } from "@/src/types/auth/page";
+import { LoginAction } from "@/src/action/auth/LoginAction";
 
 export default function SignView() {
   const [loading, setLoading] = useState(false);
+
   const router = useRouter();
-  const [data, setData] = useState<LoginFormData>({
+
+  const [data, setData] = useState<LoginIprops>({
     email: "",
     password: "",
   });
 
-  const SubmitHandle = async (e: any) => {
-    e.preventDefault(); // Prevent form submission
-    setLoading(true);
-
-    if (!data.email || !data.password) {
-      setLoading(false);
-      return toast.error("Email and password are required.");
-    }
-    try {
-      const response = await signIn("credentials", {
-        redirect: false,
-        email: data.email,
-        password: data.password,
-      });
-      if (response?.error) {
-        toast.error("Credential Failed");
-      }
-      router.push("/dashboard");
-      window.location.reload();
-    } catch (error) {
-      toast.warning("Internal server Error.");
-    }
-  };
-
   return (
-    <form onSubmit={SubmitHandle} className="my-20">
+    <form onSubmit={(e) => LoginAction(e, data, setLoading, router)}>
+      {" "}
       <Heading1 title="Sign In" className="text-center" />
       <Lead
         className="py-6"
@@ -61,36 +33,40 @@ export default function SignView() {
             We&rsquo;re glad to see you again!"
       />
       <div className="my-6">
-        <Label label="Email Address :" htmlFor="email" />
+        <Label
+          label="Email Address :"
+          htmlFor="email"
+          ariaLabel="Enter Email"
+        />
         <Input
           type="email"
           value={data.email}
           onChange={(e) => setData({ ...data, email: e.target.value })}
           placeholder="Enter your Email"
-          name={"email"}
+          name="email"
+          ariaLabel="Enter Email"
+          disabled={loading}
         />
       </div>
       <div className="mb-6">
-        <Label label="Password :" htmlFor="password" />
+        <Label
+          label="Password :"
+          htmlFor="password"
+          ariaLabel="Enter Password"
+        />
         <Input
           type="password"
           value={data.password}
           onChange={(e) => setData({ ...data, password: e.target.value })}
           placeholder="Enter your Password"
-          name={"password"}
+          name="password"
+          ariaLabel="Enter Password"
+          disabled={loading}
         />
       </div>
-      <Button
-        className="button_solid w-full"
-        disabled={loading}
-        title="sign in"
-      >
+      <Button variant="solid" type="submit" disabled={loading} title="sign in">
         {loading ? <Processing /> : "Sign In"}
       </Button>
-      <Paragraph
-        title="Forgot Your Passord?"
-        className="text-center text-gray-700 my-8"
-      />
     </form>
   );
 }

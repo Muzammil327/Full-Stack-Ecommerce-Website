@@ -1,7 +1,7 @@
 "use server";
-import { cookies } from "next/headers";
 import React from "react";
-import VerifyEmailBtn from "./verifyEmailBtn";
+import { cookies } from "next/headers";
+import VerifyEmailBtn from "@/src/components/auth/activate/verifyEmailBtn";
 
 export default async function VerifyEmailView() {
   const cookieStore = cookies();

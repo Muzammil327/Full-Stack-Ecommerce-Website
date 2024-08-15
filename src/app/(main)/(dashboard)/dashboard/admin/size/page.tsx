@@ -1,5 +1,5 @@
 import React from "react";
-import AdminSizeView from "@/src/components/admin/products/AdminSizeView/page";
+import AdminSizeView from "@/src/components/dashboard/AdminDashboard/size/page";
 import { getSession } from "@/src/utils/getSession";
 import { redirect } from "next/navigation";
 

@@ -1,20 +1,35 @@
 import React, { ChangeEvent } from "react";
 
+// Define a type for the possible input types
+type InputType = "text" | "email" | "password" | "number" | "tel" | "search";
+
+// Define an interface for the input props
 interface InputProps {
-  type: "text" | "email" | "password" | "number" | "tel"; // Adjusted types for more specific input types
-  value: string | number; // Changed value type to accept both string and number
-  placeholder: string;
+  type: InputType;
+  value: string | number;
+  placeholder?: string; // Make placeholder optional
   name: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void; // Updated onChange to accept ChangeEvent
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: () => void; // Add optional onFocus handler
+  onBlur?: () => void; // Add optional onBlur handler
+  className?: string; // Add optional className for additional styling
+  disabled?: boolean; // Add disabled state
+  ariaLabel?: string; // Add aria-label for accessibility
 }
 
-export default function Input({
+// Define the Input component
+const Input: React.FC<InputProps> = ({
   type,
   value,
   placeholder,
   onChange,
   name,
-}: InputProps) {
+  onFocus,
+  onBlur,
+  className = "", // Default to an empty string if no className is provided
+  disabled = false, // Default to false if disabled is not provided
+  ariaLabel,
+}) => {
   return (
     <input
       name={name}
@@ -22,8 +37,14 @@ export default function Input({
       type={type}
       value={value}
       onChange={onChange}
-      className="w-full border border-gray-300 py-3 pl-3 rounded-md mt-2 shadow-sm outline-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 transition-all focus:transition-all hover:transition-all"
+      onFocus={onFocus}
+      onBlur={onBlur}
+      className={`w-full border border-gray-300 py-3 pl-3 rounded-md mt-2 shadow-sm outline-none focus:outline-none focus:ring-color2 focus:border-color2 transition-all hover:transition-all ${className}`}
       placeholder={placeholder}
+      disabled={disabled}
+      aria-label={ariaLabel}
     />
   );
-}
+};
+
+export default Input;

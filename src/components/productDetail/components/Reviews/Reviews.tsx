@@ -7,7 +7,6 @@ import Rate from "rc-rate";
 import "rc-rate/assets/index.css";
 import { FaTimes } from "react-icons/fa";
 import Button from "../../../ui/Button";
-import Dialogs, { DialogPanels } from "../../../ui/Dialogs";
 import ReviewsSubmit from "./ReviewsSubmit";
 import Image from "next/image";
 
@@ -158,15 +157,14 @@ export default function ReviewView(data: {
                   </div>
                   {userId === data.user_detail._id && (
                     <div className="flex items-center gap-3 absolute top-6 right-4">
-                      <Dialogs
+                      <Button
                         className="button_outline p-1"
                         title="Delete Comment."
-                        description="This will permanently delete your Comment from this product."
-                        para="Are you sure you want to delete your Comment?"
                         onClick={() => HandleDeleteComment(data._id)}
+                        type="submit"
                       >
                         <FaTimes />
-                      </Dialogs>
+                      </Button>
                     </div>
                   )}
                 </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import AdminCatgeoryView from "@/src/components/admin/products/AdminCatgeoryView/page";
+import AdminCatgeoryView from "@/src/components/dashboard/AdminDashboard/catgeory/page";
 import { getSession } from "@/src/utils/getSession";
 import { redirect } from "next/navigation";
 

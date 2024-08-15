@@ -65,8 +65,9 @@ export default function AddtoCartBtn({
     <Button
       onClick={() => addToCartBtn(product, userId, size)}
       disabled={isLoading}
-      className="button_solid w-full"
+      variant="solid"
       title="add product to cart"
+      className="flex items-center"
     >
       {isLoading ? <Processing /> : <FaCartShopping className="mr-2" />}
       Add to Cart

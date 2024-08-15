@@ -66,6 +66,7 @@ export const ProductCardProvider: React.FC<ProductCardProviderProps> = ({
     totalResults: number;
     limit: number;
   }
+
   const fetchProduct = useCallback(async () => {
     try {
       setLoading(true);
@@ -74,7 +75,7 @@ export const ProductCardProvider: React.FC<ProductCardProviderProps> = ({
         products: [];
         pagination: PaginationData;
       }>(
-        `/api/product?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
+        `/api/product/store?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
       );
       if (page === 1) {
         setProducts(response.data.products);

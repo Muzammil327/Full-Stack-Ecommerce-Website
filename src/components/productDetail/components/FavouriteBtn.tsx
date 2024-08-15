@@ -43,7 +43,8 @@ export default function FavouriteBtn({
     <Button
       disabled={isLoadingWishList}
       onClick={() => addToFavouriteBtn(product)}
-      className="button_outline px-4"
+      className="flex items-center justify-center"
+      variant="outline"
       title="add to favourite button"
     >
       {isLoadingWishList ? <Processing /> : <FaHeart />}

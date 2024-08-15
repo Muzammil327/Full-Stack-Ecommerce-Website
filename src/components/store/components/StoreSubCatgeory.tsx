@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { GrFormAdd } from "react-icons/gr";
 import { GrFormSubtract } from "react-icons/gr";
-import { SubCatgeory } from "@/src/utils/fetchSubCatgeory";
+import GETAdminSubCatgeoryAction from "@/src/action/admin/GETAdminSubCatgeoryAction";
 
 interface Props {
   filterItem: (title: string, _id: string) => void;
@@ -12,7 +12,7 @@ interface Props {
 const StoreSubCategory: React.FC<Props> = ({ filterItem, catgeorySet }) => {
   const [isSubCategoryOpen, setIsSubCategoryOpen] = useState(false);
 
-  const { error, loading, subCatgeory } = SubCatgeory();
+  const { error, loading, subCatgeory } = GETAdminSubCatgeoryAction();
   if (error) return <h1>Error from store catgeory.</h1>;
 
   const toggleSubCategoryOptions = () => {

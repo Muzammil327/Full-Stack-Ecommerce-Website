@@ -16,7 +16,21 @@ export interface AdminProductCardProps {
   category: string;
   price: number;
   dPrice: number;
+  slider: [];
+}
 
+export interface AdminProductProps {
+  _id: string;
+  name: string;
+  slug: string;
+  image: string;
+  cat: [
+    {
+      name: string;
+    }
+  ];
+  price: number;
+  dPrice: number;
   slider: [];
 }
 

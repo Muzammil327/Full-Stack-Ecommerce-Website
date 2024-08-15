@@ -141,7 +141,8 @@ export default function NavbarView({ userId }: { userId: string }) {
             <CatgeoryButton />
             <Button
               onClick={() => setOpen(true)}
-              className="button_solid !p-3"
+              className="flex items-center justify-center"
+              variant="solid"
               title="open navbar in mobile device"
             >
               <FaBars />

@@ -1,9 +1,8 @@
-import Container from "@/src/components/ui/Container";
 import Button from "@/src/components/ui/Button";
+import Container from "@/src/components/ui/Container";
 import Label from "@/src/components/ui/Label";
 import Input from "@/src/components/ui/Input";
-import Dialogs from "@/src/components/ui/Dialogs";
-import Table from "@/src/components/ui/Table";
+import Table from "@/src/components/ui/Table/Table2";
 import Processing from "@/src/components/ui/Loading/Processing";
 import ImageContainer from "@/src/components/ui/Image";
 import {
@@ -26,7 +25,6 @@ export {
   Processing,
   Label,
   Input,
-  Dialogs,
   Table,
   Heading1,
   Heading2,

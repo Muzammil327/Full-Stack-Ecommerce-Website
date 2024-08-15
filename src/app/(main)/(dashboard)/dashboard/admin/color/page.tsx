@@ -1,5 +1,5 @@
 import React from "react";
-import AdminColorView from "@/src/components/admin/products/AdminColorView/page";
+import AdminColorView from "@/src/components/dashboard/AdminDashboard/color/page";
 import { getSession } from "@/src/utils/getSession";
 import { redirect } from "next/navigation";
 

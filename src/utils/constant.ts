@@ -1,5 +1,12 @@
 const URL = process.env.NEXT_PUBLIC_BACKENDAPI;
 
+// ------------------ AUTH API ------------------
+export const REGISTER_API = `/api/auth/register`;
+export const GET_USERDATA_API = `/api/auth/address`;
+export const PUT_USERDATA_API = `/api/auth/address`;
+
+// ------------------ USER API ------------------
+// ------------------ ADMIN API ------------------
 // ------------------ Product API ------------------
 export const PRODUCT_POST = `${URL}/api/v1/product/post`;
 export const PRODUCT_PUT = `${URL}/api/v1/product/put`;

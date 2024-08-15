@@ -127,7 +127,7 @@ export default function StorePage({ userId }: any) {
           </div>
 
           <div className="lg:col-span-3">
-            <ul className="flex items-center gap-3">
+            <ul className="flex md:flex-row flex-col md:items-center items-start gap-3">
               <li className="border text-black rounded py-1 px-2 md:text-base text-sm capitalize">
                 page {page}
               </li>

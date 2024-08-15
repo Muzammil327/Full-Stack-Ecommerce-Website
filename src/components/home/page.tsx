@@ -1,12 +1,10 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import HeroSlider from "@/src/components/home/HeroSlider";
-import CatgeoryHome from "@/src/components/home/CatgeoryHome";
 
 import dynamic from "next/dynamic";
 import axios from "axios";
 const Product = dynamic(() => import("@/src/components/home/Product"));
-const TagHome = dynamic(() => import("@/src/components/home/TagHome"));
 
 export default function HomeView() {
   const [featureProducts, setFeatureProducts] = useState([]);
@@ -24,7 +22,7 @@ export default function HomeView() {
         setIsFetching(true);
 
         const response = await axios.get(
-          `/api/product/home?${feature}=${feature}`
+          `/api/guest/home?${feature}=${feature}`
         );
         setProducts(response.data.get_Products);
       } catch (error) {

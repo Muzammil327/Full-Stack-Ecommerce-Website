@@ -166,6 +166,7 @@ export async function GET(req: NextRequest) {
         dPrice: 1,
         "cat.name": 1,
         subCategory: 1,
+        slider: 1,
         items: 1,
       },
     };

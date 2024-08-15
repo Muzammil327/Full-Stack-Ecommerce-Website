@@ -10,7 +10,7 @@ import {
   ProductCardType,
 } from "@/src/types/page";
 import ProductCard from "@/src/components/elements/ProductCard/Productcard";
-import Pagination from "@/src/components/admin/products/AdminProductView/pagination";
+import Pagination from "@/src/components/elements/pagination";
 
 const CategoryPageContent = () => {
   const param = useParams();
