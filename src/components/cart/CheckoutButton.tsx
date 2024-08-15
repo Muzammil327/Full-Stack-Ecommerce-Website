@@ -88,7 +88,7 @@ export default function CheckoutButton({
           <Button
             type="submit"
             variant="solid"
-            className="w-full"
+            className="w-full flex items-center justify-center"
             onClick={() =>
               handleSubmit(
                 cart.map((item: CartItem) => ({

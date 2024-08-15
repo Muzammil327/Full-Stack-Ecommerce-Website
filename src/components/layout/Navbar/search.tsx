@@ -6,8 +6,8 @@ export function SearchIcon() {
   return (
     <div className="ml-4 relative">
       <Button
-        className="flex items-center justify-center !px-3 h-10"
-        variant="outline"
+          className="flex items-center justify-center !px-3 !h-10"
+          variant="outline"
         title="serch here to find the products"
       >
         <FaSearch />

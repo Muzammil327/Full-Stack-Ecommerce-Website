@@ -11,7 +11,7 @@ export default function FavouriteIcon() {
     <div className="ml-4 relative">
       <Link href="/wishlist" aria-label="add to favourite">
         <Button
-          className="flex items-center justify-center !px-3 h-10"
+          className="flex items-center justify-center !px-3 !h-10"
           variant="outline"
         >
           <FaHeart size={17} />

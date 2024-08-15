@@ -117,7 +117,7 @@ export default function CheckoutView({ userId }: any) {
               <span>Sub Total</span>
               <span>{subtotal}</span>
             </div>
-            <span className="my-2 text-xl font-semibold">Tax Charges</span>
+            <span className="my-2 text-xl font-semibold">Delivery Charges</span>
 
             <div className="tax my-4 flex items-center justify-between">
               <select
@@ -150,7 +150,7 @@ export default function CheckoutView({ userId }: any) {
                 }
                 disabled={isFetching}
               >
-                {isFetching ? "Processing..." : "Place Order"}
+                {isLoadingOrder ? "Processing..." : "Place Order"}
               </Button>
             )}
           </div>

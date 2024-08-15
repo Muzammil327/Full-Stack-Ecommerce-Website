@@ -11,7 +11,7 @@ export default function CartIcon() {
     <div className="md:ml-6 relative">
       <Link href="/cart" aria-label="add to cart icon">
         <Button
-          className="flex items-center justify-center !px-3 h-10"
+          className="flex items-center justify-center !px-3 !h-10"
           variant="outline"
         >
           <FaShoppingBasket size={17} />
