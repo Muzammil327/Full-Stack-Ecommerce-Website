@@ -10,15 +10,15 @@ export default function Policy() {
         {data.map((data: any) => {
           return (
             <div
-              className="border border-solid lg:py-4 py-3 lg:px-4 px-3 flex items-center"
+              className="border border-solid lg:py-4 py-3 lg:px-4 px-3 flex md:items-center items-center md:flex-row flex-col md:justify-start justify-center"
               key={data.id}
             >
-              <div className="bg-color1 hover:bg-transparent border-2 border-solid border-color1 p-3 rounded-md text-color3 hover:text-color1 text-2xl">
+              <div className="bg-color1 hover:bg-transparent border-2 border-solid border-color1 p-4 rounded-md text-color3 hover:text-color1 text-2xl">
                 {data.icon}
               </div>
-              <div className="lg:ml-5 sm:ml-4 ml-3">
-                <h3 className="text-lg">{data.name}</h3>
-                <p className="text-sm">{data.para}</p>
+              <div className="lg:ml-5 sm:ml-4 ml-3 md:text-left text-center md:mt-0 mt-4">
+                <h3 className="md:text-lg text-xl">{data.name}</h3>
+                <p className="md:text-sm text-base">{data.para}</p>
               </div>
             </div>
           );
