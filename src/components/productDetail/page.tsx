@@ -48,7 +48,6 @@ export default function ProductDetail({
   userId: string;
 }) {
   const [data, setData] = useState<ProductCardData>();
-  console.log("data:", data)
   const [selectedSize, setSelectedSize] = useState("");
   // const handleSizeChange = (e: any) => {
   //   setSelectedSize(e.target.value);
@@ -120,11 +119,11 @@ export default function ProductDetail({
               <Container>
                 <div className="grid lg:grid-cols-9 grid-cols-1 my-8 md:gap-5 gap-4">
                   {/* -------------------------- Product Image Slider -------------------------- */}
-                  <div className="slider lg:col-span-3">
+                  <div className="slider lg:col-span-4">
                     <ProductDetailImageSlider data={data} />
                   </div>
 
-                  <div className="lg:col-span-4">
+                  <div className="lg:col-span-5">
                     {/* -------------------------- Catgeory -------------------------- */}
                     <ProductDetailCatgeory data={data} />
 
@@ -215,7 +214,7 @@ export default function ProductDetail({
                       <ProductDetailItems data={data} />
                     </div>
                   </div>
-                  <div className="lg:col-span-2 bg-slate-50 py-4">
+                  {/* <div className="lg:col-span-2 bg-slate-50 py-4">
                     <div className="return flex items-center px-2">
                       <span className="text-gray-500">
                         <FcPaid />
@@ -225,7 +224,7 @@ export default function ProductDetail({
                       </span>
                     </div>
                     <hr className="my-3" />
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Tabs  */}
