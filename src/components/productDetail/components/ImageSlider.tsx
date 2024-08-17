@@ -38,6 +38,19 @@ export default function ProductDetailImageSlider({
       modules={[EffectFlip, Pagination, Navigation, Autoplay]}
       className="mySwipe"
     >
+      <SwiperSlide>
+        <div className="max-w-full">
+          <Image
+            src={`https://res.cloudinary.com/desggllml/image/upload/c_fill,w_500,h_500,e_improve,e_sharpen/${data.image}`}
+            width={500}
+            height={500}
+            alt={data.name}
+            title={data.name}
+            sizes="(max-width: 500px) 100vw, 300px"
+            className="max-w-full h-auto"
+          />
+        </div>
+      </SwiperSlide>
       {data.slider.map((index) => (
         <SwiperSlide key={index}>
           <div className="max-w-full">

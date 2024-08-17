@@ -5,6 +5,7 @@ import Link from "next/link";
 import Logo from "@/src/components/elements/Logo";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Button from "../../ui/Button";
+import { Links } from "../../ui/Typography";
 
 interface SidebarDataIprops {
   id: number;
@@ -59,13 +60,14 @@ export default function UserSidebar() {
                       <>
                         {SidebarData.map((data: SidebarDataIprops) => (
                           <li key={data.id} className="flow-root ">
-                            <Link
-                              href={`${data.link}`}
+                            <Links
+                              title="wishlist item"
+                              slug={`${data.link}`}
                               className="-m-2 block p-2 text-gray-500 border-b border-gray-200"
                               onClick={() => setOpen(false)}
                             >
                               {data.title}
-                            </Link>
+                            </Links>
                           </li>
                         ))}
                       </>

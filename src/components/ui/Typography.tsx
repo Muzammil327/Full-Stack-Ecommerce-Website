@@ -1,6 +1,9 @@
+'use client'
 import Link from "next/link";
-import React, { ReactNode } from "react";
+import React, { MouseEvent, ReactNode, useState } from "react";
 import { roboto } from "@/src/app/font";
+import { useRouter } from "next/navigation";
+import LoaderOverlay from "./Loading/LoaderOverlay/page";
 
 // Utility type for combining custom class names
 type ClassNameProps = {
@@ -99,15 +102,14 @@ export function Paragraph({
   children: ReactNode;
 } & ClassNameProps) {
   return (
-    <p
-      className={`leading-7 [&:not(:first-child)]:mt-6 ${className}`}
-    >
+    <p className={`leading-7 [&:not(:first-child)]:mt-6 ${className}`}>
       {children}
     </p>
   );
 }
 
 // Links Component
+
 export function Links({
   children,
   className,
@@ -124,16 +126,31 @@ export function Links({
   target?: "_self" | "_blank";
   onClick?: () => void;
 }) {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setLoading(true);
+    if (onClick) onClick(); // Call the onClick handler if it exists
+    router.push(href);
+  };
+
   return (
-    <Link
-      href={slug}
-      className={`${className} font-medium text-primary link1`}
-      target={target}
-      aria-label={title}
-      onClick={onClick}
-    >
-      {children}
-    </Link>
+    <>
+      {loading && (
+      <LoaderOverlay />
+      )}
+      <Link
+        href={slug}
+        className={`${className} font-medium text-primary link1`}
+        target={target}
+        aria-label={title}
+        onClick={(e) => handleClick(e, slug)}
+      >
+        {children}
+      </Link>
+    </>
   );
 }
 

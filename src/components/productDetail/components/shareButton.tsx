@@ -4,8 +4,6 @@ import {
   FacebookIcon,
   WhatsappShareButton,
   WhatsappIcon,
-  TwitterShareButton,
-  TwitterIcon,
 } from "react-share";
 import Button from "@/src/components/ui/Button";
 import { FaShareNodes } from "react-icons/fa6";
@@ -17,7 +15,7 @@ export default function ShareButton({
   urlCurrentPage: string;
 }) {
   const [isShareButton, setIsShareButton] = useState(false);
-  const shareUrl = `https://full-stack-ecommerce-website-five.vercel.app/stores/${urlCurrentPage}/`;
+  const shareUrl = `https://smishopmart.vercel.app/stores/${urlCurrentPage}/`;
 
   return (
     <div className="relative">
@@ -63,30 +61,3 @@ export default function ShareButton({
     </div>
   );
 }
-
-const data = [
-  {
-    id: 1,
-    icon: (
-      <WhatsappShareButton url={"https://web.whatsapp.com/"}>
-        <WhatsappIcon size={32} round />
-      </WhatsappShareButton>
-    ),
-  },
-  {
-    id: 2,
-    icon: (
-      <TwitterShareButton url={"https://twitter.com/"}>
-        <TwitterIcon size={32} round />
-      </TwitterShareButton>
-    ),
-  },
-  // {
-  //   id: 3,
-  //   icon: (
-  //     <EmailShareButton url={"https://facebook.com/"}>
-  //       <EmailIcon size={32} round />
-  //     </EmailShareButton>
-  //   ),
-  // },
-];

@@ -8,6 +8,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import StatCard from "@/src/components/ui/card/StatCard";
 import GETUserAction from "@/src/action/auth/GETUserAction";
 import GETUserStatsAction from "@/src/action/admin/GETUserStatsAction";
+import { Links } from "../../ui/Typography";
 
 interface UserData {
   email?: string;
@@ -35,14 +36,14 @@ export default function UserDashboard({ userId }: { userId: string }) {
         <div className="col-span-5">
           <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
             {/* CART STATS HERE */}
-            <Link href="/cart">
+            <Links slug="/cart" title="cart item">
               <StatCard
                 length={loading1 ? 0 : userStats?.cart}
                 name="Total Carts"
                 svg={<FaCartShopping />}
               />
-            </Link>
-            <Link href="/dashboard/active-order">
+            </Links>
+            <Links slug="/dashboard/active-order" title="active order">
               <StatCard
                 error={error1}
                 length={loading1 ? 0 : userStats?.order}
@@ -63,9 +64,10 @@ export default function UserDashboard({ userId }: { userId: string }) {
                   </svg>
                 }
               />{" "}
-            </Link>
+            </Links>
             {/* WISHLIST STATS HERE */}
-            <Link href="/wishlist/">
+            <Links slug="/wishlist/" title="wishlist item">
+
               <StatCard
                 length={loading1 ? 0 : userStats?.wishlist}
                 name="Total WishLists"
@@ -83,7 +85,7 @@ export default function UserDashboard({ userId }: { userId: string }) {
                   </svg>
                 }
               />
-            </Link>
+            </Links>
             <StatCard
               error={error1}
               length={loading1 ? 0 : userStats?.review}

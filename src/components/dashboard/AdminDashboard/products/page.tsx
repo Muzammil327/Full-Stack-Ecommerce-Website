@@ -6,12 +6,17 @@ import Table, { TableRow } from "@/src/components/ui/Table/Table2";
 import Pagination from "@/src/components/elements/pagination";
 import { AdminProductProps } from "@/src/types/product";
 import GETAdminProductAction from "@/src/action/admin/GETAdminProductAction";
+import { useState } from "react";
+import LoaderOverlay from "@/src/components/ui/Loading/LoaderOverlay/page";
+import { Links } from "@/src/components/ui/Typography";
 
 export default function AdminProductView() {
   const { error, loading, setPage, page, fetchProduct, pagination, products } =
     GETAdminProductAction();
+  const [loader, setLoader] = useState<boolean>(false);
 
   const deleteProduct = async (id: string, publicId: string, slider: []) => {
+    setLoader(true);
     try {
       await axios.delete(
         `http://localhost:5000/api/v1/product/delete/${id}?publicId=${publicId}&slider=${slider.join(
@@ -20,8 +25,11 @@ export default function AdminProductView() {
       );
 
       await fetchProduct();
+      setLoader(false);
     } catch (err) {
       console.error("Error deleting product:", err);
+    } finally {
+      setLoader(false);
     }
   };
 
@@ -84,12 +92,13 @@ export default function AdminProductView() {
             tableHeading={product.name}
             key={product._id}
           >
-            <Link
-              href={`/dashboard/admin/products/put/${product._id}`}
+            <Links
+              slug={`/dashboard/admin/products/put/${product._id}`}
+              title="edit product"
               className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
             >
               Edit
-            </Link>
+            </Links>
             <button
               onClick={() =>
                 deleteProduct(product._id, product.image, product.slider)
@@ -101,7 +110,7 @@ export default function AdminProductView() {
           </TableRow>
         ))}
       </Table>
-
+      {loader && <LoaderOverlay />}
       <Pagination
         pagination={pagination}
         setPage={(page: number) => {
