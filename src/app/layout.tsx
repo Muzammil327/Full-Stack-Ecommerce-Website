@@ -88,7 +88,7 @@ export default function RootLayout({
           <Footer />
           <ToastContainer />
         </Providers>
-        <GoogleTagManager gtmId="GTM-NFBWLHRN" />
+        <GoogleTagManager gtmId="GTM-KHGBQDB8" />
       </body>
     </html>
   );
