@@ -35,27 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Product 2
-
-Mini Neck USB Rechargeable Wearable Portable Fan
-
-Hand Free Mini Fan, Portable Wearable USB Rechargeable Personal Neckband Fan, 360 Degrees Free Rotation for Indoor and Outdoor Use
-
-Key Features:
-Unique hands-free design allows you to wear the fan around your neck, keeping your hands free.
-Lightweight at 246g, making it comfortable for extended wear.
-Dual wind heads with fully adjustable arms provide 360-degree coverage.
-Features an upgraded 3-blade design for stronger and cooler airflow.
-Comes with 3 adjustable speed levels: low, medium, and high.
-Equipped with an upgraded 2000mAh ultralight lithium battery.
-Rechargeable via USB, compatible with most computers, laptops, portable chargers, and other USB output devices.
-
-1799 - 2350
-
-home & lifestyle
-heating & cooling
-fans
-
 ## Product 3
 
 Portable Mini Electric USB Juicer Blender

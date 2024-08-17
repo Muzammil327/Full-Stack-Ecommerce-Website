@@ -48,7 +48,7 @@ export async function GET(
       {
         $lookup: {
           from: "product",
-          localField: "productId.value",
+          localField: "productId",
           foreignField: "_id",
           as: "product_details",
         },

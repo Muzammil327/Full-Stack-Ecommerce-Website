@@ -16,8 +16,8 @@ export function RelatedProduct({ productId, setProductId }: any) {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const stats = await axios.get(`/api/auth/admin`);
-      setData(stats.data.get_admin_product);
+      const stats = await axios.get(`/api/admin/relatedproduct`);
+      setData(stats.data.get_related_product);
     } catch (error) {
       console.error("Error fetching Product ID data:", error);
     } finally {

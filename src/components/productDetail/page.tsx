@@ -48,6 +48,7 @@ export default function ProductDetail({
   userId: string;
 }) {
   const [data, setData] = useState<ProductCardData>();
+  console.log("data:", data)
   const [selectedSize, setSelectedSize] = useState("");
   // const handleSizeChange = (e: any) => {
   //   setSelectedSize(e.target.value);
