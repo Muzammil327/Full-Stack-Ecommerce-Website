@@ -12,6 +12,7 @@ import Navbar from "@/src/components/layout/Navbar/page";
 import Header from "../components/layout/header/page";
 const Footer = dynamic(() => import("@/src/components/layout/Footer/page"));
 const Policy = dynamic(() => import("@/src/components/layout/policy"));
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -78,6 +79,10 @@ export default function RootLayout({
           property="twitter:domain"
           content={process.env.NEXT_PUBLIC_CREATOR}
         /> */}
+        <meta
+          name="google-site-verification"
+          content="TLC1ScjuJKnpeLltQJOI6Xu0QwitVD-gOYWCfoQarwo"
+        />
       </head>
       <body className={inter.className}>
         <Providers>
@@ -89,6 +94,7 @@ export default function RootLayout({
           <ToastContainer />
         </Providers>
         <GoogleTagManager gtmId="GTM-TH7VGCR5" />
+        <GoogleAnalytics gaId="G-P0HDK8Y5XK" />
       </body>
     </html>
   );
