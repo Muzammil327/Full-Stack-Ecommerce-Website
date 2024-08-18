@@ -54,6 +54,14 @@ export async function GET(
         },
       },
       {
+        $lookup: {
+          from: "color",
+          localField: "colorId",
+          foreignField: "_id",
+          as: "color_details",
+        },
+      },
+      {
         $project: {
           _id: 1,
           name: 1,
@@ -93,6 +101,10 @@ export async function GET(
                 },
               },
             },
+          },
+          color_details: {
+            _id: 1,
+            name: 1,
           },
         },
       },

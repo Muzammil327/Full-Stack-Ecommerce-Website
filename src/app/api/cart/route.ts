@@ -35,13 +35,11 @@ export async function GET(req: NextRequest) {
         $project: {
           _id: 1,
           qty: 1,
-          size: 1,
+          color: 1,
           "product_Detail._id": 1,
           "product_Detail.image": 1,
-          "product_Detail.price": 1,
           "product_Detail.name": 1,
-          "product_Detail.discountprice": 1,
-          "product_Detail.deliveryCharge": 1,
+          "product_Detail.dPrice": 1,
         },
       },
     ]);
@@ -61,9 +59,8 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const { productId, userId, size } = await req.json();
+  const { productId, userId, color } = await req.json();
   await connectDB();
-
   try {
     if (!productId) {
       return NextResponse.json({
@@ -89,7 +86,7 @@ export async function POST(req: NextRequest) {
     } else {
       const newProduct = new cart({
         productId,
-        size,
+        color,
         userId,
       });
       await newProduct.save();

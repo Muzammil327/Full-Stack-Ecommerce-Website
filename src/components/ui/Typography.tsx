@@ -121,7 +121,7 @@ export function Links({
   children: ReactNode;
   className?: string;
   prefetch?: boolean;
-  slug: string;
+  slug?: string | any;
   title: string;
   target?: "_self" | "_blank";
   onClick?: () => void;
@@ -142,7 +142,7 @@ export function Links({
       <LoaderOverlay />
       )}
       <Link
-        href={slug}
+        href={slug || ''}
         className={`${className} font-medium text-primary link1`}
         target={target}
         aria-label={title}

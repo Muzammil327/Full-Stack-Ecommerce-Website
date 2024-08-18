@@ -63,7 +63,7 @@ const CartView = ({ userId }: { userId: string }) => {
       <div className="grid lg:grid-cols-6 grid-cols-1 gap-x-8 md:my-20 my-10">
         <div className="lg:col-span-4 col-span-1 relative overflow-x-auto sm:rounded-lg mb-10">
           <Table
-            columns={["Image", "Name", "Qty", "Price", "Size", "Action"]}
+            columns={["Image", "Name", "Qty", "Price", "Color", "Action"]}
             loading={isFetching}
             cellCount={6}
           >

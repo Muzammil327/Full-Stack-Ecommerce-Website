@@ -24,6 +24,7 @@ export interface ProductCardData {
   Ldescription: string;
   slug: string;
   cat: [];
+  color_details: [];
   scat: [];
   subCategory: string;
   item: [];
@@ -48,10 +49,9 @@ export default function ProductDetail({
   userId: string;
 }) {
   const [data, setData] = useState<ProductCardData>();
-  const [selectedSize, setSelectedSize] = useState("");
-  // const handleSizeChange = (e: any) => {
-  //   setSelectedSize(e.target.value);
-  // };
+  console.log("data:", data);
+  const [selectedColor, setSelectedColor] = useState("");
+
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
@@ -71,6 +71,14 @@ export default function ProductDetail({
   useEffect(() => {
     fetchProduct();
   }, [fetchProduct, params]);
+
+  const handleColorChange = (event: any) => {
+    // Get the value of the selected radio button
+    const selectedValue = event.target.value;
+
+    // Perform any logic needed, such as updating state
+    setSelectedColor(selectedValue);
+  };
 
   return (
     <>
@@ -148,29 +156,31 @@ export default function ProductDetail({
                     </p>
 
                     {/* ------------- Size ------------- */}
-                    {/* {data.item === "shoes" && (
+                    {data.color_details && (
                       <>
                         <div className="mt-4 grid grid-cols-4 gap-4">
-                          {data.size.map((data, index) => {
+                          {data.color_details.map((data: any, index) => {
                             return (
                               <label
                                 key={index}
                                 className={`group relative flex cursor-pointer items-center justify-center rounded-md border ${
-                                  selectedSize === data
+                                  selectedColor === data.name
                                     ? "border-indigo-500"
-                                    : "border-2"
+                                    : "border-gray-300"
                                 } bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1`}
                               >
                                 <input
                                   type="radio"
                                   name="size-choice"
-                                  value={data}
-                                  onChange={handleSizeChange}
+                                  value={data.name}
+                                  onChange={handleColorChange}
+                                  checked={selectedColor === data.name}
                                   className="sr-only"
+                                  id={`size-${data.name}`} // Adding an ID for better accessibility
                                 />
-                                <span>{data}</span>
+                                <span>{data.name}</span>
                                 <span
-                                  className="pointer-events-none absolute -inset-px rounded-md"
+                                  className="pointer-events-none absolute inset-0 rounded-md"
                                   aria-hidden="true"
                                 ></span>
                               </label>
@@ -178,17 +188,17 @@ export default function ProductDetail({
                           })}
                         </div>
                       </>
-                    )} */}
+                    )}
 
                     {/* ------------- Product Button ------------- */}
                     <div className="mt-3 max-w-full flex flex-wrap md:gap-3 gap-2 flex-col">
                       <div className="grid grid-cols-2 gap-4 items-center justify-between">
-                        <AddtoCartBtn
-                          product={data._id}
-                          userId={userId}
-                          size={selectedSize}
-                          data={data}
-                        />
+                          <AddtoCartBtn
+                            product={data._id}
+                            userId={userId}
+                            color={selectedColor}
+                            data={data}
+                          />
 
                         <ShareButton urlCurrentPage={params} />
                       </div>

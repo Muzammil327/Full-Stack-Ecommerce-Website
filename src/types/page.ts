@@ -59,14 +59,12 @@ export interface OrderItem {
 export interface CartItem {
   _id: string;
   qty: number;
-  size: string;
+  color: string;
   product_Detail: {
     _id: string;
     name: string;
     image: string;
-    price: number;
-    discountprice: number;
-    deliveryCharge: number;
+    dPrice: number;
   };
 }
 

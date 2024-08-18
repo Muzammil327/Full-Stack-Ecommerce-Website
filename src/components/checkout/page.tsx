@@ -40,8 +40,8 @@ export default function CheckoutView({ userId }: any) {
 
     if (cart) {
       cart.forEach((item: any) => {
-        Total += item.product_Detail.price * item.qty + Number(delivery);
-        subTotal += item.product_Detail.price * item.qty;
+        Total += item.product_Detail.dPrice * item.qty + Number(delivery);
+        subTotal += item.product_Detail.dPrice * item.qty;
       });
     }
 
@@ -59,7 +59,7 @@ export default function CheckoutView({ userId }: any) {
               "Name",
               "Qty",
               "Price",
-              "Size",
+              "Color",
               "Total Product price",
             ]}
             loading={isFetching}
@@ -85,13 +85,13 @@ export default function CheckoutView({ userId }: any) {
                     {user.qty}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
-                    {user.product_Detail.price}
+                    {user.product_Detail.dPrice}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
-                    {user.size}
+                    {user.color}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
-                    {user.product_Detail.price * user.qty}
+                    {user.product_Detail.dPrice * user.qty}
                   </td>
                 </tr>
               ))
@@ -143,7 +143,7 @@ export default function CheckoutView({ userId }: any) {
                     cart.map((item) => ({
                       product: item.product_Detail._id,
                       qty: item.qty,
-                      size: item.size,
+                      color: item.color,
                     })),
                     total
                   )

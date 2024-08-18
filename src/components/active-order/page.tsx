@@ -16,7 +16,7 @@ const ActiveOrderView = () => {
               "Image",
               "Name",
               "Total Price",
-              "Size",
+              "Color",
               "Status",
               "Action",
             ]}
@@ -45,7 +45,7 @@ const ActiveOrderView = () => {
                     {user.totalPrice}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
-                    {user.size}
+                    {user.color}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
                     {user.status === "Pending" && (

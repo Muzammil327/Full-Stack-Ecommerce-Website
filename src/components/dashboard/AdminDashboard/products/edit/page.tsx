@@ -37,6 +37,7 @@ import {
 import { ProductColor } from "./ProductColor";
 import { ProductSize } from "./ProductSize";
 import { RelatedProduct } from "./RelatedProduct";
+import { Links } from "@/src/components/ui/Typography";
 
 interface Product {
   value: string;
@@ -254,7 +255,6 @@ const AdminProductPut = () => {
 
   const deleteImage = async (publicId: any) => {
     try {
-
       await axios.delete(
         `${PRODUCT_DELETE_IMAGE}?publicId=${publicId}&&id=${put}`
       );
@@ -311,13 +311,15 @@ const AdminProductPut = () => {
                     height={500}
                     width={500}
                   />
-                  <input
-                    className="absolute top-1 right-1 bg-red-500 h-12 w-12 rounded-full text-white flex items-center justify-center p-4 cursor-pointer"
+                  <Links
                     onClick={() => {
                       deleteImage(storeImage);
                     }}
-                    value="X"
-                  />
+                    className="absolute flex items-center justify-center top-1 right-1 h-8 w-8 button_outline rounded-md !text-white"
+                    title="edit single product"
+                  >
+                    X
+                  </Links>
                 </div>
               ) : (
                 <div className="text-center">
@@ -436,13 +438,16 @@ const AdminProductPut = () => {
                         height={400}
                         width={400}
                       />
-                      <input
-                        className="absolute top-1 right-1 bg-red-500 h-12 w-12 rounded-full text-white flex items-center justify-center p-4 cursor-pointer"
+
+                      <Links
                         onClick={() => {
                           deleteSliderImage(url);
                         }}
-                        value="X"
-                      />
+                        className="!text-white absolute flex items-center justify-center top-1 right-1 h-8 w-8 button_outline rounded-md"
+                        title="edit product"
+                      >
+                        X
+                      </Links>
                     </div>
                   ))}
                 </div>
@@ -483,7 +488,7 @@ const AdminProductPut = () => {
         </div>
 
         <button className="button_outline w-full py-4 rounded-md" type="submit">
-        {loadings1 ? "Submitting..." : "Submit"}
+          {loadings1 ? "Submitting..." : "Submit"}
         </button>
       </form>
     </>

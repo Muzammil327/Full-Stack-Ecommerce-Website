@@ -6,6 +6,7 @@ interface SMI_OrderDocument extends Document {
   totalPrice: number;
   qty: number;
   size: string;
+  color: string;
   createdAt: Date;
   status: string;
 }
@@ -27,6 +28,9 @@ const SMI_OrderSchema = new Schema<SMI_OrderDocument>(
       default: 1,
     },
     size: {
+      type: String,
+    },
+    color: {
       type: String,
     },
     status: {

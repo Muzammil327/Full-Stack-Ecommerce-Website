@@ -5,7 +5,7 @@ import Cart from "@/src/models/cartModel";
 import PendingOrder from "@/src/models/pendingOrderModel";
 
 export async function POST(req: NextRequest) {
-  const { productId, userId, totalPrice, qty, size } = await req.json();
+  const { productId, userId, totalPrice, qty, color } = await req.json();
   await connectDB();
 
   try {
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
       userId,
       totalPrice,
       qty,
-      size,
+      color,
     });
 
     await newOrder.save();

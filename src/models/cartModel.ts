@@ -4,6 +4,7 @@ interface SMI_CartDocument extends Document {
   productId: mongoose.Schema.Types.ObjectId;
   userId: mongoose.Schema.Types.ObjectId;
   qty: number;
+  color: string;
   size: string;
   createdAt: Date;
 }
@@ -19,6 +20,9 @@ const SMI_CartSchema = new Schema<SMI_CartDocument>(
       type: Number,
       min: 1,
       default: 1,
+    },
+    color: {
+      type: String,
     },
     size: {
       type: String,

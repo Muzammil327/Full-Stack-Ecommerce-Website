@@ -40,6 +40,7 @@ export async function GET(
           totalPrice: 1,
           status: 1,
           size: 1,
+          color: 1,
           "product.image": 1,
           "product.name": 1,
         },

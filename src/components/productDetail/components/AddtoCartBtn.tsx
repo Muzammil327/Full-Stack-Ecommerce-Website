@@ -9,7 +9,7 @@ import Processing from "../../ui/Loading/Processing";
 interface ProductDetailCatgeoryProps {
   product: string;
   userId: string;
-  size: string;
+  color: string;
   data: {
     cat: [];
     subCategory: string;
@@ -20,7 +20,7 @@ interface ProductDetailCatgeoryProps {
 export default function AddtoCartBtn({
   product,
   userId,
-  size,
+  color,
   data,
 }: ProductDetailCatgeoryProps) {
   const { getToCartBtn } = useCart();
@@ -32,12 +32,12 @@ export default function AddtoCartBtn({
     size: string
   ) => {
     setIsLoading(true);
-    // if (data.items === "shoes") {
-    //   if (!size) {
-    //     setIsLoading(false);
-    //     return toast.success("Size is Required.");
-    //   }
-    // }
+
+    if (!color) {
+      setIsLoading(false);
+      return toast.success("Color is Required.");
+    }
+
     if (!userId) {
       setIsLoading(false);
       return toast.success("Login is Required.");
@@ -46,7 +46,7 @@ export default function AddtoCartBtn({
       const response = await axios.post(`/api/cart`, {
         productId,
         userId,
-        size,
+        color,
       });
       if (response.data.statusbar === 200) {
         await getToCartBtn();
@@ -63,7 +63,7 @@ export default function AddtoCartBtn({
 
   return (
     <Button
-      onClick={() => addToCartBtn(product, userId, size)}
+      onClick={() => addToCartBtn(product, userId, color)}
       disabled={isLoading}
       variant="solid"
       title="add product to cart"

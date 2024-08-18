@@ -31,8 +31,7 @@ export default function CheckoutButton({
 
     if (cart) {
       cart.forEach((item: CartItem) => {
-        subTotal += item.product_Detail.price * item.qty;
-        totalTax += item.product_Detail.deliveryCharge * item.qty;
+        subTotal += item.product_Detail.dPrice * item.qty;
       });
     }
 

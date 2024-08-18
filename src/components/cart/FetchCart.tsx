@@ -123,10 +123,10 @@ export default function FetchCart({
               </form>
             </td>
             <td className="px-6 text-center py-4 font-semibold text-gray-900">
-              {user.product_Detail.price * user.qty}
+              {user.product_Detail.dPrice * user.qty}
             </td>
             <td className="px-6 text-center py-4 font-semibold text-gray-900">
-              {user.size && user.size}
+              {user.color && user.color}
             </td>
             <td className="px-6 py-4 text-center">
               <button

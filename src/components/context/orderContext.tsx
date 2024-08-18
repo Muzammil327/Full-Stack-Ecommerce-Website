@@ -27,7 +27,7 @@ interface CartItem {
 interface Product {
   product: string;
   qty: number;
-  size: string;
+  color: string;
 }
 
 // Define the type for the context value
@@ -90,7 +90,7 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
             await axios.post(`/api/order`, {
               productId: product.product, // Send only the product ID
               qty: product.qty, // Send the quantity
-              size: product.size, // Send the quantity
+              color: product.color, // Send the quantity
               userId,
               totalPrice,
             });
@@ -101,7 +101,6 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
         await getToOrderBtn();
         router.refresh();
         router.push("/stores");
-    
       } catch (error) {
         console.error("Error adding product to cart:", error);
       } finally {
