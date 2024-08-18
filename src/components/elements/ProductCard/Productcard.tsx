@@ -13,14 +13,14 @@ export default function ProductCardElement({ product, session }: IProps) {
       <Link href={`/stores/${product.slug}`} className="relative">
         <div className="w-full h-auto relative overflow-hidden rounded-lg group-hover:opacity-75">
           <ImageContainer
-            src={`https://res.cloudinary.com/desggllml/image/upload/w_304,h_304,c_fill,e_improve,e_sharpen/${product.image}`}
+            src={`https://res.cloudinary.com/desggllml/image/upload/w_304,h_304,q_auto/${product.image}`}
             alt={product.name}
             sizes="(max-width: 400px) 180px, (min-width: 808px) 371px, (min-width: 1023px) 478px"
             height={304}
             width={304}
             className="object-cover object-center w-full h-full hover:scale-[1.5] duration-300 overflow-hidden"
           />
-          <span className="mt-1 md:text-sm text-xs text-black font-sans capitalize absolute top-1 right-1 bg-white rounded-md px-2 py-1">
+          <span className="md:block hidden mt-1 md:text-sm text-xs text-black font-sans capitalize absolute top-1 right-1 bg-white rounded-md px-2 py-1">
             {product.cat.map((data: any) => data.name)}
           </span>
         </div>
@@ -29,11 +29,11 @@ export default function ProductCardElement({ product, session }: IProps) {
           <div className="flex items-center justify-between">
             <p className="text-sm text-gray-900 font-sans line-through">
               Rs.
-              {product.dPrice}
+              {product.price}
             </p>
             <p className="text-sm text-gray-900 font-sans">
               Rs.
-              {product.price}
+              {product.dPrice}
             </p>
           </div>
           <h3 className="md:text-lg text-base text-gray-700 capitalize product_description font-sans mt-1">

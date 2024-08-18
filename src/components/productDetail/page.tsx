@@ -135,10 +135,10 @@ export default function ProductDetail({
                     {/* -------------------------- Product Price -------------------------- */}
                     <div className="price flex gap-4 items-center">
                       <span className="line-through font-semibold text-xl text-gray-700">
-                        Rs{data.dPrice}.00
+                        Rs{data.price}.00
                       </span>
                       <span className="font-semibold text-indigo-500 text-2xl">
-                        Rs{data.price}.00
+                        Rs{data.dPrice}.00
                       </span>
                     </div>
 
