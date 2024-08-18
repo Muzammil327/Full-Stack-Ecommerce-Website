@@ -209,7 +209,7 @@ export default function ProductDetail({
                             color={selectedColor}
                             data={data}
                           />
-                        ) : // Show either AddtoCartBtn or "Select" based on selectedColor
+                        ) : 
                         selectedColor ? (
                           <AddtoCartBtn
                             product={data._id}
