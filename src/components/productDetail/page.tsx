@@ -9,7 +9,7 @@ import AddtoCartBtn from "@/src/components/productDetail/components/AddtoCartBtn
 import FavouriteBtn from "@/src/components/productDetail/components/FavouriteBtn";
 import RelatedProduct from "@/src/components/productDetail/components/RelatedProduct";
 
-import { Container } from "@/src/components/ui/ui";
+import { Button, Container } from "@/src/components/ui/ui";
 import axios from "axios";
 import ShareButton from "@/src/components/productDetail/components/shareButton";
 import ProductDetailTab from "@/src/components/productDetail/components/Tabs";
@@ -49,7 +49,7 @@ export default function ProductDetail({
   userId: string;
 }) {
   const [data, setData] = useState<ProductCardData>();
-  console.log("data:", data);
+
   const [selectedColor, setSelectedColor] = useState("");
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -79,6 +79,17 @@ export default function ProductDetail({
     // Perform any logic needed, such as updating state
     setSelectedColor(selectedValue);
   };
+
+  // Determine if color_details is an empty array
+  const isColorDetailsEmpty =
+    data &&
+    Array.isArray(data.color_details) &&
+    data.color_details.length === 0;
+
+  // Check if a color is selected
+  const hasSelectedColor = selectedColor !== null;
+  console.log(selectedColor);
+  console.log(hasSelectedColor);
 
   return (
     <>
@@ -157,48 +168,58 @@ export default function ProductDetail({
 
                     {/* ------------- Size ------------- */}
                     {data.color_details && (
-                      <>
-                        <div className="mt-4 grid grid-cols-4 gap-4">
-                          {data.color_details.map((data: any, index) => {
-                            return (
-                              <label
-                                key={index}
-                                className={`group relative flex cursor-pointer items-center justify-center rounded-md border ${
-                                  selectedColor === data.name
-                                    ? "border-indigo-500"
-                                    : "border-gray-300"
-                                } bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1`}
-                              >
-                                <input
-                                  type="radio"
-                                  name="size-choice"
-                                  value={data.name}
-                                  onChange={handleColorChange}
-                                  checked={selectedColor === data.name}
-                                  className="sr-only"
-                                  id={`size-${data.name}`} // Adding an ID for better accessibility
-                                />
-                                <span>{data.name}</span>
-                                <span
-                                  className="pointer-events-none absolute inset-0 rounded-md"
-                                  aria-hidden="true"
-                                ></span>
-                              </label>
-                            );
-                          })}
-                        </div>
-                      </>
+                      <div className="mt-4 grid grid-cols-4 gap-4">
+                        {data.color_details.map((data: any, index) => {
+                          return (
+                            <label
+                              key={index}
+                              className={`group relative flex cursor-pointer items-center justify-center rounded-md border ${
+                                selectedColor === data.name
+                                  ? "border-indigo-500"
+                                  : "border-gray-300"
+                              } bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1`}
+                            >
+                              <input
+                                type="radio"
+                                name="size-choice"
+                                value={data.name}
+                                onChange={handleColorChange}
+                                checked={selectedColor === data.name}
+                                className="sr-only"
+                                id={`size-${data.name}`} // Adding an ID for better accessibility
+                              />
+                              <span>{data.name}</span>
+                              <span
+                                className="pointer-events-none absolute inset-0 rounded-md"
+                                aria-hidden="true"
+                              ></span>
+                            </label>
+                          );
+                        })}
+                      </div>
                     )}
 
                     {/* ------------- Product Button ------------- */}
                     <div className="mt-3 max-w-full flex flex-wrap md:gap-3 gap-2 flex-col">
                       <div className="grid grid-cols-2 gap-4 items-center justify-between">
+                        {isColorDetailsEmpty ? (
                           <AddtoCartBtn
                             product={data._id}
                             userId={userId}
                             color={selectedColor}
                             data={data}
                           />
+                        ) : // Show either AddtoCartBtn or "Select" based on selectedColor
+                        selectedColor ? (
+                          <AddtoCartBtn
+                            product={data._id}
+                            userId={userId}
+                            color={selectedColor}
+                            data={data}
+                          />
+                        ) : (
+                          <Button variant="solid">Select Color</Button>
+                        )}
 
                         <ShareButton urlCurrentPage={params} />
                       </div>

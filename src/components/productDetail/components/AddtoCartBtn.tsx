@@ -29,14 +29,9 @@ export default function AddtoCartBtn({
   const addToCartBtn = async (
     productId: string,
     userId: string,
-    size: string
+    color: string
   ) => {
     setIsLoading(true);
-
-    if (!color) {
-      setIsLoading(false);
-      return toast.success("Color is Required.");
-    }
 
     if (!userId) {
       setIsLoading(false);
