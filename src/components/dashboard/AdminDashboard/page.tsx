@@ -9,6 +9,7 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaUserCheck } from "react-icons/fa";
 import GETUserAction from "@/src/action/auth/GETUserAction";
 import GETAdminStatsAction from "@/src/action/admin/GETAdminStatsAction";
+import { Links } from "../../ui/Typography";
 
 export default function UserDashboard({ userId }: { userId: string }) {
   const { data, loading, error } = GETUserAction({ userId });
@@ -77,7 +78,7 @@ export default function UserDashboard({ userId }: { userId: string }) {
               />
             </Suspense>
             {/* ADMIN ORDER HERE */}
-            <Link href="/dashboard/admin/orders">
+            <Links slug="/dashboard/admin/orders" title="admin order card">
               <Suspense fallback={<div>Loading...</div>}>
                 <StatCard
                   error={error1}
@@ -100,7 +101,7 @@ export default function UserDashboard({ userId }: { userId: string }) {
                   }
                 />
               </Suspense>
-            </Link>
+            </Links>
             {/* ADMIN PENDING ORDER */}
             <Suspense fallback={<div>Loading...</div>}>
               <StatCard
@@ -127,7 +128,7 @@ export default function UserDashboard({ userId }: { userId: string }) {
               />
             </Suspense>
             {/* ADMIN PRODUCT HERE */}
-            <Link href="/dashboard/admin/products">
+            <Links slug="/dashboard/admin/products" title="product card">
               <Suspense fallback={<div>Loading...</div>}>
                 <StatCard
                   error={error1}
@@ -148,7 +149,7 @@ export default function UserDashboard({ userId }: { userId: string }) {
                   }
                 />
               </Suspense>
-            </Link>
+            </Links>
             {/* USER START HERE */}
             <Suspense fallback={<div>Loading...</div>}>
               <StatCard

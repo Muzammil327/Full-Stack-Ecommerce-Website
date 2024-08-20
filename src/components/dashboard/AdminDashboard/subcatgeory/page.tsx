@@ -4,6 +4,7 @@ import Link from "next/link";
 import Button from "@/src/components/ui/Button";
 import Table, { TableRow } from "@/src/components/ui/Table/Table2";
 import GETAdminSubCatgeoryAction from "@/src/action/admin/GETAdminSubCatgeoryAction";
+import { Links } from "@/src/components/ui/Typography";
 
 export default function AdminSubCatgeoryView() {
   const { error, loading, subCatgeory, fetchSubCatgeory } =
@@ -24,9 +25,9 @@ export default function AdminSubCatgeoryView() {
   return (
     <div className="mx-auto md:px-6 px-4 my-8">
       <Button className="button_solid px-4">
-        <Link href="/dashboard/admin/subcatgeory/add">
+        <Links slug="/dashboard/admin/subcatgeory/add" title="add new sub catgeory">
           Add New Sub Catgeory
-        </Link>
+        </Links>
       </Button>
       <Table
         cellCount={3}

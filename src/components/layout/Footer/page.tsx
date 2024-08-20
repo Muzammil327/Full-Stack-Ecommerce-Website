@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Container, ImageContainer } from "@/src/components/ui/ui";
+import { Container, ImageContainer, Links } from "@/src/components/ui/ui";
 import styles from "@/src/components/layout/Footer/footer.module.css";
 import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 import {
@@ -66,9 +66,9 @@ export default function Footer() {
             <h3 className={styles.h3}>Useful Links</h3>
             <ul className="grid grid-cols-1 gap-2 items-center gap-y-4">
               <li>
-                <Link href="/" className={styles.link}>
+                <Links slug="/" title="Home page" className={styles.link}>
                   Home
-                </Link>
+                </Links>
               </li>
               <li className={styles.link}>Order Tracking</li>
               <li className={styles.link}>Returns / Exchanges</li>
@@ -83,7 +83,7 @@ export default function Footer() {
             <p className="mb-7 text-gray-600">
               Get updates all the best deals, sales and special offers from the
               best online shopping store in Pakistan.{" "}
-              <Link href="/create-account">Sign up now</Link> !
+              <Links slug="/create-account" title="register yourself">Sign up now</Links> !
             </p>
 
             <div className="input min-w-full flex items-center my-4">

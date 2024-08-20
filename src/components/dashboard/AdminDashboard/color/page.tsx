@@ -5,6 +5,7 @@ import Button from "@/src/components/ui/Button";
 import Table, { TableRow } from "@/src/components/ui/Table/Table2";
 import GETAdminColorAction from "@/src/action/admin/GETAdminColorAction";
 import AdminSidebar from "../AdminSidebar";
+import { Links } from "@/src/components/ui/Typography";
 
 export default function AdminColorView() {
   const { error, loading, color, fetchColor } = GETAdminColorAction();
@@ -26,11 +27,11 @@ export default function AdminColorView() {
     <div className="mx-auto md:px-6 px-4 my-8">
       <AdminSidebar />
 
-      <Link href="/dashboard/admin/color/add">
+      <Links slug="/dashboard/admin/color/add" title="add new color">
         <Button title="add color" variant="outline" disabled={loading}>
           Add New Color
         </Button>
-      </Link>
+      </Links>
       <Table cellCount={2} loading={loading} columns={["Color Name", "Action"]}>
         {color.map((product: any) => (
           <TableRow columns={[]} tableHeading={product.name} key={product._id}>

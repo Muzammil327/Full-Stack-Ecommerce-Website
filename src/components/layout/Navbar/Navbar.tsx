@@ -78,7 +78,6 @@ export default function NavbarView({ userId }: { userId: string }) {
                       <Links
                         slug={page.href}
                         title="mobile menu"
-                        prefetch={page.prefetch}
                         className="-m-2 block p-2 font-medium text-gray-900"
                         onClick={() => setOpen(false)}
                       >

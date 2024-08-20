@@ -67,7 +67,6 @@ export default function UserDashboard({ userId }: { userId: string }) {
             </Links>
             {/* WISHLIST STATS HERE */}
             <Links slug="/wishlist/" title="wishlist item">
-
               <StatCard
                 length={loading1 ? 0 : userStats?.wishlist}
                 name="Total WishLists"
@@ -106,6 +105,7 @@ export default function UserDashboard({ userId }: { userId: string }) {
             />
           </div>
         </div>
+   
       </div>
     </main>
   );

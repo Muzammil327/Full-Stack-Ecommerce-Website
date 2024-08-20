@@ -4,6 +4,7 @@ import Link from "next/link";
 import Button from "@/src/components/ui/Button";
 import Table, { TableRow } from "@/src/components/ui/Table/Table2";
 import GETAdminCatgeoryAction from "@/src/action/admin/GETAdminCatgeoryAction";
+import { Links } from "@/src/components/ui/Typography";
 
 export default function AdminCatgeoryView() {
   const { error, loading, categories, fetchCatgeory } = GETAdminCatgeoryAction();
@@ -24,7 +25,7 @@ export default function AdminCatgeoryView() {
   return (
     <div className="mx-auto md:px-6 px-4 my-8">
       <Button className="button_solid px-4">
-        <Link href="/dashboard/admin/catgeory/add">Add New Catgeory</Link>
+        <Links slug="/dashboard/admin/catgeory/add" title="add new catgeory">Add New Catgeory</Links>
       </Button>
       <Table
         cellCount={2}

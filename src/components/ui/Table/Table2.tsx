@@ -3,7 +3,7 @@ import { LoadingTableRow } from "../Loading/LoadingTableRow";
 
 interface TableProps {
   columns: string[];
-  loading: boolean;
+  loading?: boolean;
   cellCount: number;
   children: React.ReactNode;
 }

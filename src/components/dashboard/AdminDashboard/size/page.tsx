@@ -5,6 +5,7 @@ import Button from "@/src/components/ui/Button";
 import Table, { TableRow } from "@/src/components/ui/Table/Table2";
 import GETAdminSizeAction from "@/src/action/admin/GETAdminSizeAction";
 import AdminSidebar from "../AdminSidebar";
+import { Links } from "@/src/components/ui/Typography";
 
 export default function AdminSizeView() {
   const { error, loading, sizes, fetchSize } = GETAdminSizeAction();
@@ -26,11 +27,11 @@ export default function AdminSizeView() {
     <div className="mx-auto md:px-6 px-4 my-8">
       <AdminSidebar />
 
-      <Link href="/dashboard/admin/size/add">
+      <Links slug="/dashboard/admin/size/add" title="add new size">
         <Button title="add size" variant="outline" disabled={loading}>
           Add New Size
         </Button>
-      </Link>
+      </Links>
       <Table cellCount={2} loading={loading} columns={["Size Name", "Action"]}>
         {sizes.map((product: any) => (
           <TableRow columns={[]} tableHeading={product.name} key={product._id}>

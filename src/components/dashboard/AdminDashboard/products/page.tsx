@@ -40,36 +40,36 @@ export default function AdminProductView() {
   return (
     <div className="mx-auto md:px-6 px-4 my-8">
       <div className="flex gap-4">
-        <Link href="/dashboard/admin/products/add">
+        <Links title="add new products" slug="/dashboard/admin/products/add">
           <Button variant="solid" title="add product">
             Add Product
           </Button>
-        </Link>
-        <Link href="/dashboard/admin/catgeory/add">
+        </Links>
+        <Links title="add new catgeory" slug="/dashboard/admin/catgeory/add">
           <Button variant="solid" title="add product">
             Add Catgeory
           </Button>
-        </Link>
-        <Link href="/dashboard/admin/subcatgeory/add">
+        </Links>
+        <Links title="add sub catgeory" slug="/dashboard/admin/subcatgeory/add">
           <Button variant="solid" title="add product">
             Add Sub Catgeory
           </Button>
-        </Link>
-        <Link href="/dashboard/admin/items/add">
+        </Links>
+        <Links title="add new items" slug="/dashboard/admin/items/add">
           <Button variant="solid" title="add product">
             Add Item
           </Button>
-        </Link>
-        <Link href="/dashboard/admin/color/add">
+        </Links>
+        <Links title="add new colors" slug="/dashboard/admin/color/add">
           <Button variant="solid" title="add product">
             Add Color
           </Button>
-        </Link>
-        <Link href="/dashboard/admin/size/add">
+        </Links>
+        <Links title="add new size" slug="/dashboard/admin/size/add">
           <Button variant="solid" title="add product">
             Add Size
           </Button>
-        </Link>
+        </Links>
       </div>
       <Table
         cellCount={5}

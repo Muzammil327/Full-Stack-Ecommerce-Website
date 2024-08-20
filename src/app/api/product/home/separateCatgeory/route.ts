@@ -13,16 +13,19 @@ export async function GET(req: NextRequest) {
 
   await connectDB();
   try {
+
     const getitems = await item.aggregate([
       {
         $match: {
           name: tags,
         },
       },
-    ]);
-
+    ])
     const getitemsmap = getitems.map((data) => data._id);
+
     const extractedId = getitemsmap[0];
+    // Convert ObjectId to string
+    const extractedIdStr = extractedId.toString();
 
     // project stage
     const ProjectStage = {
@@ -45,16 +48,16 @@ export async function GET(req: NextRequest) {
 
     const products = await Product.aggregate([
       {
+        $match: {
+          itemId: new mongoose.Types.ObjectId(extractedIdStr),
+        },
+      },
+      {
         $lookup: {
           from: "catgeory", // Change this to the correct collection name if it's different
           localField: "categoryId",
           foreignField: "_id",
           as: "cat", // Name of the field to store the related products
-        },
-      },
-      {
-        $match: {
-          itemId: new mongoose.Types.ObjectId(extractedId),
         },
       },
       ProjectStage,
@@ -66,8 +69,6 @@ export async function GET(req: NextRequest) {
 
     const totalResults = getproducts.length;
     const totalPages = Math.ceil(totalResults / limit);
-
-    console.log("products:", products);
 
     return NextResponse.json({
       statusbar: 200,

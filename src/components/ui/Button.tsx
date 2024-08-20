@@ -25,7 +25,7 @@ export default function Button({
   const variantClasses = {
     outline:
       "border-[1px] border-solid border-color1 hover:bg-color1 hover:text-color3 text-color1",
-    solid: "bg-color1 hover:bg-color2 text-color3",
+    solid: "bg-color1 hover:bg-color2 text-color3 ",
     link: "text-color1 hover:text-color2 hover:underline",
   };
 

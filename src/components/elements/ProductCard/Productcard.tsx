@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ProductCardType } from "@/src/types/page";
 import ImageContainer from "../../ui/Image";
+import { Links } from "../../ui/Typography";
 
 interface IProps {
   product: ProductCardType;
@@ -10,7 +11,7 @@ interface IProps {
 export default function ProductCardElement({ product, session }: IProps) {
   return (
     <div className="card relative border rounded-md">
-      <Link href={`/stores/${product.slug}`} className="relative">
+      <Links slug={`/stores/${product.slug}`} className="relative" title="product detail">
         <div className="w-full h-auto relative overflow-hidden rounded-lg group-hover:opacity-75">
           <ImageContainer
             src={`https://res.cloudinary.com/desggllml/image/upload/w_304,h_304,q_auto/${product.image}`}
@@ -40,7 +41,7 @@ export default function ProductCardElement({ product, session }: IProps) {
             {product.name}
           </h3>
         </div>
-      </Link>
+      </Links>
     </div>
   );
 }

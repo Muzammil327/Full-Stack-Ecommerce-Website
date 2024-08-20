@@ -4,7 +4,7 @@ import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/src/components/context/cartContext";
-import { Button, Container, Table } from "@/src/components/ui/ui";
+import { Button, Container, Links, Table } from "@/src/components/ui/ui";
 import { useOrder } from "@/src/components/context/orderContext";
 import Link from "next/link";
 import { LoadingTableRow } from "../ui/Loading/LoadingTableRow";
@@ -100,11 +100,11 @@ export default function CheckoutView({ userId }: any) {
             )}
           </Table>
           <div className="mt-5">
-            <Link href="/dashboard/address/" className="!mb-5">
+            <Links slug="/dashboard/address/" className="!mb-5" title="Edit your address">
               <Button className="button_solid !inline-block">
                 Edit Address
               </Button>
-            </Link>
+            </Links>
             <UserData userId={userId} />
           </div>
         </div>

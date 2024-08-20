@@ -4,6 +4,7 @@ import Link from "next/link";
 import Button from "@/src/components/ui/Button";
 import Table, { TableRow } from "@/src/components/ui/Table/Table2";
 import GETAdminItemAction from "@/src/action/admin/GETAdminItemAction";
+import { Links } from "@/src/components/ui/Typography";
 
 export default function AdminItemView() {
   const { error, loading, items, fetchItems } = GETAdminItemAction();
@@ -23,7 +24,7 @@ export default function AdminItemView() {
   return (
     <div className="mx-auto md:px-6 px-4 my-8">
       <Button className="button_solid px-4">
-        <Link href="/dashboard/admin/items/add">Add New Items</Link>
+        <Links slug="/dashboard/admin/items/add" title="add new items">Add New Items</Links>
       </Button>
       <Table
         cellCount={4}

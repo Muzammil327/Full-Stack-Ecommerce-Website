@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/src/components/ui/ui";
+import { Button, Links } from "@/src/components/ui/ui";
 import Link from "next/link";
 import { FaShoppingBasket } from "react-icons/fa";
 import { useCart } from "../../context/cartContext";
@@ -9,7 +9,7 @@ export default function CartIcon() {
 
   return (
     <div className="md:ml-6 relative">
-      <Link href="/cart" aria-label="add to cart icon">
+      <Link href="/cart" title="add to cart icon">
         <Button
           className="flex items-center justify-center !px-3 !h-10"
           variant="outline"

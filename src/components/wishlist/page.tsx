@@ -6,7 +6,7 @@ import { useWishlist } from "@/src/components/context/wishlistContext";
 import { toast } from "react-toastify";
 import axios from "axios";
 import React from "react";
-import { Table, Button, Container } from "@/src/components/ui/ui";
+import { Table, Button, Container, Links } from "@/src/components/ui/ui";
 import { FaTimes } from "react-icons/fa";
 
 const WishlistView = () => {
@@ -71,9 +71,9 @@ const WishlistView = () => {
                         />
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
-                        <Link href={`/stores/${user.product_Detail.slug}`}>
+                        <Links slug={`/stores/${user.product_Detail.slug}`} title="product link">
                           {user.product_Detail.name}
-                        </Link>
+                        </Links>
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900">
                         {user.product_Detail.price}

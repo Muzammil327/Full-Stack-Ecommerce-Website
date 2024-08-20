@@ -71,7 +71,6 @@ export default function HeroSlider() {
             />
           </SwiperSlide>
           <SwiperSlide className="w-full h-auto">
-            <Link href="#">
               <ImageContainer
                 src="https://res.cloudinary.com/duif39fso/image/upload/w_720,h_324,c_fill,e_improve,e_sharpen/v1723610936/shoes_kyajvb.png"
                 alt="SHOES"
@@ -79,7 +78,6 @@ export default function HeroSlider() {
                 width={1600}
                 height={720}
               />
-            </Link>
           </SwiperSlide>
           <SwiperSlide className="w-full h-auto">
             <Image

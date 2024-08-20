@@ -41,6 +41,7 @@ export async function GET(
           status: 1,
           size: 1,
           color: 1,
+          createdAt: 1,
           "product.image": 1,
           "product.name": 1,
         },

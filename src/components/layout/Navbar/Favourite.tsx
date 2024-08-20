@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@/src/components/ui/ui";
+import { Button, Links } from "@/src/components/ui/ui";
 import { FaHeart } from "react-icons/fa6";
 import Link from "next/link";
 import { useWishlist } from "../../context/wishlistContext";
@@ -9,7 +9,7 @@ export default function FavouriteIcon() {
 
   return (
     <div className="ml-4 relative">
-      <Link href="/wishlist" aria-label="add to favourite">
+      <Link href="/wishlist" title="add to favourite">
         <Button
           className="flex items-center justify-center !px-3 !h-10"
           variant="outline"
