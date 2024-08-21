@@ -36,7 +36,6 @@ export default function SignView() {
         <Label
           label="Email Address :"
           htmlFor="email"
-          ariaLabel="Enter Email"
         />
         <Input
           type="email"
@@ -52,7 +51,6 @@ export default function SignView() {
         <Label
           label="Password :"
           htmlFor="password"
-          ariaLabel="Enter Password"
         />
         <Input
           type="password"

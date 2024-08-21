@@ -40,7 +40,6 @@ export default function RegisterAccountView() {
         <Label
           label="User Name :"
           htmlFor="username"
-          ariaLabel="Enter username"
         />
         <Input
           type="text"
@@ -57,7 +56,6 @@ export default function RegisterAccountView() {
         <Label
           label="Email Address :"
           htmlFor="email"
-          ariaLabel="Enter Email"
         />
         <Input
           type="email"
@@ -74,7 +72,6 @@ export default function RegisterAccountView() {
         <Label
           label="Password :"
           htmlFor="password"
-          ariaLabel="Enter Password"
         />
         <Input
           type="password"
