@@ -34,7 +34,7 @@ export default function Button({
       className={`
         ${className}
         ${variantClasses[variant]}
-        outline-none block justify-center items-center rounded-md shadow-sm text-base font-medium focus:outline-none duration-300 ease-in-out cursor-pointer h-12 px-4
+        outline-none block justify-center items-center rounded-md shadow-sm text-base font-medium focus:outline-none duration-300 ease-in-out cursor-pointer h-12 px-4 disabled:cursor-not-allowed
         ${loading ? "cursor-not-allowed opacity-50" : ""}
       `}
       onClick={onClick}

@@ -124,7 +124,7 @@ export default function CheckoutView({ userId }: any) {
                 onChange={(e) => setDelivery(Number(e.target.value))}
                 className="bg-color2 text-white rounded-md border-none outline-none py-3 px-5"
               >
-                <option value="">Select Delivery</option>
+                <option value="">Average Delivery</option>
                 <option value="250">Leapards</option>
                 <option value="300">Tcs</option>
               </select>

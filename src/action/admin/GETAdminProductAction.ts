@@ -20,11 +20,9 @@ const GETAdminProductAction = () => {
         products: AdminProductProps[];
         pagination: PaginationProps;
       }>(`/api/admin/product?page=${page}`);
-      if (page === 1) {
-        setProducts(response.data.products);
-      } else {
-        setProducts((prevData) => [...prevData, ...response.data.products]);
-      }
+
+      setProducts(response.data.products);
+
       setPagination(response.data.pagination);
     } catch (error) {
       console.log(error);

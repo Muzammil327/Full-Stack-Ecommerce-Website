@@ -1,5 +1,4 @@
 import React from "react";
-import { PaginationProps } from "@/src/types/product";
 import Button from "@/src/components/ui/Button";
 
 export default function Pagination({
@@ -8,26 +7,50 @@ export default function Pagination({
   page,
   loading,
 }: {
-  pagination: PaginationProps | undefined;
+  pagination: any;
   setPage: any;
   page: any;
   loading: any;
 }) {
-  const handleLoadMore = () => {
-    if (pagination && page < pagination.totalPages) {
-      setPage((prevPage: any) => prevPage + 1);
+  const handleNextPage = () => {
+    if (pagination?.currentPage < pagination?.totalPages) {
+      setPage(page + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (pagination?.currentPage > 1) {
+      setPage(page - 1);
     }
   };
   return (
-    <div className="my-5">
-      {pagination && page < pagination.totalPages && (
-        <Button
-          onClick={handleLoadMore}
-          className="button_outline rounded-md px-6 py-2 flex items-center mx-auto"
-          title="load more button"
-        >
-          {loading ? "Loading..." : "Load More"}
-        </Button>
+    <div>
+      {loading ? (
+        <p>Loading pagination...</p>
+      ) : (
+        <>
+          <div className="flex md:flex-row flex-col items-center justify-center mt-8 gap-4">
+            <Button
+              onClick={handlePrevPage}
+              disabled={page === 1}
+              className="button_bg !px-12"
+              title="load more button"
+            >
+              Previous
+            </Button>
+            <span>
+              Page {pagination?.currentPage} of {pagination?.totalPages} - ({pagination.totalResults})
+            </span>
+            <Button
+              onClick={handleNextPage}
+              disabled={page >= pagination.totalPages}
+              className="button_bg !px-12"
+              title="load more button"
+            >
+              Next
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );

@@ -11,12 +11,14 @@ import Container from "@/src/components/ui/Container";
 import { useProductCard } from "../context/productCard";
 import { Button } from "../ui/ui";
 import ProductCard from "../elements/ProductCard/page";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Pagination from "../elements/pagination";
 
 export default function StorePage({ userId }: any) {
   const [catShow, setCatShow] = useState<string>("");
   const [subCatShow, setSubCatShow] = useState<string>("");
   const [tagShow, setTagShow] = useState<string>("");
+
   const {
     error,
     loading,
@@ -56,11 +58,7 @@ export default function StorePage({ userId }: any) {
     setPriceHL(value);
     setPage(1);
   };
-  const handleLoadMore = () => {
-    if (pagination && page < pagination.totalPages) {
-      setPage((prevPage: any) => prevPage + 1);
-    }
-  };
+
   return (
     <Container>
       {error && <h1>Error fetching Store data...</h1>}
@@ -230,17 +228,12 @@ export default function StorePage({ userId }: any) {
                     />
                   ))}
                 </div>
-                <div className="flex items-center justify-center mt-8">
-                  {pagination && page < pagination.totalPages && (
-                    <Button
-                      onClick={handleLoadMore}
-                      className="button_bg !px-12"
-                      title="load more button"
-                    >
-                      {loading ? "Loading..." : "Load More"}
-                    </Button>
-                  )}
-                </div>
+                <Pagination
+                  page={page}
+                  setPage={setPage}
+                  loading={loading}
+                  pagination={pagination}
+                />
               </>
             )}
           </div>

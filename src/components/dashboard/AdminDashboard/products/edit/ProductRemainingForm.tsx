@@ -101,28 +101,26 @@ export function ProductStatus({
 }) {
   const statusData = [
     {
-      id: "",
-      name: "Select Status",
+      value: "",
+      label: "Select Status",
     },
     {
-      id: "active",
-      name: "Active",
+      value: "active",
+      label: "Active",
     },
     {
-      id: "out of stock",
-      name: "Out Of Stock",
+      value: "out of stock",
+      label: "Out Of Stock",
     },
   ];
   return (
     <div className="mb-6">
       <Label label="Status:" htmlFor="status" />
-      <Select id="status" value={status} setValue={setStatus}>
-        {statusData.map((data) => (
-          <option value={data.id} key={data.id}>
-            {data.name}
-          </option>
-        ))}
-      </Select>
+      <Select
+        options={statusData}
+        selectedOption={status}
+        onChange={(e: any) => setStatus(e.target.value)}
+      />
     </div>
   );
 }

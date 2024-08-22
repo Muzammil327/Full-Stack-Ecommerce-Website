@@ -1,6 +1,5 @@
 "use client";
 import axios from "axios";
-import Link from "next/link";
 import Button from "@/src/components/ui/Button";
 import Table, { TableRow } from "@/src/components/ui/Table/Table2";
 import Pagination from "@/src/components/elements/pagination";
@@ -113,9 +112,7 @@ export default function AdminProductView() {
       {loader && <LoaderOverlay />}
       <Pagination
         pagination={pagination}
-        setPage={(page: number) => {
-          setPage(page);
-        }}
+        setPage={setPage}
         page={page}
         loading={loading}
       />

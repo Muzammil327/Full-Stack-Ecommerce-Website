@@ -77,11 +77,7 @@ export const ProductCardProvider: React.FC<ProductCardProviderProps> = ({
       }>(
         `/api/product/store?page=${page}&category=${category}&subCatgeory=${subCategory}&lowPrice=${lowPrice}&highPrice=${highPrice}&lowToHigh=${priceLH}&highToLow=${priceHL}&tags=${tags}`
       );
-      if (page === 1) {
-        setProducts(response.data.products);
-      } else {
-        setProducts((prevData) => [...prevData, ...response.data.products]);
-      }
+      setProducts(response.data.products);
 
       setPagination(response.data.pagination as any);
       setStats(response.data.pagination.totalResults as any);

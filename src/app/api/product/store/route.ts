@@ -22,7 +22,7 @@ interface AggregationPipeline {
   $skip?: number;
   $limit?: number;
   $lookup?: any;
-  // Add other stages as needed
+  $count?: string;
 }
 
 export async function GET(req: NextRequest) {
@@ -37,7 +37,9 @@ export async function GET(req: NextRequest) {
   const tags = searchParams.get("tags");
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 9;
+
   await connectDB();
+
   try {
     // project stage
     const ProjectStage = {
@@ -132,9 +134,13 @@ export async function GET(req: NextRequest) {
     aggregationPipeline.push(LookupStage, ProjectStage, SkipStage, LimitStage);
 
     const products = await product.aggregate(aggregationPipeline as any);
-    const getproducts = await product.find();
-
-    const totalResults = getproducts.length;
+    const totalResultsPipeline: AggregationPipeline[] = [
+      { $count: "totalResults" },
+    ];
+    const totalResultsData = await product.aggregate(
+      totalResultsPipeline as any
+    );
+    const totalResults = totalResultsData[0]?.totalResults || 0;
     const totalPages = Math.ceil(totalResults / limit);
 
     return NextResponse.json({
@@ -143,9 +149,9 @@ export async function GET(req: NextRequest) {
       products,
       pagination: {
         currentPage: page,
-        totalPages: totalPages,
-        totalResults: totalResults,
-        limit: limit,
+        totalPages,
+        totalResults,
+        limit,
       },
     });
   } catch (error) {
