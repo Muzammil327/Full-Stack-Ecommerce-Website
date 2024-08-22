@@ -30,7 +30,7 @@ export default function CheckoutView({ userId }: any) {
 
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
-  const [delivery, setDelivery] = useState<number | undefined>(undefined);
+  const [delivery, setDelivery] = useState<number | undefined>(0);
   const { addToOrder, isLoadingOrder } = useOrder();
 
   useEffect(() => {
@@ -121,7 +121,7 @@ export default function CheckoutView({ userId }: any) {
 
             <div className="tax my-4 flex items-center justify-between">
               <select
-                onChange={(e) => setDelivery(Number(e.target.value))}
+                onChange={(e) => setDelivery(0)}
                 className="bg-color2 text-white rounded-md border-none outline-none py-3 px-5"
               >
                 <option value="0">Average Delivery</option>
