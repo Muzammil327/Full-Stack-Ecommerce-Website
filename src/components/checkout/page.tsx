@@ -124,9 +124,9 @@ export default function CheckoutView({ userId }: any) {
                 onChange={(e) => setDelivery(Number(e.target.value))}
                 className="bg-color2 text-white rounded-md border-none outline-none py-3 px-5"
               >
-                <option value="">Average Delivery</option>
-                <option value="250">Leapards</option>
-                <option value="300">Tcs</option>
+                <option value="0">Average Delivery</option>
+                {/* <option value="250">Leapards</option> */}
+                {/* <option value="300">Tcs</option> */}
               </select>
               <span>{delivery}</span>
             </div>
@@ -134,7 +134,7 @@ export default function CheckoutView({ userId }: any) {
               <span>Total</span>
               <span>{total}</span>
             </div>
-            {delivery && (
+            {/* {delivery && ( */}
               <Button
                 variant="solid"
                 className="flex items-center justify-center w-full"
@@ -152,9 +152,9 @@ export default function CheckoutView({ userId }: any) {
               >
                 {isLoadingOrder ? "Processing..." : "Place Order"}
               </Button>
-            )}
+            {/* // )} */}
           </div>
-          {delivery === 250 && (
+          {/* {delivery === 250 && (
             <p className="p-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Recusandae explicabo libero minus fugit beatae labore, cumque
@@ -162,8 +162,8 @@ export default function CheckoutView({ userId }: any) {
               similique corrupti veniam, ea laudantium, consectetur reiciendis
               quaerat!
             </p>
-          )}
-          {delivery === 300 && (
+          )} */}
+          {/* {delivery === 300 && (
             <p className="p-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Recusandae explicabo libero minus fugit beatae labore, cumque
@@ -171,7 +171,7 @@ export default function CheckoutView({ userId }: any) {
               similique corrupti veniam, ea laudantium, consectetur reiciendis
               quaerat!
             </p>
-          )}
+          )} */}
         </div>
       </div>
     </Container>
