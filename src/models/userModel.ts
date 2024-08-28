@@ -9,8 +9,8 @@ interface SMI_UserDocument extends Document {
   role: string;
   emailVerified: boolean;
   tokenActivate: string;
-  addressLine1: string;
-  addressLine2: string;
+  addressLine: string;
+  province: string;
   city: string;
   postalCode: string;
   country: string;
@@ -29,8 +29,8 @@ const SMI_UserSchema = new Schema<SMI_UserDocument>(
     role: { type: String, enum: ["user", "admin"], default: "user" },
     tokenActivate: { type: String },
     emailVerified: { type: Boolean, default: false },
-    addressLine1: { type: String },
-    addressLine2: { type: String },
+    addressLine: { type: String },
+    province: { type: String },
     city: { type: String },
     postalCode: { type: String },
     country: { type: String },

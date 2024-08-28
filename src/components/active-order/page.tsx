@@ -12,8 +12,7 @@ const ActiveOrderView = () => {
     <Container>
       <div className="my-20">
         <span>
-          After 5 day it was remove from your account. If you return any order,
-          plz return before 5 days, after that it is not refundable.
+          After 5 days, it is not refundable.
         </span>
         <div className="relative overflow-x-auto sm:rounded-lg mb-10">
           <Table
@@ -45,7 +44,7 @@ const ActiveOrderView = () => {
                     />
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
-                    {user._id}
+                    {user.status === "No Return" ? "0" : user._id}
                   </td>
                   <td className="px-6 py-4 font-semibold text-gray-900">
                     {user.product.name}
@@ -101,6 +100,14 @@ const ActiveOrderView = () => {
                         {user.status}
                       </span>
                     )}
+                    {user.status === "No Return" && (
+                      <span
+                        className="text-sky-500"
+                        title="The order has been cancelled either by the customer or by SMI Shop Mart. Cancellation may occur due to reasons such as stock unavailability, or a customer-initiated request."
+                      >
+                        {user.status}
+                      </span>
+                    )}
                   </td>
                   <td className="px-6 py-4">
                     {user.status === "Pending" && (
@@ -114,7 +121,7 @@ const ActiveOrderView = () => {
                     {user.status === "Delivered" && (
                       <Links
                         title="return / replace"
-                        slug="/return-replace-request"
+                        slug={`/dashboard/active-order/${user._id}`}
                       >
                         <Button className="button_outline p-1">Return</Button>
                       </Links>

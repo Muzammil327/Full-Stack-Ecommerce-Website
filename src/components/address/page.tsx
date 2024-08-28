@@ -11,13 +11,14 @@ import {
 } from "@/src/components/ui/ui";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Select from "../ui/Select";
 
 interface FormData {
-  addressLine1: string;
-  addressLine2: string;
+  addressLine: string;
   postalCode: string;
   city: string;
   country: string;
+  province: string;
   phone1: string;
   phone2: string;
   additionalInfo: string;
@@ -35,9 +36,9 @@ export default function AddressView() {
   const [addressData, setAddressData] = useState<FormData>({
     phone1: "",
     phone2: "",
-    addressLine1: "",
-    addressLine2: "",
+    addressLine: "",
     country: "",
+    province: "",
     city: "",
     postalCode: "",
     additionalInfo: "",
@@ -50,6 +51,10 @@ export default function AddressView() {
     }
     if (!addressData.country) {
       toast.error("Enter Your Country Name");
+      return;
+    }
+    if (!addressData.province) {
+      toast.error("Enter Your Province Name");
       return;
     }
     if (!addressData.phone1) {
@@ -68,8 +73,8 @@ export default function AddressView() {
       toast.error("Enter Your Correct phone 1 Number Format");
       return;
     }
-    if (!addressData.addressLine1) {
-      toast.error("Enter Your address 1");
+    if (!addressData.addressLine) {
+      toast.error("Enter Your address");
       return;
     }
     if (!addressData.postalCode) {
@@ -88,9 +93,9 @@ export default function AddressView() {
       await axios.put(`/api/auth/address/${userId}`, {
         phone1: addressData.phone1,
         phone2: addressData.phone2,
-        addressLine1: addressData.addressLine1,
-        addressLine2: addressData.addressLine2,
+        addressLine1: addressData.addressLine,
         country: addressData.country,
+        province: addressData.province,
         city: addressData.city,
         postalCode: addressData.postalCode,
         additionalInfo: addressData.additionalInfo,
@@ -107,9 +112,9 @@ export default function AddressView() {
       setAddressData({
         phone1: "",
         phone2: "",
-        addressLine1: "",
-        addressLine2: "",
+        addressLine: "",
         country: "",
+        province: "",
         city: "",
         postalCode: "",
         additionalInfo: "",
@@ -150,6 +155,10 @@ export default function AddressView() {
       fetchUserData();
     }
   }, [fetchUserData, userId]);
+
+  const selectedProvince = ProvinceOptions.find(
+    (province) => province.value === addressData.province
+  );
 
   return (
     <>
@@ -207,28 +216,27 @@ export default function AddressView() {
                     name="address1"
                     type="text"
                     placeholder="Enter Your Address 1"
-                    value={addressData.addressLine1 || ""}
+                    value={addressData.addressLine || ""}
                     onChange={(e) =>
                       setAddressData({
                         ...addressData,
-                        addressLine1: e.target.value,
+                        addressLine: e.target.value,
                       })
                     }
                   />
                 </div>
               </div>
+
               <div>
-                <Label label="Address Line 2" htmlFor="Address Line 2" />
+                <Label label="Country" htmlFor="Country" />
                 <div className="">
-                  <Input
-                    name="address2"
-                    type="text"
-                    placeholder="Enter Your Address 2"
-                    value={addressData.addressLine2 || ""}
-                    onChange={(e) =>
+                  <Select
+                    options={CountryOptions}
+                    selectedOption={addressData.country || ""}
+                    onChange={(e: any) =>
                       setAddressData({
                         ...addressData,
-                        addressLine2: e.target.value,
+                        country: e.target.value,
                       })
                     }
                   />
@@ -238,17 +246,15 @@ export default function AddressView() {
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-3 my-4">
               <div>
-                <Label label="Country" htmlFor="Country" />
+                <Label label="Province" htmlFor="Province" />
                 <div className="">
-                  <Input
-                    name="country"
-                    type="text"
-                    placeholder="Enter Your Country"
-                    value={addressData.country || ""}
-                    onChange={(e) =>
+                  <Select
+                    options={ProvinceOptions}
+                    selectedOption={addressData.province || ""}
+                    onChange={(e: any) =>
                       setAddressData({
                         ...addressData,
-                        country: e.target.value,
+                        province: e.target.value,
                       })
                     }
                   />
@@ -258,12 +264,10 @@ export default function AddressView() {
               <div>
                 <Label label="City" htmlFor="City" />
                 <div className="">
-                  <Input
-                    name="city"
-                    type="text"
-                    placeholder="Enter Your City"
-                    value={addressData.city || ""}
-                    onChange={(e) =>
+                  <Select
+                    options={selectedProvince?.option || []} // Use the options of the selected province
+                    selectedOption={addressData.city || ""}
+                    onChange={(e: any) =>
                       setAddressData({
                         ...addressData,
                         city: e.target.value,
@@ -312,7 +316,11 @@ export default function AddressView() {
             </div>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-6">
-              <Button className="button_solid px-6" title="add address here" type="submit">
+              <Button
+                className="button_solid px-6"
+                title="add address here"
+                type="submit"
+              >
                 {loading ? "Loading .." : "Submit Here"}
               </Button>
             </div>
@@ -322,3 +330,198 @@ export default function AddressView() {
     </>
   );
 }
+
+const CountryOptions = [
+  {
+    value: "",
+    label: "Select Country",
+  },
+  {
+    value: "pakistan",
+    label: "Pakistan",
+  },
+];
+
+const ProvinceOptions = [
+  {
+    value: "",
+    label: "Select Province",
+  },
+  {
+    value: "punjab",
+    label: "Punjab",
+    option: [
+      {
+        value: "",
+        label: "Select City",
+      },
+      {
+        value: "lahore",
+        label: "Lahore",
+      },
+      {
+        value: "faisalabad",
+        label: "Faisalabad",
+      },
+      {
+        value: "rawalpindi",
+        label: "Rawalpindi",
+      },
+      {
+        value: "gujranwala",
+        label: "Gujranwala",
+      },
+      {
+        value: "multan",
+        label: "Multan",
+      },
+      {
+        value: "sialkot",
+        label: "Sialkot",
+      },
+      {
+        value: "sargodha",
+        label: "Sargodha",
+      },
+      {
+        value: "bahawalpur",
+        label: "Bahawalpur",
+      },
+      {
+        value: "jhelum",
+        label: "Jhelum",
+      },
+      {
+        value: "sheikhupura",
+        label: "Sheikhupura",
+      },
+      {
+        value: "gujrat",
+        label: "Gujrat",
+      },
+      {
+        value: "sahiwal",
+        label: "Sahiwal",
+      },
+      {
+        value: "rahim_yar_khan",
+        label: "Rahim Yar Khan",
+      },
+      {
+        value: "kasur",
+        label: "Kasur",
+      },
+      {
+        value: "mandi_bahauddin",
+        label: "Mandi Bahauddin",
+      },
+      {
+        value: "okara",
+        label: "Okara",
+      },
+      {
+        value: "dera_ghazi_khan",
+        label: "Dera Ghazi Khan",
+      },
+      {
+        value: "chiniot",
+        label: "Chiniot",
+      },
+      {
+        value: "hafizabad",
+        label: "Hafizabad",
+      },
+      {
+        value: "muzaffargarh",
+        label: "Muzaffargarh",
+      },
+      {
+        value: "wah_cantonment",
+        label: "Wah Cantonment",
+      },
+      {
+        value: "khushab",
+        label: "Khushab",
+      },
+      {
+        value: "mianwali",
+        label: "Mianwali",
+      },
+      {
+        value: "toba_tek_singh",
+        label: "Toba Tek Singh",
+      },
+      {
+        value: "jhang",
+        label: "Jhang",
+      },
+      {
+        value: "khanewal",
+        label: "Khanewal",
+      },
+      {
+        value: "vehari",
+        label: "Vehari",
+      },
+      {
+        value: "attock",
+        label: "Attock",
+      },
+      {
+        value: "bhakkar",
+        label: "Bhakkar",
+      },
+      {
+        value: "lodhran",
+        label: "Lodhran",
+      },
+      {
+        value: "narowal",
+        label: "Narowal",
+      },
+      {
+        value: "pakpattan",
+        label: "Pakpattan",
+      },
+      {
+        value: "shakargarh",
+        label: "Shakargarh",
+      },
+      {
+        value: "layyah",
+        label: "Layyah",
+      },
+      {
+        value: "chakwal",
+        label: "Chakwal",
+      },
+    ],
+  },
+  {
+    value: "sindh",
+    label: "Sindh",
+    options: [
+      { value: "", label: "Select City" },
+      { value: "karachi", label: "Karachi" },
+      { value: "hyderabad", label: "Hyderabad" },
+      { value: "sukkur", label: "Sukkur" },
+      { value: "larkana", label: "Larkana" },
+      { value: "mirpurkhas", label: "Mirpurkhas" },
+      { value: "nawabshah", label: "Nawabshah" },
+      { value: "jacobabad", label: "Jacobabad" },
+      { value: "khairpur", label: "Khairpur" },
+      { value: "shikarpur", label: "Shikarpur" },
+      { value: "badin", label: "Badin" },
+      { value: "thatta", label: "Thatta" },
+      { value: "dadu", label: "Dadu" },
+      { value: "umatota", label: "Umarkot" },
+      { value: "gothki", label: "Ghotki" },
+      { value: "kashmore", label: "Kashmore" },
+      { value: "matiari", label: "Matiari" },
+      { value: "jamshoro", label: "Jamshoro" },
+      { value: "tando_allahyar", label: "Tando Allahyar" },
+      { value: "tando_muhammad_khan", label: "Tando Muhammad Khan" },
+      { value: "umarkot", label: "Umarkot" },
+    ],
+  },
+];

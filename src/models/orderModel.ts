@@ -35,7 +35,7 @@ const SMI_OrderSchema = new Schema<SMI_OrderDocument>(
     },
     status: {
       type: String,
-      enum: ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled"],
+      enum: ["Pending", "Confirmed", "Shipped", "Delivered", "Cancelled", "No Return"],
       default: "Pending",
     },
     createdAt: {

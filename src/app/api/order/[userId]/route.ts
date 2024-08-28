@@ -17,6 +17,28 @@ export async function GET(
       });
     }
     await connectDB();
+    const get_order = await order.find({
+      userId: new mongoose.Types.ObjectId(userId),
+    });
+
+    // Check if any orders are older than 5 days
+    const now = new Date();
+
+    // Loop through each order to check the date difference
+    for (const singleOrder of get_order) {
+      const createdAt = new Date(singleOrder.createdAt);
+      const differenceInMs = now.getTime() - createdAt.getTime(); // Difference in milliseconds
+      const differenceInDays = Math.floor(
+        differenceInMs / (1000 * 60 * 60 * 24)
+      ); // Convert to days
+      console.log(differenceInDays);
+      if (differenceInDays >= 5) {
+        await order.updateOne(
+          { _id: singleOrder._id },
+          { $set: { status: "No Return" } }
+        );
+      }
+    }
     const get_user_order = await order.aggregate([
       {
         $match: {
@@ -47,7 +69,6 @@ export async function GET(
         },
       },
     ]);
-
     return NextResponse.json({
       statusbar: 200,
       message: "Order successfully getting.",

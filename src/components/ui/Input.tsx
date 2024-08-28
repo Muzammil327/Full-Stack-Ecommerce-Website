@@ -9,12 +9,13 @@ interface InputProps {
   value: string | number;
   placeholder?: string; // Make placeholder optional
   name: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onFocus?: () => void; // Add optional onFocus handler
   onBlur?: () => void; // Add optional onBlur handler
   className?: string; // Add optional className for additional styling
   disabled?: boolean; // Add disabled state
   ariaLabel?: string; // Add aria-label for accessibility
+  min?: number; // Add aria-label for accessibility
 }
 
 // Define the Input component
@@ -24,6 +25,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   onChange,
   name,
+  min,
   onFocus,
   onBlur,
   className = "", // Default to an empty string if no className is provided
@@ -42,6 +44,7 @@ const Input: React.FC<InputProps> = ({
       className={`w-full border border-gray-300 py-3 pl-3 rounded-md mt-2 shadow-sm outline-none focus:outline-none focus:ring-color2 focus:border-color2 transition-all hover:transition-all ${className}`}
       placeholder={placeholder}
       disabled={disabled}
+      minLength={min}
       aria-label={ariaLabel}
     />
   );

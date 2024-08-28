@@ -9,43 +9,47 @@ export async function GET(req: NextRequest) {
 
   const tags = searchParams.get("tags");
   const page = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || 9;
+  const limit = Number(searchParams.get("limit")) || 8;
 
   await connectDB();
   try {
-
     const getitems = await item.aggregate([
       {
         $match: {
           name: tags,
         },
       },
-    ])
+    ]);
+
+    if (getitems.length === 0) {
+      return NextResponse.json({
+        statusbar: 404,
+        message: "Item not found.",
+      });
+    }
     const getitemsmap = getitems.map((data) => data._id);
 
     const extractedId = getitemsmap[0];
     // Convert ObjectId to string
     const extractedIdStr = extractedId.toString();
 
-    // project stage
-    const ProjectStage = {
-      $project: {
-        _id: 1,
-        name: 1,
-        slug: 1,
-        image: 1,
-        price: 1,
-        dPrice: 1,
-        "cat.name": 1,
+    // Count total results for pagination
+    const totalResultsData = await Product.aggregate([
+      {
+        $match: {
+          itemId: new mongoose.Types.ObjectId(extractedId),
+        },
       },
-    };
+      {
+        $count: "totalResults",
+      },
+    ]);
 
-    // skip stage
-    const SkipStage = { $skip: (page - 1) * limit };
+    // Make the pagination
+    const totalResults = totalResultsData[0]?.totalResults || 0;
+    const totalPages = Math.ceil(totalResults / limit);
 
-    // limit stage
-    const LimitStage = { $limit: limit };
-
+    // Fetch the pagination products
     const products = await Product.aggregate([
       {
         $match: {
@@ -60,15 +64,20 @@ export async function GET(req: NextRequest) {
           as: "cat", // Name of the field to store the related products
         },
       },
-      ProjectStage,
-      SkipStage,
-      LimitStage,
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          slug: 1,
+          image: 1,
+          price: 1,
+          dPrice: 1,
+          "cat.name": 1,
+        },
+      },
+      { $skip: (page - 1) * limit },
+      { $limit: limit },
     ]);
-
-    const getproducts = await Product.find();
-
-    const totalResults = getproducts.length;
-    const totalPages = Math.ceil(totalResults / limit);
 
     return NextResponse.json({
       statusbar: 200,
@@ -76,9 +85,9 @@ export async function GET(req: NextRequest) {
       products,
       pagination: {
         currentPage: page,
-        totalPages: totalPages,
-        totalResults: totalResults,
-        limit: limit,
+        totalPages,
+        totalResults,
+        limit,
       },
     });
   } catch (error) {

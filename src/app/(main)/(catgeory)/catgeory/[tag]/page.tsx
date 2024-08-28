@@ -29,11 +29,7 @@ const CategoryPageContent = () => {
           `/api/product/home/separateCatgeory?page=${page}&tags=${param.tag}`
         );
       }
-      if (page === 1) {
-        setProducts(response.data.products);
-      } else {
-        setProducts((prevData) => [...prevData, ...response.data.products]);
-      }
+      setProducts(response.data.products);
 
       setPagination(response.data.pagination as any);
     } catch (error) {
@@ -77,16 +73,12 @@ const CategoryPageContent = () => {
                 ))}
               </div>
               <div className="flex items-center justify-center mt-8">
-                {products.length > 9 && (
-                  <Pagination
-                    pagination={pagination}
-                    setPage={(page: number) => {
-                      setPage(page);
-                    }}
-                    page={page}
-                    loading={loading}
-                  />
-                )}
+                <Pagination
+                  page={page}
+                  setPage={setPage}
+                  loading={loading}
+                  pagination={pagination}
+                />
               </div>{" "}
             </>
           )}

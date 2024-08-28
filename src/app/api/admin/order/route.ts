@@ -139,7 +139,7 @@ export async function PUT(req: NextRequest) {
   try {
     const updatedOrder = await order.findByIdAndUpdate(
       orderId,
-      { status },
+      { status, createdAt: new Date() },
       { new: true }
     );
 

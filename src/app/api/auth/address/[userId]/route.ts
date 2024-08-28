@@ -1,5 +1,5 @@
-import connectDB from "@/src/utils/db"; // Adjust path as per your project
-import user from "@/src/models/userModel"; // Adjust path as per your project
+import connectDB from "@/src/utils/db";
+import user from "@/src/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
 
@@ -11,8 +11,8 @@ export async function PUT(
   const {
     phone1,
     phone2,
-    addressLine1,
-    addressLine2,
+    addressLine,
+    province,
     additionalInfo,
     country,
     city,
@@ -32,8 +32,8 @@ export async function PUT(
       {
         phone1,
         phone2,
-        addressLine1,
-        addressLine2,
+        addressLine,
+        province,
         additionalInfo,
         country,
         city,
@@ -68,7 +68,9 @@ export async function GET(
       });
     }
     await connectDB();
-    const get_user_address = await user.findById(new mongoose.Types.ObjectId(userId));
+    const get_user_address = await user.findById(
+      new mongoose.Types.ObjectId(userId)
+    );
 
     return NextResponse.json({
       statusbar: 200,

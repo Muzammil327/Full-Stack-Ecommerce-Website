@@ -18,15 +18,17 @@ export default function page() {
                 processed or confirmed by <strong>SMI Shop Mart</strong>.
               </li>
               <li>
-                After 6 Hours: The customer will receive a confirmation call. If
-                confirmed, the order status will be updated to
+                After 6 hours, the customer will receive a confirmation call. If
+                confirmed, the order status will be updated to{" "}
                 <strong> Confirmed</strong>.
               </li>
               <li>
-                During this period, the order remains in a waiting state until
-                the customer confirms it via phone.
+                The customer can delete their order during this waiting period.
               </li>
-              <li>Customer delete your order at this stage.</li>
+              <li>
+                The order remains in a pending state until confirmation is
+                received via phone.
+              </li>
             </ul>
             <Heading2 title="Confirmed Order" />
             <ul className="mt-5 space-y-4 list-disc list-inside">
@@ -43,7 +45,7 @@ export default function page() {
             <ul className="mt-5 space-y-4 list-disc list-inside">
               <li>
                 The order has been carefully packaged and dispatched from the
-                seller’s warehouse center.
+                warehouse.
               </li>
               <li>
                 SMI Store Mart provides the customer with detailed shipment
@@ -78,6 +80,25 @@ export default function page() {
               <li>
                 Cancellation may occur due to reasons such as stock
                 unavailability, or a customer-initiated request.
+              </li>
+              <li>
+                The order is no longer valid, and no further processing will
+                occur.
+              </li>
+            </ul>
+            <Heading2 title="No Return" />
+            <ul className="mt-5 space-y-4 list-disc list-inside">
+              <li>
+                The order status has been updated to No Return when the return
+                period has expired.
+              </li>
+              <li>
+                This status indicates that the order can no longer be returned
+                or exchanged.
+              </li>
+              <li>
+                Orders are updated to this status automatically after the 5 days
+                period to prevent further return requests.
               </li>
             </ul>
           </div>

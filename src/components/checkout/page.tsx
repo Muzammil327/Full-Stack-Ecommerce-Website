@@ -6,8 +6,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/src/components/context/cartContext";
 import { Button, Container, Links, Table } from "@/src/components/ui/ui";
 import { useOrder } from "@/src/components/context/orderContext";
-import Link from "next/link";
-import { LoadingTableRow } from "../ui/Loading/LoadingTableRow";
+import { LoadingTableRow } from "@/src/components/ui/Loading/LoadingTableRow";
 import Table1 from "@/src/components/ui/Table/Table1";
 
 interface UserData {
@@ -26,7 +25,6 @@ interface UserData {
 
 export default function CheckoutView({ userId }: any) {
   const { cart, isFetching } = useCart();
-  const router = useRouter();
 
   const [subtotal, setSubtotal] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);

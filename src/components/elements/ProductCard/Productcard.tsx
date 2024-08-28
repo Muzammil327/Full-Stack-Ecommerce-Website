@@ -32,12 +32,12 @@ export default function ProductCardElement({ product, session }: IProps) {
               Rs.
               {product.price}
             </p>
-            <p className="text-sm text-gray-900 font-sans">
+            <p className="text-lg text-gray-900 font-sans">
               Rs.
               {product.dPrice}
             </p>
           </div>
-          <h3 className="md:text-lg text-base text-gray-700 capitalize product_description font-sans mt-1">
+          <h3 className="text-lg text-gray-700 capitalize product_description font-sans mt-1">
             {product.name}
           </h3>
         </div>

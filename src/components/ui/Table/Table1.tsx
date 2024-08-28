@@ -6,13 +6,13 @@ export default function Table1({ userProfile }: any) {
       <tbody>
         <TableRow label="User Name" value={userProfile?.username || ""} />
         <TableRow label="Email" value={userProfile?.email || ""} />
-        <TableRow label="Address 1" value={userProfile?.addressLine1 || ""} />
-        <TableRow label="Address 2" value={userProfile?.addressLine2 || ""} />
+        <TableRow label="Address" value={userProfile?.addressLine || ""} />
         <TableRow
           label="Additional Info"
           value={userProfile?.additionalInfo || ""}
         />
         <TableRow label="Country" value={userProfile?.country || ""} />
+        <TableRow label="Province" value={userProfile?.province || ""} />
         <TableRow label="City" value={userProfile?.city || ""} />
         <TableRow
           label="Postal/Zip Code"
