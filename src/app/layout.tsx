@@ -4,7 +4,6 @@ import { inter } from "@/src/app/font";
 // Import toastify styles
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { GoogleTagManager } from "@next/third-parties/google";
 import dynamic from "next/dynamic";
 
 import Providers from "@/src/components/Providers";
@@ -12,7 +11,6 @@ import Navbar from "@/src/components/layout/Navbar/page";
 import Header from "../components/layout/header/page";
 const Footer = dynamic(() => import("@/src/components/layout/Footer/page"));
 const Policy = dynamic(() => import("@/src/components/layout/policy"));
-import { GoogleAnalytics } from '@next/third-parties/google'
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,19 +26,16 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="application-name" content="Next.js" />
-        {/* <meta name="author" content={process.env.NEXT_PUBLIC_AUTHOR_NAME} /> */}
-        {/* <link rel="author" href={process.env.NEXT_PUBLIC_AUTHOR_LINK} /> */}
+        <meta name="author" content="Muhammad Muzammil Safdar" />
+        <link rel="author" href="smishopmart.vercel/app" />
         <meta name="generator" content="Next.js" />
         <meta name="referrer" content="origin-when-cross-origin" />
         <meta name="color-scheme" content="light" />
-        {/* <meta name="creator" content={process.env.NEXT_PUBLIC_CREATOR} /> */}
-        {/* <meta name="publisher" content={process.env.NEXT_PUBLIC_CREATOR} /> */}
+        <meta name="creator" content="smishopmart" />
+        <meta name="publisher" content="smishopmart.vercel/app" />
         {/* og */}
         <meta property="og:type" content="website" />
-        {/* <meta
-          property="og:site_name"
-          content={process.env.NEXT_PUBLIC_CREATOR}
-        /> */}
+        <meta property="og:site_name" content="smishopmart.vercel/app" />
         <meta property="og:locale" content="en_US" />
         <meta property="og:image:type" content="image/jpg" />
         <meta property="og:image:width" content="1280" />
@@ -71,18 +66,12 @@ export default function RootLayout({
         {/* twitter */}
 
         <meta name="twitter:card" content="summary" />
+        <meta name="twitter:creator" content="smishopmart" />
+        <meta property="twitter:domain" content="smishopmart.vercel.app" />
         {/* <meta
-          name="twitter:creator"
-          content={`@${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
-        />
-        <meta
-          property="twitter:domain"
-          content={process.env.NEXT_PUBLIC_CREATOR}
-        /> */}
-        <meta
           name="google-site-verification"
           content="TLC1ScjuJKnpeLltQJOI6Xu0QwitVD-gOYWCfoQarwo"
-        />
+        /> */}
       </head>
       <body className={inter.className}>
         <Providers>
@@ -93,8 +82,6 @@ export default function RootLayout({
           <Footer />
           <ToastContainer />
         </Providers>
-        <GoogleTagManager gtmId="GTM-TH7VGCR5" />
-        <GoogleAnalytics gaId="G-P0HDK8Y5XK" />
       </body>
     </html>
   );
