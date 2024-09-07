@@ -70,10 +70,6 @@ export default function RootLayout({
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="smishopmart" />
         <meta property="twitter:domain" content="smishopmart.vercel.app" />
-        {/* <meta
-          name="google-site-verification"
-          content="TLC1ScjuJKnpeLltQJOI6Xu0QwitVD-gOYWCfoQarwo"
-        /> */}
       </head>
       <body className={inter.className}>
         <Providers>
