@@ -113,8 +113,8 @@ export async function generateMetadata({ params }: Iprops) {
   };
   try {
     return {
-      title: convertToUpperCaseithHyphen(slug),
-      description: convertToUpperCaseithHyphen(slug),
+      title: convertToUpperCaseithHyphen(slug) + "Collection",
+      description: convertToUpperCaseithHyphen(slug) + "Collection",
       alternates: {
         canonical: `/catgeory/${slug}`,
       },
@@ -127,20 +127,20 @@ export async function generateMetadata({ params }: Iprops) {
         },
       },
       openGraph: {
-        title: convertToUpperCaseithHyphen(slug),
-        description: convertToUpperCaseithHyphen(slug),
+        title: convertToUpperCaseithHyphen(slug) + "Collection",
+        description: convertToUpperCaseithHyphen(slug) + "Collection",
         url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/catgeory/${slug}`,
         images: [
           {
-            alt: convertToUpperCaseithHyphen(slug),
+            alt: convertToUpperCaseithHyphen(slug) + "Collection",
           },
         ],
       },
       twitter: {
-        title: convertToUpperCaseithHyphen(slug),
-        description: convertToUpperCaseithHyphen(slug),
+        title: convertToUpperCaseithHyphen(slug) + "Collection",
+        description: convertToUpperCaseithHyphen(slug) + "Collection",
         images: {
-          alt: convertToUpperCaseithHyphen(slug),
+          alt: convertToUpperCaseithHyphen(slug) + "Collection",
         },
       },
     };
