@@ -19,6 +19,7 @@ export default async function Page({ params }: Iprops) {
     </main>
   );
 }
+
 export async function generateMetadata({ params }: Iprops) {
   const slug = params.productDetail;
   const convertToLowercaseWithHyphen = (text: string) => {
