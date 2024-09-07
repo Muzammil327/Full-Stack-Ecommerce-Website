@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import LoadingProductCard from "@/src/components/ui/Loading/LoadingProductCard";
 import { Container, Heading1 } from "@/src/components/ui/ui";
 import axios from "axios";
@@ -12,15 +12,8 @@ import ProductCard from "@/src/components/elements/ProductCard/Productcard";
 import Pagination from "@/src/components/elements/pagination";
 
 
-interface tag {
-  tag: string;
-}
 
-interface Iprops {
-  params: tag;
-}
-
-const CategoryPageContent = ({ params }: any) => {
+export const CategoryPageContent = ({ params }: any) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [products, setProducts] = useState<ProductCardType[]>([]);
@@ -94,87 +87,3 @@ const CategoryPageContent = ({ params }: any) => {
     </main>
   );
 };
-
-const CategoryPage = ({ params }: Iprops) => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <CategoryPageContent params={params} />
-    </Suspense>
-  );
-};
-
-export default CategoryPage;
-
-
-export async function generateMetadata({ params }: Iprops) {
-  const slug = params.tag;
-  const convertToUpperCaseithHyphen = (text: string) => {
-    return text.toUpperCase().replace(/-/g, " ").replace(/\s+/g, " ");
-  };
-  try {
-    return {
-      title: convertToUpperCaseithHyphen(slug) + "Collection",
-      description: convertToUpperCaseithHyphen(slug) + "Collection",
-      alternates: {
-        canonical: `/catgeory/${slug}`,
-      },
-      robots: {
-        index: true,
-        follow: true,
-        googleBot: {
-          index: true,
-          follow: true,
-        },
-      },
-      openGraph: {
-        title: convertToUpperCaseithHyphen(slug) + "Collection",
-        description: convertToUpperCaseithHyphen(slug) + "Collection",
-        url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/catgeory/${slug}`,
-        images: [
-          {
-            alt: convertToUpperCaseithHyphen(slug) + "Collection",
-          },
-        ],
-      },
-      twitter: {
-        title: convertToUpperCaseithHyphen(slug) + "Collection",
-        description: convertToUpperCaseithHyphen(slug) + "Collection",
-        images: {
-          alt: convertToUpperCaseithHyphen(slug) + "Collection",
-        },
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching product data:", error);
-    return {
-      title: "Error",
-      description: "Unable to fetch product data",
-      alternates: {
-        canonical: `/catgeory/${slug}`,
-      },
-      robots: {
-        index: false,
-        follow: false,
-      },
-      openGraph: {
-        title: "Error",
-        description: "Unable to fetch product data",
-        url: `${process.env.NEXT_PUBLIC_FRONTEND_LINK}/catgeory/${slug}`,
-        images: [
-          {
-            url: "/default-error-image.jpg",
-            alt: "Error",
-          },
-        ],
-      },
-      twitter: {
-        title: "Error",
-        description: "Unable to fetch product data",
-        images: {
-          url: "/default-error-image.jpg",
-          alt: "Error",
-        },
-      },
-    };
-  }
-}
