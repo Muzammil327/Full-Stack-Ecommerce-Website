@@ -12,7 +12,7 @@ import Header from "../components/layout/header/page";
 const Footer = dynamic(() => import("@/src/components/layout/Footer/page"));
 const Policy = dynamic(() => import("@/src/components/layout/policy"));
 
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -65,11 +65,13 @@ export default function RootLayout({
           sizes="32x32"
           type="image/png"
         />
-        {/* twitter */}
-
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="smishopmart" />
         <meta property="twitter:domain" content="smishopmart.vercel.app" />
+        <meta
+          name="google-site-verification"
+          content="6w7DAmbPA0Ej5JkdIcsNglp2OiasrEyvhFHXDznah6c"
+        />
       </head>
       <body className={inter.className}>
         <Providers>
