@@ -12,7 +12,7 @@ import Header from "../components/layout/header/page";
 const Footer = dynamic(() => import("@/src/components/layout/Footer/page"));
 const Policy = dynamic(() => import("@/src/components/layout/policy"));
 
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -81,6 +81,7 @@ export default function RootLayout({
           <Policy />
           <Footer />
           <GoogleTagManager gtmId="GTM-KHGBQDB8" />
+          <GoogleAnalytics gaId="G-26JRZYB8FK" />
           <ToastContainer />
         </Providers>
       </body>
