@@ -65,7 +65,7 @@ export default function ProductDetail({
   userId: string;
 }) {
   const [data, setData] = useState<ProductCardData>();
-  let [isOpen, setIsOpen] = useState(true);
+  let [isOpen, setIsOpen] = useState(false);
 
   function open() {
     setIsOpen(true);
