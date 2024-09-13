@@ -35,13 +35,13 @@ export default function ProductDetailTab({ data }: ProductDetailTagProps) {
       </TabList>
 
       <TabPanel className="">
-        <h1 className="text-2xl font-semibold my-2">Product Description</h1>
+        <h1 className="text-2xl font-semibold mb-3 mt-6">Product Description</h1>
         <p className="mt-4 mb-6 sm:text-base text-sm text-gray-500 product_description_panel">
           <div dangerouslySetInnerHTML={{ __html: data.Ldescription }} />
         </p>
       </TabPanel>
       <TabPanel className="">
-        <h1 className="text-2xl font-semibold my-2">
+        <h1 className="text-2xl font-semibold mb-3 mt-6">
           Product Review and Rating
         </h1>
         <ReviewView productId={data} setReviewsFetched={setReviewsFetched} />

@@ -62,7 +62,7 @@ export default function AddtoCartBtn({
       disabled={isLoading}
       variant="solid"
       title="add product to cart"
-      className="flex items-center"
+      className="flex items-center !w-full"
     >
       {isLoading ? <Processing /> : <FaCartShopping className="mr-2" />}
       Add to Cart

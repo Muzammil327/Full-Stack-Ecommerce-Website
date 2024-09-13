@@ -47,7 +47,7 @@ export default function DisLikeBtn({
     <Button
       onClick={() => HandleDisLikeClick(datas._id)}
       title="dislike button for vote product"
-      className="flex items-center justify-center"
+      className="flex items-center justify-center w-full"
       variant="outline"
     >
       {loading ? <Processing /> : <FaRegThumbsDown className="mr-2" />}

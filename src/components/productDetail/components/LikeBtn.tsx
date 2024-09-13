@@ -43,7 +43,7 @@ export default function LikeBtn({ fetchProduct, datas, userId }: LikeBtnProps) {
   return (
     <Button
       onClick={() => HandleLikeClick(datas._id)}
-      className="flex items-center justify-center"
+      className="flex items-center justify-center w-full"
       variant="outline"
       title="like button for vote product"
     >
