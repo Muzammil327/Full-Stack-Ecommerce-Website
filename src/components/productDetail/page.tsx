@@ -288,7 +288,15 @@ export default function ProductDetail({
                         <span className="text-gray-500">
                           <FcPaid />
                         </span>
-                        <span className="ml-4 text-xs">Free shipping</span>
+                        <span className="ml-4 text-xs">Free shipping on all orders</span>
+                      </div>
+                      <hr className="my-3" />
+
+                      <div className="return flex items-center px-2">
+                        <span className="text-gray-500">
+                          <FcPaid />
+                        </span>
+                        <span className="ml-4 text-xs">Allow to open parcel at the time of payment.</span>
                       </div>
                       <hr className="my-3" />
                       <ProductDetailItems data={data} />
