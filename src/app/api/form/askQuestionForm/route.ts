@@ -6,7 +6,7 @@ export async function POST(req: NextRequest) {
   try {
     const { name, email, phone, message } = await req.json();
     await connectDB();
-    console.log(name, email, phone, message);
+
     if (!name || !email || !phone || !message) {
       return NextResponse.json({
         statusbar: 400,
